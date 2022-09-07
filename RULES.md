@@ -1,12 +1,12 @@
 ## Git commit message
 
- * 0.0.X / master-branch / {feat},{test},{fix},{refactor}
+ * 0.0.X / master-or-prod / {feat},{test},{fix},{refactor}
  * 0.X / branch-name / {feat},{test},{fix},{refactor}
  * add 0.0.X features to Changelog.md
 
 ## Branch naming convention!
 
-` Feature-Name / {feat},{test},{fix},{refactor} `
+` Feature-Name / {UI} , {UI-F()} , {F()}  / {feat},{test},{fix},{refactor} `
 
 1. `feat` - new feature or new module or anything which has major impact on the app
 2. `test` - anything related to testing of app ( this branch should be merged via pull request if needed else should be cleaned up after use)  
