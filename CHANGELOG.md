@@ -1,4 +1,4 @@
-## 0.0.0
+## 0.0.0/master
  * Flavor setup env/prod
  * Firebase setup with sha certificates
  * minSdk set to 21 in android/local.Properties
@@ -11,5 +11,9 @@
  * Added Splash Screen + with Native Splash
  * Added GetMaterial with Screen util and fyd_ui
  * Added constants <String> -> Screen wise 
+
+## 0.0.1/master
+ * Added splash Screen 
+ * merge splash-01 to master
  
   
