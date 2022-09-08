@@ -15,5 +15,12 @@
 ## 0.0.1/master
  * Added splash Screen 
  * merge splash-01 to master
+
+## 0.1/authentication-01
+ * added firebase-phone auth addon-code
+ * Packages Added - `firebase_auth`, `equatable`, `connectivity_plus`, 
+ * added NetworkConnectivity checker
+ * added Login checker
+ * added Phone authentication via OTP
  
   

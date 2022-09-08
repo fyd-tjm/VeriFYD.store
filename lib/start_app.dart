@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fyd_ui/fyd_ui.dart';
 import 'package:get/get.dart';
-import 'package:verifyd_store/config/app_config.dart';
+import 'package:verifyd_store/utils/bindings/starter_bindings.dart';
 import 'package:verifyd_store/utils/router/routes.dart';
 
 class StartApp extends StatelessWidget {
@@ -16,6 +15,8 @@ class StartApp extends StatelessWidget {
       title: 'veriFYD.store',
       // home: const TestScreen(title: "title"),
       initialRoute: AppRoutes.getSplashRoute,
+      initialBinding: StarterBinding(),
+      defaultTransition: Transition.rightToLeft,
       getPages: AppRoutes.pages,
     );
   }
