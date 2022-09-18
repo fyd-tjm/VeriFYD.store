@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fyd_ui/fyd_ui.dart';
 import 'package:get/get.dart';
+import 'package:verifyd_store/model/fyd_user_model.dart';
 import 'package:verifyd_store/presentation/authentication/views/phone_auth_screen.dart';
 import 'package:verifyd_store/presentation/home/views/home_screen.dart';
 import 'package:verifyd_store/utils/bindings/auth_screen_bindings.dart';
@@ -10,6 +11,7 @@ import 'package:verifyd_store/utils/bindings/auth_screen_bindings.dart';
 class AuthChecker extends GetxController {
   static AuthChecker instance = Get.find();
   final FirebaseAuth auth = FirebaseAuth.instance;
+  static late FydUser fydUser;
 
   late Rx<User?> _user;
 
@@ -42,5 +44,12 @@ class AuthChecker extends GetxController {
           duration: const Duration(milliseconds: 500),
           curve: Curves.easeIn);
     }
+  }
+
+  void _creatingFydUser(User user) {
+    fydUser = FydUser(
+      uid: user.uid,
+      phone: user.phoneNumber!,
+    );
   }
 }
