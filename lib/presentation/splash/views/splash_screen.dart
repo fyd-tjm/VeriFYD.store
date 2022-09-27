@@ -1,34 +1,9 @@
-import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:verifyd_store/constants/splash_string.dart';
+import 'package:verifyd_store/utils/constants/constants.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
-  @override
-  State<SplashScreen> createState() => _HomeState();
-}
-
-class _HomeState extends State<SplashScreen> {
-  double opacity = 0.0;
-
-  @override
-  void initState() {
-    // Timer for Next Screen Trigger
-    Timer(const Duration(seconds: 8), () {
-      // Get.offAll(() => const HomeScreen(),
-      //     transition: Transition.cupertino,
-      //     duration: const Duration(milliseconds: 750),
-      //     curve: Curves.easeIn);
-    });
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

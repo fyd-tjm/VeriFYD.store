@@ -15,4 +15,6 @@ class AuthenticationString {
   static const OTPSUBHEADING = 'we have send you on +91 ';
   static const OTPRESEND = 'Resend otp';
   static const CONFIRMBTN = 'Confirm';
+
+  static const USERNAMEVALIDATION = 'NAME MUST BE UNDER 15 LETTERS';
 }

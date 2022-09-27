@@ -12,7 +12,8 @@ dependencies:
   cloud_firestore: ^3.4.6
   connectivity_plus: ^2.3.6+1
   cupertino_icons: ^1.0.2
-  equatable: ^2.0.5
+  dartz: ^0.10.1
+  
   firebase_auth: ^3.7.0
   firebase_core: ^1.21.1
   flutter:
@@ -20,15 +21,24 @@ dependencies:
   flutter_native_splash: ^2.2.8
   flutter_screenutil: ^5.5.4
   flutter_svg: ^1.1.4
+  freezed_annotation: ^2.1.0
   fyd_ui:
     git:
       url: https://github.com/fyd-tjm/Fyd-UI-KIT
   get: ^4.6.5
+  get_it: ^7.2.0
+  injectable: ^1.5.3
+  json_annotation: ^4.6.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  freezed: ^2.1.0+1
+  json_serializable: ^6.3.2
+  build_runner: ^2.2.1
+  injectable_generator: ^1.5.4
+  mocktail: ^0.3.0
 
 flutter_native_splash:
   color: "#000000"

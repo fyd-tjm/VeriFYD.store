@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fyd_ui/fyd_ui.dart';
 import 'package:get/get.dart';
-import 'package:verifyd_store/constants/constants.dart';
-import 'package:verifyd_store/controllers/controllers.dart';
+import 'package:verifyd_store/application/auth/sign_in_controller.dart';
+import 'package:verifyd_store/domain/auth/value_objects.dart';
+import 'package:verifyd_store/utils/constants/constants.dart';
 import '../ui controller/auth_ui_controller.dart';
 import '../widgets/fyd_num_pad.dart';
 
@@ -122,19 +123,11 @@ class TopsheetView extends StatelessWidget {
                     child: FydBtn(
                       fydText:
                           FydText.h1white(text: AuthenticationString.NEXTBTN),
-                      onPressed: () async {
-                        if (auc.phoneNo.value.length == 10) {
-                          FydLoader.showLoading();
-                          auc.otp.value = '';
-                          AuthController.instance.phone.value =
-                              auc.phoneNo.value;
-
-                          await AuthController.instance.sendOtp();
-                        } else {
-                          fydSnack(
-                              message: AuthenticationString.NUMBERVALIDATION,
-                              snackposition: SnackPosition.TOP);
-                        }
+                      onPressed: () {
+                        SignInController.i.phoneNumber.value =
+                            PhoneNumber(auc.phoneNo.value);
+                        auc.otp.value = '';
+                        SignInController.i.sendOtpPressed();
                       },
                     ),
                   ),

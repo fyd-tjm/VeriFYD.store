@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 // 1
-enum Environment { dev, prod }
+enum Env { dev, prod }
 
 // 2
 class AppConfig extends InheritedWidget {
   // 3
-  final Environment environment;
+  final Env environment;
   final String appTitle;
 
   // 4

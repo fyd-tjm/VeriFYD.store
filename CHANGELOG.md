@@ -22,5 +22,16 @@
  * added NetworkConnectivity checker
  * added Login checker
  * added Phone authentication via OTP
+
+## 0.1/onboarding-01
+ * added name field after login
+
+## 0.1/ddd-architecture
+ * converted project to domain driven design pattern see `ARCHITECTURE.md`
+ * Packages Added - `get_it`, `freezed`, `dartz`, `json_annotation`, `injectable`,
+ * Dependency Injection with GetIt and injectable 
+ * Functionalities - <Networking> <Splash> <Authenticaion> 
+
+
+
  
-  
