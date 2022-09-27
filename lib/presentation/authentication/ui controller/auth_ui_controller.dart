@@ -26,7 +26,6 @@ class AuthUiController extends GetxController {
 
   // Rx Resseter f()
   void rxReset() {
-    phoneNo.value = '';
     otp.value = '';
     timerOn.value = false;
   }

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyd_ui/fyd_ui.dart';
 import 'package:get/get.dart';
 
-class ExceptionHandler {
+class AuthExceptionHandler {
   static void handleException(error) {
     FydLoader.hideLoading();
     if (error is FirebaseAuthException) {
@@ -16,6 +16,11 @@ class ExceptionHandler {
       if (error.code == 'invalid-phone-number') {
         fydSnack(
             message: "Invalid Phone Number", snackposition: SnackPosition.TOP);
+      }
+      if (error.code == 'user-disabled') {
+        fydSnack(
+            message: "User is disabled. contact fyd",
+            snackposition: SnackPosition.TOP);
       }
       // Other FirebaseAuth Exception logging with its code
       else {

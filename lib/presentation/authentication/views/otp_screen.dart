@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fyd_ui/fyd_ui.dart';
 import 'package:get/get.dart';
-import 'package:verifyd_store/constants/constants.dart';
-import 'package:verifyd_store/controllers/controllers.dart';
-import 'package:verifyd_store/data/authentication/phone_authentication_repo.dart';
+import 'package:verifyd_store/application/auth/sign_in_controller.dart';
+import 'package:verifyd_store/domain/auth/value_objects.dart';
+import 'package:verifyd_store/utils/constants/constants.dart';
 import '../ui controller/auth_ui_controller.dart';
 import '../widgets/fyd_num_pad.dart';
 
@@ -41,6 +41,7 @@ class OtpScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.max,
                 children: [
+// back btn
                   IconButton(
                     onPressed: () {
                       AuthUiController.instance.timerOn.value = false;
@@ -154,16 +155,11 @@ class TopsheetView extends StatelessWidget {
                               onPressed: (auc.timeleft.value != 0)
                                   ? null
                                   : () async {
-                                      FydLoader.showLoading();
                                       auc.otp.value = '';
                                       auc.timerOn.value = false;
-                                      await AuthController.instance.sendOtp();
-                                      if (PhoneAuthRepo.vId != '') {
-                                        auc.timerOn.value = true;
-                                        FydLoader.hideLoading();
-                                      } else {
-                                        Get.back();
-                                      }
+                                      SignInController.i.resendOtpPressed();
+                                      // to disable the resend btn
+                                      auc.timeleft.value = -1;
                                     },
                               style: TextButton.styleFrom(
                                 primary: fydPDgrey,
@@ -193,15 +189,9 @@ class TopsheetView extends StatelessWidget {
                         fydText: FydText.h1white(
                             text: AuthenticationString.CONFIRMBTN),
                         onPressed: () {
-                          if (auc.otp.value.length == 6) {
-                            FydLoader.showLoading();
-                            AuthController.instance.otp.value = auc.otp.value;
-                            AuthController.instance.verifyOtp();
-                          } else {
-                            fydSnack(
-                                message: AuthenticationString.OTPVALIDATION,
-                                snackposition: SnackPosition.TOP);
-                          }
+                          FydLoader.showLoading();
+                          SignInController.i.otp.value = Otp(auc.otp.value);
+                          SignInController.i.confirmOtpPressed();
                         }),
                   ),
                 ],
