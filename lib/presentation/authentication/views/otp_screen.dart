@@ -73,11 +73,11 @@ class TopsheetView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // all the widgets on this screen must have a height summation of 640-(24) => 636
-    ScreenUtil.init(
-      context,
-      designSize: const Size(360, 640),
-      minTextAdapt: true,
-    );
+    // ScreenUtil.init(
+    //   context,
+    //   designSize: const Size(360, 640),
+    //   minTextAdapt: true,
+    // );
     return SizedBox(
       height: 336.h,
       child: Padding(

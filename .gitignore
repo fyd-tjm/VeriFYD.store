@@ -1,5 +1,6 @@
 # custom
-
+# /backendEmulator
+/Fyd-UI-KIT-master
 
 # Miscellaneous
 *.class
@@ -114,7 +115,7 @@ app.*.map.json
 /android/app/release
 
 # Firebase local emulator exports
-firebase-exports
+# firebase-exports
 
 # Environment variables
 .env.dev

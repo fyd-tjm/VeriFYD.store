@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:verifyd_store/domain/core/failures.dart';
+import 'failures.dart';
 
 Either<ValueFailure<String>, String> validatePhoneNumber(String phone) {
   if (phone.length == 10) {
