@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:verifyd_store/domain/auth/value_objects.dart';
+import 'value_objects.dart';
 import 'package:verifyd_store/domain/core/value_object.dart';
 
 part 'fyd_user.freezed.dart';

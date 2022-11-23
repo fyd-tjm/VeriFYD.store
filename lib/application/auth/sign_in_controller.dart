@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:fyd_ui/fyd_ui.dart';
 import 'package:get/get.dart';
-import 'package:verifyd_store/application/auth/auth_failure_handler.dart';
+import 'auth_failure_handler.dart';
 import 'package:verifyd_store/domain/auth/i_auth_facade.dart';
 import 'package:verifyd_store/domain/auth/value_objects.dart';
 import 'package:verifyd_store/utils/constants/constants.dart';
@@ -61,6 +61,7 @@ class SignInController extends GetxController {
         (unit) => null,
       );
     } else {
+      FydLoader.hideLoading();
       fydSnack(
         message: AuthenticationString.NUMBERVALIDATION,
         snackposition: SnackPosition.TOP,
@@ -105,6 +106,7 @@ class SignInController extends GetxController {
       result.fold((failure) => AuthFailureHandler.handleFailure(failure),
           (unit) => unit);
     } else {
+      FydLoader.hideLoading();
       fydSnack(
         message: AuthenticationString.USERNAMEVALIDATION,
         snackposition: SnackPosition.TOP,

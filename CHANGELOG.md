@@ -30,8 +30,17 @@
  * converted project to domain driven design pattern see `ARCHITECTURE.md`
  * Packages Added - `get_it`, `freezed`, `dartz`, `json_annotation`, `injectable`,
  * Dependency Injection with GetIt and injectable 
- * Functionalities - <Networking> <Splash> <Authenticaion> 
+ * Functionalities - <Networking> <Splash> <Authenticaion>
 
-
+## 0.1/home-01
+ * created custom Page - `fydPageView`
+ * Ui Implemented (400,890)  height 838 ~ 835
+ * Nested Navigation - HomeNavigator(main) and StoresNavigator
+ * presentation Layer Ui screens and widgets 
+ * `home`, `search`
+ * `stores`, `store`, `product`, `storeInfo`
+ * `cart`, `deliveryInfo`, `newAddress`, `payment`, `confirmation`
+ * `profile`, `orders`, `order`, `addresses`, `help`, `editProfile`
+ 
 
  

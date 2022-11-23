@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:verifyd_store/domain/core/errors.dart';
-import 'package:verifyd_store/domain/core/failures.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
+
+import 'errors.dart';
+import 'failures.dart';
 
 //! Generic Abstraction for ValueObject<T>
 //? get / getOrCrash() / failureOrUnit / isValid() / toString()

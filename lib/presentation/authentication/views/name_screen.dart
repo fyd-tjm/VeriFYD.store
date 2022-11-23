@@ -12,11 +12,11 @@ class NameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // summation of all widgets heigt must be 640-(24) => 616
-    ScreenUtil.init(
-      context,
-      designSize: const Size(360, 640),
-      minTextAdapt: true,
-    );
+    // ScreenUtil.init(
+    //   context,
+    //   designSize: const Size(360, 640),
+    //   minTextAdapt: true,
+    // );
 
     return SafeArea(
       child: Scaffold(
