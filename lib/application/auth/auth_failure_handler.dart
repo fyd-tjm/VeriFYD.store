@@ -1,8 +1,9 @@
 import 'dart:developer';
 
-import 'package:fyd_ui/fyd_ui.dart';
 import 'package:verifyd_store/domain/auth/auth_failure.dart';
 import 'package:verifyd_store/utils/constants/constants.dart';
+
+import '../../00 ui-core/ui_exports.dart';
 
 class AuthFailureHandler {
   static void handleFailure(AuthFailure failure) {
@@ -15,11 +16,11 @@ class AuthFailureHandler {
     if (failure == const AuthFailure.serverError()) {
       fydSnack(message: 'server error!');
     }
-    if (failure == const AuthFailure.firebaseAuthError()) {
-      log('firebase Auth Error!');
-    }
-    if (failure == const AuthFailure.invalidUserNameEntered()) {
-      log('enter name under 14 letters long!');
-    }
+    // if (failure == const AuthFailure.firebaseAuthError()) {
+    //   log('firebase Auth Error!');
+    // }
+    // if (failure == const AuthFailure.invalidUserNameEntered()) {
+    //   log('enter name under 14 letters long!');
+    // }
   }
 }

@@ -1,21 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:verifyd_store/domain/auth/auth_failure.dart';
-import 'package:verifyd_store/domain/auth/fyd_user.dart';
+import 'package:verifyd_store/domain/auth/auth_user.dart';
+import 'package:verifyd_store/domain/user/fyd_user.dart';
 
 import 'value_objects.dart';
 
 abstract class IAuthFacade {
-  Future<Either<AuthFailure, Unit>> sendOtp({required PhoneNumber phoneNumber});
-
-  Stream<bool> isCodeSent();
+  Stream<Either<AuthFailure, bool>> sendOtp({required PhoneNumber phoneNumber});
 
   Future<Either<AuthFailure, Unit>> confirmOtp({required Otp otp});
 
   Future<void> signOut();
 
-  FydUser? getCurrentUser();
+  AuthUser? getCurrentUser();
 
-  Stream<FydUser?> onChangeUserStream();
-
-  Future<Either<AuthFailure, Unit>> addUserName({required UserName userName});
+  Stream<FydUser?> onAuthStateChanges();
 }

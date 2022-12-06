@@ -1,3 +1,12 @@
+## commit-History
+
+`x-1`  
+ * bloc migration for state management,
+ * auto-route migration for navigation 
+ * login ddd, router
+
+
+-----------------------------------------
 ## 0.0.0/master
  * Flavor setup env/prod
  * Firebase setup with sha certificates

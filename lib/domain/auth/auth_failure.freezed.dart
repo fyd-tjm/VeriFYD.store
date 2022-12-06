@@ -19,57 +19,68 @@ mixin _$AuthFailure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidPhoneNumber,
-    required TResult Function() serverError,
     required TResult Function() invalidOtpEntered,
-    required TResult Function() invalidUserNameEntered,
-    required TResult Function() firebaseAuthError,
+    required TResult Function() sessionExpired,
+    required TResult Function() userDisabled,
+    required TResult Function() tooManyRequests,
+    required TResult Function() serverError,
+    required TResult Function() unknownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? invalidPhoneNumber,
-    TResult Function()? serverError,
     TResult Function()? invalidOtpEntered,
-    TResult Function()? invalidUserNameEntered,
-    TResult Function()? firebaseAuthError,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidPhoneNumber,
-    TResult Function()? serverError,
     TResult Function()? invalidOtpEntered,
-    TResult Function()? invalidUserNameEntered,
-    TResult Function()? firebaseAuthError,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidPhoneNumber value) invalidPhoneNumber,
-    required TResult Function(ServerError value) serverError,
     required TResult Function(InvalidOtpEntered value) invalidOtpEntered,
-    required TResult Function(InvalidUserNameEntered value)
-        invalidUserNameEntered,
-    required TResult Function(FirebaseAuthError value) firebaseAuthError,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(ServerError value)? serverError,
     TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(InvalidUserNameEntered value)? invalidUserNameEntered,
-    TResult Function(FirebaseAuthError value)? firebaseAuthError,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(ServerError value)? serverError,
     TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(InvalidUserNameEntered value)? invalidUserNameEntered,
-    TResult Function(FirebaseAuthError value)? firebaseAuthError,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -133,10 +144,12 @@ class _$InvalidPhoneNumber implements InvalidPhoneNumber {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidPhoneNumber,
-    required TResult Function() serverError,
     required TResult Function() invalidOtpEntered,
-    required TResult Function() invalidUserNameEntered,
-    required TResult Function() firebaseAuthError,
+    required TResult Function() sessionExpired,
+    required TResult Function() userDisabled,
+    required TResult Function() tooManyRequests,
+    required TResult Function() serverError,
+    required TResult Function() unknownError,
   }) {
     return invalidPhoneNumber();
   }
@@ -145,10 +158,12 @@ class _$InvalidPhoneNumber implements InvalidPhoneNumber {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? invalidPhoneNumber,
-    TResult Function()? serverError,
     TResult Function()? invalidOtpEntered,
-    TResult Function()? invalidUserNameEntered,
-    TResult Function()? firebaseAuthError,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
   }) {
     return invalidPhoneNumber?.call();
   }
@@ -157,10 +172,12 @@ class _$InvalidPhoneNumber implements InvalidPhoneNumber {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidPhoneNumber,
-    TResult Function()? serverError,
     TResult Function()? invalidOtpEntered,
-    TResult Function()? invalidUserNameEntered,
-    TResult Function()? firebaseAuthError,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
     required TResult orElse(),
   }) {
     if (invalidPhoneNumber != null) {
@@ -173,11 +190,12 @@ class _$InvalidPhoneNumber implements InvalidPhoneNumber {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidPhoneNumber value) invalidPhoneNumber,
-    required TResult Function(ServerError value) serverError,
     required TResult Function(InvalidOtpEntered value) invalidOtpEntered,
-    required TResult Function(InvalidUserNameEntered value)
-        invalidUserNameEntered,
-    required TResult Function(FirebaseAuthError value) firebaseAuthError,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
   }) {
     return invalidPhoneNumber(this);
   }
@@ -186,10 +204,12 @@ class _$InvalidPhoneNumber implements InvalidPhoneNumber {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(ServerError value)? serverError,
     TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(InvalidUserNameEntered value)? invalidUserNameEntered,
-    TResult Function(FirebaseAuthError value)? firebaseAuthError,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
   }) {
     return invalidPhoneNumber?.call(this);
   }
@@ -198,10 +218,12 @@ class _$InvalidPhoneNumber implements InvalidPhoneNumber {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(ServerError value)? serverError,
     TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(InvalidUserNameEntered value)? invalidUserNameEntered,
-    TResult Function(FirebaseAuthError value)? firebaseAuthError,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
     required TResult orElse(),
   }) {
     if (invalidPhoneNumber != null) {
@@ -213,129 +235,6 @@ class _$InvalidPhoneNumber implements InvalidPhoneNumber {
 
 abstract class InvalidPhoneNumber implements AuthFailure {
   const factory InvalidPhoneNumber() = _$InvalidPhoneNumber;
-}
-
-/// @nodoc
-abstract class _$$ServerErrorCopyWith<$Res> {
-  factory _$$ServerErrorCopyWith(
-          _$ServerError value, $Res Function(_$ServerError) then) =
-      __$$ServerErrorCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$ServerErrorCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
-    implements _$$ServerErrorCopyWith<$Res> {
-  __$$ServerErrorCopyWithImpl(
-      _$ServerError _value, $Res Function(_$ServerError) _then)
-      : super(_value, (v) => _then(v as _$ServerError));
-
-  @override
-  _$ServerError get _value => super._value as _$ServerError;
-}
-
-/// @nodoc
-
-class _$ServerError implements ServerError {
-  const _$ServerError();
-
-  @override
-  String toString() {
-    return 'AuthFailure.serverError()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ServerError);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() invalidPhoneNumber,
-    required TResult Function() serverError,
-    required TResult Function() invalidOtpEntered,
-    required TResult Function() invalidUserNameEntered,
-    required TResult Function() firebaseAuthError,
-  }) {
-    return serverError();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? serverError,
-    TResult Function()? invalidOtpEntered,
-    TResult Function()? invalidUserNameEntered,
-    TResult Function()? firebaseAuthError,
-  }) {
-    return serverError?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? serverError,
-    TResult Function()? invalidOtpEntered,
-    TResult Function()? invalidUserNameEntered,
-    TResult Function()? firebaseAuthError,
-    required TResult orElse(),
-  }) {
-    if (serverError != null) {
-      return serverError();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InvalidPhoneNumber value) invalidPhoneNumber,
-    required TResult Function(ServerError value) serverError,
-    required TResult Function(InvalidOtpEntered value) invalidOtpEntered,
-    required TResult Function(InvalidUserNameEntered value)
-        invalidUserNameEntered,
-    required TResult Function(FirebaseAuthError value) firebaseAuthError,
-  }) {
-    return serverError(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(InvalidUserNameEntered value)? invalidUserNameEntered,
-    TResult Function(FirebaseAuthError value)? firebaseAuthError,
-  }) {
-    return serverError?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(InvalidUserNameEntered value)? invalidUserNameEntered,
-    TResult Function(FirebaseAuthError value)? firebaseAuthError,
-    required TResult orElse(),
-  }) {
-    if (serverError != null) {
-      return serverError(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class ServerError implements AuthFailure {
-  const factory ServerError() = _$ServerError;
 }
 
 /// @nodoc
@@ -380,10 +279,12 @@ class _$InvalidOtpEntered implements InvalidOtpEntered {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidPhoneNumber,
-    required TResult Function() serverError,
     required TResult Function() invalidOtpEntered,
-    required TResult Function() invalidUserNameEntered,
-    required TResult Function() firebaseAuthError,
+    required TResult Function() sessionExpired,
+    required TResult Function() userDisabled,
+    required TResult Function() tooManyRequests,
+    required TResult Function() serverError,
+    required TResult Function() unknownError,
   }) {
     return invalidOtpEntered();
   }
@@ -392,10 +293,12 @@ class _$InvalidOtpEntered implements InvalidOtpEntered {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? invalidPhoneNumber,
-    TResult Function()? serverError,
     TResult Function()? invalidOtpEntered,
-    TResult Function()? invalidUserNameEntered,
-    TResult Function()? firebaseAuthError,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
   }) {
     return invalidOtpEntered?.call();
   }
@@ -404,10 +307,12 @@ class _$InvalidOtpEntered implements InvalidOtpEntered {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidPhoneNumber,
-    TResult Function()? serverError,
     TResult Function()? invalidOtpEntered,
-    TResult Function()? invalidUserNameEntered,
-    TResult Function()? firebaseAuthError,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
     required TResult orElse(),
   }) {
     if (invalidOtpEntered != null) {
@@ -420,11 +325,12 @@ class _$InvalidOtpEntered implements InvalidOtpEntered {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidPhoneNumber value) invalidPhoneNumber,
-    required TResult Function(ServerError value) serverError,
     required TResult Function(InvalidOtpEntered value) invalidOtpEntered,
-    required TResult Function(InvalidUserNameEntered value)
-        invalidUserNameEntered,
-    required TResult Function(FirebaseAuthError value) firebaseAuthError,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
   }) {
     return invalidOtpEntered(this);
   }
@@ -433,10 +339,12 @@ class _$InvalidOtpEntered implements InvalidOtpEntered {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(ServerError value)? serverError,
     TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(InvalidUserNameEntered value)? invalidUserNameEntered,
-    TResult Function(FirebaseAuthError value)? firebaseAuthError,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
   }) {
     return invalidOtpEntered?.call(this);
   }
@@ -445,10 +353,12 @@ class _$InvalidOtpEntered implements InvalidOtpEntered {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(ServerError value)? serverError,
     TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(InvalidUserNameEntered value)? invalidUserNameEntered,
-    TResult Function(FirebaseAuthError value)? firebaseAuthError,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
     required TResult orElse(),
   }) {
     if (invalidOtpEntered != null) {
@@ -463,39 +373,38 @@ abstract class InvalidOtpEntered implements AuthFailure {
 }
 
 /// @nodoc
-abstract class _$$InvalidUserNameEnteredCopyWith<$Res> {
-  factory _$$InvalidUserNameEnteredCopyWith(_$InvalidUserNameEntered value,
-          $Res Function(_$InvalidUserNameEntered) then) =
-      __$$InvalidUserNameEnteredCopyWithImpl<$Res>;
+abstract class _$$SessionExpiredCopyWith<$Res> {
+  factory _$$SessionExpiredCopyWith(
+          _$SessionExpired value, $Res Function(_$SessionExpired) then) =
+      __$$SessionExpiredCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$InvalidUserNameEnteredCopyWithImpl<$Res>
+class __$$SessionExpiredCopyWithImpl<$Res>
     extends _$AuthFailureCopyWithImpl<$Res>
-    implements _$$InvalidUserNameEnteredCopyWith<$Res> {
-  __$$InvalidUserNameEnteredCopyWithImpl(_$InvalidUserNameEntered _value,
-      $Res Function(_$InvalidUserNameEntered) _then)
-      : super(_value, (v) => _then(v as _$InvalidUserNameEntered));
+    implements _$$SessionExpiredCopyWith<$Res> {
+  __$$SessionExpiredCopyWithImpl(
+      _$SessionExpired _value, $Res Function(_$SessionExpired) _then)
+      : super(_value, (v) => _then(v as _$SessionExpired));
 
   @override
-  _$InvalidUserNameEntered get _value =>
-      super._value as _$InvalidUserNameEntered;
+  _$SessionExpired get _value => super._value as _$SessionExpired;
 }
 
 /// @nodoc
 
-class _$InvalidUserNameEntered implements InvalidUserNameEntered {
-  const _$InvalidUserNameEntered();
+class _$SessionExpired implements SessionExpired {
+  const _$SessionExpired();
 
   @override
   String toString() {
-    return 'AuthFailure.invalidUserNameEntered()';
+    return 'AuthFailure.sessionExpired()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InvalidUserNameEntered);
+        (other.runtimeType == runtimeType && other is _$SessionExpired);
   }
 
   @override
@@ -505,38 +414,44 @@ class _$InvalidUserNameEntered implements InvalidUserNameEntered {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidPhoneNumber,
-    required TResult Function() serverError,
     required TResult Function() invalidOtpEntered,
-    required TResult Function() invalidUserNameEntered,
-    required TResult Function() firebaseAuthError,
+    required TResult Function() sessionExpired,
+    required TResult Function() userDisabled,
+    required TResult Function() tooManyRequests,
+    required TResult Function() serverError,
+    required TResult Function() unknownError,
   }) {
-    return invalidUserNameEntered();
+    return sessionExpired();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? invalidPhoneNumber,
-    TResult Function()? serverError,
     TResult Function()? invalidOtpEntered,
-    TResult Function()? invalidUserNameEntered,
-    TResult Function()? firebaseAuthError,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
   }) {
-    return invalidUserNameEntered?.call();
+    return sessionExpired?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidPhoneNumber,
-    TResult Function()? serverError,
     TResult Function()? invalidOtpEntered,
-    TResult Function()? invalidUserNameEntered,
-    TResult Function()? firebaseAuthError,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
     required TResult orElse(),
   }) {
-    if (invalidUserNameEntered != null) {
-      return invalidUserNameEntered();
+    if (sessionExpired != null) {
+      return sessionExpired();
     }
     return orElse();
   }
@@ -545,81 +460,85 @@ class _$InvalidUserNameEntered implements InvalidUserNameEntered {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidPhoneNumber value) invalidPhoneNumber,
-    required TResult Function(ServerError value) serverError,
     required TResult Function(InvalidOtpEntered value) invalidOtpEntered,
-    required TResult Function(InvalidUserNameEntered value)
-        invalidUserNameEntered,
-    required TResult Function(FirebaseAuthError value) firebaseAuthError,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
   }) {
-    return invalidUserNameEntered(this);
+    return sessionExpired(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(ServerError value)? serverError,
     TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(InvalidUserNameEntered value)? invalidUserNameEntered,
-    TResult Function(FirebaseAuthError value)? firebaseAuthError,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
   }) {
-    return invalidUserNameEntered?.call(this);
+    return sessionExpired?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(ServerError value)? serverError,
     TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(InvalidUserNameEntered value)? invalidUserNameEntered,
-    TResult Function(FirebaseAuthError value)? firebaseAuthError,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
     required TResult orElse(),
   }) {
-    if (invalidUserNameEntered != null) {
-      return invalidUserNameEntered(this);
+    if (sessionExpired != null) {
+      return sessionExpired(this);
     }
     return orElse();
   }
 }
 
-abstract class InvalidUserNameEntered implements AuthFailure {
-  const factory InvalidUserNameEntered() = _$InvalidUserNameEntered;
+abstract class SessionExpired implements AuthFailure {
+  const factory SessionExpired() = _$SessionExpired;
 }
 
 /// @nodoc
-abstract class _$$FirebaseAuthErrorCopyWith<$Res> {
-  factory _$$FirebaseAuthErrorCopyWith(
-          _$FirebaseAuthError value, $Res Function(_$FirebaseAuthError) then) =
-      __$$FirebaseAuthErrorCopyWithImpl<$Res>;
+abstract class _$$UserDisabledCopyWith<$Res> {
+  factory _$$UserDisabledCopyWith(
+          _$UserDisabled value, $Res Function(_$UserDisabled) then) =
+      __$$UserDisabledCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$FirebaseAuthErrorCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res>
-    implements _$$FirebaseAuthErrorCopyWith<$Res> {
-  __$$FirebaseAuthErrorCopyWithImpl(
-      _$FirebaseAuthError _value, $Res Function(_$FirebaseAuthError) _then)
-      : super(_value, (v) => _then(v as _$FirebaseAuthError));
+class __$$UserDisabledCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
+    implements _$$UserDisabledCopyWith<$Res> {
+  __$$UserDisabledCopyWithImpl(
+      _$UserDisabled _value, $Res Function(_$UserDisabled) _then)
+      : super(_value, (v) => _then(v as _$UserDisabled));
 
   @override
-  _$FirebaseAuthError get _value => super._value as _$FirebaseAuthError;
+  _$UserDisabled get _value => super._value as _$UserDisabled;
 }
 
 /// @nodoc
 
-class _$FirebaseAuthError implements FirebaseAuthError {
-  const _$FirebaseAuthError();
+class _$UserDisabled implements UserDisabled {
+  const _$UserDisabled();
 
   @override
   String toString() {
-    return 'AuthFailure.firebaseAuthError()';
+    return 'AuthFailure.userDisabled()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$FirebaseAuthError);
+        (other.runtimeType == runtimeType && other is _$UserDisabled);
   }
 
   @override
@@ -629,38 +548,44 @@ class _$FirebaseAuthError implements FirebaseAuthError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidPhoneNumber,
-    required TResult Function() serverError,
     required TResult Function() invalidOtpEntered,
-    required TResult Function() invalidUserNameEntered,
-    required TResult Function() firebaseAuthError,
+    required TResult Function() sessionExpired,
+    required TResult Function() userDisabled,
+    required TResult Function() tooManyRequests,
+    required TResult Function() serverError,
+    required TResult Function() unknownError,
   }) {
-    return firebaseAuthError();
+    return userDisabled();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? invalidPhoneNumber,
-    TResult Function()? serverError,
     TResult Function()? invalidOtpEntered,
-    TResult Function()? invalidUserNameEntered,
-    TResult Function()? firebaseAuthError,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
   }) {
-    return firebaseAuthError?.call();
+    return userDisabled?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidPhoneNumber,
-    TResult Function()? serverError,
     TResult Function()? invalidOtpEntered,
-    TResult Function()? invalidUserNameEntered,
-    TResult Function()? firebaseAuthError,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
     required TResult orElse(),
   }) {
-    if (firebaseAuthError != null) {
-      return firebaseAuthError();
+    if (userDisabled != null) {
+      return userDisabled();
     }
     return orElse();
   }
@@ -669,44 +594,452 @@ class _$FirebaseAuthError implements FirebaseAuthError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidPhoneNumber value) invalidPhoneNumber,
-    required TResult Function(ServerError value) serverError,
     required TResult Function(InvalidOtpEntered value) invalidOtpEntered,
-    required TResult Function(InvalidUserNameEntered value)
-        invalidUserNameEntered,
-    required TResult Function(FirebaseAuthError value) firebaseAuthError,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
   }) {
-    return firebaseAuthError(this);
+    return userDisabled(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(ServerError value)? serverError,
     TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(InvalidUserNameEntered value)? invalidUserNameEntered,
-    TResult Function(FirebaseAuthError value)? firebaseAuthError,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
   }) {
-    return firebaseAuthError?.call(this);
+    return userDisabled?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(ServerError value)? serverError,
     TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(InvalidUserNameEntered value)? invalidUserNameEntered,
-    TResult Function(FirebaseAuthError value)? firebaseAuthError,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
     required TResult orElse(),
   }) {
-    if (firebaseAuthError != null) {
-      return firebaseAuthError(this);
+    if (userDisabled != null) {
+      return userDisabled(this);
     }
     return orElse();
   }
 }
 
-abstract class FirebaseAuthError implements AuthFailure {
-  const factory FirebaseAuthError() = _$FirebaseAuthError;
+abstract class UserDisabled implements AuthFailure {
+  const factory UserDisabled() = _$UserDisabled;
+}
+
+/// @nodoc
+abstract class _$$TooManyRequestsCopyWith<$Res> {
+  factory _$$TooManyRequestsCopyWith(
+          _$TooManyRequests value, $Res Function(_$TooManyRequests) then) =
+      __$$TooManyRequestsCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$TooManyRequestsCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res>
+    implements _$$TooManyRequestsCopyWith<$Res> {
+  __$$TooManyRequestsCopyWithImpl(
+      _$TooManyRequests _value, $Res Function(_$TooManyRequests) _then)
+      : super(_value, (v) => _then(v as _$TooManyRequests));
+
+  @override
+  _$TooManyRequests get _value => super._value as _$TooManyRequests;
+}
+
+/// @nodoc
+
+class _$TooManyRequests implements TooManyRequests {
+  const _$TooManyRequests();
+
+  @override
+  String toString() {
+    return 'AuthFailure.tooManyRequests()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$TooManyRequests);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidPhoneNumber,
+    required TResult Function() invalidOtpEntered,
+    required TResult Function() sessionExpired,
+    required TResult Function() userDisabled,
+    required TResult Function() tooManyRequests,
+    required TResult Function() serverError,
+    required TResult Function() unknownError,
+  }) {
+    return tooManyRequests();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? invalidPhoneNumber,
+    TResult Function()? invalidOtpEntered,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
+  }) {
+    return tooManyRequests?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidPhoneNumber,
+    TResult Function()? invalidOtpEntered,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
+    required TResult orElse(),
+  }) {
+    if (tooManyRequests != null) {
+      return tooManyRequests();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidPhoneNumber value) invalidPhoneNumber,
+    required TResult Function(InvalidOtpEntered value) invalidOtpEntered,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
+  }) {
+    return tooManyRequests(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
+    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
+  }) {
+    return tooManyRequests?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
+    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
+    required TResult orElse(),
+  }) {
+    if (tooManyRequests != null) {
+      return tooManyRequests(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class TooManyRequests implements AuthFailure {
+  const factory TooManyRequests() = _$TooManyRequests;
+}
+
+/// @nodoc
+abstract class _$$ServerErrorCopyWith<$Res> {
+  factory _$$ServerErrorCopyWith(
+          _$ServerError value, $Res Function(_$ServerError) then) =
+      __$$ServerErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ServerErrorCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
+    implements _$$ServerErrorCopyWith<$Res> {
+  __$$ServerErrorCopyWithImpl(
+      _$ServerError _value, $Res Function(_$ServerError) _then)
+      : super(_value, (v) => _then(v as _$ServerError));
+
+  @override
+  _$ServerError get _value => super._value as _$ServerError;
+}
+
+/// @nodoc
+
+class _$ServerError implements ServerError {
+  const _$ServerError();
+
+  @override
+  String toString() {
+    return 'AuthFailure.serverError()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ServerError);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidPhoneNumber,
+    required TResult Function() invalidOtpEntered,
+    required TResult Function() sessionExpired,
+    required TResult Function() userDisabled,
+    required TResult Function() tooManyRequests,
+    required TResult Function() serverError,
+    required TResult Function() unknownError,
+  }) {
+    return serverError();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? invalidPhoneNumber,
+    TResult Function()? invalidOtpEntered,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
+  }) {
+    return serverError?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidPhoneNumber,
+    TResult Function()? invalidOtpEntered,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
+    required TResult orElse(),
+  }) {
+    if (serverError != null) {
+      return serverError();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidPhoneNumber value) invalidPhoneNumber,
+    required TResult Function(InvalidOtpEntered value) invalidOtpEntered,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
+  }) {
+    return serverError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
+    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
+  }) {
+    return serverError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
+    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
+    required TResult orElse(),
+  }) {
+    if (serverError != null) {
+      return serverError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ServerError implements AuthFailure {
+  const factory ServerError() = _$ServerError;
+}
+
+/// @nodoc
+abstract class _$$UnknownErrorCopyWith<$Res> {
+  factory _$$UnknownErrorCopyWith(
+          _$UnknownError value, $Res Function(_$UnknownError) then) =
+      __$$UnknownErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$UnknownErrorCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
+    implements _$$UnknownErrorCopyWith<$Res> {
+  __$$UnknownErrorCopyWithImpl(
+      _$UnknownError _value, $Res Function(_$UnknownError) _then)
+      : super(_value, (v) => _then(v as _$UnknownError));
+
+  @override
+  _$UnknownError get _value => super._value as _$UnknownError;
+}
+
+/// @nodoc
+
+class _$UnknownError implements UnknownError {
+  const _$UnknownError();
+
+  @override
+  String toString() {
+    return 'AuthFailure.unknownError()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$UnknownError);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidPhoneNumber,
+    required TResult Function() invalidOtpEntered,
+    required TResult Function() sessionExpired,
+    required TResult Function() userDisabled,
+    required TResult Function() tooManyRequests,
+    required TResult Function() serverError,
+    required TResult Function() unknownError,
+  }) {
+    return unknownError();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? invalidPhoneNumber,
+    TResult Function()? invalidOtpEntered,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
+  }) {
+    return unknownError?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidPhoneNumber,
+    TResult Function()? invalidOtpEntered,
+    TResult Function()? sessionExpired,
+    TResult Function()? userDisabled,
+    TResult Function()? tooManyRequests,
+    TResult Function()? serverError,
+    TResult Function()? unknownError,
+    required TResult orElse(),
+  }) {
+    if (unknownError != null) {
+      return unknownError();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidPhoneNumber value) invalidPhoneNumber,
+    required TResult Function(InvalidOtpEntered value) invalidOtpEntered,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
+  }) {
+    return unknownError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
+    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
+  }) {
+    return unknownError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
+    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
+    required TResult orElse(),
+  }) {
+    if (unknownError != null) {
+      return unknownError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UnknownError implements AuthFailure {
+  const factory UnknownError() = _$UnknownError;
 }

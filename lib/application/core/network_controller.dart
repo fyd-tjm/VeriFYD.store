@@ -2,8 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
-import 'package:fyd_ui/fyd_ui.dart';
 import 'package:get/get.dart';
+
+import '../../00 ui-core/ui_exports.dart';
 
 class NetworkController extends GetxController {
   static NetworkController instance = Get.find();

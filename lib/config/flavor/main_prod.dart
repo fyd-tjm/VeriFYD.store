@@ -12,7 +12,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  const configuredApp = AppConfig(
+  final configuredApp = AppConfig(
     environment: Env.dev,
     appTitle: 'verifyd.store',
     child: StartApp(),

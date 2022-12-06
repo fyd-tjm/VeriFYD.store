@@ -5,6 +5,10 @@ extension FirebaseFireStoreX on FirebaseFirestore {
     return FirebaseFirestore.instance.collection('stores');
   }
 
+  CollectionReference usersCollection() {
+    return FirebaseFirestore.instance.collection('users');
+  }
+
   CollectionReference sharedInfoCollection() {
     return FirebaseFirestore.instance.collection('shared-user-info');
   }

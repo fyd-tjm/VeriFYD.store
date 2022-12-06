@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fyd_ui/fyd_ui.dart';
+import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:get/get.dart';
 
 class ProfileTile extends StatelessWidget {

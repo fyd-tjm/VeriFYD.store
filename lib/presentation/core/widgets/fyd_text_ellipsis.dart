@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fyd_ui/fyd_ui.dart';
+import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FydTextEllipsis extends StatelessWidget {

@@ -16,6 +16,7 @@ import 'package:verifyd_store/infrastructure/core/firebase_helper.dart';
 class FirebaseStoreRepository implements IStoreRepository {
   final FirebaseFirestore _firestore;
   FirebaseStoreRepository(this._firestore);
+
   static const int storeFetchLimit = 5;
   static const int productFetchLimit = 15;
   // collection refference via extensions

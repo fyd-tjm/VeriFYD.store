@@ -14,12 +14,17 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+FydUser _$FydUserFromJson(Map<String, dynamic> json) {
+  return _FydUser.fromJson(json);
+}
+
 /// @nodoc
 mixin _$FydUser {
-  UniqueId get uId => throw _privateConstructorUsedError;
-  PhoneNumber get userPhoneNumber => throw _privateConstructorUsedError;
-  UserName? get userName => throw _privateConstructorUsedError;
+  String get uId => throw _privateConstructorUsedError;
+  String get phone => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $FydUserCopyWith<FydUser> get copyWith => throw _privateConstructorUsedError;
 }
@@ -28,7 +33,7 @@ mixin _$FydUser {
 abstract class $FydUserCopyWith<$Res> {
   factory $FydUserCopyWith(FydUser value, $Res Function(FydUser) then) =
       _$FydUserCopyWithImpl<$Res>;
-  $Res call({UniqueId uId, PhoneNumber userPhoneNumber, UserName? userName});
+  $Res call({String uId, String phone, String name});
 }
 
 /// @nodoc
@@ -42,22 +47,22 @@ class _$FydUserCopyWithImpl<$Res> implements $FydUserCopyWith<$Res> {
   @override
   $Res call({
     Object? uId = freezed,
-    Object? userPhoneNumber = freezed,
-    Object? userName = freezed,
+    Object? phone = freezed,
+    Object? name = freezed,
   }) {
     return _then(_value.copyWith(
       uId: uId == freezed
           ? _value.uId
           : uId // ignore: cast_nullable_to_non_nullable
-              as UniqueId,
-      userPhoneNumber: userPhoneNumber == freezed
-          ? _value.userPhoneNumber
-          : userPhoneNumber // ignore: cast_nullable_to_non_nullable
-              as PhoneNumber,
-      userName: userName == freezed
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
-              as UserName?,
+              as String,
+      phone: phone == freezed
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -68,7 +73,7 @@ abstract class _$$_FydUserCopyWith<$Res> implements $FydUserCopyWith<$Res> {
           _$_FydUser value, $Res Function(_$_FydUser) then) =
       __$$_FydUserCopyWithImpl<$Res>;
   @override
-  $Res call({UniqueId uId, PhoneNumber userPhoneNumber, UserName? userName});
+  $Res call({String uId, String phone, String name});
 }
 
 /// @nodoc
@@ -83,42 +88,45 @@ class __$$_FydUserCopyWithImpl<$Res> extends _$FydUserCopyWithImpl<$Res>
   @override
   $Res call({
     Object? uId = freezed,
-    Object? userPhoneNumber = freezed,
-    Object? userName = freezed,
+    Object? phone = freezed,
+    Object? name = freezed,
   }) {
     return _then(_$_FydUser(
       uId: uId == freezed
           ? _value.uId
           : uId // ignore: cast_nullable_to_non_nullable
-              as UniqueId,
-      userPhoneNumber: userPhoneNumber == freezed
-          ? _value.userPhoneNumber
-          : userPhoneNumber // ignore: cast_nullable_to_non_nullable
-              as PhoneNumber,
-      userName: userName == freezed
-          ? _value.userName
-          : userName // ignore: cast_nullable_to_non_nullable
-              as UserName?,
+              as String,
+      phone: phone == freezed
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_FydUser implements _FydUser {
   const _$_FydUser(
-      {required this.uId, required this.userPhoneNumber, this.userName});
+      {required this.uId, required this.phone, required this.name});
+
+  factory _$_FydUser.fromJson(Map<String, dynamic> json) =>
+      _$$_FydUserFromJson(json);
 
   @override
-  final UniqueId uId;
+  final String uId;
   @override
-  final PhoneNumber userPhoneNumber;
+  final String phone;
   @override
-  final UserName? userName;
+  final String name;
 
   @override
   String toString() {
-    return 'FydUser(uId: $uId, userPhoneNumber: $userPhoneNumber, userName: $userName)';
+    return 'FydUser(uId: $uId, phone: $phone, name: $name)';
   }
 
   @override
@@ -127,36 +135,45 @@ class _$_FydUser implements _FydUser {
         (other.runtimeType == runtimeType &&
             other is _$_FydUser &&
             const DeepCollectionEquality().equals(other.uId, uId) &&
-            const DeepCollectionEquality()
-                .equals(other.userPhoneNumber, userPhoneNumber) &&
-            const DeepCollectionEquality().equals(other.userName, userName));
+            const DeepCollectionEquality().equals(other.phone, phone) &&
+            const DeepCollectionEquality().equals(other.name, name));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(uId),
-      const DeepCollectionEquality().hash(userPhoneNumber),
-      const DeepCollectionEquality().hash(userName));
+      const DeepCollectionEquality().hash(phone),
+      const DeepCollectionEquality().hash(name));
 
   @JsonKey(ignore: true)
   @override
   _$$_FydUserCopyWith<_$_FydUser> get copyWith =>
       __$$_FydUserCopyWithImpl<_$_FydUser>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_FydUserToJson(
+      this,
+    );
+  }
 }
 
 abstract class _FydUser implements FydUser {
   const factory _FydUser(
-      {required final UniqueId uId,
-      required final PhoneNumber userPhoneNumber,
-      final UserName? userName}) = _$_FydUser;
+      {required final String uId,
+      required final String phone,
+      required final String name}) = _$_FydUser;
+
+  factory _FydUser.fromJson(Map<String, dynamic> json) = _$_FydUser.fromJson;
 
   @override
-  UniqueId get uId;
+  String get uId;
   @override
-  PhoneNumber get userPhoneNumber;
+  String get phone;
   @override
-  UserName? get userName;
+  String get name;
   @override
   @JsonKey(ignore: true)
   _$$_FydUserCopyWith<_$_FydUser> get copyWith =>

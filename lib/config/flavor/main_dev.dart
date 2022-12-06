@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +20,7 @@ void main() async {
   if (useEmulator) {
     await _connectToFirebaseEmulator();
   }
-  const configuredApp = AppConfig(
+  final configuredApp = AppConfig(
     environment: Env.dev,
     appTitle: '[DEV] verifyd.store',
     child: StartApp(),
@@ -36,5 +37,6 @@ Future _connectToFirebaseEmulator() async {
     sslEnabled: false,
     persistenceEnabled: false,
   );
-// await FirebaseAuth.instance.useEmulator('http//$host:9099');
+  FirebaseFirestore.instance.useFirestoreEmulator(host, 8080);
+  await FirebaseAuth.instance.useAuthEmulator(host, 9099);
 }

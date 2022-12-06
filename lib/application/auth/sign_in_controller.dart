@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:fyd_ui/fyd_ui.dart';
+
 import 'package:get/get.dart';
+import '../../00 ui-core/ui_exports.dart';
 import 'auth_failure_handler.dart';
 import 'package:verifyd_store/domain/auth/i_auth_facade.dart';
 import 'package:verifyd_store/domain/auth/value_objects.dart';
@@ -47,19 +48,19 @@ class SignInController extends GetxController {
       FydLoader.showLoading();
       // 2) create new Stream via authfacade
       // 3) subscribe to the new stream
-      final codeStream = iAuthFacade.isCodeSent();
-      addCodeSentStreamSubscription(codeStream);
+      // final codeStream = iAuthFacade.isCodeSent();
+      // addCodeSentStreamSubscription(codeStream);
 
-      final result = await iAuthFacade.sendOtp(phoneNumber: phoneNumber.value);
+      // final result = await iAuthFacade.sendOtp(phoneNumber: phoneNumber.value);
 
-      result.fold(
-        (failure) {
-          FydLoader.hideLoading();
-          cancelCodeSentStream();
-          AuthFailureHandler.handleFailure(failure);
-        },
-        (unit) => null,
-      );
+      // result.fold(
+      //   (failure) {
+      //     FydLoader.hideLoading();
+      //     cancelCodeSentStream();
+      //     AuthFailureHandler.handleFailure(failure);
+      //   },
+      //   (unit) => null,
+      // );
     } else {
       FydLoader.hideLoading();
       fydSnack(
@@ -71,40 +72,40 @@ class SignInController extends GetxController {
 
 //! @ ResendOTP
   void resendOtpPressed() async {
-    final result = await iAuthFacade.sendOtp(phoneNumber: phoneNumber.value);
-    result.fold(
-      (failure) {
-        cancelCodeSentStream();
-        AuthFailureHandler.handleFailure(failure);
-      },
-      (unit) => null,
-    );
+    // final result = await iAuthFacade.sendOtp(phoneNumber: phoneNumber.value);
+    // result.fold(
+    //   (failure) {
+    //     cancelCodeSentStream();
+    //     AuthFailureHandler.handleFailure(failure);
+    //   },
+    //   // (unit) => null,
+    // );
   }
 
 //! @ ConfirmOTP
   void confirmOtpPressed() async {
-    if (otp.value.isValid()) {
-      FydLoader.showLoading();
-      final result = await iAuthFacade.confirmOtp(otp: otp.value);
-      result.fold(
-        (failure) => AuthFailureHandler.handleFailure(failure),
-        (unit) => unit,
-      );
-    } else {
-      fydSnack(
-        message: AuthenticationString.OTPVALIDATION,
-        snackposition: SnackPosition.TOP,
-      );
-    }
+    // if (otp.value.isValid()) {
+    //   FydLoader.showLoading();
+    //   final result = await iAuthFacade.confirmOtp(otp: otp.value);
+    //   result.fold(
+    //     (failure) => AuthFailureHandler.handleFailure(failure),
+    //     (unit) => unit,
+    //   );
+    // } else {
+    //   fydSnack(
+    //     message: AuthenticationString.OTPVALIDATION,
+    //     snackposition: SnackPosition.TOP,
+    //   );
+    // }
   }
 
 //! @ AddUserName via finish setup btn
   void finishSetupPressed() async {
     if (userName.value.getOrCrash() != '') {
       FydLoader.showLoading();
-      final result = await iAuthFacade.addUserName(userName: userName.value);
-      result.fold((failure) => AuthFailureHandler.handleFailure(failure),
-          (unit) => unit);
+      // final result = await iAuthFacade.addUserName(userName: userName.value);
+      // result.fold((failure) => AuthFailureHandler.handleFailure(failure),
+      //     (unit) => unit);
     } else {
       FydLoader.hideLoading();
       fydSnack(

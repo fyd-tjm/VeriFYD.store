@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fyd_ui/fyd_ui.dart';
+import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:group_button/group_button.dart';
 
 class ProductSizeGroupBtn extends StatelessWidget {

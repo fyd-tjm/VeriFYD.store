@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fyd_ui/fyd_ui.dart';
+import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:get/get.dart';
 import 'package:verifyd_store/presentation/core/widgets/fyd_page_view.dart';
 import 'package:verifyd_store/presentation/profile/widgets/profile_tile.dart';

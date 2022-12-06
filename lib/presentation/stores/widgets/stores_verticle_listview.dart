@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fyd_ui/fyd_ui.dart';
+
 import 'package:get/get.dart';
+import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 
 class StoresVerticleListview extends StatelessWidget {
   final String categoryHeader;

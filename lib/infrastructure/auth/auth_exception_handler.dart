@@ -1,7 +1,9 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fyd_ui/fyd_ui.dart';
+
 import 'package:get/get.dart';
+
+import '../../00 ui-core/widget/fyd_misc.dart';
 
 class AuthExceptionHandler {
   static void handleException(error) {

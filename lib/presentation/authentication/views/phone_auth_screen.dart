@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fyd_ui/fyd_ui.dart';
+import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:get/get.dart';
 import 'package:verifyd_store/application/auth/sign_in_controller.dart';
 import 'package:verifyd_store/domain/auth/value_objects.dart';
@@ -45,11 +45,6 @@ class TopsheetView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // all the widgets on this screen must have a height summation of 640-(24) => 636
-    // ScreenUtil.init(
-    //   context,
-    //   designSize: const Size(360, 640),
-    //   minTextAdapt: true,
-    // );
     return SizedBox(
       height: 336.h,
       child: Padding(
