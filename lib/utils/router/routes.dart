@@ -2,10 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:verifyd_store/domain/store/store.dart';
-import 'package:verifyd_store/presentation/authentication/views/name_screen.dart';
-import 'package:verifyd_store/presentation/authentication/views/otp_screen.dart';
-import 'package:verifyd_store/presentation/authentication/views/phone_auth_screen.dart';
 import 'package:verifyd_store/presentation/cart/views/cart_screen.dart';
 import 'package:verifyd_store/presentation/checkout/views/confirmation/confirmation_screen.dart';
 import 'package:verifyd_store/presentation/checkout/views/delivery/delivery_info_screen.dart';
@@ -13,23 +9,19 @@ import 'package:verifyd_store/presentation/checkout/views/delivery/new_address_s
 import 'package:verifyd_store/presentation/checkout/views/payment/payment_screen.dart';
 import 'package:verifyd_store/presentation/core/views/indexed_root.dart';
 import 'package:verifyd_store/presentation/core/views/stores_root_screen.dart';
-import 'package:verifyd_store/presentation/core/views/page_not_found.dart';
+
 import 'package:verifyd_store/presentation/home/views/home_screen.dart';
-import 'package:verifyd_store/presentation/home/views/search_screen.dart';
+
 import 'package:verifyd_store/presentation/profile/views/profile_screen.dart';
 import 'package:verifyd_store/presentation/splash/views/splash_screen.dart';
 import 'package:verifyd_store/presentation/stores/views/stores_screen.dart';
-import 'package:verifyd_store/presentation/stores/sub%20views/product/views/product_screen.dart';
-import 'package:verifyd_store/presentation/stores/sub%20views/store/views/store_info_screen.dart';
-import 'package:verifyd_store/utils/bindings/all_bindings.dart';
-// import 'package:verifyd_store/utils/bindings/auth_screen_bindings.dart';
+
 import '../../presentation/cart/views/cart_screen.dart';
 import '../../presentation/profile/views/edit_profile_screen.dart';
 import '../../presentation/profile/sub views/addresses/addresses_screen.dart';
 import '../../presentation/profile/sub views/help/help_screen.dart';
 import '../../presentation/profile/sub views/orders/views/order_screen.dart';
 import '../../presentation/profile/sub views/orders/views/orders_screen.dart';
-import '../../presentation/stores/sub views/store/views/store_screen.dart';
 import 'nav_links.dart';
 
 class AppRoutes {
@@ -92,25 +84,25 @@ class AppRoutes {
 
 //!--Auth-------------------
 
-      case AppRoutes.getPhoneAuthRoute:
-        return GetPageRoute(
-          page: () => const PhoneAuthScreen(),
-          binding: AuthScreenBindings(),
-          transition: Transition.topLevel,
-        );
+      // case AppRoutes.getPhoneAuthRoute:
+      //   return GetPageRoute(
+      //     page: () => const PhoneAuthScreen(),
+      //     binding: AuthScreenBindings(),
+      //     transition: Transition.topLevel,
+      //   );
 
-      case AppRoutes.getOtpAuthRoute:
-        return GetPageRoute(
-          page: () => const OtpScreen(),
-          transition: Transition.rightToLeft,
-        );
+      // case AppRoutes.getOtpAuthRoute:
+      //   return GetPageRoute(
+      //     page: () => const OtpScreen(),
+      //     transition: Transition.rightToLeft,
+      //   );
 
-      case AppRoutes.getNameAuthRoute:
-        return GetPageRoute(
-          page: () => const NameScreen(),
-          binding: AuthScreenBindings(),
-          transition: Transition.rightToLeft,
-        );
+      // case AppRoutes.getNameAuthRoute:
+      //   return GetPageRoute(
+      //     page: () => const NameScreen(),
+      //     binding: AuthScreenBindings(),
+      //     transition: Transition.rightToLeft,
+      //   );
 
 //!--NavBar Routes----------
 
@@ -229,7 +221,7 @@ class AppRoutes {
             page: () => const StoresRootScreen(),
             bindings: [
               // Todo: put it inside core bindings or something
-              SharedInfoBinding(),
+              // SharedInfoBinding(),
             ]);
 
       //  default:
@@ -250,255 +242,43 @@ class AppRoutes {
           routeName: getStoresRoute,
           page: () => StoresScreen(),
           bindings: [
-            StoresBinding(),
+            // StoresBinding(),
           ],
         );
 
-      case getStoreRoute:
-        {
-          return GetPageRoute(
-            routeName: getStoreRoute,
-            page: () => StoreScreen(),
-            bindings: [
-              StoreBinding(store: settings.arguments),
-            ],
-          );
-        }
+      // case getStoreRoute:
+      //   {
+      //     return GetPageRoute(
+      //       routeName: getStoreRoute,
+      //       page: () => StoreScreen(),
+      //       bindings: [
+      //         StoreBinding(store: settings.arguments),
+      //       ],
+      //     );
+      //   }
 
-      case getStoreInfoRoute:
-        return GetPageRoute(
-          routeName: getStoreInfoRoute,
-          page: () => StoreInfoScreen(),
-        );
+      // case getStoreInfoRoute:
+      //   return GetPageRoute(
+      //     routeName: getStoreInfoRoute,
+      //     page: () => StoreInfoScreen(),
+      //   );
 
-      case getProductRoute:
-        return GetPageRoute(
-            routeName: getProductRoute,
-            page: () => ProductScreen(),
-            bindings: [
-              ProductBinding(product: settings.arguments),
-            ]);
+      // case getProductRoute:
+      //   return GetPageRoute(
+      //       routeName: getProductRoute,
+      //       page: () => ProductScreen(),
+      //       bindings: [
+      //         ProductBinding(product: settings.arguments),
+      //       ]);
 
       default:
         return GetPageRoute(
           routeName: getStoresRoute,
           page: () => StoresScreen(),
           bindings: [
-            StoresBinding(),
+            // StoresBinding(),
           ],
         );
     }
   }
-
-  static final pages = [
-    GetPage(
-      name: NavLinks.SPLASH,
-      page: () => const SplashScreen(),
-    ),
-    GetPage(
-      name: NavLinks.PHONEAUTH,
-      page: () => const PhoneAuthScreen(),
-      binding: AuthScreenBindings(),
-      transition: Transition.topLevel,
-      // curve: Curves.easeIn,
-    ),
-    GetPage(
-      name: NavLinks.OTPAUTH,
-      page: () => const OtpScreen(),
-      transition: Transition.rightToLeft,
-      // curve: Curves.easeIn,
-    ),
-    GetPage(
-      name: NavLinks.NAMEAUTH,
-      page: () => const NameScreen(),
-      binding: AuthScreenBindings(),
-      transition: Transition.rightToLeft,
-      // curve: Curves.easeIn,
-    ),
-
-    //! main Screens
-
-    GetPage(
-      name: NavLinks.HOME,
-      page: () => const HomeScreen(),
-    ),
-    GetPage(
-      name: NavLinks.STORES,
-      page: () => StoresScreen(),
-    ),
-    GetPage(
-      name: NavLinks.CART,
-      page: () => const CartScreen(),
-    ),
-    GetPage(
-      name: NavLinks.PROFILE,
-      page: () => const ProfileScreen(),
-    ),
-
-    //! Stores sub views
-
-    // locallyStoredStore: ,
-
-//! Profile sub views
-
-    GetPage(
-      name: NavLinks.ORDERS,
-      page: () => const OrdersScreen(),
-    ),
-    GetPage(
-      name: NavLinks.ORDER,
-      page: () => const OrderScreen(),
-    ),
-    GetPage(
-      name: NavLinks.ADDRESSES,
-      page: () => const AddressesScreen(),
-    ),
-    GetPage(
-      name: NavLinks.HELP,
-      page: () => const HelpScreen(),
-    ),
-    GetPage(
-      name: NavLinks.EDITPROFILE,
-      page: () => const EditProfileScreen(),
-    ),
-
-    //! CHECKOUT
-
-    GetPage(
-      name: NavLinks.DELIVERYINFO,
-      page: () => const DeliveryInfoScreen(),
-    ),
-    GetPage(
-      name: NavLinks.NEWADDRESS,
-      page: () => NewAddressScreen(),
-    ),
-    GetPage(
-      name: NavLinks.PAYMENT,
-      page: () => const PaymentScreen(),
-    ),
-    GetPage(
-      name: NavLinks.CONFIRMATION,
-      page: () => const ConfirmationScreen(),
-    ),
-
-    //! search
-
-    GetPage(
-      name: NavLinks.SEARCHSCREEN,
-      page: () => const SearchScreen(),
-    ),
-
-    //! Not found
-
-    GetPage(
-      name: NavLinks.PAGENOTFOUND,
-      page: () => const PageNotFound(),
-    ),
-  ];
-
-  //! main navigator Routes
-  // static final mainRoutes = [
-  //   GetPage(name: getSplashRoute, page: () => const SplashScreen(), children: [
-  //     GetPage(
-  //         name: getMainRoute,
-  //         page: () => const IndexedRoot(),
-  //         // participatesInRootNavigator: true,
-  //         preventDuplicates: true,
-  //         children: [
-  //           GetPage(
-  //             name: getHomeRoute,
-  //             page: () => const HomeScreen(),
-  //             // participatesInRootNavigator: true,
-  //             preventDuplicates: true,
-  //           ),
-  //           GetPage(
-  //             name: getStoresRootRoute,
-  //             page: () => const StoresRootScreen(),
-  //             // participatesInRootNavigator: true,
-  //             preventDuplicates: true,
-  //           ),
-  //           GetPage(
-  //               name: getCartRoute,
-  //               page: () => const CartScreen(),
-  //               // participatesInRootNavigator: true,
-  //               preventDuplicates: true,
-  //               children: [
-  //                 GetPage(
-  //                     name: NavLinks.DELIVERYINFO,
-  //                     page: () => const DeliveryInfoScreen(),
-  //                     children: [
-  //                       GetPage(
-  //                         name: NavLinks.NEWADDRESS,
-  //                         page: () => NewAddressScreen(),
-  //                       ),
-  //                       GetPage(
-  //                           name: NavLinks.PAYMENT,
-  //                           page: () => const PaymentScreen(),
-  //                           children: [
-  //                             GetPage(
-  //                               name: NavLinks.CONFIRMATION,
-  //                               page: () => const ConfirmationScreen(),
-  //                             ),
-  //                           ]),
-  //                     ]),
-  //               ]),
-  //           GetPage(
-  //               name: getProfileRoute,
-  //               page: () => const ProfileScreen(),
-  //               // participatesInRootNavigator: true,
-  //               preventDuplicates: true,
-  //               children: [
-  //                 GetPage(
-  //                     name: NavLinks.ORDERS,
-  //                     page: () => const OrdersScreen(),
-  //                     transition: Transition.rightToLeft,
-  //                     children: [
-  //                       GetPage(
-  //                         name: NavLinks.ORDER,
-  //                         page: () => const OrderScreen(),
-  //                       ),
-  //                     ]),
-  //                 GetPage(
-  //                     name: NavLinks.ADDRESSES,
-  //                     page: () => const AddressesScreen(),
-  //                     children: [
-  //                       GetPage(
-  //                         name: NavLinks.NEWADDRESS,
-  //                         page: () => NewAddressScreen(),
-  //                       ),
-  //                     ]),
-  //                 GetPage(
-  //                   name: NavLinks.HELP,
-  //                   page: () => const HelpScreen(),
-  //                 ),
-  //                 GetPage(
-  //                   name: NavLinks.EDITPROFILE,
-  //                   page: () => const EditProfileScreen(),
-  //                 ),
-  //               ]),
-  //         ]),
-  //   ]),
-  // ];
-
-  //! stores Navigator Routes
-  // static final storesRoutes = [
-  //   GetPage(name: getStoresRoute, page: () => StoresScreen(),
-  //       //participatesInRootNavigator: true,
-  //       children: [
-  //         GetPage(
-  //             name: getStoreRoute,
-  //             page: () => const StoreScreen(),
-  //             children: [
-  //               GetPage(
-  //                 name: getStoreInfoRoute,
-  //                 page: () => StoreInfoScreen(),
-  //               ),
-  //               GetPage(
-  //                 name: getProductRoute,
-  //                 page: () => ProductScreen(),
-  //               ),
-  //             ]),
-  //       ]),
-  // ];
-
 }

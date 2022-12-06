@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:verifyd_store/presentation/core/views/page_not_found.dart';
 import 'package:verifyd_store/presentation/stores/sub%20views/store/views/store_screen.dart';
 import 'package:verifyd_store/presentation/stores/views/stores_screen.dart';
 import 'package:verifyd_store/utils/router/routes.dart';

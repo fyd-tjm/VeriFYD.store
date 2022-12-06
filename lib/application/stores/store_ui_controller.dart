@@ -4,12 +4,12 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
-import 'package:verifyd_store/domain/store/i_store_repository.dart';
-import 'package:verifyd_store/domain/store/product.dart';
-import 'package:verifyd_store/domain/store/store.dart';
-import 'package:verifyd_store/domain/store/store_failure.dart';
+
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/logger.dart';
+
+import '../../03 domain/store/00_export_store_domain.dart';
+import '../../03 domain/store/store_failure.dart';
 
 class StoreUiController extends GetxController {
   final store;

@@ -24,11 +24,11 @@ class TestPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final authStatus =
-    //     context.select((FydUserCubit cubit) => cubit.state.authUser);
-    // if (authStatus == null) {
-    //   context.router.replaceAll([const LandingWrapperRoute()]);
-    // }
+    final authStatus =
+        context.select((FydUserCubit cubit) => cubit.state.authUser);
+    if (authStatus == null) {
+      context.router.replaceAll([const LandingWrapperRoute()]);
+    }
     return Scaffold(
       backgroundColor: fydPDgrey,
       body: Center(

@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:verifyd_store/domain/auth/auth_user.dart';
-import 'package:verifyd_store/domain/auth/i_auth_facade.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+
+import '../../03 domain/auth/00_export_auth_domain.dart';
 
 part 'auth_status_state.dart';
 part 'auth_status_cubit.freezed.dart';

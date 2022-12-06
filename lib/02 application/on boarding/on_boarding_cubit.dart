@@ -5,12 +5,11 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:verifyd_store/domain/auth/value_objects.dart';
-import 'package:verifyd_store/domain/user/fyd_user.dart';
-import 'package:verifyd_store/domain/user/i_user_repository.dart';
-import 'package:verifyd_store/domain/user/user_failure.dart';
+
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 
+import '../../03 domain/auth/00_export_auth_domain.dart';
+import '../../03 domain/user/00_export_user_domain.dart';
 part 'on_boarding_state.dart';
 part 'on_boarding_cubit.freezed.dart';
 

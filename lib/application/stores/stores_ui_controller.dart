@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:verifyd_store/03%20domain/store/00_export_store_domain.dart';
 import 'package:verifyd_store/application/core/shared_info_controller.dart';
-import 'package:verifyd_store/domain/store/i_store_repository.dart';
-import 'package:verifyd_store/domain/store/store.dart';
+
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/logger.dart';
 

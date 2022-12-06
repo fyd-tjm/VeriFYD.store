@@ -2,11 +2,11 @@ import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:group_button/group_button.dart';
-import 'package:verifyd_store/domain/store/i_store_repository.dart';
-import 'package:verifyd_store/domain/store/product.dart';
-import 'package:verifyd_store/domain/store/product_failure.dart';
+
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/logger.dart';
+
+import '../../03 domain/store/00_export_store_domain.dart';
 
 class ProductUiController extends GetxController {
   // ignore: prefer_typing_uninitialized_variables

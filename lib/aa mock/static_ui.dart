@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import '../../00 ui-core/ui_exports.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:verifyd_store/domain/store/product.dart';
-import 'package:verifyd_store/domain/store/store.dart';
+
+import '../03 domain/store/00_export_store_domain.dart';
 
 class MockUi {
   //! database stores doc

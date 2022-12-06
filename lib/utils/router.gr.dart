@@ -14,10 +14,10 @@
 import 'package:auto_route/auto_route.dart' as _i6;
 import 'package:flutter/material.dart' as _i7;
 
-import '../01%20presentation/landing_page.dart' as _i1;
-import '../01%20presentation/on_boarding_page.dart' as _i3;
-import '../01%20presentation/otp_login_page.dart' as _i5;
-import '../01%20presentation/phone_login_page.dart' as _i2;
+import '../01%20presentation/00%20core/landing_page.dart' as _i1;
+import '../01%20presentation/01%20login/otp_login_page.dart' as _i5;
+import '../01%20presentation/01%20login/phone_login_page.dart' as _i2;
+import '../01%20presentation/02%20on%20boarding/on_boarding_page.dart' as _i3;
 import '../01%20presentation/test_page.dart' as _i4;
 
 class AppRouter extends _i6.RootStackRouter {
@@ -33,9 +33,13 @@ class AppRouter extends _i6.RootStackRouter {
       );
     },
     LoginRouter.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i2.PhoneLoginWrapperPage(),
+        transitionsBuilder: _i6.TransitionsBuilders.slideRight,
+        durationInMilliseconds: 80,
+        opaque: true,
+        barrierDismissible: false,
       );
     },
     OnBoardingWrapperRoute.name: (routeData) {
@@ -51,15 +55,23 @@ class AppRouter extends _i6.RootStackRouter {
       );
     },
     PhoneLoginRoute.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i2.PhoneLoginPage(),
+        transitionsBuilder: _i6.TransitionsBuilders.slideRight,
+        durationInMilliseconds: 80,
+        opaque: true,
+        barrierDismissible: false,
       );
     },
     OtpLoginRoute.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i5.OtpLoginPage(),
+        transitionsBuilder: _i6.TransitionsBuilders.slideLeft,
+        durationInMilliseconds: 80,
+        opaque: true,
+        barrierDismissible: false,
       );
     },
   };

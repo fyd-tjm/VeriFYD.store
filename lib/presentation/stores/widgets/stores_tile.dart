@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:verifyd_store/domain/store/store.dart';
+import 'package:verifyd_store/03%20domain/store/00_export_store_domain.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 
 class StoresTile extends StatelessWidget {

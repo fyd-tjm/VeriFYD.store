@@ -2,9 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
-import 'package:verifyd_store/domain/shared/i_shared_info_repository.dart';
-import 'package:verifyd_store/domain/shared/shared_info.dart';
-import 'package:verifyd_store/domain/shared/shared_info_failure.dart';
+import 'package:verifyd_store/03%20domain/shared/00_export_shared_domain.dart';
+
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 
 class SharedInfoController extends GetxController {

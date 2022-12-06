@@ -4,11 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:verifyd_store/domain/auth/i_auth_facade.dart';
-import 'package:verifyd_store/domain/auth/value_objects.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 
-import '../../domain/auth/auth_failure.dart';
+import '../../03 domain/auth/00_export_auth_domain.dart';
 
 part 'phone_login_event.dart';
 part 'phone_login_state.dart';

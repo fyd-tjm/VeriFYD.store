@@ -1,8 +1,8 @@
-import 'package:auto_route/annotations.dart';
-import 'package:verifyd_store/01%20presentation/landing_page.dart';
-import 'package:verifyd_store/01%20presentation/on_boarding_page.dart';
-import 'package:verifyd_store/01%20presentation/otp_login_page.dart';
-import 'package:verifyd_store/01%20presentation/phone_login_page.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/landing_page.dart';
+import 'package:verifyd_store/01%20presentation/01%20login/otp_login_page.dart';
+import 'package:verifyd_store/01%20presentation/01%20login/phone_login_page.dart';
+import 'package:verifyd_store/01%20presentation/02%20on%20boarding/on_boarding_page.dart';
 import 'package:verifyd_store/01%20presentation/test_page.dart';
 
 @MaterialAutoRouter(
@@ -13,13 +13,25 @@ import 'package:verifyd_store/01%20presentation/test_page.dart';
       page: LandingWrapperPage,
       initial: true,
     ),
-    AutoRoute(
+    CustomRoute(
       path: '/phoneLogin',
       name: 'LoginRouter',
       page: PhoneLoginWrapperPage,
+      transitionsBuilder: TransitionsBuilders.slideRight,
+      durationInMilliseconds: 80,
       children: [
-        AutoRoute(path: '', page: PhoneLoginPage),
-        AutoRoute(path: 'loginOtp', page: OtpLoginPage),
+        CustomRoute(
+          path: '',
+          page: PhoneLoginPage,
+          transitionsBuilder: TransitionsBuilders.slideRight,
+          durationInMilliseconds: 80,
+        ),
+        CustomRoute(
+          path: 'loginOtp',
+          page: OtpLoginPage,
+          transitionsBuilder: TransitionsBuilders.slideLeft,
+          durationInMilliseconds: 80,
+        ),
         RedirectRoute(path: '*', redirectTo: ''),
       ],
     ),

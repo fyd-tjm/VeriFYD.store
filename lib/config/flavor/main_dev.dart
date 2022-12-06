@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
-import '../../presentation/core/views/start_app.dart';
+import '../../01 presentation/00 core/start_app.dart';
 import '../app_config.dart';
 import '../firebase/dev/firebase_options.dart';
 
