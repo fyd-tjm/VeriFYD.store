@@ -1,5 +1,8 @@
 ## commit-History
 
+`x-2.1`
+ * docs updated
+
 `x-2`
  * refactored 
 
