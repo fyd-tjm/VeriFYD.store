@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,10 @@ class StoresTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onPressedCallback(store),
+      onTap: () {
+        HapticFeedback.mediumImpact();
+        onPressedCallback(store);
+      },
       child: SizedBox(
         height: 100.h,
         width: double.infinity,

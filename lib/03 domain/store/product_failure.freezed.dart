@@ -19,7 +19,7 @@ mixin _$ProductFailure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() permissionDenied,
-    required TResult Function() notExistAnymore,
+    required TResult Function() notFound,
     required TResult Function() serverError,
     required TResult Function() unexpectedError,
   }) =>
@@ -27,7 +27,7 @@ mixin _$ProductFailure {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? permissionDenied,
-    TResult Function()? notExistAnymore,
+    TResult Function()? notFound,
     TResult Function()? serverError,
     TResult Function()? unexpectedError,
   }) =>
@@ -35,7 +35,7 @@ mixin _$ProductFailure {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? permissionDenied,
-    TResult Function()? notExistAnymore,
+    TResult Function()? notFound,
     TResult Function()? serverError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
@@ -44,7 +44,7 @@ mixin _$ProductFailure {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PermissionDenied value) permissionDenied,
-    required TResult Function(NotExistAnymore value) notExistAnymore,
+    required TResult Function(NotFound value) notFound,
     required TResult Function(ServerError value) serverError,
     required TResult Function(UnexpectedError value) unexpectedError,
   }) =>
@@ -52,7 +52,7 @@ mixin _$ProductFailure {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(NotExistAnymore value)? notExistAnymore,
+    TResult Function(NotFound value)? notFound,
     TResult Function(ServerError value)? serverError,
     TResult Function(UnexpectedError value)? unexpectedError,
   }) =>
@@ -60,7 +60,7 @@ mixin _$ProductFailure {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(NotExistAnymore value)? notExistAnymore,
+    TResult Function(NotFound value)? notFound,
     TResult Function(ServerError value)? serverError,
     TResult Function(UnexpectedError value)? unexpectedError,
     required TResult orElse(),
@@ -127,7 +127,7 @@ class _$PermissionDenied implements PermissionDenied {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() permissionDenied,
-    required TResult Function() notExistAnymore,
+    required TResult Function() notFound,
     required TResult Function() serverError,
     required TResult Function() unexpectedError,
   }) {
@@ -138,7 +138,7 @@ class _$PermissionDenied implements PermissionDenied {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? permissionDenied,
-    TResult Function()? notExistAnymore,
+    TResult Function()? notFound,
     TResult Function()? serverError,
     TResult Function()? unexpectedError,
   }) {
@@ -149,7 +149,7 @@ class _$PermissionDenied implements PermissionDenied {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? permissionDenied,
-    TResult Function()? notExistAnymore,
+    TResult Function()? notFound,
     TResult Function()? serverError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
@@ -164,7 +164,7 @@ class _$PermissionDenied implements PermissionDenied {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PermissionDenied value) permissionDenied,
-    required TResult Function(NotExistAnymore value) notExistAnymore,
+    required TResult Function(NotFound value) notFound,
     required TResult Function(ServerError value) serverError,
     required TResult Function(UnexpectedError value) unexpectedError,
   }) {
@@ -175,7 +175,7 @@ class _$PermissionDenied implements PermissionDenied {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(NotExistAnymore value)? notExistAnymore,
+    TResult Function(NotFound value)? notFound,
     TResult Function(ServerError value)? serverError,
     TResult Function(UnexpectedError value)? unexpectedError,
   }) {
@@ -186,7 +186,7 @@ class _$PermissionDenied implements PermissionDenied {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(NotExistAnymore value)? notExistAnymore,
+    TResult Function(NotFound value)? notFound,
     TResult Function(ServerError value)? serverError,
     TResult Function(UnexpectedError value)? unexpectedError,
     required TResult orElse(),
@@ -203,38 +203,36 @@ abstract class PermissionDenied implements ProductFailure {
 }
 
 /// @nodoc
-abstract class _$$NotExistAnymoreCopyWith<$Res> {
-  factory _$$NotExistAnymoreCopyWith(
-          _$NotExistAnymore value, $Res Function(_$NotExistAnymore) then) =
-      __$$NotExistAnymoreCopyWithImpl<$Res>;
+abstract class _$$NotFoundCopyWith<$Res> {
+  factory _$$NotFoundCopyWith(
+          _$NotFound value, $Res Function(_$NotFound) then) =
+      __$$NotFoundCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$NotExistAnymoreCopyWithImpl<$Res>
-    extends _$ProductFailureCopyWithImpl<$Res>
-    implements _$$NotExistAnymoreCopyWith<$Res> {
-  __$$NotExistAnymoreCopyWithImpl(
-      _$NotExistAnymore _value, $Res Function(_$NotExistAnymore) _then)
-      : super(_value, (v) => _then(v as _$NotExistAnymore));
+class __$$NotFoundCopyWithImpl<$Res> extends _$ProductFailureCopyWithImpl<$Res>
+    implements _$$NotFoundCopyWith<$Res> {
+  __$$NotFoundCopyWithImpl(_$NotFound _value, $Res Function(_$NotFound) _then)
+      : super(_value, (v) => _then(v as _$NotFound));
 
   @override
-  _$NotExistAnymore get _value => super._value as _$NotExistAnymore;
+  _$NotFound get _value => super._value as _$NotFound;
 }
 
 /// @nodoc
 
-class _$NotExistAnymore implements NotExistAnymore {
-  const _$NotExistAnymore();
+class _$NotFound implements NotFound {
+  const _$NotFound();
 
   @override
   String toString() {
-    return 'ProductFailure.notExistAnymore()';
+    return 'ProductFailure.notFound()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$NotExistAnymore);
+        (other.runtimeType == runtimeType && other is _$NotFound);
   }
 
   @override
@@ -244,35 +242,35 @@ class _$NotExistAnymore implements NotExistAnymore {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() permissionDenied,
-    required TResult Function() notExistAnymore,
+    required TResult Function() notFound,
     required TResult Function() serverError,
     required TResult Function() unexpectedError,
   }) {
-    return notExistAnymore();
+    return notFound();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? permissionDenied,
-    TResult Function()? notExistAnymore,
+    TResult Function()? notFound,
     TResult Function()? serverError,
     TResult Function()? unexpectedError,
   }) {
-    return notExistAnymore?.call();
+    return notFound?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? permissionDenied,
-    TResult Function()? notExistAnymore,
+    TResult Function()? notFound,
     TResult Function()? serverError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
   }) {
-    if (notExistAnymore != null) {
-      return notExistAnymore();
+    if (notFound != null) {
+      return notFound();
     }
     return orElse();
   }
@@ -281,42 +279,42 @@ class _$NotExistAnymore implements NotExistAnymore {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PermissionDenied value) permissionDenied,
-    required TResult Function(NotExistAnymore value) notExistAnymore,
+    required TResult Function(NotFound value) notFound,
     required TResult Function(ServerError value) serverError,
     required TResult Function(UnexpectedError value) unexpectedError,
   }) {
-    return notExistAnymore(this);
+    return notFound(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(NotExistAnymore value)? notExistAnymore,
+    TResult Function(NotFound value)? notFound,
     TResult Function(ServerError value)? serverError,
     TResult Function(UnexpectedError value)? unexpectedError,
   }) {
-    return notExistAnymore?.call(this);
+    return notFound?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(NotExistAnymore value)? notExistAnymore,
+    TResult Function(NotFound value)? notFound,
     TResult Function(ServerError value)? serverError,
     TResult Function(UnexpectedError value)? unexpectedError,
     required TResult orElse(),
   }) {
-    if (notExistAnymore != null) {
-      return notExistAnymore(this);
+    if (notFound != null) {
+      return notFound(this);
     }
     return orElse();
   }
 }
 
-abstract class NotExistAnymore implements ProductFailure {
-  const factory NotExistAnymore() = _$NotExistAnymore;
+abstract class NotFound implements ProductFailure {
+  const factory NotFound() = _$NotFound;
 }
 
 /// @nodoc
@@ -361,7 +359,7 @@ class _$ServerError implements ServerError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() permissionDenied,
-    required TResult Function() notExistAnymore,
+    required TResult Function() notFound,
     required TResult Function() serverError,
     required TResult Function() unexpectedError,
   }) {
@@ -372,7 +370,7 @@ class _$ServerError implements ServerError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? permissionDenied,
-    TResult Function()? notExistAnymore,
+    TResult Function()? notFound,
     TResult Function()? serverError,
     TResult Function()? unexpectedError,
   }) {
@@ -383,7 +381,7 @@ class _$ServerError implements ServerError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? permissionDenied,
-    TResult Function()? notExistAnymore,
+    TResult Function()? notFound,
     TResult Function()? serverError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
@@ -398,7 +396,7 @@ class _$ServerError implements ServerError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PermissionDenied value) permissionDenied,
-    required TResult Function(NotExistAnymore value) notExistAnymore,
+    required TResult Function(NotFound value) notFound,
     required TResult Function(ServerError value) serverError,
     required TResult Function(UnexpectedError value) unexpectedError,
   }) {
@@ -409,7 +407,7 @@ class _$ServerError implements ServerError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(NotExistAnymore value)? notExistAnymore,
+    TResult Function(NotFound value)? notFound,
     TResult Function(ServerError value)? serverError,
     TResult Function(UnexpectedError value)? unexpectedError,
   }) {
@@ -420,7 +418,7 @@ class _$ServerError implements ServerError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(NotExistAnymore value)? notExistAnymore,
+    TResult Function(NotFound value)? notFound,
     TResult Function(ServerError value)? serverError,
     TResult Function(UnexpectedError value)? unexpectedError,
     required TResult orElse(),
@@ -478,7 +476,7 @@ class _$UnexpectedError implements UnexpectedError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() permissionDenied,
-    required TResult Function() notExistAnymore,
+    required TResult Function() notFound,
     required TResult Function() serverError,
     required TResult Function() unexpectedError,
   }) {
@@ -489,7 +487,7 @@ class _$UnexpectedError implements UnexpectedError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? permissionDenied,
-    TResult Function()? notExistAnymore,
+    TResult Function()? notFound,
     TResult Function()? serverError,
     TResult Function()? unexpectedError,
   }) {
@@ -500,7 +498,7 @@ class _$UnexpectedError implements UnexpectedError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? permissionDenied,
-    TResult Function()? notExistAnymore,
+    TResult Function()? notFound,
     TResult Function()? serverError,
     TResult Function()? unexpectedError,
     required TResult orElse(),
@@ -515,7 +513,7 @@ class _$UnexpectedError implements UnexpectedError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PermissionDenied value) permissionDenied,
-    required TResult Function(NotExistAnymore value) notExistAnymore,
+    required TResult Function(NotFound value) notFound,
     required TResult Function(ServerError value) serverError,
     required TResult Function(UnexpectedError value) unexpectedError,
   }) {
@@ -526,7 +524,7 @@ class _$UnexpectedError implements UnexpectedError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(NotExistAnymore value)? notExistAnymore,
+    TResult Function(NotFound value)? notFound,
     TResult Function(ServerError value)? serverError,
     TResult Function(UnexpectedError value)? unexpectedError,
   }) {
@@ -537,7 +535,7 @@ class _$UnexpectedError implements UnexpectedError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(NotExistAnymore value)? notExistAnymore,
+    TResult Function(NotFound value)? notFound,
     TResult Function(ServerError value)? serverError,
     TResult Function(UnexpectedError value)? unexpectedError,
     required TResult orElse(),

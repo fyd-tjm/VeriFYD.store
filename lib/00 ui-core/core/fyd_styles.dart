@@ -29,19 +29,19 @@ TextStyle display30 = GoogleFonts.exo2(
 
 // Heading (22x-20x-16x) rubik
 
-TextStyle heading22 = GoogleFonts.rubik(
+TextStyle heading22 = GoogleFonts.exo2(
   textStyle: TextStyle(
     fontSize: 26.sp,
     fontWeight: FontWeight.w500,
   ),
 );
-TextStyle heading20 = GoogleFonts.rubik(
+TextStyle heading20 = GoogleFonts.exo2(
   textStyle: TextStyle(
     fontSize: 24.sp,
     fontWeight: FontWeight.w500,
   ),
 );
-TextStyle heading18 = GoogleFonts.rubik(
+TextStyle heading18 = GoogleFonts.exo2(
   textStyle: TextStyle(
     fontSize: 22.sp,
     fontWeight: FontWeight.w500,
@@ -50,26 +50,26 @@ TextStyle heading18 = GoogleFonts.rubik(
 
 // Body (14x-12x-10x-8x) rubik
 
-TextStyle body16 = GoogleFonts.rubik(
+TextStyle body16 = GoogleFonts.exo2(
   textStyle: TextStyle(
     fontSize: 20.sp,
     fontWeight: FontWeight.normal,
   ),
 );
 
-TextStyle body14 = GoogleFonts.rubik(
+TextStyle body14 = GoogleFonts.exo2(
   textStyle: TextStyle(
     fontSize: 18.sp,
     fontWeight: FontWeight.normal,
   ),
 );
-TextStyle body12 = GoogleFonts.rubik(
+TextStyle body12 = GoogleFonts.exo2(
   textStyle: TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeight.normal,
   ),
 );
-TextStyle body10 = GoogleFonts.rubik(
+TextStyle body10 = GoogleFonts.exo2(
   textStyle: TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeight.normal,

@@ -20,4 +20,8 @@ abstract class IStoreRepository {
   //! to listen to selected store for real time changes (live or not)
   Stream<Either<ProductFailure, Product>> getProductRealTime(
       {required String productsReference});
+
+  //! get Product by skuId
+  Future<Either<ProductFailure, Product>> getProductBySkuId(
+      {required String storeId, required String skuId});
 }

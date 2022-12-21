@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FydVListView extends StatelessWidget {
   final double width;
-
   final double separation;
   final int itemCount;
   final List<Widget> listWidget;
+  final EdgeInsets? widgetListPadding;
   const FydVListView({
     Key? key,
     required this.width,
     required this.separation,
     required this.itemCount,
     required this.listWidget,
+    this.widgetListPadding,
   }) : super(key: key);
 
   @override
@@ -20,10 +20,9 @@ class FydVListView extends StatelessWidget {
     return SizedBox(
       width: width,
       child: ListView.separated(
-        padding: EdgeInsets.symmetric(vertical: 15.h),
+        padding: widgetListPadding,
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
-        shrinkWrap: true,
         itemCount: itemCount,
         itemBuilder: ((context, index) => listWidget[index]),
         separatorBuilder: (context, index) => SizedBox(
@@ -37,6 +36,7 @@ class FydVListView extends StatelessWidget {
 class FydHListView extends StatelessWidget {
   final double height;
   final double separation;
+  final EdgeInsets? widgetListPadding;
   final int itemCount;
   final List<Widget> listWidget;
   const FydHListView({
@@ -45,6 +45,7 @@ class FydHListView extends StatelessWidget {
     required this.separation,
     required this.itemCount,
     required this.listWidget,
+    this.widgetListPadding,
   }) : super(key: key);
 
   @override
@@ -52,17 +53,13 @@ class FydHListView extends StatelessWidget {
     return SizedBox(
       height: height,
       child: ListView.separated(
-        padding: EdgeInsets.only(
-          left: 25.w,
-          right: 25.w,
-        ),
+        padding: widgetListPadding,
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
         itemCount: itemCount,
         itemBuilder: ((context, index) => listWidget[index]),
         separatorBuilder: (context, index) => SizedBox(
-          width: separation, //15.w
+          width: separation,
         ),
       ),
     );

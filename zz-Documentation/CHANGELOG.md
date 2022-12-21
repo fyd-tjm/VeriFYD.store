@@ -1,4 +1,7 @@
 ## commit-History
+`x-3`
+ * stores, store, product migration
+ * cart migration
 
 `x-2.1`
  * docs updated

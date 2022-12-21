@@ -8,17 +8,19 @@ import 'package:rxdart/rxdart.dart';
 import 'package:verifyd_store/03%20domain/store/00_export_store_domain.dart';
 import 'package:verifyd_store/03%20domain/store/store_failure.dart';
 import 'package:verifyd_store/04%20infrastructure/core/firebase_helper.dart';
+import 'package:verifyd_store/04%20infrastructure/store/product_failure_mapper.dart';
+import 'package:verifyd_store/04%20infrastructure/store/store_failure_mapper.dart';
 
 @LazySingleton(as: IStoreRepository)
 class FirebaseStoreRepository implements IStoreRepository {
   final FirebaseFirestore _firestore;
   FirebaseStoreRepository(this._firestore);
-
+//?-----------------------------------------------------------------------------
   static const int storeFetchLimit = 5;
   static const int productFetchLimit = 15;
   // collection refference via extensions
   late CollectionReference storesCollection = _firestore.storesCollection();
-
+//?-----------------------------------------------------------------------------
   //! Interface
   @override
   Future<Either<StoreFailure, List<Store>>> getStoresByCategory(
@@ -42,24 +44,14 @@ class FirebaseStoreRepository implements IStoreRepository {
       final storesList = await storesByCategoryQuery.get().then(
           (querySnapshot) => querySnapshot.docs.map((e) => e.data()).toList());
       return right(storesList);
-    }
-    // Firestore-server error handling
-    on FirebaseException catch (e) {
-      if (e.message!.contains('permission-denied')) {
-        return left(const StoreFailure.permissionDenied());
-      } else if (e.message!.contains('not-found')) {
-        return left(const StoreFailure.notExistAnymore());
-      } else {
-        return left(const StoreFailure.serverError());
-      }
-    }
-    // client error handling
-    catch (e) {
+    } catch (e) {
+      //error handling
       log(e.toString());
-      return left(const StoreFailure.UnexpectedError());
+      return left(StoreFailureMapper.failureMapper(e));
     }
   }
 
+//?-----------------------------------------------------------------------------
   //! Interface
   @override
   Stream<Either<StoreFailure, Store>> getStoreRealTime(
@@ -69,22 +61,18 @@ class FirebaseStoreRepository implements IStoreRepository {
         toFirestore: (model, _) => model.toJson());
 
     yield* storeDocs
-        .where('isLive', isEqualTo: true)
+        // .where('isLive', isEqualTo: true)
         .where('sId', isEqualTo: storeId)
         .snapshots()
         .map((qSnapshot) {
       return right<StoreFailure, Store>(qSnapshot.docs.first.data());
     }).onErrorReturnWith((e, stackTrace) {
-      if (e is FirebaseException && e.message!.contains('permission-denied')) {
-        return left(const StoreFailure.permissionDenied());
-      } else if (e is FirebaseException && e.message!.contains('not-found')) {
-        return left(const StoreFailure.notExistAnymore());
-      } else {
-        return left(const StoreFailure.UnexpectedError());
-      }
+      log(e.toString());
+      return left(StoreFailureMapper.failureMapper(e));
     });
   }
 
+//?-----------------------------------------------------------------------------
   //! Interface
   @override
   Future<Either<ProductFailure, List<Product>>> getProductsByType(
@@ -114,24 +102,15 @@ class FirebaseStoreRepository implements IStoreRepository {
                 return e.data();
               }).toList());
       return right(productList);
-    }
-    // Firestore-server error handling
-    on FirebaseException catch (e) {
-      if (e.message!.contains('permission-denied')) {
-        return left(const ProductFailure.permissionDenied());
-      } else if (e.message!.contains('not-found')) {
-        return left(const ProductFailure.notExistAnymore());
-      } else {
-        return left(const ProductFailure.serverError());
-      }
-    }
-    // client error handling
-    catch (e) {
+    } catch (e) {
+      // error handling
       log(e.toString());
-      return left(const ProductFailure.unexpectedError());
+      return left(ProductFailureMapper.failureMapper(e));
     }
   }
 
+//?-----------------------------------------------------------------------------
+  //! interface
   @override
   Stream<Either<ProductFailure, Product>> getProductRealTime(
       {required String productsReference}) async* {
@@ -142,13 +121,29 @@ class FirebaseStoreRepository implements IStoreRepository {
     yield* qProducts.snapshots().map((dSnapshot) {
       return right<ProductFailure, Product>(dSnapshot.data()!);
     }).onErrorReturnWith((e, stackTrace) {
-      if (e is FirebaseException && e.message!.contains('permission-denied')) {
-        return left(const ProductFailure.permissionDenied());
-      } else if (e is FirebaseException && e.message!.contains('not-found')) {
-        return left(const ProductFailure.notExistAnymore());
-      } else {
-        return left(const ProductFailure.unexpectedError());
-      }
+      log(e.toString());
+      return left(ProductFailureMapper.failureMapper(e));
     });
   }
+
+//?-----------------------------------------------------------------------------
+  //! interface
+  @override
+  Future<Either<ProductFailure, Product>> getProductBySkuId({
+    required String storeId,
+    required String skuId,
+  }) async {
+    final productDocPath = 'stores/$storeId/products/$skuId';
+    final productDoc = _firestore.doc(productDocPath).withConverter<Product>(
+        fromFirestore: (snapshot, _) => Product.fromJson(snapshot.data()!),
+        toFirestore: (model, _) => model.toJson());
+    try {
+      final product = await productDoc.get().then((value) => value.data()!);
+      return right(product);
+    } catch (e) {
+      log(e.toString());
+      return left(ProductFailureMapper.failureMapper(e));
+    }
+  }
+//?-----------------------------------------------------------------------------
 }

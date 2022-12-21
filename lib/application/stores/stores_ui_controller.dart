@@ -100,7 +100,7 @@ class StoresUiController extends GetxController {
     failureOrStores.fold(
       (storeFailure) => log(storeFailure.toString()),
       (remoteStoresList) {
-        remoteStoresList.forEach((remoteStore) {
+        for (var remoteStore in remoteStoresList) {
           var localStoresSid = storesByCategory[selectedCategory]!
               .map((store) => store.sId)
               .toList();
@@ -108,7 +108,7 @@ class StoresUiController extends GetxController {
             storesByCategory[selectedCategory]!.add(remoteStore);
             log(storesByCategory[selectedCategory]!.length.toString());
           }
-        });
+        }
       },
     );
     refreshReactiveVariables();

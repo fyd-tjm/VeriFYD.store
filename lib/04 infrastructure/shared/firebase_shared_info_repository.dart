@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:verifyd_store/04%20infrastructure/core/firebase_helper.dart';
+import 'package:verifyd_store/04%20infrastructure/shared/shared_failure_mapper.dart';
 
 import '../../03 domain/shared/00_export_shared_domain.dart';
 
@@ -25,12 +26,7 @@ class FirebaseSharedInfoRepository implements ISharedInfoRepository {
     yield* sharedDoc.snapshots().map((qSnapshot) {
       return right<SharedInfoFailure, SharedInfo>(qSnapshot.docs.first.data());
     }).onErrorReturnWith((e, stackTrace) {
-      if (e is FirebaseException && e.message!.contains('permission-denied')) {
-        return left(const SharedInfoFailure.permissionDenied());
-      } else {
-        log(e.toString());
-        return left(const SharedInfoFailure.unexpected());
-      }
+      return left(SharedInfoFailureMapper.failureMapper(e));
     });
   }
 }

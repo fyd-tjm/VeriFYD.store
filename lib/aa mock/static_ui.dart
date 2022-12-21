@@ -5,12 +5,46 @@ import '../../00 ui-core/ui_exports.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../03 domain/cart/cart.dart';
 import '../03 domain/store/00_export_store_domain.dart';
 
 class MockUi {
+  //! cart
+  // static Cart cart =  Cart(
+  //   cartId: '#A321',
+  //   cartCount: 4,
+  //   cartLimit: 4,
+  //   cartMap: {},
+  //   productsCollectionRef: ''
+  //   // cartList: [
+  //   //   // CartItem(
+  //   //   //   skuId: product.skuId,
+  //   //   //   productImages: product.productImages,
+  //   //   //   name: product.name,
+  //   //   //   category: product.category,
+  //   //   //   type: product.type,
+  //   //   //   company: product.company,
+  //   //   //   size: 'S',
+  //   //   //   qty: 2,
+  //   //   //   sellingPrice: product.sellingPrice,
+  //   //   //   productRef: product.productRef,
+  //   //   // ),
+  //   //   CartItem.fromProduct(product: product, size: 'S', qty: 2),
+  //   //   CartItem.fromProduct(product: product, size: 'M', qty: 1),
+  //   //   CartItem.fromProduct(product: product, size: 'L', qty: 1),
+  //   // ],
+  // );
+
+  //! sizeList
+  static List<String> sizeList = [
+    'S',
+    'M',
+    'L',
+    'XL',
+  ];
   //! database stores doc
   static Store store = const Store(
-      sId: '#A32',
+      sId: '#A321',
       docId: '',
       isLive: true,
       name: 'Store Name #',
@@ -26,13 +60,13 @@ class MockUi {
         'default':
             '117  Mint Road Nr Fort Market Ballard Estate, Mumbai, 400038, India'
       },
-      storeContact: {'default': '5652683626'},
+      storeContact: {'default': '5652683626', '0': '9597215684'},
       // products: {},
-      productsRef: '');
+      productsRef: 'stores/c5U7RoGC7h94AUgopc9Z/products');
 
   //! database product doc
-  static Product product = const Product(
-    skuId: '#W234',
+  static Product product = Product(
+    skuId: '#W2356',
     name: 'Product Name #',
     storeId: '#R53',
     category: 'APPAREL',
@@ -40,16 +74,16 @@ class MockUi {
     company: 'Product Company Name',
     description:
         'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has',
-    sizeAvailability: {
+    sizeAvailability: const {
       'M': 2,
       'L': 2,
     },
-    productRef: '',
+    productRef: 'stores/c5U7RoGC7h94AUgopc9Z/products/007B9folMtxweKedlKpf',
     sizeGuide: '',
     qty: 4,
     sellingPrice: 54.34,
     mrp: 60.0,
-    productImages: [],
+    productImages: productImages,
     popularity: 1,
     inStock: true,
   );
@@ -97,9 +131,9 @@ class MockUi {
   static String descriptionText =
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has';
   static List<String> productImages = [
-    'https://cdn.shopify.com/s/files/1/0536/3594/0515/products/af077daf-b2d3-8e33-2c88-08bba08962e5_cream-white-shirt-02_e08f3334-11b6-4934-8ce1-d1cb3f1bee26_1440x1800.jpg?v=1663835398',
-    'https://cdn.shopify.com/s/files/1/0536/3594/0515/products/79e10fac-63d5-aae8-7de9-1f4b879f00c7_cream-white-shirt-05_0332d54a-df9e-4854-b46a-c6ad1ac3dcde_1440x1800.jpg?v=1663835398',
-    'https://cdn.shopify.com/s/files/1/0536/3594/0515/products/41550b5f-9c58-ca49-6598-e9f0a14a5766_cream-white-shirt-03_b98b6dd5-b664-4d40-baeb-89e12ba1d4ad_1440x1800.jpg?v=1663835398',
+    'https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80',
+    'https://images.unsplash.com/photo-1499971442178-8c10fdf5f6ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=691&q=80',
+    'https://images.unsplash.com/photo-1584735175315-9d5df23860e6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
   ];
   //! Cart ui
   static List<List<dynamic>> cartList = [
@@ -117,6 +151,12 @@ class MockUi {
     'Price: H-L',
     'Price: L-H'
   ];
+  static Map<String, int> typeChipList = {
+    'Apparel': 0,
+    'Electronics': 1,
+    'Footwear': 2,
+    'Services': 2,
+  };
 
   static List<Map<String, int>> categoryChipList = [
     {'Apparel': 0},

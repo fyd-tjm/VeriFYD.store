@@ -5,7 +5,7 @@ part 'product_failure.freezed.dart';
 @immutable
 abstract class ProductFailure with _$ProductFailure {
   const factory ProductFailure.permissionDenied() = PermissionDenied;
-  const factory ProductFailure.notExistAnymore() = NotExistAnymore;
+  const factory ProductFailure.notFound() = NotFound;
   const factory ProductFailure.serverError() = ServerError;
   const factory ProductFailure.unexpectedError() = UnexpectedError;
 }

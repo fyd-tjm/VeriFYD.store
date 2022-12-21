@@ -5,7 +5,7 @@ part 'store_failure.freezed.dart';
 @immutable
 abstract class StoreFailure with _$StoreFailure {
   const factory StoreFailure.permissionDenied() = PermissionDenied;
-  const factory StoreFailure.notExistAnymore() = NotExistAnymore;
+  const factory StoreFailure.notFound() = NotFound;
   const factory StoreFailure.serverError() = ServerError;
-  const factory StoreFailure.UnexpectedError() = UnexpectedError;
+  const factory StoreFailure.unexpectedError() = UnexpectedError;
 }

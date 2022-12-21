@@ -18,6 +18,18 @@ class FydText extends StatelessWidget {
     this.weight = FontWeight.bold,
   }) : style = display38.copyWith(color: color, fontWeight: weight);
 
+  FydText.d2custom({
+    required this.text,
+    this.weight = FontWeight.bold,
+    required this.color,
+  }) : style = display34.copyWith(color: color, fontWeight: weight);
+
+  FydText.d3custom({
+    required this.text,
+    this.weight = FontWeight.bold,
+    required this.color,
+  }) : style = display30.copyWith(color: color, fontWeight: weight);
+
   // display-white
 
   FydText.d1white(
@@ -118,6 +130,20 @@ class FydText extends StatelessWidget {
       this.color = Colors.transparent})
       : style = heading18.copyWith(color: fydTGrey, fontWeight: weight);
 
+  // heading-custom
+
+  FydText.h1custom(
+      {required this.text, this.weight = FontWeight.w500, required this.color})
+      : style = heading22.copyWith(color: color, fontWeight: weight);
+
+  FydText.h2custom(
+      {required this.text, this.weight = FontWeight.w500, required this.color})
+      : style = heading20.copyWith(color: color, fontWeight: weight);
+
+  FydText.h3custom(
+      {required this.text, this.weight = FontWeight.w500, required this.color})
+      : style = heading18.copyWith(color: color, fontWeight: weight);
+
   // body-white
 
   FydText.b1white(
@@ -194,6 +220,32 @@ class FydText extends StatelessWidget {
       {required this.text,
       this.weight = FontWeight.normal,
       this.color = fydTGrey})
+      : style = body10.copyWith(color: color, fontWeight: weight);
+
+  // body-custom
+
+  FydText.b1custom(
+      {required this.text,
+      this.weight = FontWeight.normal,
+      required this.color})
+      : style = body16.copyWith(color: color, fontWeight: weight);
+
+  FydText.b2custom(
+      {required this.text,
+      this.weight = FontWeight.normal,
+      required this.color})
+      : style = body14.copyWith(color: color, fontWeight: weight);
+
+  FydText.b3custom(
+      {required this.text,
+      this.weight = FontWeight.normal,
+      required this.color})
+      : style = body12.copyWith(color: color, fontWeight: weight);
+
+  FydText.b4custom(
+      {required this.text,
+      this.weight = FontWeight.normal,
+      required this.color})
       : style = body10.copyWith(color: color, fontWeight: weight);
 
   @override

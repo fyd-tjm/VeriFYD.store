@@ -6,12 +6,12 @@ import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:get/get.dart';
 import 'package:verifyd_store/application/core/shared_info_controller.dart';
 import 'package:verifyd_store/application/stores/stores_ui_controller.dart';
-import 'package:verifyd_store/presentation/stores/widgets/stores_verticle_listview.dart';
+import 'package:verifyd_store/01%20presentation/05%20stores/widgets/stores_verticle_listview.dart';
 import 'package:verifyd_store/utils/router/routes.dart';
 import '../../core/widgets/fyd_page_view.dart';
 import '../../core/widgets/fyd_v_h_listview.dart';
 import '../widgets/stores_category_chip.dart';
-import '../widgets/stores_tile.dart';
+import '../../../01 presentation/05 stores/widgets/stores_tile.dart';
 
 class StoresScreen extends StatelessWidget {
   StoresScreen({Key? key}) : super(key: key);
@@ -114,6 +114,7 @@ class StoresScreen extends StatelessWidget {
                         storesList.length;
                     //! if available
                     return StoresVerticleListview(
+                      onEmptyListWidget: SizedBox.shrink(),
                       categoryHeader: selectedCategory,
                       widgetList: List.generate(storesList.length, (index) {
                         return StoresTile(

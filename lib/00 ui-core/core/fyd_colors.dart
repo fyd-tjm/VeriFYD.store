@@ -20,6 +20,12 @@ const Color fydSPink = Color(0xffE5D8F5);
 const Color fydSYellow = Color(0xffECE9CD);
 const Color fydSOrange = Color(0xffFF9800);
 
+// S<econdary>C<ontrast> Scope code: SC
+
+const Color fydSCBlue = Color.fromARGB(255, 8, 138, 127);
+const Color fydSCPink = Color.fromRGBO(69, 39, 160, 1);
+const Color fydSCYellow = Color.fromARGB(255, 173, 165, 101);
+
 // Ascent-Logo Scope   code:Logo
 
 const Color fydLogoBlue = Color(0xff5E65FF);
@@ -32,3 +38,7 @@ const Color fydLogoGreen = Color(0xff05FF00);
 const Color fydNotifGreen = Color(0xff1FAA59);
 const Color fydNotifRed = Color(0xffE21717);
 const Color fydNotifOrange = Color(0xffE07C24);
+
+// Extra color
+const Color fydParrotGreen = Color(0xffD7FF66);
+const Color fydDustyPeach = Color.fromARGB(255, 192, 174, 174);
