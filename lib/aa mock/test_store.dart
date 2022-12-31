@@ -4,10 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:verifyd_store/01%20presentation/04%20home/home_view_page.dart';
-import 'package:verifyd_store/01%20presentation/05%20stores/all_stores_view_page.dart';
+import 'package:verifyd_store/01%20presentation/05%20stores/stores_view_page.dart';
 import 'package:verifyd_store/01%20presentation/05%20stores/store_info_view_page.dart';
 import 'package:verifyd_store/01%20presentation/05%20stores/store_view_page.dart';
 import 'package:verifyd_store/01%20presentation/06%20cart/cart_view_page.dart';
+import 'package:verifyd_store/01%20presentation/07%20profile/profile_view_page.dart';
 
 import '../01 presentation/00 core/widgets/00_core_widgets_export.dart';
 
@@ -29,7 +30,7 @@ class _TestStoreScreenState extends State<TestStoreScreen> {
       backgroundColor: fydPDgrey,
 
       body: const SafeArea(
-        child: CartViewWrapperPage(),
+        child: HomeViewPage(),
       ),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );

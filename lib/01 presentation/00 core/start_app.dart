@@ -43,6 +43,9 @@ class StartApp extends StatelessWidget {
                 BlocProvider(
                   create: (context) => getIt<CartCubit>(),
                 ),
+                BlocProvider(
+                  create: (context) => getIt<FydUserCubit>(),
+                )
               ],
 
               // child: const ProductWrapperPage(),
@@ -90,6 +93,7 @@ class MainRouterObserver extends AutoRouterObserver {
   }
 }
 
+//! trash
 const store = Store(
   sId: '#W12R',
   name: 'STORE-#W12R ',
@@ -124,21 +128,3 @@ const product = Product(
   popularity: 1,
   inStock: true,
 );
-// final FirebaseFirestore firestore = FirebaseFirestore.instance;
-//     void test() async {
-//       final productsRef = firestore
-//           .collection('stores')
-//           .doc('#W12R')
-//           .collection('products')
-//           .withConverter<Product>(
-//               fromFirestore: (snapshot, _) =>
-//                   Product.fromJson(snapshot.data()!),
-//               toFirestore: (model, _) => model.toJson());
-
-//       await productsRef
-//           .doc('#A116')
-//           .set(product)
-//           .onError((error, stackTrace) => log(error.toString()));
-//     }
-
-//     test();

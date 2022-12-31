@@ -8,6 +8,7 @@ import 'package:verifyd_store/utils/helpers/helpers.dart';
 
 import '../../03 domain/store/store.dart';
 import '../../presentation/stores/sub views/store/widgets/store_name_header.dart';
+import 'widgets/export_widgets.dart';
 
 class StoreInfoViewWrapperPage extends StatelessWidget {
   const StoreInfoViewWrapperPage({Key? key}) : super(key: key);
@@ -76,7 +77,7 @@ class StoreInfoViewPage extends StatelessWidget {
         // [store-about]
         Padding(
           padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 10.w),
-          child: InfoCard(infoList: [MockUi.store.about]),
+          child: StoreInfoCard(infoList: [MockUi.store.about]),
         )
       ],
     );
@@ -141,7 +142,7 @@ class StoreInfoViewPage extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10.h),
-              child: InfoCard(
+              child: StoreInfoCard(
                 textAlign: CrossAxisAlignment.start,
                 infoList: store.storeAddress.values.toList(),
               ),
@@ -154,7 +155,7 @@ class StoreInfoViewPage extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10.h),
-              child: InfoCard(
+              child: StoreInfoCard(
                 textAlign: CrossAxisAlignment.center,
                 infoList: store.storeContact.values.toList(),
               ),
@@ -185,50 +186,4 @@ class StoreInfoViewPage extends StatelessWidget {
     );
   }
 //?-----------------------------------------------------------------------------
-}
-
-//! Info-Card--
-class InfoCard extends StatelessWidget {
-  final List<String> infoList;
-  final CrossAxisAlignment textAlign;
-  const InfoCard({
-    Key? key,
-    required this.infoList,
-    this.textAlign = CrossAxisAlignment.center,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Card(
-        color: fydPGrey,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
-        elevation: 0,
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 15.w, horizontal: 10.w),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: textAlign,
-            children: List.generate(infoList.length, (index) {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                child: Text(
-                  infoList.elementAt(index),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: fydPLgrey,
-                      fontFamily: body12.fontFamily,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ),
-              );
-            }),
-          ),
-        ),
-      ),
-    );
-  }
 }

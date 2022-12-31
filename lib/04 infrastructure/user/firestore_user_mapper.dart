@@ -16,6 +16,14 @@ extension FirebaseUserDomainX on firebase.User {
 
 extension FirestoreDomainX on firestore.DocumentSnapshot {
   FydUser toFydUser() {
-    return FydUser(uId: get('uId'), phone: get('phone'), name: get('name'));
+    return FydUser(
+      uId: get('uId'),
+      phone: get('phone'),
+      email: get('email'),
+      name: get('name'),
+      cartRef: get('cartRef'),
+      ordersRef: get('ordersRef'),
+      addresses: get('addresses'),
+    );
   }
 }

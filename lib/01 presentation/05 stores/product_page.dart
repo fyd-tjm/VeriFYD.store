@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:dartz/dartz.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,8 +11,9 @@ import 'package:verifyd_store/02%20application/stores/product/product_bloc.dart'
 import 'package:verifyd_store/03%20domain/store/product.dart';
 import 'package:verifyd_store/aa%20mock/static_ui.dart';
 import 'package:verifyd_store/presentation/core/widgets/fyd_text_ellipsis.dart';
-import 'package:verifyd_store/presentation/stores/sub%20views/product/widgets/product_carousel_slider.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+
+import 'widgets/export_widgets.dart';
 
 class ProductWrapperPage extends StatelessWidget {
   const ProductWrapperPage({Key? key}) : super(key: key);
@@ -345,6 +343,61 @@ class ProductPage extends HookWidget {
   }
 }
 
+//?-----------------------------------------------------------------------------
+//! product-info-section
+class ProductInfoSection extends StatelessWidget {
+  final String productName;
+  final String company;
+  final String price;
+  const ProductInfoSection({
+    Key? key,
+    required this.productName,
+    required this.company,
+    required this.price,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            FydTextEllipsis(
+              width: MediaQuery.of(context).size.width * (2 / 3),
+              fydText: FydText.b1white(
+                text: productName,
+                weight: FontWeight.bold,
+              ),
+            ),
+            FydText.b2grey(
+              text: company,
+              weight: FontWeight.w500,
+            )
+          ],
+        ),
+        Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            FydText.h2custom(
+              text: '₹ $price',
+              color: fydSOrange,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+//?-----------------------------------------------------------------------------
 //! Product-Size-Tile
 class ProductSizeTile extends StatelessWidget {
   const ProductSizeTile({
@@ -379,6 +432,7 @@ class ProductSizeTile extends StatelessWidget {
   }
 }
 
+//?-----------------------------------------------------------------------------
 //! product-expansion-tile
 class ProductExpansionTile extends StatelessWidget {
   const ProductExpansionTile({
@@ -435,57 +489,6 @@ class ProductExpansionTile extends StatelessWidget {
   }
 }
 
-//! product-info-section
-class ProductInfoSection extends StatelessWidget {
-  final String productName;
-  final String company;
-  final String price;
-  const ProductInfoSection({
-    Key? key,
-    required this.productName,
-    required this.company,
-    required this.price,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            FydTextEllipsis(
-              width: MediaQuery.of(context).size.width * (2 / 3),
-              fydText: FydText.b1white(
-                text: productName,
-                weight: FontWeight.bold,
-              ),
-            ),
-            FydText.b2grey(
-              text: company,
-              weight: FontWeight.w500,
-            )
-          ],
-        ),
-        Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            FydText.h2custom(
-              text: '₹ $price',
-              color: fydSOrange,
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
+//?-----------------------------------------------------------------------------
 
-//! product-carousel-widget

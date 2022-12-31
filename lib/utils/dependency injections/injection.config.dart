@@ -10,13 +10,14 @@ import 'package:firebase_auth/firebase_auth.dart' as _i4;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
+import '../../00%20ui-core/widget/fyd_loading_overlay.dart' as _i6;
 import '../../02%20application/auth%20status/auth_status_cubit.dart' as _i3;
 import '../../02%20application/cart/cubit/cart_cubit.dart' as _i22;
-import '../../02%20application/fyd%20user/fyd_user_cubit.dart' as _i6;
+import '../../02%20application/fyd%20user/fyd_user_cubit.dart' as _i23;
 import '../../02%20application/on%20boarding/on_boarding_cubit.dart' as _i17;
 import '../../02%20application/phone%20login/phone_login_bloc.dart' as _i18;
 import '../../02%20application/shared%20info/shared_info_cubit.dart' as _i19;
-import '../../02%20application/stores/product/product_bloc.dart' as _i23;
+import '../../02%20application/stores/product/product_bloc.dart' as _i24;
 import '../../02%20application/stores/store/store_bloc.dart' as _i20;
 import '../../02%20application/stores/stores_bloc.dart' as _i21;
 import '../../03%20domain/auth/00_export_auth_domain.dart' as _i7;
@@ -26,7 +27,7 @@ import '../../03%20domain/store/00_export_store_domain.dart' as _i13;
 import '../../03%20domain/user/00_export_user_domain.dart' as _i15;
 import '../../04%20infrastructure/auth/firebase_auth_facade.dart' as _i8;
 import '../../04%20infrastructure/cart/firebase_cart_repository.dart' as _i10;
-import '../../04%20infrastructure/core/firebase_injectable_module.dart' as _i24;
+import '../../04%20infrastructure/core/firebase_injectable_module.dart' as _i25;
 import '../../04%20infrastructure/shared/firebase_shared_info_repository.dart'
     as _i12;
 import '../../04%20infrastructure/store/firebase_store_repository.dart' as _i14;
@@ -51,7 +52,7 @@ _i1.GetIt $initGetIt(
       () => firebaseInjectableModule.firebaseAuth);
   gh.lazySingleton<_i5.FirebaseFirestore>(
       () => firebaseInjectableModule.firestore);
-  gh.lazySingleton<_i6.FydUserCubit>(() => _i6.FydUserCubit());
+  gh.lazySingleton<_i6.FydLoadingOverlay>(() => _i6.FydLoadingOverlay());
   gh.lazySingleton<_i7.IAuthFacade>(
       () => _i8.FirebaseAuthFacade(get<_i4.FirebaseAuth>()));
   gh.lazySingleton<_i9.ICartRepository>(
@@ -76,7 +77,9 @@ _i1.GetIt $initGetIt(
     get<_i9.ICartRepository>(),
     get<_i13.IStoreRepository>(),
   ));
-  gh.factory<_i23.ProductBloc>(() => _i23.ProductBloc(
+  gh.lazySingleton<_i23.FydUserCubit>(
+      () => _i23.FydUserCubit(get<_i15.IUserRepository>()));
+  gh.factory<_i24.ProductBloc>(() => _i24.ProductBloc(
         get<_i13.IStoreRepository>(),
         get<_i9.ICartRepository>(),
         get<_i22.CartCubit>(),
@@ -84,4 +87,4 @@ _i1.GetIt $initGetIt(
   return get;
 }
 
-class _$FirebaseInjectableModule extends _i24.FirebaseInjectableModule {}
+class _$FirebaseInjectableModule extends _i25.FirebaseInjectableModule {}

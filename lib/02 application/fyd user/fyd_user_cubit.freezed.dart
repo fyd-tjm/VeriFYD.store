@@ -19,6 +19,9 @@ mixin _$FydUserState {
   bool get loadingState => throw _privateConstructorUsedError;
   AuthUser? get authUser => throw _privateConstructorUsedError;
   FydUser? get fydUser => throw _privateConstructorUsedError;
+  Option<Either<UserFailure, Unit>> get failureOrSuccess =>
+      throw _privateConstructorUsedError;
+  bool get updating => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FydUserStateCopyWith<FydUserState> get copyWith =>
@@ -30,7 +33,12 @@ abstract class $FydUserStateCopyWith<$Res> {
   factory $FydUserStateCopyWith(
           FydUserState value, $Res Function(FydUserState) then) =
       _$FydUserStateCopyWithImpl<$Res>;
-  $Res call({bool loadingState, AuthUser? authUser, FydUser? fydUser});
+  $Res call(
+      {bool loadingState,
+      AuthUser? authUser,
+      FydUser? fydUser,
+      Option<Either<UserFailure, Unit>> failureOrSuccess,
+      bool updating});
 
   $AuthUserCopyWith<$Res>? get authUser;
   $FydUserCopyWith<$Res>? get fydUser;
@@ -49,6 +57,8 @@ class _$FydUserStateCopyWithImpl<$Res> implements $FydUserStateCopyWith<$Res> {
     Object? loadingState = freezed,
     Object? authUser = freezed,
     Object? fydUser = freezed,
+    Object? failureOrSuccess = freezed,
+    Object? updating = freezed,
   }) {
     return _then(_value.copyWith(
       loadingState: loadingState == freezed
@@ -63,6 +73,14 @@ class _$FydUserStateCopyWithImpl<$Res> implements $FydUserStateCopyWith<$Res> {
           ? _value.fydUser
           : fydUser // ignore: cast_nullable_to_non_nullable
               as FydUser?,
+      failureOrSuccess: failureOrSuccess == freezed
+          ? _value.failureOrSuccess
+          : failureOrSuccess // ignore: cast_nullable_to_non_nullable
+              as Option<Either<UserFailure, Unit>>,
+      updating: updating == freezed
+          ? _value.updating
+          : updating // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -96,7 +114,12 @@ abstract class _$$_FydUserStateCopyWith<$Res>
           _$_FydUserState value, $Res Function(_$_FydUserState) then) =
       __$$_FydUserStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool loadingState, AuthUser? authUser, FydUser? fydUser});
+  $Res call(
+      {bool loadingState,
+      AuthUser? authUser,
+      FydUser? fydUser,
+      Option<Either<UserFailure, Unit>> failureOrSuccess,
+      bool updating});
 
   @override
   $AuthUserCopyWith<$Res>? get authUser;
@@ -120,6 +143,8 @@ class __$$_FydUserStateCopyWithImpl<$Res>
     Object? loadingState = freezed,
     Object? authUser = freezed,
     Object? fydUser = freezed,
+    Object? failureOrSuccess = freezed,
+    Object? updating = freezed,
   }) {
     return _then(_$_FydUserState(
       loadingState: loadingState == freezed
@@ -134,6 +159,14 @@ class __$$_FydUserStateCopyWithImpl<$Res>
           ? _value.fydUser
           : fydUser // ignore: cast_nullable_to_non_nullable
               as FydUser?,
+      failureOrSuccess: failureOrSuccess == freezed
+          ? _value.failureOrSuccess
+          : failureOrSuccess // ignore: cast_nullable_to_non_nullable
+              as Option<Either<UserFailure, Unit>>,
+      updating: updating == freezed
+          ? _value.updating
+          : updating // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -144,7 +177,9 @@ class _$_FydUserState implements _FydUserState {
   const _$_FydUserState(
       {required this.loadingState,
       required this.authUser,
-      required this.fydUser});
+      required this.fydUser,
+      required this.failureOrSuccess,
+      required this.updating});
 
   @override
   final bool loadingState;
@@ -152,10 +187,14 @@ class _$_FydUserState implements _FydUserState {
   final AuthUser? authUser;
   @override
   final FydUser? fydUser;
+  @override
+  final Option<Either<UserFailure, Unit>> failureOrSuccess;
+  @override
+  final bool updating;
 
   @override
   String toString() {
-    return 'FydUserState(loadingState: $loadingState, authUser: $authUser, fydUser: $fydUser)';
+    return 'FydUserState(loadingState: $loadingState, authUser: $authUser, fydUser: $fydUser, failureOrSuccess: $failureOrSuccess, updating: $updating)';
   }
 
   @override
@@ -166,7 +205,10 @@ class _$_FydUserState implements _FydUserState {
             const DeepCollectionEquality()
                 .equals(other.loadingState, loadingState) &&
             const DeepCollectionEquality().equals(other.authUser, authUser) &&
-            const DeepCollectionEquality().equals(other.fydUser, fydUser));
+            const DeepCollectionEquality().equals(other.fydUser, fydUser) &&
+            const DeepCollectionEquality()
+                .equals(other.failureOrSuccess, failureOrSuccess) &&
+            const DeepCollectionEquality().equals(other.updating, updating));
   }
 
   @override
@@ -174,7 +216,9 @@ class _$_FydUserState implements _FydUserState {
       runtimeType,
       const DeepCollectionEquality().hash(loadingState),
       const DeepCollectionEquality().hash(authUser),
-      const DeepCollectionEquality().hash(fydUser));
+      const DeepCollectionEquality().hash(fydUser),
+      const DeepCollectionEquality().hash(failureOrSuccess),
+      const DeepCollectionEquality().hash(updating));
 
   @JsonKey(ignore: true)
   @override
@@ -186,7 +230,9 @@ abstract class _FydUserState implements FydUserState {
   const factory _FydUserState(
       {required final bool loadingState,
       required final AuthUser? authUser,
-      required final FydUser? fydUser}) = _$_FydUserState;
+      required final FydUser? fydUser,
+      required final Option<Either<UserFailure, Unit>> failureOrSuccess,
+      required final bool updating}) = _$_FydUserState;
 
   @override
   bool get loadingState;
@@ -194,6 +240,10 @@ abstract class _FydUserState implements FydUserState {
   AuthUser? get authUser;
   @override
   FydUser? get fydUser;
+  @override
+  Option<Either<UserFailure, Unit>> get failureOrSuccess;
+  @override
+  bool get updating;
   @override
   @JsonKey(ignore: true)
   _$$_FydUserStateCopyWith<_$_FydUserState> get copyWith =>

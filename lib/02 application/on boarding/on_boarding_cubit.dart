@@ -30,16 +30,10 @@ class OnBoardingCubit extends Cubit<OnBoardingState> {
         authFailureOrSuccessOption: none(),
       ),
     );
-    // create fydUser to upload
-    final FydUser fydUser = FydUser(
-        uId: FirebaseAuth.instance.currentUser!.uid,
-        phone: FirebaseAuth.instance.currentUser!.phoneNumber!,
-        name: userName.getOrCrash());
-    log(fydUser.toString());
 
     // calling createUser via userRepo to db
     await _iUserRepo
-        .createUser(fydUser: fydUser)
+        .createUser(name: userName.getOrCrash())
         .then(
           (failureOrSuccess) => failureOrSuccess.fold(
             (authFailure) => emit(

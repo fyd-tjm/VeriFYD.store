@@ -21,7 +21,7 @@ class FirebaseCartRepository implements ICartRepository {
   @override
   Stream<Either<CartFailure, Cart>> getCartRealtime(
       {required String cartRef}) async* {
-    var cartDoc = _firestore.doc(cartRef).withConverter<Cart>(
+    final cartDoc = _firestore.doc(cartRef).withConverter<Cart>(
         fromFirestore: (snapshot, _) => Cart.fromJson(snapshot.data()!),
         toFirestore: (model, _) => model.toJson());
 

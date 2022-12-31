@@ -21,7 +21,7 @@ class CartViewWrapperPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<CartCubit>(),
-      child: CartViewPage(),
+      child: const CartViewPage(),
     );
   }
 }
@@ -138,19 +138,10 @@ class CartViewPage extends StatelessWidget {
             isScrollable: false,
             topSheetHeight:
                 350.h, //TODO: adjust height according to items in cart
-            topSheet: _topSheetView(
-              context,
-              state,
-              sizeQtyTuples,
-              getProductViaSizeQtyTuples,
-              availabilityBySizeQtyTuple,
-            ),
+            topSheet: _topSheetView(context, state, sizeQtyTuples,
+                getProductViaSizeQtyTuples, availabilityBySizeQtyTuple),
             bottomSheet: _bottomSheetView(
-              context,
-              state,
-              subTotal.toInt(),
-              allItemsAvailableAtCheckout,
-            ),
+                context, state, subTotal.toInt(), allItemsAvailableAtCheckout),
           );
         }
       }),

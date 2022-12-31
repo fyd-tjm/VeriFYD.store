@@ -3,15 +3,43 @@ import 'dart:ui';
 import '../../00 ui-core/core/fyd_colors.dart';
 
 class Helpers {
+//! email Regex
+  static bool isValidEmail(String email) {
+    final regex = RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+    return regex.hasMatch(email);
+  }
+
 //! To get Initials Of a string
   static String getInitials(String a) =>
       a.isNotEmpty ? a.trim().split(RegExp(' +')).map((s) => s[0]).join() : '';
 
-//! PhoneMask (XXXX)-XXX-XXX
+//! PhoneMask without Country-Code (XXXX)-XXX-XXX
   static String phoneMask(String number) {
     final expr = RegExp(r'(\d{4})(\d{3})(\d+)');
     return number.replaceAllMapped(
         expr, (Match m) => "(${m[1]})-${m[2]}-${m[3]}");
+  }
+
+//! To get last 10 digits from a String
+  static String getLast10Digits(String input) {
+    // Use a regular expression to find all digits in the string
+    Iterable<RegExpMatch> matches = RegExp(r'\d').allMatches(input);
+    // Convert the iterable to a list
+    List<String?> digits = matches.map((m) => m.group(0)).toList();
+    // If there are fewer than 10 digits, return all of them
+    if (digits.length < 10) {
+      return digits.join();
+    }
+    // Otherwise, return the last 10 digits
+    return digits.sublist(digits.length - 10).join();
+  }
+
+//! PhoneMask with Country-Code +XX (XXXX)-XXX-XXX
+  static String phoneMaskWithCountryCode(String number) {
+    final expr = RegExp(r'(\d{2})(\d{4})(\d{3})(\d+)');
+    return number.replaceAllMapped(
+        expr, (Match m) => "${m[1]} (${m[2]})-${m[3]}-${m[4]}");
   }
 
   //! PascalCase
@@ -69,6 +97,7 @@ class Helpers {
     return sortedMap;
   }
 
+  //! getContrastColor
   static Color getContrastColor(Color? color) {
     if (color == null) return fydPDgrey;
     if (color == fydSBlue) {

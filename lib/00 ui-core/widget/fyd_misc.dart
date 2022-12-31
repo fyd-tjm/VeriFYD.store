@@ -1,5 +1,6 @@
-import 'dart:developer';
+// ignore_for_file: non_constant_identifier_names
 
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -9,7 +10,38 @@ import 'package:verifyd_store/00%20ui-core/core/fyd_colors.dart';
 import 'package:verifyd_store/00%20ui-core/core/fyd_styles.dart';
 import 'package:verifyd_store/00%20ui-core/widget/fyd_text.dart';
 
-//?-----------------------------------------------------------------------------
+//?--fyd-divider----------------------------------------------------------------
+
+Widget FydDivider({required BuildContext context}) {
+  return Row(
+    children: [
+      Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color.fromARGB(255, 69, 39, 160), Colors.transparent],
+            begin: Alignment.center,
+            end: Alignment.centerLeft,
+          ),
+        ),
+        height: 1.0,
+        width: MediaQuery.of(context).size.width / 2,
+      ),
+      Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color.fromARGB(255, 69, 39, 160), Colors.transparent],
+            begin: Alignment.center,
+            end: Alignment.centerRight,
+          ),
+        ),
+        height: 1.0,
+        width: MediaQuery.of(context).size.width / 2,
+      ),
+    ],
+  );
+}
+
+//?--Ok-Diaolog-----------------------------------------------------------------
 Future<bool?> showOkDialog({
   required BuildContext context,
   required String message,
@@ -85,7 +117,7 @@ Future<bool?> showOkDialog({
   );
 }
 
-//?-----------------------------------------------------------------------------
+//?--Permission-Dialog----------------------------------------------------------
 
 Future<bool?> showPermissionDialog({
   required BuildContext context,
@@ -187,24 +219,36 @@ Future<bool?> showPermissionDialog({
   );
 }
 
-//?-----------------------------------------------------------------------------
-void showSnack({
-  required BuildContext context,
-  String? message,
-  int durationSeconds = 1,
-  EdgeInsetsGeometry? margin,
-  Color backgroundColor = fydPWhite,
-  double backgroundOpacity = .5,
-  FydText? fydText,
-}) {
+//?---Snack-bar-----------------------------------------------------------------
+
+enum SnackBarPosition { top, bottom }
+
+void showSnack(
+    {required BuildContext context,
+    String? message,
+    int durationSeconds = 2,
+    EdgeInsetsGeometry? margin,
+    Color? backgroundColor,
+    double backgroundOpacity = .95,
+    FydText? fydText,
+    SnackBarPosition snackPosition = SnackBarPosition.bottom}) {
+  //------
+  if (snackPosition == SnackBarPosition.top) {
+    margin = EdgeInsets.only(bottom: 785.h);
+  }
+  //------
+  backgroundColor ??= fydBlueGrey.withOpacity(.95);
+  log(backgroundColor.value.toRadixString(16).padLeft(6, '0').toUpperCase());
+  //------
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
+  //------
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       duration: Duration(seconds: durationSeconds),
       behavior: SnackBarBehavior.floating,
       elevation: 5.0,
       margin: margin,
-      backgroundColor: backgroundColor.withOpacity(backgroundOpacity),
+      backgroundColor: backgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
         side: BorderSide(
@@ -212,13 +256,21 @@ void showSnack({
           width: 3.0,
         ),
       ),
-      content:
-          (fydText == null) ? FydText.h3black(text: message ?? '') : fydText,
+      content: (fydText == null)
+          ? FydText.h3custom(
+              text: message ?? '',
+              weight: FontWeight.w700,
+              color: fydSCBlueGrey,
+            )
+          : fydText,
     ),
   );
 }
 
 //?-----------------------------------------------------------------------------
+
+//! junk --to be in Trash-------------------------------------------------------
+
 typedef CloseDialog = void Function();
 
 CloseDialog showLoadingScreen({
@@ -254,6 +306,8 @@ CloseDialog showLoadingScreen({
 }
 
 //?-----------------------------------------------------------------------------
+
+//! junk --to be in Trash-------------------------------------------------------
 void fydSnack({
   String title = '',
   required String message,
@@ -298,6 +352,7 @@ class FydLoader {
   }
 }
 
+//! junk --to be in Trash-------------------------------------------------------
 void fydDialog({
   required String title,
   required String message,

@@ -24,7 +24,8 @@ mixin _$SharedInfo {
   double get shippingCost => throw _privateConstructorUsedError;
   Map<String, String> get discount => throw _privateConstructorUsedError;
   Map<String, String> get banners => throw _privateConstructorUsedError;
-  Map<String, String> get support => throw _privateConstructorUsedError;
+  Map<String, String> get timmings => throw _privateConstructorUsedError;
+  Map<String, dynamic> get support => throw _privateConstructorUsedError;
   Map<String, int> get liveStores => throw _privateConstructorUsedError;
   Map<String, String> get images => throw _privateConstructorUsedError;
 
@@ -44,7 +45,8 @@ abstract class $SharedInfoCopyWith<$Res> {
       double shippingCost,
       Map<String, String> discount,
       Map<String, String> banners,
-      Map<String, String> support,
+      Map<String, String> timmings,
+      Map<String, dynamic> support,
       Map<String, int> liveStores,
       Map<String, String> images});
 }
@@ -63,6 +65,7 @@ class _$SharedInfoCopyWithImpl<$Res> implements $SharedInfoCopyWith<$Res> {
     Object? shippingCost = freezed,
     Object? discount = freezed,
     Object? banners = freezed,
+    Object? timmings = freezed,
     Object? support = freezed,
     Object? liveStores = freezed,
     Object? images = freezed,
@@ -84,10 +87,14 @@ class _$SharedInfoCopyWithImpl<$Res> implements $SharedInfoCopyWith<$Res> {
           ? _value.banners
           : banners // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
+      timmings: timmings == freezed
+          ? _value.timmings
+          : timmings // ignore: cast_nullable_to_non_nullable
+              as Map<String, String>,
       support: support == freezed
           ? _value.support
           : support // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
+              as Map<String, dynamic>,
       liveStores: liveStores == freezed
           ? _value.liveStores
           : liveStores // ignore: cast_nullable_to_non_nullable
@@ -112,7 +119,8 @@ abstract class _$$_SharedInfoCopyWith<$Res>
       double shippingCost,
       Map<String, String> discount,
       Map<String, String> banners,
-      Map<String, String> support,
+      Map<String, String> timmings,
+      Map<String, dynamic> support,
       Map<String, int> liveStores,
       Map<String, String> images});
 }
@@ -133,6 +141,7 @@ class __$$_SharedInfoCopyWithImpl<$Res> extends _$SharedInfoCopyWithImpl<$Res>
     Object? shippingCost = freezed,
     Object? discount = freezed,
     Object? banners = freezed,
+    Object? timmings = freezed,
     Object? support = freezed,
     Object? liveStores = freezed,
     Object? images = freezed,
@@ -154,10 +163,14 @@ class __$$_SharedInfoCopyWithImpl<$Res> extends _$SharedInfoCopyWithImpl<$Res>
           ? _value._banners
           : banners // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
+      timmings: timmings == freezed
+          ? _value._timmings
+          : timmings // ignore: cast_nullable_to_non_nullable
+              as Map<String, String>,
       support: support == freezed
           ? _value._support
           : support // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
+              as Map<String, dynamic>,
       liveStores: liveStores == freezed
           ? _value._liveStores
           : liveStores // ignore: cast_nullable_to_non_nullable
@@ -178,12 +191,14 @@ class _$_SharedInfo implements _SharedInfo {
       required this.shippingCost,
       required final Map<String, String> discount,
       required final Map<String, String> banners,
-      required final Map<String, String> support,
+      required final Map<String, String> timmings,
+      required final Map<String, dynamic> support,
       required final Map<String, int> liveStores,
       required final Map<String, String> images})
       : _categories = categories,
         _discount = discount,
         _banners = banners,
+        _timmings = timmings,
         _support = support,
         _liveStores = liveStores,
         _images = images;
@@ -214,9 +229,16 @@ class _$_SharedInfo implements _SharedInfo {
     return EqualUnmodifiableMapView(_banners);
   }
 
-  final Map<String, String> _support;
+  final Map<String, String> _timmings;
   @override
-  Map<String, String> get support {
+  Map<String, String> get timmings {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_timmings);
+  }
+
+  final Map<String, dynamic> _support;
+  @override
+  Map<String, dynamic> get support {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_support);
   }
@@ -237,7 +259,7 @@ class _$_SharedInfo implements _SharedInfo {
 
   @override
   String toString() {
-    return 'SharedInfo(categories: $categories, shippingCost: $shippingCost, discount: $discount, banners: $banners, support: $support, liveStores: $liveStores, images: $images)';
+    return 'SharedInfo(categories: $categories, shippingCost: $shippingCost, discount: $discount, banners: $banners, timmings: $timmings, support: $support, liveStores: $liveStores, images: $images)';
   }
 
   @override
@@ -251,6 +273,7 @@ class _$_SharedInfo implements _SharedInfo {
                 .equals(other.shippingCost, shippingCost) &&
             const DeepCollectionEquality().equals(other._discount, _discount) &&
             const DeepCollectionEquality().equals(other._banners, _banners) &&
+            const DeepCollectionEquality().equals(other._timmings, _timmings) &&
             const DeepCollectionEquality().equals(other._support, _support) &&
             const DeepCollectionEquality()
                 .equals(other._liveStores, _liveStores) &&
@@ -265,6 +288,7 @@ class _$_SharedInfo implements _SharedInfo {
       const DeepCollectionEquality().hash(shippingCost),
       const DeepCollectionEquality().hash(_discount),
       const DeepCollectionEquality().hash(_banners),
+      const DeepCollectionEquality().hash(_timmings),
       const DeepCollectionEquality().hash(_support),
       const DeepCollectionEquality().hash(_liveStores),
       const DeepCollectionEquality().hash(_images));
@@ -288,7 +312,8 @@ abstract class _SharedInfo implements SharedInfo {
       required final double shippingCost,
       required final Map<String, String> discount,
       required final Map<String, String> banners,
-      required final Map<String, String> support,
+      required final Map<String, String> timmings,
+      required final Map<String, dynamic> support,
       required final Map<String, int> liveStores,
       required final Map<String, String> images}) = _$_SharedInfo;
 
@@ -304,7 +329,9 @@ abstract class _SharedInfo implements SharedInfo {
   @override
   Map<String, String> get banners;
   @override
-  Map<String, String> get support;
+  Map<String, String> get timmings;
+  @override
+  Map<String, dynamic> get support;
   @override
   Map<String, int> get liveStores;
   @override
