@@ -9,6 +9,7 @@ class ProductEvent with _$ProductEvent {
     required Either<ProductFailure, Product> event,
   }) = RecievedStreamEvent;
   const factory ProductEvent.toggleStates() = ToggleStates;
+  const factory ProductEvent.toggleFailures() = ToggleFailures;
   const factory ProductEvent.addToCart({
     required String size,
   }) = AddToCart;

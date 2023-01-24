@@ -8,6 +8,7 @@ import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/02%20application/on%20boarding/on_boarding_cubit.dart';
 import 'package:verifyd_store/03%20domain/auth/value_objects.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+import 'package:verifyd_store/utils/router.dart';
 
 class OnBoardingWrapperPage extends StatelessWidget {
   const OnBoardingWrapperPage({Key? key}) : super(key: key);
@@ -126,7 +127,7 @@ class OnBoardingPage extends HookWidget {
                         (success) {
                           // navigate if success state
                           showSnack(context: context, message: 'success!');
-                          context.router.replaceNamed('/');
+                          context.router.replaceNamed(Rn.landing);
                         },
                       ),
                     );

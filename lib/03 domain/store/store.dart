@@ -3,24 +3,22 @@ part 'store.freezed.dart';
 part 'store.g.dart';
 
 @freezed
-@immutable
 abstract class Store with _$Store {
   const factory Store({
-    required String sId,
+    required String storeId,
     required String name,
     required List<String> categories,
     required Map<String, int> types,
     required Map<String, String> socialPresence,
+    required Map<int, String> featuredIn,
     required double rating,
     required String about,
-    required List<String> storeImages,
     required String storeLogo,
-    required Map<String, String> storeAddress,
-    required Map<String, String> storeContact,
-    // required Map<String, List<Product>> products,
-    required String productsRef,
+    required Map<int, String> storeAddress,
+    required Map<int, String> storeContact,
     required bool isLive,
-    required String docId,
+    required Map<String, String> offers,
+    required Map<int, String> storeAlerts,
   }) = _Store;
 
   factory Store.fromJson(Map<String, dynamic> json) => _$StoreFromJson(json);

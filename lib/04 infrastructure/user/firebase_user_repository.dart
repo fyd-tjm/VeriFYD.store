@@ -7,6 +7,7 @@ import 'package:dartz/dartz.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:verifyd_store/03%20domain/auth/00_export_auth_domain.dart';
 import 'package:verifyd_store/03%20domain/cart/cart.dart';
+import 'package:verifyd_store/03%20domain/checkout/order.dart';
 import 'package:verifyd_store/03%20domain/user/00_export_user_domain.dart';
 import 'package:verifyd_store/03%20domain/user/address.dart';
 import 'package:verifyd_store/04%20infrastructure/core/firebase_helper.dart';
@@ -35,21 +36,15 @@ class FirebaseUserRepository implements IUserRepository {
       // create userDoc with id as uid
       // create fydUser
       final fydUser = FydUser(
-        uId: FirebaseAuth.instance.currentUser!.uid,
+        uId: DbRef.getUserId(),
         phone: FirebaseAuth.instance.currentUser!.phoneNumber.toString(),
         name: FirebaseAuth.instance.currentUser!.displayName!,
-        email: '',
+        email: FirebaseAuth.instance.currentUser!.email ?? '',
         addresses: const {},
-        cartRef: '',
-        ordersRef: 'users/${FirebaseAuth.instance.currentUser!.uid}/orders',
       );
       await fydUserCollectionRef.doc(fydUser.uId).set(fydUser);
-      final cartDocRef = await _firestore
-          .collection('users/${FirebaseAuth.instance.currentUser!.uid}/cart')
-          .add(Cart.initial().toJson());
-      await _firestore
-          .doc(fydUser.uId)
-          .set({'cartRef': cartDocRef}, SetOptions(merge: true));
+      await _firestore.doc(DbRef.getCartRef()).set(Cart.initial().toJson());
+
       return right(unit);
     } catch (e) {
       // error handling
@@ -84,11 +79,7 @@ class FirebaseUserRepository implements IUserRepository {
 //?-FydUser-In-Realtime---------------------------------------------------------
   @override
   Stream<Either<UserFailure, FydUser>> getFydUserRealtime() async* {
-    //! for-testing
-    const uId =
-        '6yQEkmtw9uIed83psnEpkt6rw6AV'; // FirebaseAuth.instance.currentUser!.uid;
-
-    final userDoc = fydUserCollectionRef.doc(uId);
+    final userDoc = fydUserCollectionRef.doc(DbRef.getUserId());
 
     yield* userDoc.snapshots().map((userSnapshot) {
       return right<UserFailure, FydUser>(userSnapshot.data()!);
@@ -102,10 +93,7 @@ class FirebaseUserRepository implements IUserRepository {
   @override
   Future<Either<UserFailure, Unit>> updateProfile(
       {required String? name, required String? email}) async {
-    //! for-testing
-    const uId =
-        '6yQEkmtw9uIed83psnEpkt6rw6AV'; //FirebaseAuth.instance.currentUser!.uid;
-    var userDoc = _firestore.usersCollection().doc(uId);
+    var userDoc = _firestore.usersCollection().doc(DbRef.getUserId());
     // updating Values condition check
     if (name == null && email == null) {
       // failure -- invalid argument
@@ -114,23 +102,24 @@ class FirebaseUserRepository implements IUserRepository {
       final Object? updateData;
       if (name != null && email != null) {
         // update both
-        updateData = {'name': name, 'email': email};
+        updateData = {DbFKeys.userName(): name, DbFKeys.userEmail(): email};
       } else {
         if (name == null) {
           // update email
-          updateData = {'email': email};
+          updateData = {DbFKeys.userEmail(): email};
         } else {
           // update name
           updateData = {
-            'name': name,
+            DbFKeys.userName(): name,
           };
         }
       }
-      var result = await userDoc.set(updateData, SetOptions(merge: true)).then(
-          (value) {
+      final result = await userDoc
+          .set(updateData, SetOptions(merge: true))
+          .then((value) {
         return right(unit);
-      }).onError(
-          (error, stackTrace) => left(UserFailureMapper.failureMapper(error)));
+      }).onError((error, stackTrace) =>
+              left(UserFailureMapper.failureMapper(error)));
 
       return result.fold(
         (userFailure) => left(userFailure),
@@ -143,13 +132,10 @@ class FirebaseUserRepository implements IUserRepository {
   @override
   Future<Either<UserFailure, Unit>> addNewAddress(
       {required FydAddress address, required int newIndex}) async {
-    //! for-testing
-    const uId =
-        '6yQEkmtw9uIed83psnEpkt6rw6AV'; //FirebaseAuth.instance.currentUser!.uid;
-    var userDoc = _firestore.usersCollection().doc(uId);
+    var userDoc = _firestore.usersCollection().doc(DbRef.getUserId());
 
     var result = await userDoc.set({
-      'addresses': {newIndex.toString(): address.toJson()}
+      DbFKeys.userAddress(): {newIndex.toString(): address.toJson()}
     }, SetOptions(merge: true)).then((value) {
       return right(unit);
     }).onError(
@@ -166,12 +152,11 @@ class FirebaseUserRepository implements IUserRepository {
   Future<Either<UserFailure, Unit>> updateAddress(
       {required FydAddress address, required int atIndex}) async {
     //! for-testing
-    const uId =
-        '6yQEkmtw9uIed83psnEpkt6rw6AV'; //FirebaseAuth.instance.currentUser!.uid;
-    var userDoc = _firestore.usersCollection().doc(uId);
-    final index = atIndex.toString();
+
+    var userDoc = _firestore.usersCollection().doc(DbRef.getUserId());
+
     var result = await userDoc.update(
-      {'addresses.$index': address.toJson()},
+      {'${DbFKeys.userAddress()}.$atIndex': address.toJson()},
     ).then((value) {
       return right(unit);
     }).onError(
@@ -190,5 +175,27 @@ class FirebaseUserRepository implements IUserRepository {
   }
 
 //?-----------------------------------------------------------------------------
+  @override
+  Future<Either<UserFailure, List<FydOrder>>> getOrders(
+      {required String userId}) async {
+    final ordersCollectionRef = _firestore
+        .ordersCollection()
+        .withConverter<FydOrder>(
+            fromFirestore: (snapshot, _) => FydOrder.fromJson(snapshot.data()!),
+            toFirestore: (fydOrder, _) => fydOrder.toJson());
+    try {
+      final ordersList = await ordersCollectionRef
+          .where('${DbFKeys.orderCustomerInfo()}.${DbFKeys.orderCustomerId()}',
+              isEqualTo: userId)
+          .orderBy(DbFKeys.orderDate(), descending: true)
+          .get()
+          .then(
+              (qSnap) => qSnap.docs.map((docSnap) => docSnap.data()).toList());
+      return right(ordersList);
+    } catch (e) {
+      return left(UserFailureMapper.failureMapper(e));
+    }
+  }
 
+//?-----------------------------------------------------------------------------
 }

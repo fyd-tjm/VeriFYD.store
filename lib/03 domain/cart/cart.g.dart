@@ -8,19 +8,28 @@ part of 'cart.dart';
 
 _$_Cart _$$_CartFromJson(Map<String, dynamic> json) => _$_Cart(
       cartId: json['cartId'] as String,
-      cartLimit: json['cartLimit'] as int,
+      storeName: json['storeName'] as String,
       cartCount: json['cartCount'] as int,
-      productsCollectionReference:
-          json['productsCollectionReference'] as String,
-      cartMap: (json['cartMap'] as Map<String, dynamic>).map(
+      cartItems: (json['cartItems'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(k, Map<String, int>.from(e as Map)),
       ),
     );
 
 Map<String, dynamic> _$$_CartToJson(_$_Cart instance) => <String, dynamic>{
       'cartId': instance.cartId,
-      'cartLimit': instance.cartLimit,
+      'storeName': instance.storeName,
       'cartCount': instance.cartCount,
-      'productsCollectionReference': instance.productsCollectionReference,
-      'cartMap': instance.cartMap,
+      'cartItems': instance.cartItems,
+    };
+
+_$_CartSummary _$$_CartSummaryFromJson(Map<String, dynamic> json) =>
+    _$_CartSummary(
+      totalItems: json['totalItems'] as int,
+      subTotal: (json['subTotal'] as num).toDouble(),
+    );
+
+Map<String, dynamic> _$$_CartSummaryToJson(_$_CartSummary instance) =>
+    <String, dynamic>{
+      'totalItems': instance.totalItems,
+      'subTotal': instance.subTotal,
     };

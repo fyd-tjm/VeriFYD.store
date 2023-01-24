@@ -21,8 +21,6 @@ extension FirestoreDomainX on firestore.DocumentSnapshot {
       phone: get('phone'),
       email: get('email'),
       name: get('name'),
-      cartRef: get('cartRef'),
-      ordersRef: get('ordersRef'),
       addresses: get('addresses'),
     );
   }

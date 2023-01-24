@@ -1,24 +1,37 @@
 import 'dart:developer';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/01%20presentation/05%20stores/store_view_page.dart';
 import 'package:verifyd_store/02%20application/stores/stores_bloc.dart';
 import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
+import 'package:verifyd_store/utils/router.dart';
+import 'package:verifyd_store/utils/router.gr.dart';
 import '../../00 ui-core/ui_exports.dart';
 import '../../presentation/core/widgets/fyd_v_h_listview.dart';
 import 'widgets/export_widgets.dart';
 
+//?-----------------------------------------------------------------------------
 class StoresViewWrapperPage extends StatelessWidget {
   const StoresViewWrapperPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<StoresBloc>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(
+          value: getIt<StoresBloc>(),
+        ),
+        BlocProvider.value(
+          value: getIt<SharedInfoCubit>(),
+        ),
+      ],
       child: const StoresViewPage(),
     );
   }
@@ -30,62 +43,54 @@ class StoresViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<SharedInfoCubit, SharedInfoState>(
+    return Scaffold(
+      body: SafeArea(
+        child: BlocConsumer<StoresBloc, StoresState>(
+          listenWhen: (previous, current) {
+            //TODO: Listen when routing condition
+            return true;
+          },
           listener: (context, state) {
             if (state.failure.isSome()) {
               state.failure.fold(
-                () => null,
-                (sharedInfoFailure) => showSnack(
-                  context: context,
-                  message: sharedInfoFailure.when(
-                      permissionDenied: () => 'permission Denied',
-                      notFound: () => 'something went wrong',
-                      serverError: () => 'server error, try again',
-                      unexpectedError: () => 'unexpected error, try again'),
-                ),
-              );
+                  () => null,
+                  (storeFailure) => showSnack(
+                        context: context,
+                        durationSeconds: 2,
+                        message: storeFailure.when(
+                          permissionDenied: () => 'permission Denied',
+                          notFound: () => 'not exist anymore',
+                          serverError: () => 'server Error',
+                          unexpectedError: () => 'something went wrong',
+                        ),
+                      ));
             }
           },
-        ),
-        BlocListener<StoresBloc, StoresState>(
-          listener: (context, state) {
-            if (state.failure.isSome()) {
-              state.failure.fold(
-                () => null,
-                (storeFailure) => showSnack(
-                  context: context,
-                  durationSeconds: 3,
-                  message: storeFailure.when(
-                    permissionDenied: () => 'permission Denied',
-                    notFound: () => 'not exist anymore',
-                    serverError: () => 'server Error',
-                    unexpectedError: () => 'something went wrong',
-                  ),
-                ),
-              );
-            }
+          buildWhen: (previous, current) {
+            //TODO: navigation/buildWhen condition
+            return true;
+          },
+          builder: (context, state) {
+            return FydView(
+              pageViewType: ViewType.with_Nav_Bar,
+              isScrollable: false,
+              topSheetHeight: 200.h,
+              topSheet: _topSheetView(context, state),
+              bottomSheet: _bottomSheetView(context, state),
+            );
           },
         ),
-      ],
-      child: FydView(
-        pageViewType: ViewType.with_Nav_Bar,
-        isScrollable: false,
-        topSheetHeight: 200.h,
-        topSheet: _topSheetView(context),
-        bottomSheet: _bottomSheetView(context),
       ),
     );
   }
 
 //?--TopSheetView---------------------------------------------------------------
-  Widget _topSheetView(BuildContext context) {
+  Widget _topSheetView(BuildContext context, StoresState state) {
     return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        //TODO: search bar
+        // TODO: search bar
         Padding(
           padding: EdgeInsets.only(top: 15.h),
           child: Row(
@@ -128,7 +133,7 @@ class StoresViewPage extends StatelessWidget {
             ],
           ),
         ),
-        //? category  H-listView
+        //! category  H-listView
         Builder(
           builder: (context) {
             final categoryList = context.select(
@@ -143,17 +148,11 @@ class StoresViewPage extends StatelessWidget {
                   ),
                 ),
               );
-            } else {
-//?-----------------------------------------------------------------------------
-// sorting category and providing colors alternatively
+            } //-------
+            else {
+              // sorting category
               final sortedCategoryMap = Helpers.sortMapByKeys(categoryList);
-              List<Color> colors = [fydSBlue, fydSYellow, fydSPink];
-              Color _getColorForIndex(int index) {
-                var modulas = index % colors.length;
-                return colors[modulas];
-              }
-
-//?-----------------------------------------------------------------------------
+              //---------
               return Padding(
                 padding: EdgeInsets.only(bottom: 15.h),
                 child: FydHListView(
@@ -166,7 +165,7 @@ class StoresViewPage extends StatelessWidget {
                     (idx) => FydCategoryCard(
                       svgAsset: sortedCategoryMap.values.elementAt(idx),
                       title: sortedCategoryMap.keys.elementAt(idx),
-                      color: _getColorForIndex(idx),
+                      color: Helpers.getColorForIndex(idx),
                       onPressed: (category) {
                         context
                             .read<StoresBloc>()
@@ -184,79 +183,66 @@ class StoresViewPage extends StatelessWidget {
   }
 
 //?--BottomSheetView------------------------------------------------------------
-  Widget _bottomSheetView(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        //? stores-card V-listView
-        BlocBuilder<StoresBloc, StoresState>(
-          //TODO: add buildWhen logic
-          buildWhen: (previous, current) => true,
-          builder: (context, state) {
-            if (state.isFetching) {
-              return const Center(
-                child: SpinKitWave(
-                  color: fydPWhite,
-                  size: 40.0,
-                ),
-              );
-            } else if (state.selectedCategory == null) {
-              return Center(
-                child: FydText.h1custom(
-                  text: 'select a category',
-                  weight: FontWeight.w700,
-                  color: fydDustyPeach,
-                ),
-              );
-            } else {
-              //? footer logic
-              final liveStores = (context.select((SharedInfoCubit cubit) =>
-                  cubit.state.sharedInfo?.liveStores[state.selectedCategory]));
-              return Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                  child: StoresVerticleListview(
-                    onEmptyListWidget: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 80.w, vertical: 80.w),
-                      //TODO: SharedInfo-Image-Caching/Alternate
-                      child: Image.network(
-                          'https://cdn-icons-png.flaticon.com/512/5578/5578691.png'),
-                    ),
-                    categoryHeader:
-                        Helpers.toPascalCase(state.selectedCategory)!,
-                    widgetList: List.generate(
-                      state.storeList.length,
-                      (index) => StoresTile(
-                          store: state.storeList.elementAt(index),
-                          onPressedCallback: (store) {
-                            //TODO: Store onClick navigation
-                            log(store.sId);
-                          }),
-                    ),
-                    footer: (liveStores == null)
-                        ? 'something went wrong'
-                        : (liveStores > state.storeList.length)
-                            ? 'load more..'
-                            : 'More Stores Launching Soon!',
-                    // LoadMore OnPressed
-                    onPressed: (liveStores != null &&
-                            liveStores > state.storeList.length)
-                        ? () {
-                            context
-                                .read<StoresBloc>()
-                                .add(const LoadMoreStores());
-                          }
-                        : () {},
-                  ),
-                ),
-              );
-            }
-          },
+  Widget _bottomSheetView(BuildContext context, StoresState state) {
+    //! Loading
+    if (state.isFetching) {
+      return const Center(
+        child: SpinKitWave(
+          color: fydPWhite,
+          size: 40.0,
         ),
-      ],
-    );
+      );
+    }
+    //! No Selected Category
+    else if (state.selectedCategory == null) {
+      return Center(
+        child: FydText.h1custom(
+          text: 'select a category',
+          weight: FontWeight.w700,
+          color: fydDustyPeach,
+        ),
+      );
+    }
+    //! stores-card V-listView
+    else {
+      // footer logic
+      final liveStores = (context.select((SharedInfoCubit cubit) =>
+          cubit.state.sharedInfo?.liveStores[state.selectedCategory]));
+      //--------
+      return Padding(
+        padding: EdgeInsets.only(left: 10.w, right: 10.w),
+        child: StoresVerticleListview(
+          onEmptyListWidget: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 80.w, vertical: 80.w),
+            //TODO: SharedInfo-Image-Caching/Alternate
+            child: Image.network(
+                'https://cdn-icons-png.flaticon.com/512/5578/5578691.png'),
+          ),
+          categoryHeader: Helpers.toPascalCase(state.selectedCategory)!,
+          widgetList: List.generate(
+            state.storeList.length,
+            (index) => StoresTile(
+                store: state.storeList.elementAt(index),
+                onPressedCallback: (store) {
+                  // Store onClick navigation
+                  context.router
+                      .push(StoreViewWrapperRoute(storeId: store.storeId));
+                }),
+          ),
+          footer: (liveStores == null)
+              ? 'something went wrong'
+              : (liveStores > state.storeList.length)
+                  ? 'load more..'
+                  : 'More Stores Launching Soon!',
+          // LoadMore OnPressed
+          onPressed: (liveStores != null && liveStores > state.storeList.length)
+              ? () {
+                  context.read<StoresBloc>().add(const LoadMoreStores());
+                }
+              : () {},
+        ),
+      );
+    }
   }
 
 //?-----------------------------------------------------------------------------

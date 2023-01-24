@@ -10,17 +10,16 @@ part 'shared_info_state.dart';
 part 'shared_info_cubit.freezed.dart';
 
 @lazySingleton
-@injectable
 class SharedInfoCubit extends Cubit<SharedInfoState> {
   final ISharedInfoRepository _iSharedRepo;
   StreamSubscription<Either<SharedInfoFailure, SharedInfo>>? _subscription;
 //?-----------------------------------------------------------------------------
   SharedInfoCubit(this._iSharedRepo) : super(SharedInfoState.initial()) {
     // _iSharedRepo = getIt<ISharedInfoRepository>();
-    _getSharedInfoRealtime();
+    // _getSharedInfoRealtime();
   }
 //?-----------------------------------------------------------------------------
-  void _getSharedInfoRealtime() async {
+  void getSharedInfoRealtime() async {
     emit(state.copyWith(isFetching: true, failure: none()));
     // cancel the subs if active
     _subscription?.cancel();

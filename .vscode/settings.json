@@ -14,5 +14,9 @@
         "**/*.freezed.dart": true,
         "**/*.g.dart": true
     },
-    "explorerExclude.backup": {}
+    "explorerExclude.backup": {},
+    "editor.quickSuggestions": {
+        "comments": true,
+        "strings": true
+      },
 }

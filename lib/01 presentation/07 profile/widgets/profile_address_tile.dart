@@ -7,8 +7,8 @@ import 'package:verifyd_store/utils/helpers/helpers.dart';
 
 class ProfileAddressTile extends StatelessWidget {
   final FydAddress address;
-  final String addressIndex;
-  final VoidCallback onEditPresses;
+  final int addressIndex;
+  final Function(int) onEditPresses;
   const ProfileAddressTile(
       {Key? key,
       required this.address,
@@ -83,7 +83,7 @@ class ProfileAddressTile extends StatelessWidget {
                   ),
                   // edit-Btn
                   TextButton(
-                    onPressed: onEditPresses,
+                    onPressed: () => onEditPresses(addressIndex),
                     style: TextButton.styleFrom(
                       minimumSize: Size.zero,
                       padding: EdgeInsets.zero,

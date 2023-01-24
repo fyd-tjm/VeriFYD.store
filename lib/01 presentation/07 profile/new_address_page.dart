@@ -1,43 +1,46 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
-import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
-import 'package:verifyd_store/03%20domain/user/address.dart';
-import 'package:verifyd_store/aa%20mock/static_ui.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
-import 'package:verifyd_store/utils/helpers/helpers.dart';
 
+import '../../02 application/fyd user/fyd_user_cubit.dart';
+import '../../aa mock/static_ui.dart';
+import '../../utils/helpers/helpers.dart';
 import '../00 core/widgets/00_core_widgets_export.dart';
 import 'widgets/exports.dart';
 
 //?-----------------------------------------------------------------------------
 
-class EditAddressWrapperPage extends StatelessWidget {
-  const EditAddressWrapperPage(
-      {Key? key, required this.existingAddress, required this.addressIndex})
-      : super(key: key);
-  final FydAddress existingAddress;
-  final String addressIndex;
+class NewAddressWrapperPage extends StatelessWidget {
+  const NewAddressWrapperPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: getIt<FydUserCubit>(),
-      child: EditAddressPage(existingAddress, addressIndex),
+      child: WillPopScope(
+          onWillPop: () async {
+            final popResult = await showPermissionDialog(
+                context: context,
+                message:
+                    " Changes not saved. Leave page? Press Yes to leave, Cancel to stay.",
+                falseBtnTitle: 'Cancel',
+                trueBtnTitle: 'Yes');
+            return popResult ?? false;
+          },
+          child: NewAddressPage()),
     );
   }
 }
 
 //?-----------------------------------------------------------------------------
 
-class EditAddressPage extends HookWidget {
-  EditAddressPage(this.existingAddress, this.addressIndex, {Key? key})
-      : super(key: key);
-  final FydAddress existingAddress;
-  final String addressIndex;
+class NewAddressPage extends HookWidget {
+  NewAddressPage({Key? key}) : super(key: key);
 
 //------
   final _formKey1 = GlobalKey<FormState>();
@@ -47,20 +50,20 @@ class EditAddressPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    //------
+    final fydUserName = getIt<FydUserCubit>().state.fydUser!.name;
+    final fydUserPhone = getIt<FydUserCubit>().state.fydUser!.phone;
+    final fydUserEmail = getIt<FydUserCubit>().state.fydUser!.email;
     //-------
-    final nameController = useTextEditingController(text: existingAddress.name);
-    final phoneController = useTextEditingController(
-        text: Helpers.getLast10Digits(existingAddress.phone));
-    final emailController =
-        useTextEditingController(text: existingAddress.email);
-    final line1Controller =
-        useTextEditingController(text: existingAddress.line1);
-    final line2Controller =
-        useTextEditingController(text: existingAddress.line2);
-    final cityController = useTextEditingController(text: existingAddress.city);
-    final pincodeController =
-        useTextEditingController(text: existingAddress.pincode.toString());
-    final addressState = useState<String?>(existingAddress.state);
+    final nameController = useTextEditingController(text: fydUserName);
+    final phoneController =
+        useTextEditingController(text: Helpers.getLast10Digits(fydUserPhone));
+    final emailController = useTextEditingController(text: fydUserEmail);
+    final line1Controller = useTextEditingController();
+    final line2Controller = useTextEditingController();
+    final cityController = useTextEditingController();
+    final pincodeController = useTextEditingController();
+    final addressState = useState<String?>(null);
     //-------
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -68,7 +71,11 @@ class EditAddressPage extends HookWidget {
       body: SafeArea(
         child: BlocListener<FydUserCubit, FydUserState>(
           listener: (context, state) {
-            //  implement listener
+            //! navigate to previous Screen
+            if (state.failureOrSuccess.isSome()) {
+              _loadingOverlay.hide();
+              context.navigateBack();
+            }
             if (state.updating == true) {
               // loading overlay diolog
               _loadingOverlay.show(context);
@@ -98,7 +105,6 @@ class EditAddressPage extends HookWidget {
               cityController,
               pincodeController,
               addressState,
-              addressIndex,
             ),
           ),
         ),
@@ -133,12 +139,14 @@ class EditAddressPage extends HookWidget {
                   color: fydPWhite,
                 ),
               ),
-              //TODO: close navigation
-              onPressed: () {},
+              //! back navigation
+              onPressed: () {
+                context.router.pop();
+              },
             ),
           ),
           main: Center(
-            child: FydText.d3black(text: 'update-Address'),
+            child: FydText.d2black(text: 'new-Address'),
           ),
         ),
         //! EditForm (name + phone + email)
@@ -158,7 +166,7 @@ class EditAddressPage extends HookWidget {
                       controller: nameController,
                       textCapitalization: TextCapitalization.words,
                       labelText: 'name:',
-                      maxLength: 25,
+                      maxLength: 30,
                       keyboardType: TextInputType.visiblePassword,
                       onScrollPadding: false,
                       validator: (value) {
@@ -232,7 +240,6 @@ class EditAddressPage extends HookWidget {
     TextEditingController cityController,
     TextEditingController pincodeController,
     ValueNotifier<String?> addressState,
-    String addressIndes,
   ) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -266,7 +273,7 @@ class EditAddressPage extends HookWidget {
                 },
               ),
               SizedBox(
-                height: 20.h,
+                height: 25.h,
               ),
               // address: line 2
               FydTextFormField(
@@ -280,7 +287,7 @@ class EditAddressPage extends HookWidget {
                 validator: (value) => null,
               ),
               SizedBox(
-                height: 20.h,
+                height: 25.h,
               ),
               // city + pincode
               Row(
@@ -332,12 +339,12 @@ class EditAddressPage extends HookWidget {
                 ],
               ),
               SizedBox(
-                height: 20.h,
+                height: 25.h,
               ),
               // state-drp-dwn-menu
               AddressDropdownMenu(
                 list: MockUi.states,
-                startValue: existingAddress.state,
+                startValue: addressState.value,
                 onSelect: (value) {
                   addressState.value = value;
                 },
@@ -350,23 +357,25 @@ class EditAddressPage extends HookWidget {
                 },
               ),
               SizedBox(
-                height: 50.h,
+                height: 30.h,
               ),
-              // update-btn
+              // save-btn
               FydBtn(
-                color: fydGreyWhite,
+                color: fydPGrey,
                 height: 55.h,
-                fydText: FydText.h1black(
-                  text: 'Update',
+                fydText: FydText.h1custom(
+                  text: 'Save',
                   weight: FontWeight.w700,
+                  color: fydLogoBlue,
                 ),
+                //! call add Address event
                 onPressed: () async {
                   HapticFeedback.mediumImpact();
                   // forms validation
                   if (_formKey1.currentState!.validate() &&
                       _formKey2.currentState!.validate()) {
-                    // call update-address-Event
-                    await context.read<FydUserCubit>().updateAddress(
+                    // call add-address-Event
+                    await context.read<FydUserCubit>().addNewAddress(
                           name: nameController.text,
                           phone: phoneController.text,
                           email: emailController.text,
@@ -375,7 +384,6 @@ class EditAddressPage extends HookWidget {
                           city: cityController.text,
                           pincode: int.parse(pincodeController.text),
                           addressState: addressState.value!,
-                          atIndex: int.parse(addressIndex),
                         );
                   }
                 },

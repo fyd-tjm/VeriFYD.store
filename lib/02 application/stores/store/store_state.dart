@@ -10,7 +10,6 @@ class StoreState with _$StoreState {
     required List<Product> productList,
     required bool notAvailable,
     required Option<Either<StoreFailure, ProductFailure>> failure,
-    required bool loadingMore,
   }) = _StoreState;
   factory StoreState.initial() => StoreState(
         isFetching: false,
@@ -19,6 +18,5 @@ class StoreState with _$StoreState {
         productList: [],
         notAvailable: false,
         failure: none(),
-        loadingMore: false,
       );
 }

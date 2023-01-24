@@ -16,12 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CartState {
-  bool get isFetching => throw _privateConstructorUsedError;
   Cart? get cartRealtime => throw _privateConstructorUsedError;
-  bool get updating => throw _privateConstructorUsedError;
-  Map<String, Product> get productDetails => throw _privateConstructorUsedError;
-  Option<Either<CartFailure, ProductFailure>> get failure =>
+  List<Tuple3>? get cartItemsInTuple3 => throw _privateConstructorUsedError;
+  Map<String, Product>? get cartItemsDetail =>
       throw _privateConstructorUsedError;
+  bool get updating => throw _privateConstructorUsedError;
+  Option<CartFailure> get failure => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CartStateCopyWith<CartState> get copyWith =>
@@ -33,11 +33,11 @@ abstract class $CartStateCopyWith<$Res> {
   factory $CartStateCopyWith(CartState value, $Res Function(CartState) then) =
       _$CartStateCopyWithImpl<$Res>;
   $Res call(
-      {bool isFetching,
-      Cart? cartRealtime,
+      {Cart? cartRealtime,
+      List<Tuple3>? cartItemsInTuple3,
+      Map<String, Product>? cartItemsDetail,
       bool updating,
-      Map<String, Product> productDetails,
-      Option<Either<CartFailure, ProductFailure>> failure});
+      Option<CartFailure> failure});
 
   $CartCopyWith<$Res>? get cartRealtime;
 }
@@ -52,33 +52,33 @@ class _$CartStateCopyWithImpl<$Res> implements $CartStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? isFetching = freezed,
     Object? cartRealtime = freezed,
+    Object? cartItemsInTuple3 = freezed,
+    Object? cartItemsDetail = freezed,
     Object? updating = freezed,
-    Object? productDetails = freezed,
     Object? failure = freezed,
   }) {
     return _then(_value.copyWith(
-      isFetching: isFetching == freezed
-          ? _value.isFetching
-          : isFetching // ignore: cast_nullable_to_non_nullable
-              as bool,
       cartRealtime: cartRealtime == freezed
           ? _value.cartRealtime
           : cartRealtime // ignore: cast_nullable_to_non_nullable
               as Cart?,
+      cartItemsInTuple3: cartItemsInTuple3 == freezed
+          ? _value.cartItemsInTuple3
+          : cartItemsInTuple3 // ignore: cast_nullable_to_non_nullable
+              as List<Tuple3>?,
+      cartItemsDetail: cartItemsDetail == freezed
+          ? _value.cartItemsDetail
+          : cartItemsDetail // ignore: cast_nullable_to_non_nullable
+              as Map<String, Product>?,
       updating: updating == freezed
           ? _value.updating
           : updating // ignore: cast_nullable_to_non_nullable
               as bool,
-      productDetails: productDetails == freezed
-          ? _value.productDetails
-          : productDetails // ignore: cast_nullable_to_non_nullable
-              as Map<String, Product>,
       failure: failure == freezed
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
-              as Option<Either<CartFailure, ProductFailure>>,
+              as Option<CartFailure>,
     ));
   }
 
@@ -101,11 +101,11 @@ abstract class _$$_CartStateCopyWith<$Res> implements $CartStateCopyWith<$Res> {
       __$$_CartStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {bool isFetching,
-      Cart? cartRealtime,
+      {Cart? cartRealtime,
+      List<Tuple3>? cartItemsInTuple3,
+      Map<String, Product>? cartItemsDetail,
       bool updating,
-      Map<String, Product> productDetails,
-      Option<Either<CartFailure, ProductFailure>> failure});
+      Option<CartFailure> failure});
 
   @override
   $CartCopyWith<$Res>? get cartRealtime;
@@ -123,33 +123,33 @@ class __$$_CartStateCopyWithImpl<$Res> extends _$CartStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? isFetching = freezed,
     Object? cartRealtime = freezed,
+    Object? cartItemsInTuple3 = freezed,
+    Object? cartItemsDetail = freezed,
     Object? updating = freezed,
-    Object? productDetails = freezed,
     Object? failure = freezed,
   }) {
     return _then(_$_CartState(
-      isFetching: isFetching == freezed
-          ? _value.isFetching
-          : isFetching // ignore: cast_nullable_to_non_nullable
-              as bool,
       cartRealtime: cartRealtime == freezed
           ? _value.cartRealtime
           : cartRealtime // ignore: cast_nullable_to_non_nullable
               as Cart?,
+      cartItemsInTuple3: cartItemsInTuple3 == freezed
+          ? _value._cartItemsInTuple3
+          : cartItemsInTuple3 // ignore: cast_nullable_to_non_nullable
+              as List<Tuple3>?,
+      cartItemsDetail: cartItemsDetail == freezed
+          ? _value._cartItemsDetail
+          : cartItemsDetail // ignore: cast_nullable_to_non_nullable
+              as Map<String, Product>?,
       updating: updating == freezed
           ? _value.updating
           : updating // ignore: cast_nullable_to_non_nullable
               as bool,
-      productDetails: productDetails == freezed
-          ? _value._productDetails
-          : productDetails // ignore: cast_nullable_to_non_nullable
-              as Map<String, Product>,
       failure: failure == freezed
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
-              as Option<Either<CartFailure, ProductFailure>>,
+              as Option<CartFailure>,
     ));
   }
 }
@@ -158,33 +158,43 @@ class __$$_CartStateCopyWithImpl<$Res> extends _$CartStateCopyWithImpl<$Res>
 
 class _$_CartState extends _CartState {
   const _$_CartState(
-      {required this.isFetching,
-      required this.cartRealtime,
+      {required this.cartRealtime,
+      required final List<Tuple3>? cartItemsInTuple3,
+      required final Map<String, Product>? cartItemsDetail,
       required this.updating,
-      required final Map<String, Product> productDetails,
       required this.failure})
-      : _productDetails = productDetails,
+      : _cartItemsInTuple3 = cartItemsInTuple3,
+        _cartItemsDetail = cartItemsDetail,
         super._();
 
   @override
-  final bool isFetching;
-  @override
   final Cart? cartRealtime;
+  final List<Tuple3>? _cartItemsInTuple3;
   @override
-  final bool updating;
-  final Map<String, Product> _productDetails;
-  @override
-  Map<String, Product> get productDetails {
+  List<Tuple3>? get cartItemsInTuple3 {
+    final value = _cartItemsInTuple3;
+    if (value == null) return null;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_productDetails);
+    return EqualUnmodifiableListView(value);
+  }
+
+  final Map<String, Product>? _cartItemsDetail;
+  @override
+  Map<String, Product>? get cartItemsDetail {
+    final value = _cartItemsDetail;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
   }
 
   @override
-  final Option<Either<CartFailure, ProductFailure>> failure;
+  final bool updating;
+  @override
+  final Option<CartFailure> failure;
 
   @override
   String toString() {
-    return 'CartState(isFetching: $isFetching, cartRealtime: $cartRealtime, updating: $updating, productDetails: $productDetails, failure: $failure)';
+    return 'CartState(cartRealtime: $cartRealtime, cartItemsInTuple3: $cartItemsInTuple3, cartItemsDetail: $cartItemsDetail, updating: $updating, failure: $failure)';
   }
 
   @override
@@ -193,22 +203,22 @@ class _$_CartState extends _CartState {
         (other.runtimeType == runtimeType &&
             other is _$_CartState &&
             const DeepCollectionEquality()
-                .equals(other.isFetching, isFetching) &&
-            const DeepCollectionEquality()
                 .equals(other.cartRealtime, cartRealtime) &&
-            const DeepCollectionEquality().equals(other.updating, updating) &&
             const DeepCollectionEquality()
-                .equals(other._productDetails, _productDetails) &&
+                .equals(other._cartItemsInTuple3, _cartItemsInTuple3) &&
+            const DeepCollectionEquality()
+                .equals(other._cartItemsDetail, _cartItemsDetail) &&
+            const DeepCollectionEquality().equals(other.updating, updating) &&
             const DeepCollectionEquality().equals(other.failure, failure));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(isFetching),
       const DeepCollectionEquality().hash(cartRealtime),
+      const DeepCollectionEquality().hash(_cartItemsInTuple3),
+      const DeepCollectionEquality().hash(_cartItemsDetail),
       const DeepCollectionEquality().hash(updating),
-      const DeepCollectionEquality().hash(_productDetails),
       const DeepCollectionEquality().hash(failure));
 
   @JsonKey(ignore: true)
@@ -219,24 +229,23 @@ class _$_CartState extends _CartState {
 
 abstract class _CartState extends CartState {
   const factory _CartState(
-          {required final bool isFetching,
-          required final Cart? cartRealtime,
-          required final bool updating,
-          required final Map<String, Product> productDetails,
-          required final Option<Either<CartFailure, ProductFailure>> failure}) =
-      _$_CartState;
+      {required final Cart? cartRealtime,
+      required final List<Tuple3>? cartItemsInTuple3,
+      required final Map<String, Product>? cartItemsDetail,
+      required final bool updating,
+      required final Option<CartFailure> failure}) = _$_CartState;
   const _CartState._() : super._();
 
   @override
-  bool get isFetching;
-  @override
   Cart? get cartRealtime;
+  @override
+  List<Tuple3>? get cartItemsInTuple3;
+  @override
+  Map<String, Product>? get cartItemsDetail;
   @override
   bool get updating;
   @override
-  Map<String, Product> get productDetails;
-  @override
-  Option<Either<CartFailure, ProductFailure>> get failure;
+  Option<CartFailure> get failure;
   @override
   @JsonKey(ignore: true)
   _$$_CartStateCopyWith<_$_CartState> get copyWith =>

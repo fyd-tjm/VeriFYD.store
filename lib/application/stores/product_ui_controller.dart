@@ -47,21 +47,21 @@ class ProductUiController extends GetxController {
 //todo: add skuId and productRef via Navigation
 
   void getProductRealtime() {
-    logger.i('getProductRealtime');
-    subscription = iStoreRepo
-        .getProductRealTime(productsReference: product.productRef)
-        .listen((failureOrProduct) {
-      failureOrProduct.fold(
-        (failure) => logger.e(failure.toString()),
-        (product) {
-          productRealtime.value = product;
-          logger.i(product);
-          updateAvailableSize();
-        },
-      );
-      isFetching.value = false;
-      refreshReactiveVariables();
-    });
+    // logger.i('getProductRealtime');
+    // subscription = iStoreRepo
+    //     .getProductRealTime(productsReference: product.productRef)
+    //     .listen((failureOrProduct) {
+    //   failureOrProduct.fold(
+    //     (failure) => logger.e(failure.toString()),
+    //     (product) {
+    //       productRealtime.value = product;
+    //       logger.i(product);
+    //       updateAvailableSize();
+    //     },
+    //   );
+    //   isFetching.value = false;
+    //   refreshReactiveVariables();
+    // });
   }
 
 //?-----------------------------------------------------------------------------

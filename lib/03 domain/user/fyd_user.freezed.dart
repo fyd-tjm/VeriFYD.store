@@ -24,9 +24,7 @@ mixin _$FydUser {
   String get phone => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  Map<String, FydAddress> get addresses => throw _privateConstructorUsedError;
-  String get cartRef => throw _privateConstructorUsedError;
-  String get ordersRef => throw _privateConstructorUsedError;
+  Map<int, FydAddress> get addresses => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,9 +40,7 @@ abstract class $FydUserCopyWith<$Res> {
       String phone,
       String name,
       String email,
-      Map<String, FydAddress> addresses,
-      String cartRef,
-      String ordersRef});
+      Map<int, FydAddress> addresses});
 }
 
 /// @nodoc
@@ -62,8 +58,6 @@ class _$FydUserCopyWithImpl<$Res> implements $FydUserCopyWith<$Res> {
     Object? name = freezed,
     Object? email = freezed,
     Object? addresses = freezed,
-    Object? cartRef = freezed,
-    Object? ordersRef = freezed,
   }) {
     return _then(_value.copyWith(
       uId: uId == freezed
@@ -85,15 +79,7 @@ class _$FydUserCopyWithImpl<$Res> implements $FydUserCopyWith<$Res> {
       addresses: addresses == freezed
           ? _value.addresses
           : addresses // ignore: cast_nullable_to_non_nullable
-              as Map<String, FydAddress>,
-      cartRef: cartRef == freezed
-          ? _value.cartRef
-          : cartRef // ignore: cast_nullable_to_non_nullable
-              as String,
-      ordersRef: ordersRef == freezed
-          ? _value.ordersRef
-          : ordersRef // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<int, FydAddress>,
     ));
   }
 }
@@ -109,9 +95,7 @@ abstract class _$$_FydUserCopyWith<$Res> implements $FydUserCopyWith<$Res> {
       String phone,
       String name,
       String email,
-      Map<String, FydAddress> addresses,
-      String cartRef,
-      String ordersRef});
+      Map<int, FydAddress> addresses});
 }
 
 /// @nodoc
@@ -130,8 +114,6 @@ class __$$_FydUserCopyWithImpl<$Res> extends _$FydUserCopyWithImpl<$Res>
     Object? name = freezed,
     Object? email = freezed,
     Object? addresses = freezed,
-    Object? cartRef = freezed,
-    Object? ordersRef = freezed,
   }) {
     return _then(_$_FydUser(
       uId: uId == freezed
@@ -153,15 +135,7 @@ class __$$_FydUserCopyWithImpl<$Res> extends _$FydUserCopyWithImpl<$Res>
       addresses: addresses == freezed
           ? _value._addresses
           : addresses // ignore: cast_nullable_to_non_nullable
-              as Map<String, FydAddress>,
-      cartRef: cartRef == freezed
-          ? _value.cartRef
-          : cartRef // ignore: cast_nullable_to_non_nullable
-              as String,
-      ordersRef: ordersRef == freezed
-          ? _value.ordersRef
-          : ordersRef // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<int, FydAddress>,
     ));
   }
 }
@@ -174,10 +148,8 @@ class _$_FydUser implements _FydUser {
       {required this.uId,
       required this.phone,
       required this.name,
-      this.email = '',
-      required final Map<String, FydAddress> addresses,
-      required this.cartRef,
-      required this.ordersRef})
+      required this.email,
+      required final Map<int, FydAddress> addresses})
       : _addresses = addresses;
 
   factory _$_FydUser.fromJson(Map<String, dynamic> json) =>
@@ -190,23 +162,17 @@ class _$_FydUser implements _FydUser {
   @override
   final String name;
   @override
-  @JsonKey()
   final String email;
-  final Map<String, FydAddress> _addresses;
+  final Map<int, FydAddress> _addresses;
   @override
-  Map<String, FydAddress> get addresses {
+  Map<int, FydAddress> get addresses {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_addresses);
   }
 
   @override
-  final String cartRef;
-  @override
-  final String ordersRef;
-
-  @override
   String toString() {
-    return 'FydUser(uId: $uId, phone: $phone, name: $name, email: $email, addresses: $addresses, cartRef: $cartRef, ordersRef: $ordersRef)';
+    return 'FydUser(uId: $uId, phone: $phone, name: $name, email: $email, addresses: $addresses)';
   }
 
   @override
@@ -219,9 +185,7 @@ class _$_FydUser implements _FydUser {
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality()
-                .equals(other._addresses, _addresses) &&
-            const DeepCollectionEquality().equals(other.cartRef, cartRef) &&
-            const DeepCollectionEquality().equals(other.ordersRef, ordersRef));
+                .equals(other._addresses, _addresses));
   }
 
   @JsonKey(ignore: true)
@@ -232,9 +196,7 @@ class _$_FydUser implements _FydUser {
       const DeepCollectionEquality().hash(phone),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(_addresses),
-      const DeepCollectionEquality().hash(cartRef),
-      const DeepCollectionEquality().hash(ordersRef));
+      const DeepCollectionEquality().hash(_addresses));
 
   @JsonKey(ignore: true)
   @override
@@ -254,10 +216,8 @@ abstract class _FydUser implements FydUser {
       {required final String uId,
       required final String phone,
       required final String name,
-      final String email,
-      required final Map<String, FydAddress> addresses,
-      required final String cartRef,
-      required final String ordersRef}) = _$_FydUser;
+      required final String email,
+      required final Map<int, FydAddress> addresses}) = _$_FydUser;
 
   factory _FydUser.fromJson(Map<String, dynamic> json) = _$_FydUser.fromJson;
 
@@ -270,11 +230,7 @@ abstract class _FydUser implements FydUser {
   @override
   String get email;
   @override
-  Map<String, FydAddress> get addresses;
-  @override
-  String get cartRef;
-  @override
-  String get ordersRef;
+  Map<int, FydAddress> get addresses;
   @override
   @JsonKey(ignore: true)
   _$$_FydUserCopyWith<_$_FydUser> get copyWith =>

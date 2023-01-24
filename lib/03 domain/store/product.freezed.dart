@@ -23,19 +23,19 @@ mixin _$Product {
   String get skuId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get storeId => throw _privateConstructorUsedError;
+  String get storeName => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
   String get company => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   Map<String, int> get sizeAvailability => throw _privateConstructorUsedError;
   String get sizeGuide => throw _privateConstructorUsedError;
-  int get qty => throw _privateConstructorUsedError;
   double get sellingPrice => throw _privateConstructorUsedError;
   double get mrp => throw _privateConstructorUsedError;
   List<String> get productImages => throw _privateConstructorUsedError;
-  String get productRef => throw _privateConstructorUsedError;
-  int get popularity => throw _privateConstructorUsedError;
+  String get thumbnailImage => throw _privateConstructorUsedError;
   bool get inStock => throw _privateConstructorUsedError;
+  int get popularity => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,19 +50,19 @@ abstract class $ProductCopyWith<$Res> {
       {String skuId,
       String name,
       String storeId,
+      String storeName,
       String category,
       String type,
       String company,
       String description,
       Map<String, int> sizeAvailability,
       String sizeGuide,
-      int qty,
       double sellingPrice,
       double mrp,
       List<String> productImages,
-      String productRef,
-      int popularity,
-      bool inStock});
+      String thumbnailImage,
+      bool inStock,
+      int popularity});
 }
 
 /// @nodoc
@@ -78,19 +78,19 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
     Object? skuId = freezed,
     Object? name = freezed,
     Object? storeId = freezed,
+    Object? storeName = freezed,
     Object? category = freezed,
     Object? type = freezed,
     Object? company = freezed,
     Object? description = freezed,
     Object? sizeAvailability = freezed,
     Object? sizeGuide = freezed,
-    Object? qty = freezed,
     Object? sellingPrice = freezed,
     Object? mrp = freezed,
     Object? productImages = freezed,
-    Object? productRef = freezed,
-    Object? popularity = freezed,
+    Object? thumbnailImage = freezed,
     Object? inStock = freezed,
+    Object? popularity = freezed,
   }) {
     return _then(_value.copyWith(
       skuId: skuId == freezed
@@ -104,6 +104,10 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
       storeId: storeId == freezed
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
+              as String,
+      storeName: storeName == freezed
+          ? _value.storeName
+          : storeName // ignore: cast_nullable_to_non_nullable
               as String,
       category: category == freezed
           ? _value.category
@@ -129,10 +133,6 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
           ? _value.sizeGuide
           : sizeGuide // ignore: cast_nullable_to_non_nullable
               as String,
-      qty: qty == freezed
-          ? _value.qty
-          : qty // ignore: cast_nullable_to_non_nullable
-              as int,
       sellingPrice: sellingPrice == freezed
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
@@ -145,18 +145,18 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
           ? _value.productImages
           : productImages // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      productRef: productRef == freezed
-          ? _value.productRef
-          : productRef // ignore: cast_nullable_to_non_nullable
+      thumbnailImage: thumbnailImage == freezed
+          ? _value.thumbnailImage
+          : thumbnailImage // ignore: cast_nullable_to_non_nullable
               as String,
-      popularity: popularity == freezed
-          ? _value.popularity
-          : popularity // ignore: cast_nullable_to_non_nullable
-              as int,
       inStock: inStock == freezed
           ? _value.inStock
           : inStock // ignore: cast_nullable_to_non_nullable
               as bool,
+      popularity: popularity == freezed
+          ? _value.popularity
+          : popularity // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -171,19 +171,19 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       {String skuId,
       String name,
       String storeId,
+      String storeName,
       String category,
       String type,
       String company,
       String description,
       Map<String, int> sizeAvailability,
       String sizeGuide,
-      int qty,
       double sellingPrice,
       double mrp,
       List<String> productImages,
-      String productRef,
-      int popularity,
-      bool inStock});
+      String thumbnailImage,
+      bool inStock,
+      int popularity});
 }
 
 /// @nodoc
@@ -200,19 +200,19 @@ class __$$_ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
     Object? skuId = freezed,
     Object? name = freezed,
     Object? storeId = freezed,
+    Object? storeName = freezed,
     Object? category = freezed,
     Object? type = freezed,
     Object? company = freezed,
     Object? description = freezed,
     Object? sizeAvailability = freezed,
     Object? sizeGuide = freezed,
-    Object? qty = freezed,
     Object? sellingPrice = freezed,
     Object? mrp = freezed,
     Object? productImages = freezed,
-    Object? productRef = freezed,
-    Object? popularity = freezed,
+    Object? thumbnailImage = freezed,
     Object? inStock = freezed,
+    Object? popularity = freezed,
   }) {
     return _then(_$_Product(
       skuId: skuId == freezed
@@ -226,6 +226,10 @@ class __$$_ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
       storeId: storeId == freezed
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
+              as String,
+      storeName: storeName == freezed
+          ? _value.storeName
+          : storeName // ignore: cast_nullable_to_non_nullable
               as String,
       category: category == freezed
           ? _value.category
@@ -251,10 +255,6 @@ class __$$_ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
           ? _value.sizeGuide
           : sizeGuide // ignore: cast_nullable_to_non_nullable
               as String,
-      qty: qty == freezed
-          ? _value.qty
-          : qty // ignore: cast_nullable_to_non_nullable
-              as int,
       sellingPrice: sellingPrice == freezed
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
@@ -267,18 +267,18 @@ class __$$_ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
           ? _value._productImages
           : productImages // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      productRef: productRef == freezed
-          ? _value.productRef
-          : productRef // ignore: cast_nullable_to_non_nullable
+      thumbnailImage: thumbnailImage == freezed
+          ? _value.thumbnailImage
+          : thumbnailImage // ignore: cast_nullable_to_non_nullable
               as String,
-      popularity: popularity == freezed
-          ? _value.popularity
-          : popularity // ignore: cast_nullable_to_non_nullable
-              as int,
       inStock: inStock == freezed
           ? _value.inStock
           : inStock // ignore: cast_nullable_to_non_nullable
               as bool,
+      popularity: popularity == freezed
+          ? _value.popularity
+          : popularity // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -290,19 +290,19 @@ class _$_Product implements _Product {
       {required this.skuId,
       required this.name,
       required this.storeId,
+      required this.storeName,
       required this.category,
       required this.type,
       required this.company,
       required this.description,
       required final Map<String, int> sizeAvailability,
       required this.sizeGuide,
-      required this.qty,
       required this.sellingPrice,
       required this.mrp,
       required final List<String> productImages,
-      required this.productRef,
-      required this.popularity,
-      required this.inStock})
+      required this.thumbnailImage,
+      required this.inStock,
+      required this.popularity})
       : _sizeAvailability = sizeAvailability,
         _productImages = productImages;
 
@@ -315,6 +315,8 @@ class _$_Product implements _Product {
   final String name;
   @override
   final String storeId;
+  @override
+  final String storeName;
   @override
   final String category;
   @override
@@ -333,8 +335,6 @@ class _$_Product implements _Product {
   @override
   final String sizeGuide;
   @override
-  final int qty;
-  @override
   final double sellingPrice;
   @override
   final double mrp;
@@ -346,15 +346,15 @@ class _$_Product implements _Product {
   }
 
   @override
-  final String productRef;
-  @override
-  final int popularity;
+  final String thumbnailImage;
   @override
   final bool inStock;
+  @override
+  final int popularity;
 
   @override
   String toString() {
-    return 'Product(skuId: $skuId, name: $name, storeId: $storeId, category: $category, type: $type, company: $company, description: $description, sizeAvailability: $sizeAvailability, sizeGuide: $sizeGuide, qty: $qty, sellingPrice: $sellingPrice, mrp: $mrp, productImages: $productImages, productRef: $productRef, popularity: $popularity, inStock: $inStock)';
+    return 'Product(skuId: $skuId, name: $name, storeId: $storeId, storeName: $storeName, category: $category, type: $type, company: $company, description: $description, sizeAvailability: $sizeAvailability, sizeGuide: $sizeGuide, sellingPrice: $sellingPrice, mrp: $mrp, productImages: $productImages, thumbnailImage: $thumbnailImage, inStock: $inStock, popularity: $popularity)';
   }
 
   @override
@@ -365,6 +365,7 @@ class _$_Product implements _Product {
             const DeepCollectionEquality().equals(other.skuId, skuId) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.storeId, storeId) &&
+            const DeepCollectionEquality().equals(other.storeName, storeName) &&
             const DeepCollectionEquality().equals(other.category, category) &&
             const DeepCollectionEquality().equals(other.type, type) &&
             const DeepCollectionEquality().equals(other.company, company) &&
@@ -373,17 +374,16 @@ class _$_Product implements _Product {
             const DeepCollectionEquality()
                 .equals(other._sizeAvailability, _sizeAvailability) &&
             const DeepCollectionEquality().equals(other.sizeGuide, sizeGuide) &&
-            const DeepCollectionEquality().equals(other.qty, qty) &&
             const DeepCollectionEquality()
                 .equals(other.sellingPrice, sellingPrice) &&
             const DeepCollectionEquality().equals(other.mrp, mrp) &&
             const DeepCollectionEquality()
                 .equals(other._productImages, _productImages) &&
             const DeepCollectionEquality()
-                .equals(other.productRef, productRef) &&
+                .equals(other.thumbnailImage, thumbnailImage) &&
+            const DeepCollectionEquality().equals(other.inStock, inStock) &&
             const DeepCollectionEquality()
-                .equals(other.popularity, popularity) &&
-            const DeepCollectionEquality().equals(other.inStock, inStock));
+                .equals(other.popularity, popularity));
   }
 
   @JsonKey(ignore: true)
@@ -393,19 +393,19 @@ class _$_Product implements _Product {
       const DeepCollectionEquality().hash(skuId),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(storeId),
+      const DeepCollectionEquality().hash(storeName),
       const DeepCollectionEquality().hash(category),
       const DeepCollectionEquality().hash(type),
       const DeepCollectionEquality().hash(company),
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(_sizeAvailability),
       const DeepCollectionEquality().hash(sizeGuide),
-      const DeepCollectionEquality().hash(qty),
       const DeepCollectionEquality().hash(sellingPrice),
       const DeepCollectionEquality().hash(mrp),
       const DeepCollectionEquality().hash(_productImages),
-      const DeepCollectionEquality().hash(productRef),
-      const DeepCollectionEquality().hash(popularity),
-      const DeepCollectionEquality().hash(inStock));
+      const DeepCollectionEquality().hash(thumbnailImage),
+      const DeepCollectionEquality().hash(inStock),
+      const DeepCollectionEquality().hash(popularity));
 
   @JsonKey(ignore: true)
   @override
@@ -425,19 +425,19 @@ abstract class _Product implements Product {
       {required final String skuId,
       required final String name,
       required final String storeId,
+      required final String storeName,
       required final String category,
       required final String type,
       required final String company,
       required final String description,
       required final Map<String, int> sizeAvailability,
       required final String sizeGuide,
-      required final int qty,
       required final double sellingPrice,
       required final double mrp,
       required final List<String> productImages,
-      required final String productRef,
-      required final int popularity,
-      required final bool inStock}) = _$_Product;
+      required final String thumbnailImage,
+      required final bool inStock,
+      required final int popularity}) = _$_Product;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$_Product.fromJson;
 
@@ -447,6 +447,8 @@ abstract class _Product implements Product {
   String get name;
   @override
   String get storeId;
+  @override
+  String get storeName;
   @override
   String get category;
   @override
@@ -460,19 +462,17 @@ abstract class _Product implements Product {
   @override
   String get sizeGuide;
   @override
-  int get qty;
-  @override
   double get sellingPrice;
   @override
   double get mrp;
   @override
   List<String> get productImages;
   @override
-  String get productRef;
-  @override
-  int get popularity;
+  String get thumbnailImage;
   @override
   bool get inStock;
+  @override
+  int get popularity;
   @override
   @JsonKey(ignore: true)
   _$$_ProductCopyWith<_$_Product> get copyWith =>

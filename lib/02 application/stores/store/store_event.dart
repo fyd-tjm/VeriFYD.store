@@ -9,4 +9,5 @@ class StoreEvent with _$StoreEvent {
   const factory StoreEvent.updateSelectedType({required String type}) =
       UpdateSelectedType;
   const factory StoreEvent.loadMoreProducts() = LoadMoreProducts;
+  const factory StoreEvent.toggleFailures() = ToggleFailures;
 }

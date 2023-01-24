@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:get/get.dart';
 import 'package:verifyd_store/03%20domain/store/00_export_store_domain.dart';
 
-import '../../../../core/widgets/fyd_text_ellipsis.dart';
+import '../../../presentation/core/widgets/fyd_text_ellipsis.dart';
 
 class StoreProductCard extends StatelessWidget {
   final Product product;
-  final Function onProductTap;
+  final Function(Product) onProductTap;
   const StoreProductCard({
     Key? key,
     required this.product,
@@ -18,7 +19,10 @@ class StoreProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onProductTap(product),
+      onTap: () {
+        HapticFeedback.lightImpact();
+        onProductTap(product);
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

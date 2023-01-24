@@ -22,6 +22,7 @@ mixin _$ProductEvent {
     required TResult Function(Either<ProductFailure, Product> event)
         recievedStreamEvent,
     required TResult Function() toggleStates,
+    required TResult Function() toggleFailures,
     required TResult Function(String size) addToCart,
     required TResult Function(String size) addNewCartWithProduct,
     required TResult Function(String skuId, String size) addNewProduct,
@@ -34,6 +35,7 @@ mixin _$ProductEvent {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -46,6 +48,7 @@ mixin _$ProductEvent {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -58,6 +61,7 @@ mixin _$ProductEvent {
     required TResult Function(GetProductRealtime value) getProductRealtime,
     required TResult Function(RecievedStreamEvent value) recievedStreamEvent,
     required TResult Function(ToggleStates value) toggleStates,
+    required TResult Function(ToggleFailures value) toggleFailures,
     required TResult Function(AddToCart value) addToCart,
     required TResult Function(AddNewCartWithProduct value)
         addNewCartWithProduct,
@@ -70,6 +74,7 @@ mixin _$ProductEvent {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,
@@ -81,6 +86,7 @@ mixin _$ProductEvent {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,
@@ -177,6 +183,7 @@ class _$GetProductRealtime implements GetProductRealtime {
     required TResult Function(Either<ProductFailure, Product> event)
         recievedStreamEvent,
     required TResult Function() toggleStates,
+    required TResult Function() toggleFailures,
     required TResult Function(String size) addToCart,
     required TResult Function(String size) addNewCartWithProduct,
     required TResult Function(String skuId, String size) addNewProduct,
@@ -192,6 +199,7 @@ class _$GetProductRealtime implements GetProductRealtime {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -207,6 +215,7 @@ class _$GetProductRealtime implements GetProductRealtime {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -225,6 +234,7 @@ class _$GetProductRealtime implements GetProductRealtime {
     required TResult Function(GetProductRealtime value) getProductRealtime,
     required TResult Function(RecievedStreamEvent value) recievedStreamEvent,
     required TResult Function(ToggleStates value) toggleStates,
+    required TResult Function(ToggleFailures value) toggleFailures,
     required TResult Function(AddToCart value) addToCart,
     required TResult Function(AddNewCartWithProduct value)
         addNewCartWithProduct,
@@ -240,6 +250,7 @@ class _$GetProductRealtime implements GetProductRealtime {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,
@@ -254,6 +265,7 @@ class _$GetProductRealtime implements GetProductRealtime {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,
@@ -347,6 +359,7 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
     required TResult Function(Either<ProductFailure, Product> event)
         recievedStreamEvent,
     required TResult Function() toggleStates,
+    required TResult Function() toggleFailures,
     required TResult Function(String size) addToCart,
     required TResult Function(String size) addNewCartWithProduct,
     required TResult Function(String skuId, String size) addNewProduct,
@@ -362,6 +375,7 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -377,6 +391,7 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -395,6 +410,7 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
     required TResult Function(GetProductRealtime value) getProductRealtime,
     required TResult Function(RecievedStreamEvent value) recievedStreamEvent,
     required TResult Function(ToggleStates value) toggleStates,
+    required TResult Function(ToggleFailures value) toggleFailures,
     required TResult Function(AddToCart value) addToCart,
     required TResult Function(AddNewCartWithProduct value)
         addNewCartWithProduct,
@@ -410,6 +426,7 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,
@@ -424,6 +441,7 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,
@@ -493,6 +511,7 @@ class _$ToggleStates implements ToggleStates {
     required TResult Function(Either<ProductFailure, Product> event)
         recievedStreamEvent,
     required TResult Function() toggleStates,
+    required TResult Function() toggleFailures,
     required TResult Function(String size) addToCart,
     required TResult Function(String size) addNewCartWithProduct,
     required TResult Function(String skuId, String size) addNewProduct,
@@ -508,6 +527,7 @@ class _$ToggleStates implements ToggleStates {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -523,6 +543,7 @@ class _$ToggleStates implements ToggleStates {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -541,6 +562,7 @@ class _$ToggleStates implements ToggleStates {
     required TResult Function(GetProductRealtime value) getProductRealtime,
     required TResult Function(RecievedStreamEvent value) recievedStreamEvent,
     required TResult Function(ToggleStates value) toggleStates,
+    required TResult Function(ToggleFailures value) toggleFailures,
     required TResult Function(AddToCart value) addToCart,
     required TResult Function(AddNewCartWithProduct value)
         addNewCartWithProduct,
@@ -556,6 +578,7 @@ class _$ToggleStates implements ToggleStates {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,
@@ -570,6 +593,7 @@ class _$ToggleStates implements ToggleStates {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,
@@ -585,6 +609,151 @@ class _$ToggleStates implements ToggleStates {
 
 abstract class ToggleStates implements ProductEvent {
   const factory ToggleStates() = _$ToggleStates;
+}
+
+/// @nodoc
+abstract class _$$ToggleFailuresCopyWith<$Res> {
+  factory _$$ToggleFailuresCopyWith(
+          _$ToggleFailures value, $Res Function(_$ToggleFailures) then) =
+      __$$ToggleFailuresCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ToggleFailuresCopyWithImpl<$Res>
+    extends _$ProductEventCopyWithImpl<$Res>
+    implements _$$ToggleFailuresCopyWith<$Res> {
+  __$$ToggleFailuresCopyWithImpl(
+      _$ToggleFailures _value, $Res Function(_$ToggleFailures) _then)
+      : super(_value, (v) => _then(v as _$ToggleFailures));
+
+  @override
+  _$ToggleFailures get _value => super._value as _$ToggleFailures;
+}
+
+/// @nodoc
+
+class _$ToggleFailures implements ToggleFailures {
+  const _$ToggleFailures();
+
+  @override
+  String toString() {
+    return 'ProductEvent.toggleFailures()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ToggleFailures);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String productRef) getProductRealtime,
+    required TResult Function(Either<ProductFailure, Product> event)
+        recievedStreamEvent,
+    required TResult Function() toggleStates,
+    required TResult Function() toggleFailures,
+    required TResult Function(String size) addToCart,
+    required TResult Function(String size) addNewCartWithProduct,
+    required TResult Function(String skuId, String size) addNewProduct,
+    required TResult Function(String skuId, String size) addSameProduct,
+  }) {
+    return toggleFailures();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String productRef)? getProductRealtime,
+    TResult Function(Either<ProductFailure, Product> event)?
+        recievedStreamEvent,
+    TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
+    TResult Function(String size)? addToCart,
+    TResult Function(String size)? addNewCartWithProduct,
+    TResult Function(String skuId, String size)? addNewProduct,
+    TResult Function(String skuId, String size)? addSameProduct,
+  }) {
+    return toggleFailures?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String productRef)? getProductRealtime,
+    TResult Function(Either<ProductFailure, Product> event)?
+        recievedStreamEvent,
+    TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
+    TResult Function(String size)? addToCart,
+    TResult Function(String size)? addNewCartWithProduct,
+    TResult Function(String skuId, String size)? addNewProduct,
+    TResult Function(String skuId, String size)? addSameProduct,
+    required TResult orElse(),
+  }) {
+    if (toggleFailures != null) {
+      return toggleFailures();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetProductRealtime value) getProductRealtime,
+    required TResult Function(RecievedStreamEvent value) recievedStreamEvent,
+    required TResult Function(ToggleStates value) toggleStates,
+    required TResult Function(ToggleFailures value) toggleFailures,
+    required TResult Function(AddToCart value) addToCart,
+    required TResult Function(AddNewCartWithProduct value)
+        addNewCartWithProduct,
+    required TResult Function(AddNewProduct value) addNewProduct,
+    required TResult Function(AddSameProduct value) addSameProduct,
+  }) {
+    return toggleFailures(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(GetProductRealtime value)? getProductRealtime,
+    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
+    TResult Function(AddToCart value)? addToCart,
+    TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
+    TResult Function(AddNewProduct value)? addNewProduct,
+    TResult Function(AddSameProduct value)? addSameProduct,
+  }) {
+    return toggleFailures?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetProductRealtime value)? getProductRealtime,
+    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
+    TResult Function(AddToCart value)? addToCart,
+    TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
+    TResult Function(AddNewProduct value)? addNewProduct,
+    TResult Function(AddSameProduct value)? addSameProduct,
+    required TResult orElse(),
+  }) {
+    if (toggleFailures != null) {
+      return toggleFailures(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ToggleFailures implements ProductEvent {
+  const factory ToggleFailures() = _$ToggleFailures;
 }
 
 /// @nodoc
@@ -655,6 +824,7 @@ class _$AddToCart implements AddToCart {
     required TResult Function(Either<ProductFailure, Product> event)
         recievedStreamEvent,
     required TResult Function() toggleStates,
+    required TResult Function() toggleFailures,
     required TResult Function(String size) addToCart,
     required TResult Function(String size) addNewCartWithProduct,
     required TResult Function(String skuId, String size) addNewProduct,
@@ -670,6 +840,7 @@ class _$AddToCart implements AddToCart {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -685,6 +856,7 @@ class _$AddToCart implements AddToCart {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -703,6 +875,7 @@ class _$AddToCart implements AddToCart {
     required TResult Function(GetProductRealtime value) getProductRealtime,
     required TResult Function(RecievedStreamEvent value) recievedStreamEvent,
     required TResult Function(ToggleStates value) toggleStates,
+    required TResult Function(ToggleFailures value) toggleFailures,
     required TResult Function(AddToCart value) addToCart,
     required TResult Function(AddNewCartWithProduct value)
         addNewCartWithProduct,
@@ -718,6 +891,7 @@ class _$AddToCart implements AddToCart {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,
@@ -732,6 +906,7 @@ class _$AddToCart implements AddToCart {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,
@@ -824,6 +999,7 @@ class _$AddNewCartWithProduct implements AddNewCartWithProduct {
     required TResult Function(Either<ProductFailure, Product> event)
         recievedStreamEvent,
     required TResult Function() toggleStates,
+    required TResult Function() toggleFailures,
     required TResult Function(String size) addToCart,
     required TResult Function(String size) addNewCartWithProduct,
     required TResult Function(String skuId, String size) addNewProduct,
@@ -839,6 +1015,7 @@ class _$AddNewCartWithProduct implements AddNewCartWithProduct {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -854,6 +1031,7 @@ class _$AddNewCartWithProduct implements AddNewCartWithProduct {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -872,6 +1050,7 @@ class _$AddNewCartWithProduct implements AddNewCartWithProduct {
     required TResult Function(GetProductRealtime value) getProductRealtime,
     required TResult Function(RecievedStreamEvent value) recievedStreamEvent,
     required TResult Function(ToggleStates value) toggleStates,
+    required TResult Function(ToggleFailures value) toggleFailures,
     required TResult Function(AddToCart value) addToCart,
     required TResult Function(AddNewCartWithProduct value)
         addNewCartWithProduct,
@@ -887,6 +1066,7 @@ class _$AddNewCartWithProduct implements AddNewCartWithProduct {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,
@@ -901,6 +1081,7 @@ class _$AddNewCartWithProduct implements AddNewCartWithProduct {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,
@@ -1003,6 +1184,7 @@ class _$AddNewProduct implements AddNewProduct {
     required TResult Function(Either<ProductFailure, Product> event)
         recievedStreamEvent,
     required TResult Function() toggleStates,
+    required TResult Function() toggleFailures,
     required TResult Function(String size) addToCart,
     required TResult Function(String size) addNewCartWithProduct,
     required TResult Function(String skuId, String size) addNewProduct,
@@ -1018,6 +1200,7 @@ class _$AddNewProduct implements AddNewProduct {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -1033,6 +1216,7 @@ class _$AddNewProduct implements AddNewProduct {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -1051,6 +1235,7 @@ class _$AddNewProduct implements AddNewProduct {
     required TResult Function(GetProductRealtime value) getProductRealtime,
     required TResult Function(RecievedStreamEvent value) recievedStreamEvent,
     required TResult Function(ToggleStates value) toggleStates,
+    required TResult Function(ToggleFailures value) toggleFailures,
     required TResult Function(AddToCart value) addToCart,
     required TResult Function(AddNewCartWithProduct value)
         addNewCartWithProduct,
@@ -1066,6 +1251,7 @@ class _$AddNewProduct implements AddNewProduct {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,
@@ -1080,6 +1266,7 @@ class _$AddNewProduct implements AddNewProduct {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,
@@ -1184,6 +1371,7 @@ class _$AddSameProduct implements AddSameProduct {
     required TResult Function(Either<ProductFailure, Product> event)
         recievedStreamEvent,
     required TResult Function() toggleStates,
+    required TResult Function() toggleFailures,
     required TResult Function(String size) addToCart,
     required TResult Function(String size) addNewCartWithProduct,
     required TResult Function(String skuId, String size) addNewProduct,
@@ -1199,6 +1387,7 @@ class _$AddSameProduct implements AddSameProduct {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -1214,6 +1403,7 @@ class _$AddSameProduct implements AddSameProduct {
     TResult Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
     TResult Function()? toggleStates,
+    TResult Function()? toggleFailures,
     TResult Function(String size)? addToCart,
     TResult Function(String size)? addNewCartWithProduct,
     TResult Function(String skuId, String size)? addNewProduct,
@@ -1232,6 +1422,7 @@ class _$AddSameProduct implements AddSameProduct {
     required TResult Function(GetProductRealtime value) getProductRealtime,
     required TResult Function(RecievedStreamEvent value) recievedStreamEvent,
     required TResult Function(ToggleStates value) toggleStates,
+    required TResult Function(ToggleFailures value) toggleFailures,
     required TResult Function(AddToCart value) addToCart,
     required TResult Function(AddNewCartWithProduct value)
         addNewCartWithProduct,
@@ -1247,6 +1438,7 @@ class _$AddSameProduct implements AddSameProduct {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,
@@ -1261,6 +1453,7 @@ class _$AddSameProduct implements AddSameProduct {
     TResult Function(GetProductRealtime value)? getProductRealtime,
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(ToggleStates value)? toggleStates,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(AddToCart value)? addToCart,
     TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
     TResult Function(AddNewProduct value)? addNewProduct,

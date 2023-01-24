@@ -72,7 +72,7 @@ class StoresTile extends StatelessWidget {
                   SizedBox(
                     width: 220.w,
                     child: Text(
-                      'storeId: ${store.sId}',
+                      'storeId: ${store.storeId}',
                       style: GoogleFonts.exo2(
                           color: fydTWhite,
                           fontSize: body12.fontSize,
@@ -86,7 +86,7 @@ class StoresTile extends StatelessWidget {
                   SizedBox(
                     width: 220.w,
                     child: Text(
-                      store.storeAddress['default']!,
+                      store.storeAddress['default'] ?? '',
                       style: GoogleFonts.exo2(
                         color: fydTWhite,
                         fontSize: 12,

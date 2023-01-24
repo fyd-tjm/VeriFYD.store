@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -8,6 +11,8 @@ import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 
+//?-----------------------------------------------------------------------------
+
 class EditProfileWrapperPage extends StatelessWidget {
   const EditProfileWrapperPage({Key? key}) : super(key: key);
 
@@ -15,7 +20,17 @@ class EditProfileWrapperPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: getIt<FydUserCubit>(),
-      child: EditProfilePage(),
+      child: WillPopScope(
+          onWillPop: () async {
+            final popResult = await showPermissionDialog(
+                context: context,
+                message:
+                    " Changes not saved. Leave page? Press Yes to leave, Cancel to stay.",
+                falseBtnTitle: 'Cancel',
+                trueBtnTitle: 'Yes');
+            return popResult ?? false;
+          },
+          child: EditProfilePage()),
     );
   }
 }
@@ -29,10 +44,8 @@ class EditProfilePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     //-----
-    final fydUserName =
-        context.select((FydUserCubit cubit) => cubit.state.fydUser!.name);
-    final fydUserEmail =
-        context.select((FydUserCubit cubit) => cubit.state.fydUser!.email);
+    final fydUserName = getIt<FydUserCubit>().state.fydUser!.name;
+    final fydUserEmail = getIt<FydUserCubit>().state.fydUser!.email;
     //-----
     final nameController = useTextEditingController(text: fydUserName);
     final emailController = useTextEditingController(text: fydUserEmail);
@@ -49,21 +62,12 @@ class EditProfilePage extends HookWidget {
                 () => null,
                 (failureOrSuccess) => failureOrSuccess.fold(
                   // in case of failure: snackBar
-                  (userFailure) => showSnack(
-                      context: context,
-                      snackPosition: SnackBarPosition.top,
-                      message: userFailure.when(
-                        aborted: () => 'Failed! try again later',
-                        invalidArgument: () => 'Invalid Argument. try again',
-                        alreadyExists: () => 'Data already Exists',
-                        notFound: () => 'Data not found!',
-                        permissionDenied: () => 'Permission Denied',
-                        serverError: () => 'Server Error. try again later',
-                        unknownError: () =>
-                            'Something went wrong. try again later',
-                      )),
-                  //TODO: in case of success: pop the screen
-                  (success) => null,
+                  (userFailure) => null,
+                  //! in case of success
+                  (success) {
+                    _loadingOverlay.hide();
+                    context.navigateBack();
+                  },
                 ),
               );
             }
@@ -113,8 +117,10 @@ class EditProfilePage extends HookWidget {
                   color: fydPWhite,
                 ),
               ),
-              //TODO: back navigation
-              onPressed: () {},
+              //! close navigation
+              onPressed: () {
+                context.router.pop();
+              },
             ),
           ),
           main: Center(

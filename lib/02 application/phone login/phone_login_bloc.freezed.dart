@@ -1077,11 +1077,11 @@ class _$PhoneLoginStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$_PhoneAuthStateCopyWith<$Res>
+abstract class _$$_PhoneLoginStateCopyWith<$Res>
     implements $PhoneLoginStateCopyWith<$Res> {
-  factory _$$_PhoneAuthStateCopyWith(
-          _$_PhoneAuthState value, $Res Function(_$_PhoneAuthState) then) =
-      __$$_PhoneAuthStateCopyWithImpl<$Res>;
+  factory _$$_PhoneLoginStateCopyWith(
+          _$_PhoneLoginState value, $Res Function(_$_PhoneLoginState) then) =
+      __$$_PhoneLoginStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {PhoneNumber phoneNumber,
@@ -1091,15 +1091,15 @@ abstract class _$$_PhoneAuthStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PhoneAuthStateCopyWithImpl<$Res>
+class __$$_PhoneLoginStateCopyWithImpl<$Res>
     extends _$PhoneLoginStateCopyWithImpl<$Res>
-    implements _$$_PhoneAuthStateCopyWith<$Res> {
-  __$$_PhoneAuthStateCopyWithImpl(
-      _$_PhoneAuthState _value, $Res Function(_$_PhoneAuthState) _then)
-      : super(_value, (v) => _then(v as _$_PhoneAuthState));
+    implements _$$_PhoneLoginStateCopyWith<$Res> {
+  __$$_PhoneLoginStateCopyWithImpl(
+      _$_PhoneLoginState _value, $Res Function(_$_PhoneLoginState) _then)
+      : super(_value, (v) => _then(v as _$_PhoneLoginState));
 
   @override
-  _$_PhoneAuthState get _value => super._value as _$_PhoneAuthState;
+  _$_PhoneLoginState get _value => super._value as _$_PhoneLoginState;
 
   @override
   $Res call({
@@ -1108,7 +1108,7 @@ class __$$_PhoneAuthStateCopyWithImpl<$Res>
     Object? isCodeSent = freezed,
     Object? authFailureOrSuccessOption = freezed,
   }) {
-    return _then(_$_PhoneAuthState(
+    return _then(_$_PhoneLoginState(
       phoneNumber: phoneNumber == freezed
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
@@ -1131,8 +1131,8 @@ class __$$_PhoneAuthStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PhoneAuthState extends _PhoneAuthState {
-  _$_PhoneAuthState(
+class _$_PhoneLoginState extends _PhoneLoginState {
+  _$_PhoneLoginState(
       {required this.phoneNumber,
       required this.isSubmitting,
       required this.isCodeSent,
@@ -1157,7 +1157,7 @@ class _$_PhoneAuthState extends _PhoneAuthState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PhoneAuthState &&
+            other is _$_PhoneLoginState &&
             const DeepCollectionEquality()
                 .equals(other.phoneNumber, phoneNumber) &&
             const DeepCollectionEquality()
@@ -1178,18 +1178,18 @@ class _$_PhoneAuthState extends _PhoneAuthState {
 
   @JsonKey(ignore: true)
   @override
-  _$$_PhoneAuthStateCopyWith<_$_PhoneAuthState> get copyWith =>
-      __$$_PhoneAuthStateCopyWithImpl<_$_PhoneAuthState>(this, _$identity);
+  _$$_PhoneLoginStateCopyWith<_$_PhoneLoginState> get copyWith =>
+      __$$_PhoneLoginStateCopyWithImpl<_$_PhoneLoginState>(this, _$identity);
 }
 
-abstract class _PhoneAuthState extends PhoneLoginState {
-  factory _PhoneAuthState(
+abstract class _PhoneLoginState extends PhoneLoginState {
+  factory _PhoneLoginState(
       {required final PhoneNumber phoneNumber,
       required final bool isSubmitting,
       required final bool isCodeSent,
       required final Option<Either<AuthFailure, Unit>>
-          authFailureOrSuccessOption}) = _$_PhoneAuthState;
-  _PhoneAuthState._() : super._();
+          authFailureOrSuccessOption}) = _$_PhoneLoginState;
+  _PhoneLoginState._() : super._();
 
   @override
   PhoneNumber get phoneNumber;
@@ -1201,6 +1201,6 @@ abstract class _PhoneAuthState extends PhoneLoginState {
   Option<Either<AuthFailure, Unit>> get authFailureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
-  _$$_PhoneAuthStateCopyWith<_$_PhoneAuthState> get copyWith =>
+  _$$_PhoneLoginStateCopyWith<_$_PhoneLoginState> get copyWith =>
       throw _privateConstructorUsedError;
 }

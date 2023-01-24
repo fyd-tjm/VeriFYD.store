@@ -32,7 +32,7 @@ class FirebaseStoreRepository implements IStoreRepository {
             toFirestore: (store, _) => store.toJson())
         .where('isLive', isEqualTo: true)
         .where("categories", arrayContains: category)
-        .orderBy('sId')
+        .orderBy('storeId')
         .limit(storeFetchLimit);
     // query extension in case of paginated data
     if (startAfterStoreId != null) {
@@ -55,17 +55,13 @@ class FirebaseStoreRepository implements IStoreRepository {
   //! Interface
   @override
   Stream<Either<StoreFailure, Store>> getStoreRealTime(
-      {required String storeId}) async* {
-    var storeDocs = storesCollection.withConverter<Store>(
+      {required String storeRef}) async* {
+    var storeDoc = _firestore.doc(storeRef).withConverter<Store>(
         fromFirestore: (snapshot, _) => Store.fromJson(snapshot.data()!),
         toFirestore: (model, _) => model.toJson());
 
-    yield* storeDocs
-        // .where('isLive', isEqualTo: true)
-        .where('sId', isEqualTo: storeId)
-        .snapshots()
-        .map((qSnapshot) {
-      return right<StoreFailure, Store>(qSnapshot.docs.first.data());
+    yield* storeDoc.snapshots().map((qSnapshot) {
+      return right<StoreFailure, Store>(qSnapshot.data()!);
     }).onErrorReturnWith((e, stackTrace) {
       log(e.toString());
       return left(StoreFailureMapper.failureMapper(e));
@@ -77,11 +73,11 @@ class FirebaseStoreRepository implements IStoreRepository {
   @override
   Future<Either<ProductFailure, List<Product>>> getProductsByType(
       {required String type,
-      required String productsReference,
+      required String productsCollectionRef,
       String? startAfterSkuId}) async {
     // query to get products by (inStock + type) + orderby skuId + limit to 15
     var qProducts = _firestore
-        .collection(productsReference)
+        .collection(productsCollectionRef)
         .withConverter<Product>(
             fromFirestore: (snapshot, _) => Product.fromJson(snapshot.data()!),
             toFirestore: (model, _) => model.toJson())
@@ -113,8 +109,8 @@ class FirebaseStoreRepository implements IStoreRepository {
   //! interface
   @override
   Stream<Either<ProductFailure, Product>> getProductRealTime(
-      {required String productsReference}) async* {
-    var qProducts = _firestore.doc(productsReference).withConverter<Product>(
+      {required String productRef}) async* {
+    final qProducts = _firestore.doc(productRef).withConverter<Product>(
         fromFirestore: (snapshot, _) => Product.fromJson(snapshot.data()!),
         toFirestore: (model, _) => model.toJson());
 
@@ -129,12 +125,9 @@ class FirebaseStoreRepository implements IStoreRepository {
 //?-----------------------------------------------------------------------------
   //! interface
   @override
-  Future<Either<ProductFailure, Product>> getProductBySkuId({
-    required String storeId,
-    required String skuId,
-  }) async {
-    final productDocPath = 'stores/$storeId/products/$skuId';
-    final productDoc = _firestore.doc(productDocPath).withConverter<Product>(
+  Future<Either<ProductFailure, Product>> getProduct(
+      {required String productRef}) async {
+    final productDoc = _firestore.doc(productRef).withConverter<Product>(
         fromFirestore: (snapshot, _) => Product.fromJson(snapshot.data()!),
         toFirestore: (model, _) => model.toJson());
     try {

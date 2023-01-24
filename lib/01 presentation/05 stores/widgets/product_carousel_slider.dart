@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductCarouselSlider extends StatelessWidget {
-  final List<String> imageUrl;
+  final List<String> imageUrls;
   final int imageCount;
   final Function onSwap;
   const ProductCarouselSlider({
     Key? key,
-    required this.imageUrl,
+    required this.imageUrls,
     required this.imageCount,
     required this.onSwap,
   }) : super(key: key);
@@ -18,7 +18,7 @@ class ProductCarouselSlider extends StatelessWidget {
     return CarouselSlider.builder(
       itemCount: imageCount,
       itemBuilder: (_, idx, __) {
-        return ProductImageHolder(imageUrl: imageUrl[idx]);
+        return ProductImageHolder(imageUrl: imageUrls[idx]);
       },
       options: CarouselOptions(
         height: double.infinity,
@@ -41,17 +41,18 @@ class ProductImageHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: double.infinity,
-        width: double.infinity,
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(30.r),
-            bottomRight: Radius.circular(30.r),
-          ),
-          child: Image.network(
-            imageUrl,
-            fit: BoxFit.cover,
-          ),
-        ));
+      height: double.infinity,
+      width: double.infinity,
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(30.r),
+          bottomRight: Radius.circular(30.r),
+        ),
+        child: Image.network(
+          imageUrl,
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
   }
 }

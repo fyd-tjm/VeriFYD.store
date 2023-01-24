@@ -7,17 +7,32 @@ import 'package:verifyd_store/aa%20mock/static_ui.dart';
 
 import '../00 core/widgets/00_core_widgets_export.dart';
 
+//?-----------------------------------------------------------------------------
+
+class HomeViewWrapperPage extends StatelessWidget {
+  const HomeViewWrapperPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const HomeViewPage();
+  }
+}
+
+//?-----------------------------------------------------------------------------
+
 class HomeViewPage extends StatelessWidget {
   const HomeViewPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FydView(
-      pageViewType: ViewType.with_Nav_Bar,
-      isScrollable: false,
-      topSheetHeight: 420.h,
-      topSheet: _topSheetView(context),
-      bottomSheet: _bottomSheetView(),
+    return SafeArea(
+      child: FydView(
+        pageViewType: ViewType.with_Nav_Bar,
+        isScrollable: false,
+        topSheetHeight: 420.h,
+        topSheet: _topSheetView(context),
+        bottomSheet: _bottomSheetView(),
+      ),
     );
   }
 

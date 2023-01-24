@@ -4,18 +4,18 @@ part of 'cart_cubit.dart';
 class CartState with _$CartState {
   const CartState._();
   const factory CartState({
-    required bool isFetching,
     required Cart? cartRealtime,
+    required List<Tuple3>? cartItemsInTuple3,
+    required Map<String, Product>? cartItemsDetail,
     required bool updating,
-    required Map<String, Product> productDetails,
-    required Option<Either<CartFailure, ProductFailure>> failure,
+    required Option<CartFailure> failure,
   }) = _CartState;
 
   factory CartState.initial() => CartState(
-        isFetching: true,
         updating: false,
-        productDetails: {},
+        cartItemsDetail: null,
         cartRealtime: null,
+        cartItemsInTuple3: null,
         failure: none(),
       );
 }

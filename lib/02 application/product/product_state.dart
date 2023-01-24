@@ -12,7 +12,7 @@ class ProductState with _$ProductState {
     required Option<Either<CartFailure, Unit>> cartFailureOrSuccess,
   }) = _ProductState;
   factory ProductState.initial() => ProductState(
-      isFetching: false,
+      isFetching: true,
       failure: none(),
       productRealtime: null,
       addingToCart: false,

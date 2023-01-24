@@ -23,6 +23,7 @@ mixin _$StoreEvent {
         recievedStreamEvent,
     required TResult Function(String type) updateSelectedType,
     required TResult Function() loadMoreProducts,
+    required TResult Function() toggleFailures,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,6 +32,7 @@ mixin _$StoreEvent {
     TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
     TResult Function(String type)? updateSelectedType,
     TResult Function()? loadMoreProducts,
+    TResult Function()? toggleFailures,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,6 +41,7 @@ mixin _$StoreEvent {
     TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
     TResult Function(String type)? updateSelectedType,
     TResult Function()? loadMoreProducts,
+    TResult Function()? toggleFailures,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +51,7 @@ mixin _$StoreEvent {
     required TResult Function(RecievedStreamEvent value) recievedStreamEvent,
     required TResult Function(UpdateSelectedType value) updateSelectedType,
     required TResult Function(LoadMoreProducts value) loadMoreProducts,
+    required TResult Function(ToggleFailures value) toggleFailures,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,6 +60,7 @@ mixin _$StoreEvent {
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(UpdateSelectedType value)? updateSelectedType,
     TResult Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult Function(ToggleFailures value)? toggleFailures,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -64,6 +69,7 @@ mixin _$StoreEvent {
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(UpdateSelectedType value)? updateSelectedType,
     TResult Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult Function(ToggleFailures value)? toggleFailures,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,6 +161,7 @@ class _$GetStoreRealtime implements GetStoreRealtime {
         recievedStreamEvent,
     required TResult Function(String type) updateSelectedType,
     required TResult Function() loadMoreProducts,
+    required TResult Function() toggleFailures,
   }) {
     return getStoreRealtime(storeId);
   }
@@ -166,6 +173,7 @@ class _$GetStoreRealtime implements GetStoreRealtime {
     TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
     TResult Function(String type)? updateSelectedType,
     TResult Function()? loadMoreProducts,
+    TResult Function()? toggleFailures,
   }) {
     return getStoreRealtime?.call(storeId);
   }
@@ -177,6 +185,7 @@ class _$GetStoreRealtime implements GetStoreRealtime {
     TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
     TResult Function(String type)? updateSelectedType,
     TResult Function()? loadMoreProducts,
+    TResult Function()? toggleFailures,
     required TResult orElse(),
   }) {
     if (getStoreRealtime != null) {
@@ -192,6 +201,7 @@ class _$GetStoreRealtime implements GetStoreRealtime {
     required TResult Function(RecievedStreamEvent value) recievedStreamEvent,
     required TResult Function(UpdateSelectedType value) updateSelectedType,
     required TResult Function(LoadMoreProducts value) loadMoreProducts,
+    required TResult Function(ToggleFailures value) toggleFailures,
   }) {
     return getStoreRealtime(this);
   }
@@ -203,6 +213,7 @@ class _$GetStoreRealtime implements GetStoreRealtime {
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(UpdateSelectedType value)? updateSelectedType,
     TResult Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult Function(ToggleFailures value)? toggleFailures,
   }) {
     return getStoreRealtime?.call(this);
   }
@@ -214,6 +225,7 @@ class _$GetStoreRealtime implements GetStoreRealtime {
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(UpdateSelectedType value)? updateSelectedType,
     TResult Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult Function(ToggleFailures value)? toggleFailures,
     required TResult orElse(),
   }) {
     if (getStoreRealtime != null) {
@@ -304,6 +316,7 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
         recievedStreamEvent,
     required TResult Function(String type) updateSelectedType,
     required TResult Function() loadMoreProducts,
+    required TResult Function() toggleFailures,
   }) {
     return recievedStreamEvent(event);
   }
@@ -315,6 +328,7 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
     TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
     TResult Function(String type)? updateSelectedType,
     TResult Function()? loadMoreProducts,
+    TResult Function()? toggleFailures,
   }) {
     return recievedStreamEvent?.call(event);
   }
@@ -326,6 +340,7 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
     TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
     TResult Function(String type)? updateSelectedType,
     TResult Function()? loadMoreProducts,
+    TResult Function()? toggleFailures,
     required TResult orElse(),
   }) {
     if (recievedStreamEvent != null) {
@@ -341,6 +356,7 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
     required TResult Function(RecievedStreamEvent value) recievedStreamEvent,
     required TResult Function(UpdateSelectedType value) updateSelectedType,
     required TResult Function(LoadMoreProducts value) loadMoreProducts,
+    required TResult Function(ToggleFailures value) toggleFailures,
   }) {
     return recievedStreamEvent(this);
   }
@@ -352,6 +368,7 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(UpdateSelectedType value)? updateSelectedType,
     TResult Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult Function(ToggleFailures value)? toggleFailures,
   }) {
     return recievedStreamEvent?.call(this);
   }
@@ -363,6 +380,7 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(UpdateSelectedType value)? updateSelectedType,
     TResult Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult Function(ToggleFailures value)? toggleFailures,
     required TResult orElse(),
   }) {
     if (recievedStreamEvent != null) {
@@ -454,6 +472,7 @@ class _$UpdateSelectedType implements UpdateSelectedType {
         recievedStreamEvent,
     required TResult Function(String type) updateSelectedType,
     required TResult Function() loadMoreProducts,
+    required TResult Function() toggleFailures,
   }) {
     return updateSelectedType(type);
   }
@@ -465,6 +484,7 @@ class _$UpdateSelectedType implements UpdateSelectedType {
     TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
     TResult Function(String type)? updateSelectedType,
     TResult Function()? loadMoreProducts,
+    TResult Function()? toggleFailures,
   }) {
     return updateSelectedType?.call(type);
   }
@@ -476,6 +496,7 @@ class _$UpdateSelectedType implements UpdateSelectedType {
     TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
     TResult Function(String type)? updateSelectedType,
     TResult Function()? loadMoreProducts,
+    TResult Function()? toggleFailures,
     required TResult orElse(),
   }) {
     if (updateSelectedType != null) {
@@ -491,6 +512,7 @@ class _$UpdateSelectedType implements UpdateSelectedType {
     required TResult Function(RecievedStreamEvent value) recievedStreamEvent,
     required TResult Function(UpdateSelectedType value) updateSelectedType,
     required TResult Function(LoadMoreProducts value) loadMoreProducts,
+    required TResult Function(ToggleFailures value) toggleFailures,
   }) {
     return updateSelectedType(this);
   }
@@ -502,6 +524,7 @@ class _$UpdateSelectedType implements UpdateSelectedType {
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(UpdateSelectedType value)? updateSelectedType,
     TResult Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult Function(ToggleFailures value)? toggleFailures,
   }) {
     return updateSelectedType?.call(this);
   }
@@ -513,6 +536,7 @@ class _$UpdateSelectedType implements UpdateSelectedType {
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(UpdateSelectedType value)? updateSelectedType,
     TResult Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult Function(ToggleFailures value)? toggleFailures,
     required TResult orElse(),
   }) {
     if (updateSelectedType != null) {
@@ -578,6 +602,7 @@ class _$LoadMoreProducts implements LoadMoreProducts {
         recievedStreamEvent,
     required TResult Function(String type) updateSelectedType,
     required TResult Function() loadMoreProducts,
+    required TResult Function() toggleFailures,
   }) {
     return loadMoreProducts();
   }
@@ -589,6 +614,7 @@ class _$LoadMoreProducts implements LoadMoreProducts {
     TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
     TResult Function(String type)? updateSelectedType,
     TResult Function()? loadMoreProducts,
+    TResult Function()? toggleFailures,
   }) {
     return loadMoreProducts?.call();
   }
@@ -600,6 +626,7 @@ class _$LoadMoreProducts implements LoadMoreProducts {
     TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
     TResult Function(String type)? updateSelectedType,
     TResult Function()? loadMoreProducts,
+    TResult Function()? toggleFailures,
     required TResult orElse(),
   }) {
     if (loadMoreProducts != null) {
@@ -615,6 +642,7 @@ class _$LoadMoreProducts implements LoadMoreProducts {
     required TResult Function(RecievedStreamEvent value) recievedStreamEvent,
     required TResult Function(UpdateSelectedType value) updateSelectedType,
     required TResult Function(LoadMoreProducts value) loadMoreProducts,
+    required TResult Function(ToggleFailures value) toggleFailures,
   }) {
     return loadMoreProducts(this);
   }
@@ -626,6 +654,7 @@ class _$LoadMoreProducts implements LoadMoreProducts {
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(UpdateSelectedType value)? updateSelectedType,
     TResult Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult Function(ToggleFailures value)? toggleFailures,
   }) {
     return loadMoreProducts?.call(this);
   }
@@ -637,6 +666,7 @@ class _$LoadMoreProducts implements LoadMoreProducts {
     TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
     TResult Function(UpdateSelectedType value)? updateSelectedType,
     TResult Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult Function(ToggleFailures value)? toggleFailures,
     required TResult orElse(),
   }) {
     if (loadMoreProducts != null) {
@@ -651,6 +681,130 @@ abstract class LoadMoreProducts implements StoreEvent {
 }
 
 /// @nodoc
+abstract class _$$ToggleFailuresCopyWith<$Res> {
+  factory _$$ToggleFailuresCopyWith(
+          _$ToggleFailures value, $Res Function(_$ToggleFailures) then) =
+      __$$ToggleFailuresCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ToggleFailuresCopyWithImpl<$Res>
+    extends _$StoreEventCopyWithImpl<$Res>
+    implements _$$ToggleFailuresCopyWith<$Res> {
+  __$$ToggleFailuresCopyWithImpl(
+      _$ToggleFailures _value, $Res Function(_$ToggleFailures) _then)
+      : super(_value, (v) => _then(v as _$ToggleFailures));
+
+  @override
+  _$ToggleFailures get _value => super._value as _$ToggleFailures;
+}
+
+/// @nodoc
+
+class _$ToggleFailures implements ToggleFailures {
+  const _$ToggleFailures();
+
+  @override
+  String toString() {
+    return 'StoreEvent.toggleFailures()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ToggleFailures);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String storeId) getStoreRealtime,
+    required TResult Function(Either<StoreFailure, Store> event)
+        recievedStreamEvent,
+    required TResult Function(String type) updateSelectedType,
+    required TResult Function() loadMoreProducts,
+    required TResult Function() toggleFailures,
+  }) {
+    return toggleFailures();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String storeId)? getStoreRealtime,
+    TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
+    TResult Function(String type)? updateSelectedType,
+    TResult Function()? loadMoreProducts,
+    TResult Function()? toggleFailures,
+  }) {
+    return toggleFailures?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String storeId)? getStoreRealtime,
+    TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
+    TResult Function(String type)? updateSelectedType,
+    TResult Function()? loadMoreProducts,
+    TResult Function()? toggleFailures,
+    required TResult orElse(),
+  }) {
+    if (toggleFailures != null) {
+      return toggleFailures();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetStoreRealtime value) getStoreRealtime,
+    required TResult Function(RecievedStreamEvent value) recievedStreamEvent,
+    required TResult Function(UpdateSelectedType value) updateSelectedType,
+    required TResult Function(LoadMoreProducts value) loadMoreProducts,
+    required TResult Function(ToggleFailures value) toggleFailures,
+  }) {
+    return toggleFailures(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(GetStoreRealtime value)? getStoreRealtime,
+    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult Function(UpdateSelectedType value)? updateSelectedType,
+    TResult Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult Function(ToggleFailures value)? toggleFailures,
+  }) {
+    return toggleFailures?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetStoreRealtime value)? getStoreRealtime,
+    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult Function(UpdateSelectedType value)? updateSelectedType,
+    TResult Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult Function(ToggleFailures value)? toggleFailures,
+    required TResult orElse(),
+  }) {
+    if (toggleFailures != null) {
+      return toggleFailures(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ToggleFailures implements StoreEvent {
+  const factory ToggleFailures() = _$ToggleFailures;
+}
+
+/// @nodoc
 mixin _$StoreState {
   bool get isFetching => throw _privateConstructorUsedError;
   String? get selectedType => throw _privateConstructorUsedError;
@@ -659,7 +813,6 @@ mixin _$StoreState {
   bool get notAvailable => throw _privateConstructorUsedError;
   Option<Either<StoreFailure, ProductFailure>> get failure =>
       throw _privateConstructorUsedError;
-  bool get loadingMore => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $StoreStateCopyWith<StoreState> get copyWith =>
@@ -677,8 +830,7 @@ abstract class $StoreStateCopyWith<$Res> {
       Store? storeRealtime,
       List<Product> productList,
       bool notAvailable,
-      Option<Either<StoreFailure, ProductFailure>> failure,
-      bool loadingMore});
+      Option<Either<StoreFailure, ProductFailure>> failure});
 
   $StoreCopyWith<$Res>? get storeRealtime;
 }
@@ -699,7 +851,6 @@ class _$StoreStateCopyWithImpl<$Res> implements $StoreStateCopyWith<$Res> {
     Object? productList = freezed,
     Object? notAvailable = freezed,
     Object? failure = freezed,
-    Object? loadingMore = freezed,
   }) {
     return _then(_value.copyWith(
       isFetching: isFetching == freezed
@@ -726,10 +877,6 @@ class _$StoreStateCopyWithImpl<$Res> implements $StoreStateCopyWith<$Res> {
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<Either<StoreFailure, ProductFailure>>,
-      loadingMore: loadingMore == freezed
-          ? _value.loadingMore
-          : loadingMore // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 
@@ -758,8 +905,7 @@ abstract class _$$_StoreStateCopyWith<$Res>
       Store? storeRealtime,
       List<Product> productList,
       bool notAvailable,
-      Option<Either<StoreFailure, ProductFailure>> failure,
-      bool loadingMore});
+      Option<Either<StoreFailure, ProductFailure>> failure});
 
   @override
   $StoreCopyWith<$Res>? get storeRealtime;
@@ -783,7 +929,6 @@ class __$$_StoreStateCopyWithImpl<$Res> extends _$StoreStateCopyWithImpl<$Res>
     Object? productList = freezed,
     Object? notAvailable = freezed,
     Object? failure = freezed,
-    Object? loadingMore = freezed,
   }) {
     return _then(_$_StoreState(
       isFetching: isFetching == freezed
@@ -810,10 +955,6 @@ class __$$_StoreStateCopyWithImpl<$Res> extends _$StoreStateCopyWithImpl<$Res>
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<Either<StoreFailure, ProductFailure>>,
-      loadingMore: loadingMore == freezed
-          ? _value.loadingMore
-          : loadingMore // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -827,8 +968,7 @@ class _$_StoreState extends _StoreState {
       required this.storeRealtime,
       required final List<Product> productList,
       required this.notAvailable,
-      required this.failure,
-      required this.loadingMore})
+      required this.failure})
       : _productList = productList,
         super._();
 
@@ -849,12 +989,10 @@ class _$_StoreState extends _StoreState {
   final bool notAvailable;
   @override
   final Option<Either<StoreFailure, ProductFailure>> failure;
-  @override
-  final bool loadingMore;
 
   @override
   String toString() {
-    return 'StoreState(isFetching: $isFetching, selectedType: $selectedType, storeRealtime: $storeRealtime, productList: $productList, notAvailable: $notAvailable, failure: $failure, loadingMore: $loadingMore)';
+    return 'StoreState(isFetching: $isFetching, selectedType: $selectedType, storeRealtime: $storeRealtime, productList: $productList, notAvailable: $notAvailable, failure: $failure)';
   }
 
   @override
@@ -872,9 +1010,7 @@ class _$_StoreState extends _StoreState {
                 .equals(other._productList, _productList) &&
             const DeepCollectionEquality()
                 .equals(other.notAvailable, notAvailable) &&
-            const DeepCollectionEquality().equals(other.failure, failure) &&
-            const DeepCollectionEquality()
-                .equals(other.loadingMore, loadingMore));
+            const DeepCollectionEquality().equals(other.failure, failure));
   }
 
   @override
@@ -885,8 +1021,7 @@ class _$_StoreState extends _StoreState {
       const DeepCollectionEquality().hash(storeRealtime),
       const DeepCollectionEquality().hash(_productList),
       const DeepCollectionEquality().hash(notAvailable),
-      const DeepCollectionEquality().hash(failure),
-      const DeepCollectionEquality().hash(loadingMore));
+      const DeepCollectionEquality().hash(failure));
 
   @JsonKey(ignore: true)
   @override
@@ -901,8 +1036,8 @@ abstract class _StoreState extends StoreState {
       required final Store? storeRealtime,
       required final List<Product> productList,
       required final bool notAvailable,
-      required final Option<Either<StoreFailure, ProductFailure>> failure,
-      required final bool loadingMore}) = _$_StoreState;
+      required final Option<Either<StoreFailure, ProductFailure>>
+          failure}) = _$_StoreState;
   const _StoreState._() : super._();
 
   @override
@@ -917,8 +1052,6 @@ abstract class _StoreState extends StoreState {
   bool get notAvailable;
   @override
   Option<Either<StoreFailure, ProductFailure>> get failure;
-  @override
-  bool get loadingMore;
   @override
   @JsonKey(ignore: true)
   _$$_StoreStateCopyWith<_$_StoreState> get copyWith =>

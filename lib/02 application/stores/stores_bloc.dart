@@ -28,8 +28,6 @@ class StoresBloc extends Bloc<StoresEvent, StoresState> {
 //?-----------------------------------------------------------------------------
 
     on<UpdateSelectedCategory>((event, emit) async {
-      log('update-category-Event-Called');
-      // emit isFetching: true, SelectedCategory : event.category
       emit(state.copyWith(
         isFetching: true,
         selectedCategory: event.category,
@@ -75,10 +73,13 @@ class StoresBloc extends Bloc<StoresEvent, StoresState> {
           var failureOrStores = await _iStoreRepo.getStoresByCategory(
               category: category, startAfterStoreId: null);
           failureOrStores.fold(
-            (storeFailure) => emit(state.copyWith(
-                isFetching: false,
-                loadingMore: false,
-                failure: some(storeFailure))),
+            (storeFailure) {
+              emit(state.copyWith(
+                  isFetching: false,
+                  loadingMore: false,
+                  failure: some(storeFailure)));
+              add(const ToggleFailures());
+            },
             (storesList) {
               _storesLocally[state.selectedCategory]!.addAll(storesList);
               emit(state.copyWith(
@@ -91,7 +92,6 @@ class StoresBloc extends Bloc<StoresEvent, StoresState> {
           );
         } else {
           log('5');
-          // TODO: remove notAvailable state Logic
           emit(state.copyWith(
               isFetching: false,
               notAvailable: true,
@@ -110,7 +110,7 @@ class StoresBloc extends Bloc<StoresEvent, StoresState> {
         failure: none(),
       ));
       final category = state.selectedCategory!;
-      final fetchAfterSid = state.storeList.last.sId;
+      final fetchAfterSid = state.storeList.last.storeId;
       log('8');
       // FetchStores(category, afterSId?):
       // fetchStores via iStoreRepo -->
@@ -120,10 +120,14 @@ class StoresBloc extends Bloc<StoresEvent, StoresState> {
       var failureOrStores = await _iStoreRepo.getStoresByCategory(
           category: category, startAfterStoreId: fetchAfterSid);
       failureOrStores.fold(
-        (storeFailure) => emit(state.copyWith(
-            isFetching: false,
-            loadingMore: false,
-            failure: some(storeFailure))),
+        (storeFailure) {
+          emit(state.copyWith(
+              isFetching: false,
+              loadingMore: false,
+              failure: some(storeFailure)));
+
+          add(const ToggleFailures());
+        },
         (storesList) {
           _storesLocally[state.selectedCategory]!.addAll(storesList);
           emit(state.copyWith(

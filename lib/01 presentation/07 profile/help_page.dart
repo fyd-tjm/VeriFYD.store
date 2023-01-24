@@ -1,13 +1,16 @@
+import 'dart:developer';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+import 'package:verifyd_store/utils/helpers/db_helpers.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
-
 import '../../02 application/shared info/shared_info_cubit.dart';
 import 'widgets/exports.dart';
 
@@ -17,8 +20,15 @@ class HelpWrapperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: getIt<SharedInfoCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(
+          value: getIt<SharedInfoCubit>(),
+        ),
+        BlocProvider.value(
+          value: getIt<FydUserCubit>(),
+        ),
+      ],
       child: const HelpPage(),
     );
   }
@@ -81,15 +91,19 @@ class HelpPage extends StatelessWidget {
                   color: fydPWhite,
                 ),
               ),
-              //TODO: close navigation
-              onPressed: () {},
+              //! close navigation
+              onPressed: () {
+                context.router.pop();
+                // context.navigateNamedTo('/main/home');
+                // log(context.router.currentUrl);
+              },
             ),
           ),
           main: Center(
             child: FydText.d2black(text: 'Help'),
           ),
         ),
-        FydDivider(context: context),
+        const FydDivider(),
         //! timmings via sharedInfo
         Padding(
           padding: EdgeInsets.only(bottom: 20.h),
@@ -106,10 +120,9 @@ class HelpPage extends StatelessWidget {
                     text: 'Calling-Hours :  ',
                     weight: FontWeight.bold,
                   ),
-                  // FydText.b1black(text: ':'),
                   FydText.b2custom(
-                    text: state.sharedInfo?.timmings['callingHours']! ??
-                        '10:00 - 18:00',
+                    text: state.sharedInfo!.timmings[
+                        DbHelpers.getSharedInfoField(SharedInfo.callingHours)]!,
                     color: fydSCPink,
                     weight: FontWeight.w700,
                   ),
@@ -127,10 +140,10 @@ class HelpPage extends StatelessWidget {
                     text: 'Operating-Hours :  ',
                     weight: FontWeight.bold,
                   ),
-                  // FydText.b1black(text: ':'),
                   FydText.b2custom(
-                    text: state.sharedInfo?.timmings['operatingHours']! ??
-                        '09:00 - 22:00',
+                    text: state.sharedInfo!.timmings[
+                        DbHelpers.getSharedInfoField(
+                            SharedInfo.operatingHours)]!,
                     color: fydSCPink,
                     weight: FontWeight.w700,
                   ),
@@ -162,12 +175,10 @@ class HelpPage extends StatelessWidget {
             heading: 'Whatsapp support. Quick resolution',
             subHeading: '(recommended)',
             onPressed: () async {
-              final String whatsappNumber =
-                  state.sharedInfo?.support['whatsapp'] ?? '919690590197';
-              final Uri launchUri = Uri.parse(
-                'https://wa.me/$whatsappNumber',
+              Helpers.launchWhatsApp(
+                phone: state.sharedInfo!.support[
+                    DbHelpers.getSharedInfoField(SharedInfo.whatsapp)]!,
               );
-              await launchUrl(launchUri, mode: LaunchMode.externalApplication);
             },
           ),
           //! phone expansion
@@ -177,14 +188,13 @@ class HelpPage extends StatelessWidget {
               size: 40,
               color: fydSPink,
             ),
-            heading: Helpers.phoneMaskWithCountryCode(
-                state.sharedInfo?.support['phone'][0]),
+            heading: Helpers.phoneMaskWithCountryCode(state.sharedInfo!
+                .support[DbHelpers.getSharedInfoField(SharedInfo.phone)]!),
             onPressed: () async {
-              final Uri launchUri = Uri(
-                scheme: 'tel',
-                path: state.sharedInfo?.support['phone'][0] ?? '+9196905907',
+              Helpers.launchPhone(
+                phone: state.sharedInfo!
+                    .support[DbHelpers.getSharedInfoField(SharedInfo.phone)]!,
               );
-              await launchUrl(launchUri);
             },
           ),
           //! mail
@@ -195,30 +205,14 @@ class HelpPage extends StatelessWidget {
               color: fydSPink,
             ),
             heading: 'Mail us at',
-            subHeading:
-                state.sharedInfo?.support['mail'] ?? 'verifyd@gmail.com',
+            subHeading: state.sharedInfo!
+                .support[DbHelpers.getSharedInfoField(SharedInfo.mail)]!,
             onPressed: () async {
-              //--------
-              String? encodeQueryParameters(Map<String, String> params) {
-                return params.entries
-                    .map((MapEntry<String, String> e) =>
-                        '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-                    .join('&');
-              }
-
-              //--------
-              final Uri emailLaunchUri = Uri(
-                scheme: 'mailto',
-                path: state.sharedInfo?.support['mail'] ??
-                    'fyd.technologies@gmail.com',
-                query: encodeQueryParameters(<String, String>{
-                  'subject': 'user Help via verifyd.store ',
-                }),
+              await Helpers.launchMail(
+                email: state.sharedInfo!
+                    .support[DbHelpers.getSharedInfoField(SharedInfo.mail)]!,
+                subject: 'Help with userId:  ',
               );
-              //--------
-
-              await launchUrl(emailLaunchUri);
-              //-------
             },
           ),
         ],

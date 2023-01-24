@@ -10,6 +10,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:verifyd_store/02%20application/phone%20login/phone_login_bloc.dart';
 import 'package:verifyd_store/03%20domain/auth/value_objects.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+import 'package:verifyd_store/utils/router.dart';
 import '../../00 ui-core/ui_exports.dart';
 import 'package:verifyd_store/utils/constants/constants.dart';
 
@@ -158,7 +159,7 @@ class PhoneLoginPage extends HookWidget {
                           // await Future.delayed(const Duration(seconds: 2));
                           context.read<PhoneLoginBloc>().add(
                               const PhoneLoginEvent.toggleIsCodeSentState());
-                          context.router.pushNamed('/phoneLogin/loginOtp');
+                          context.router.pushNamed(Rn.otp);
                         } else {
                           if (state.authFailureOrSuccessOption != none()) {
                             showSnack(

@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:verifyd_store/03%20domain/checkout/order.dart';
 import 'package:verifyd_store/03%20domain/user/address.dart';
 
 import '../../03 domain/user/00_export_user_domain.dart';
@@ -14,19 +15,16 @@ part 'fyd_user_cubit.freezed.dart';
 
 @lazySingleton
 class FydUserCubit extends Cubit<FydUserState> {
-  late final IUserRepository _iUserRepo;
+  final IUserRepository _iUserRepo;
   StreamSubscription<Either<UserFailure, FydUser>>? _subscription;
 
 //?-----------------------------------------------------------------------------
-  FydUserCubit(this._iUserRepo) : super(FydUserState.initial()) {
-    // getUserStatus();
-  }
+  FydUserCubit(this._iUserRepo) : super(FydUserState.initial());
 
 //?-Get-UserStatus--------------------------------------------------------------
   Future<void> getUserStatus() async {
     // emit loading state
     emit(state.copyWith(loadingState: true, authUser: null, fydUser: null));
-    await Future.delayed(const Duration(seconds: 1));
     // get fydUser from db
     final userStatus = await _iUserRepo.getFydUser();
     // emit the result
@@ -47,7 +45,6 @@ class FydUserCubit extends Cubit<FydUserState> {
   //-------------------
   void _handleStreamEvent(Either<UserFailure, FydUser> event) {
     // log('handleUserEvent');
-    // log(event.toString());
     event.fold(
       (failure) => emit(state.copyWith(failureOrSuccess: some(left(failure)))),
       (fydUser) {
@@ -203,6 +200,31 @@ class FydUserCubit extends Cubit<FydUserState> {
           ),
         );
     //----
+  }
+
+//?-----------------------------------------------------------------------------
+  void getFydOrders() async {
+    //--------
+    emit(state.copyWith(
+        updating: true, failureOrSuccess: none(), fydOrders: null));
+    //--------
+    final fydOrders = await _iUserRepo.getOrders(userId: state.fydUser!.uId);
+    fydOrders.fold(
+      (failure) {
+        emit(state.copyWith(
+          updating: false,
+          failureOrSuccess: some(left(failure)),
+        ));
+        toggleStates();
+      },
+      (ordersList) => emit(state.copyWith(
+        updating: false,
+        fydOrders: ordersList,
+        failureOrSuccess: none(),
+      )),
+    );
+
+    //-------
   }
 
 //?-Toggle-States---------------------------------------------------------------

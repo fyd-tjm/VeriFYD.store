@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:verifyd_store/03%20domain/checkout/order.dart';
 import 'package:verifyd_store/03%20domain/user/address.dart';
 
 import '../auth/00_export_auth_domain.dart';
@@ -21,4 +22,7 @@ abstract class IUserRepository {
 
   Future<Either<UserFailure, Unit>> addNewAddress(
       {required FydAddress address, required int newIndex});
+
+  Future<Either<UserFailure, List<FydOrder>>> getOrders(
+      {required String userId});
 }

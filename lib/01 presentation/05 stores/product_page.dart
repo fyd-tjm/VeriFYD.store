@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,34 +8,36 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
-import 'package:verifyd_store/02%20application/stores/product/product_bloc.dart';
-import 'package:verifyd_store/03%20domain/store/product.dart';
-import 'package:verifyd_store/aa%20mock/static_ui.dart';
+import 'package:verifyd_store/01%20presentation/05%20stores/store_info_view_page.dart';
+import 'package:verifyd_store/02%20application/product/product_bloc.dart';
 import 'package:verifyd_store/presentation/core/widgets/fyd_text_ellipsis.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 
 import 'widgets/export_widgets.dart';
 
-class ProductWrapperPage extends StatelessWidget {
-  const ProductWrapperPage({Key? key}) : super(key: key);
+//?-----------------------------------------------------------------------------
 
+class ProductWrapperPage extends StatelessWidget {
+  const ProductWrapperPage({Key? key, required this.productRef})
+      : super(key: key);
+
+  final String productRef;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ProductBloc>()
-        ..add(
-          const GetProductRealtime(productRef: 'stores/#W12R/products/#A112'),
-        ),
-      child: ProductPage(
-        product: MockUi.product,
-      ),
+      create: (context) =>
+          getIt<ProductBloc>()..add(GetProductRealtime(productRef: productRef)),
+      child: const ProductPage(),
     );
   }
 }
 
+//?-----------------------------------------------------------------------------
+
 class ProductPage extends HookWidget {
-  const ProductPage({Key? key, required this.product}) : super(key: key);
-  final Product product;
+  const ProductPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,92 +47,118 @@ class ProductPage extends HookWidget {
     return Scaffold(
       backgroundColor: fydPDgrey,
       body: SafeArea(
-        child: BlocListener<ProductBloc, ProductState>(
+        child: BlocConsumer<ProductBloc, ProductState>(
           listener: (context, state) {
+            // Failure-Product
             if (state.failure.isSome()) {
-              context.read<ProductBloc>().add(const ToggleStates());
               state.failure.fold(
-                () => null,
-                (productFailure) => showSnack(
-                  context: context,
-                  message: productFailure.when(
-                    permissionDenied: () => 'permission-denied',
-                    notFound: () => 'product not found',
-                    serverError: () => 'server error, try again',
-                    unexpectedError: () => 'unexpected error, try again',
-                  ),
-                ),
-              );
-            } else if (state.newCartPermissionState == true) {
+                  () => null,
+                  (productFailure) => showSnack(
+                        context: context,
+                        message: productFailure.when(
+                          permissionDenied: () => 'permission-denied',
+                          notFound: () => 'product not found',
+                          serverError: () => 'server error, try again',
+                          unexpectedError: () => 'unexpected error, try again',
+                        ),
+                      ));
+            }
+            // Failure(Or)Success-AddingToCart
+            if (state.cartFailureOrSuccess.isSome()) {
+              state.cartFailureOrSuccess.fold(
+                  () => null,
+                  (failureOrSuccess) => failureOrSuccess.fold(
+                        (addCartFailure) => addCartFailure.whenOrNull(
+                          maxItemAvailability: () => showSnack(
+                              context: context,
+                              message: 'max Item Availability'),
+                          maxCartLimit: () => showSnack(
+                              context: context, message: 'max Cart limit'),
+                          unexpectedError: (e) => showSnack(
+                              context: context,
+                              message: 'unexpected Error, try again!'),
+                        ),
+                        (addCartSuccess) => showSnack(
+                            context: context, message: 'item Added to cart'),
+                      ));
+            }
+            // Cart-Permission-state
+            if (state.newCartPermissionState == true) {
               //? dialog and add newCartEvent
-              //------
-              context.read<ProductBloc>().add(const ToggleStates());
               showPermissionDialog(
-                      context: context,
-                      // title: 'title',
-                      message:
-                          'Items of other Store exists in cart. \n Should we proceed by removing those ')
-                  .then((permission) {
+                context: context,
+                // title: 'title',
+                message:
+                    'Items of other Store exists in cart. \n Should we proceed by removing those ',
+              ).then((permission) {
                 if (permission == true) {
                   context
                       .read<ProductBloc>()
                       .add(AddNewCartWithProduct(size: selectedSize.value));
                 }
               });
-            } else if (state.cartFailureOrSuccess.isSome()) {
-              context.read<ProductBloc>().add(const ToggleStates());
-              //Todo: error naming Refactor
-              state.cartFailureOrSuccess.fold(
-                () => null,
-                (failureOrSuccess) => failureOrSuccess.fold(
-                  (addCartFailure) => addCartFailure.when(
-                    notAvailableAnymore: () => null,
-                    maxItemAvailability: () => showSnack(
-                        context: context, message: 'max Item Availability'),
-                    maxCartLimit: () =>
-                        showSnack(context: context, message: 'max Cart limit'),
-                    notFound: () => null,
-                    permissionDenied: () => null,
-                    serverError: () =>
-                        showSnack(context: context, message: 'server Error'),
-                    unexpectedError: () => showSnack(
-                        context: context,
-                        message: 'unexpected Error, try again!'),
-                  ),
-                  (addCartSuccess) => showSnack(
-                      context: context, message: 'item Added to cart'),
+            }
+          },
+          buildWhen: (previous, current) {
+            return true;
+          },
+          builder: (context, state) {
+            if (state.isFetching && state.productRealtime == null) {
+              return const Center(
+                child: SpinKitWave(
+                  color: fydBlueGrey,
+                  size: 40.0,
+                ),
+              );
+            } else if (state.productRealtime == null) {
+              return Center(
+                child: FydText.h1custom(
+                  text: 'product not available at the moment',
+                  weight: FontWeight.w700,
+                  color: fydBlueGrey,
                 ),
               );
             }
+            //! product-Page
+            else {
+              return FydView(
+                pageViewType: ViewType.without_Nav_Bar,
+                isScrollable: false,
+                topSheetHeight: 350.h,
+                topSheetColor: fydPDgrey,
+                topSheet: _topSheetView(context, state, imageIndex),
+                bottomSheet: _bottomSheetView(context, state, selectedSize),
+              );
+            }
           },
-          child: FydView(
-            pageViewType: ViewType.without_Nav_Bar,
-            isScrollable: false,
-            topSheetHeight: 350.h,
-            topSheetColor: fydPDgrey,
-            topSheet: _topSheetView(context, imageIndex),
-            bottomSheet: _bottomSheetView(context, selectedSize),
-          ),
         ),
       ),
     );
   }
 
 //?--Top-Sheet-View-------------------------------------------------------------
-  _topSheetView(BuildContext context, ValueNotifier<int> imageIndex) {
+  _topSheetView(
+    BuildContext context,
+    ProductState state,
+    ValueNotifier<int> imageIndex,
+  ) {
+    final inStock = state.productRealtime!.inStock;
     return Stack(
       fit: StackFit.expand,
       children: [
         // image-carousel
-        (product.productImages.isEmpty)
+        (state.productRealtime!.productImages.isEmpty)
             ? Placeholder(
                 child: Center(
                   child: FydText.b1white(text: 'Image Not Available'),
                 ),
               )
             : ProductCarouselSlider(
-                imageUrl: product.productImages,
-                imageCount: product.productImages.length,
+                imageUrls: (inStock)
+                    ? state.productRealtime!.productImages
+                    : [state.productRealtime!.thumbnailImage],
+                imageCount:
+                    (inStock) ? state.productRealtime!.productImages.length : 1,
                 onSwap: (int idx) {
                   imageIndex.value = idx;
                 },
@@ -140,12 +169,13 @@ class ProductPage extends HookWidget {
           child: Align(
               alignment: Alignment.bottomCenter,
               child: DotsIndicator(
-                dotsCount: MockUi.productImages.length,
+                dotsCount:
+                    (inStock) ? state.productRealtime!.productImages.length : 1,
                 position: imageIndex.value.toDouble(),
                 decorator: DotsDecorator(
                   size: const Size.square(9.0),
                   activeSize: const Size(18.0, 9.0),
-                  activeColor: fydSOrange,
+                  activeColor: fydBlueGrey,
                   color: fydPDgrey,
                   activeShape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0)),
@@ -173,8 +203,10 @@ class ProductPage extends HookWidget {
                   color: fydDustyPeach,
                 ),
               ),
-              //TODO: back navigation
-              onPressed: () {},
+              //! back to previous route navigation
+              onPressed: () {
+                context.router.navigateBack();
+              },
             ),
           ),
         ),
@@ -183,163 +215,186 @@ class ProductPage extends HookWidget {
   }
 
 //?--Bottom-Sheet-View----------------------------------------------------------
-  _bottomSheetView(BuildContext context, ValueNotifier<String> selectedSize) {
-    return BlocBuilder<ProductBloc, ProductState>(
-      builder: (context, state) {
-        if (state.isFetching || state.productRealtime == null) {
-          //? loading
-          return const Center(
-            child: SpinKitWave(
-              color: fydPWhite,
-              size: 40.0,
-            ),
-          );
-        } else if (state.productRealtime!.inStock == false) {
-          // Todo : outofStock image
-          return Center(
-            child: FydText.h1custom(
-              text: 'Out of Stock',
-              weight: FontWeight.w700,
-              color: fydDustyPeach,
-            ),
-          );
-        } else {
-          // filter map for stockout sizes
-          final sizeMap = Map.of(state.productRealtime!.sizeAvailability)
-            ..removeWhere((key, value) => value == 0);
-          return Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              //? Product-Detail-Section
-              Expanded(
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  primary: false,
-                  // reverse: true,
-
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
-                    child: Column(
+  _bottomSheetView(
+    BuildContext context,
+    ProductState state,
+    ValueNotifier<String> selectedSize,
+  ) {
+    //! product-loading
+    if (state.isFetching && state.productRealtime == null) {
+      return Center(
+        child: SpinKitWave(
+          color: fydBlueGrey,
+          size: 30.w,
+        ),
+      );
+    }
+    //! product-Error
+    else if (state.isFetching == false && state.productRealtime == null) {
+      return Center(
+        child: FydText.b1custom(
+          text: 'something went wrong!',
+          color: fydBlueGrey,
+          weight: FontWeight.bold,
+        ),
+      );
+    }
+    //! product-stockout
+    else if (state.productRealtime!.inStock == false) {
+      return Center(
+        child: FydText.b1custom(
+          text: 'Stock out!',
+          color: fydBlueGrey,
+          weight: FontWeight.bold,
+        ),
+      );
+    }
+    //! product-Info-view
+    else {
+      // filter map for stockout sizes
+      final sizeMap = Map.of(state.productRealtime!.sizeAvailability)
+        ..removeWhere((key, value) => value == 0);
+      return Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          //! Product-Detail-Section
+          Expanded(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+                child: Column(
+                  children: [
+                    const Divider(
+                      color: fydBlueGrey,
+                      thickness: 1.2,
+                      height: 30,
+                    ),
+                    ProductInfoSection(
+                      productName: state.productRealtime!.name,
+                      company: state.productRealtime!.company,
+                      price: state.productRealtime!.sellingPrice.toString(),
+                    ),
+                    const Divider(
+                      color: fydBlueGrey,
+                      thickness: 1.2,
+                      height: 30,
+                    ),
+                    //? ProductSizeSection
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Divider(
-                          color: fydPLgrey,
-                          thickness: 1.2,
-                          height: 30,
+                        //? size and sizeGuide btn
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 15.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              FydText.h2white(text: 'Size'),
+                              InkWell(
+                                  onTap: () {},
+                                  child: FydText.b3grey(text: 'Size Guide'))
+                            ],
+                          ),
                         ),
-                        ProductInfoSection(
-                          productName: state.productRealtime!.name,
-                          company: state.productRealtime!.company,
-                          price: state.productRealtime!.sellingPrice.toString(),
-                        ),
-                        const Divider(
-                          color: fydPLgrey,
-                          thickness: 1.2,
-                          height: 30,
-                        ),
-                        //? ProductSizeSection
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            //? size and sizeGuide btn
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 15.h),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  FydText.h2white(text: 'Size'),
-                                  InkWell(
-                                      onTap: () {},
-                                      child: FydText.b3grey(text: 'Size Guide'))
-                                ],
+                        //? Size-selection-List
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          child: Wrap(
+                            direction: Axis.horizontal,
+                            alignment: WrapAlignment.start,
+                            runAlignment: WrapAlignment.start,
+                            spacing: 20.w,
+                            runSpacing: 10.h,
+                            children: List.generate(
+                              sizeMap.entries.length,
+                              (idx) => ProductSizeTile(
+                                size: sizeMap.keys.elementAt(idx),
+                                tileColor: (selectedSize.value ==
+                                        sizeMap.keys.elementAt(idx))
+                                    ? fydLogoBlue
+                                    : fydPGrey,
+                                onPressed: (size) => selectedSize.value = size,
                               ),
                             ),
-                            //? Size-selection-List
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10.w),
-                              child: Wrap(
-                                direction: Axis.horizontal,
-                                alignment: WrapAlignment.start,
-                                runAlignment: WrapAlignment.start,
-                                spacing: 20.w,
-                                runSpacing: 10.h,
-                                children: List.generate(
-                                  sizeMap.entries.length,
-                                  (idx) => ProductSizeTile(
-                                    size: sizeMap.keys.elementAt(idx),
-                                    tileColor: (selectedSize.value ==
-                                            sizeMap.keys.elementAt(idx))
-                                        ? fydSOrange
-                                        : fydPGrey,
-                                    onPressed: (size) =>
-                                        selectedSize.value = size,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Divider(
-                          color: fydPLgrey,
-                          thickness: 1.2,
-                          height: 30,
-                        ),
-                        ProductExpansionTile(
-                          description: state.productRealtime!.description,
-                          policy: state.productRealtime!.description,
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ),
-              ),
-
-              //? AddToCart-BTN
-              Padding(
-                padding: EdgeInsets.only(
-                    bottom: 25.h, top: 15.h, left: 15.w, right: 15.w),
-                child: FydBtn(
-                  height: 60.h,
-                  color: fydPGrey,
-                  widget: (state.addingToCart == true)
-                      ? const SpinKitWave(color: fydPWhite, size: 20.0)
-                      : FydText.h1custom(
-                          text: 'Add to Cart',
-                          color: fydSOrange,
+                    const Divider(
+                      color: fydBlueGrey,
+                      thickness: 1.2,
+                      height: 30,
+                    ),
+                    StoreInfoExpansionTile(
+                      title: 'Description & Policy',
+                      color: fydBlueGrey,
+                      widgets: [
+                        FydTextCard(
+                          backgroundColor: Colors.transparent,
+                          message: (state.productRealtime!.description.isEmpty)
+                              ? 'Description is Empty at the moment. show the policy in this scenario.'
+                              : state.productRealtime!.description,
+                          textColor: fydGreyWhite,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.w, vertical: 15.w),
                         ),
-                  onPressed: () {
-                    if (selectedSize.value.isEmpty) {
-                      return showSnack(
-                          backgroundColor: fydDustyPeach,
-                          durationSeconds: 2,
-                          margin: EdgeInsets.only(
-                              bottom:
-                                  MediaQuery.of(context).size.height - 140.h),
-                          backgroundOpacity: 1,
-                          context: context,
-                          // message: 'select Size before adding to Cart',
-                          fydText: FydText.h1black(
-                              weight: FontWeight.bold,
-                              text: 'select Size before adding to Cart'));
-                    }
-                    if (state.addingToCart == true) return;
-                    context
-                        .read<ProductBloc>()
-                        .add(AddToCart(size: selectedSize.value));
-                  },
+                        FydTextCard(
+                          backgroundColor: Colors.transparent,
+                          message: (state.productRealtime!.description.isEmpty)
+                              ? 'Description is Empty at the moment. show the policy in this scenario.'
+                              : state.productRealtime!.description,
+                          textColor: fydGreyWhite,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.w, vertical: 15.w),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-            ],
-          );
-        }
-      },
-    );
+            ),
+          ),
+
+          //! AddToCart-BTN
+          Padding(
+            padding: EdgeInsets.only(
+                bottom: 25.h, top: 15.h, left: 15.w, right: 15.w),
+            child: FydBtn(
+              height: 60.h,
+              color: fydPGrey,
+              widget: (state.addingToCart == true)
+                  ? const SpinKitWave(color: fydLogoBlue, size: 20.0)
+                  : FydText.h1custom(
+                      text: 'Add to Cart',
+                      color: fydLogoBlue,
+                    ),
+              onPressed: () {
+                if (state.addingToCart == true) {
+                  return;
+                } else if (selectedSize.value.isEmpty) {
+                  return showSnack(
+                      durationSeconds: 2,
+                      context: context,
+                      fydText: FydText.h1black(
+                          weight: FontWeight.bold,
+                          text: 'select Size before adding to Cart'));
+                } else {
+                  context
+                      .read<ProductBloc>()
+                      .add(AddToCart(size: selectedSize.value));
+                }
+              },
+            ),
+          ),
+        ],
+      );
+    }
   }
 }
 
@@ -386,9 +441,9 @@ class ProductInfoSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FydText.h2custom(
+            FydText.h3custom(
               text: '₹ $price',
-              color: fydSOrange,
+              color: fydLogoBlue,
             ),
           ],
         ),

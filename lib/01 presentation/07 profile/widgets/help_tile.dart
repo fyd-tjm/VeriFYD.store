@@ -1,4 +1,6 @@
 //! HelpTile
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +10,7 @@ class HelpTile extends StatelessWidget {
   final Widget icon;
   final String heading;
   final String? subHeading;
-  final VoidCallback onPressed;
+  final Function onPressed;
   const HelpTile({
     Key? key,
     required this.icon,
@@ -22,7 +24,7 @@ class HelpTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         HapticFeedback.mediumImpact();
-        onPressed;
+        onPressed();
       },
       child: SizedBox(
         height: 100.h,

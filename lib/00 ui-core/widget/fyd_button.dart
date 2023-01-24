@@ -11,6 +11,7 @@ class FydBtn extends StatelessWidget {
   final double height;
   final double width;
   final VoidCallback onPressed;
+  final bool isFilled;
 
   const FydBtn({
     Key? key,
@@ -21,6 +22,7 @@ class FydBtn extends StatelessWidget {
     this.textColor = fydPWhite,
     this.height = 55,
     this.width = double.infinity,
+    this.isFilled = true,
   }) : super(key: key);
 
   @override
@@ -30,11 +32,13 @@ class FydBtn extends StatelessWidget {
       width: width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: color, // background
+          primary: (isFilled) ? color : fydPWhite, // background
           onPrimary: textColor, // foreground
           elevation: 10.0,
           shape: RoundedRectangleBorder(
-              //to set border radius to button
+              side: (isFilled)
+                  ? BorderSide.none
+                  : BorderSide(color: color, width: 2.0),
               borderRadius: BorderRadius.circular(10.r)),
         ),
         onPressed: onPressed,

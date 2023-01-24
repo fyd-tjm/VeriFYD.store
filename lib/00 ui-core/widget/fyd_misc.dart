@@ -12,33 +12,42 @@ import 'package:verifyd_store/00%20ui-core/widget/fyd_text.dart';
 
 //?--fyd-divider----------------------------------------------------------------
 
-Widget FydDivider({required BuildContext context}) {
-  return Row(
-    children: [
-      Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color.fromARGB(255, 69, 39, 160), Colors.transparent],
-            begin: Alignment.center,
-            end: Alignment.centerLeft,
+class FydDivider extends StatelessWidget {
+  const FydDivider({
+    Key? key,
+    this.color = fydSCPink,
+  }) : super(key: key);
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [color, Colors.transparent],
+              begin: Alignment.center,
+              end: Alignment.centerLeft,
+            ),
           ),
+          height: 1.0,
+          width: MediaQuery.of(context).size.width / 2,
         ),
-        height: 1.0,
-        width: MediaQuery.of(context).size.width / 2,
-      ),
-      Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color.fromARGB(255, 69, 39, 160), Colors.transparent],
-            begin: Alignment.center,
-            end: Alignment.centerRight,
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [color, Colors.transparent],
+              begin: Alignment.center,
+              end: Alignment.centerRight,
+            ),
           ),
+          height: 1.0,
+          width: MediaQuery.of(context).size.width / 2,
         ),
-        height: 1.0,
-        width: MediaQuery.of(context).size.width / 2,
-      ),
-    ],
-  );
+      ],
+    );
+  }
 }
 
 //?--Ok-Diaolog-----------------------------------------------------------------
@@ -112,7 +121,8 @@ Future<bool?> showOkDialog({
   );
   return showDialog<bool>(
     context: context,
-    barrierDismissible: false,
+    barrierDismissible: true,
+    useRootNavigator: false,
     builder: (context) => dialog,
   );
 }
@@ -122,6 +132,8 @@ Future<bool?> showOkDialog({
 Future<bool?> showPermissionDialog({
   required BuildContext context,
   required String message,
+  String trueBtnTitle = 'Allow',
+  String falseBtnTitle = 'Cancel',
 }) {
   final dialog = Dialog(
     backgroundColor: fydPWhite,
@@ -175,9 +187,9 @@ Future<bool?> showPermissionDialog({
                           ),
                         ),
                       ),
-                      onPressed: () => Navigator.of(context).pop(false),
+                      onPressed: () async => Navigator.of(context).pop(false),
                       child: FydText.h1white(
-                        text: 'Cancel',
+                        text: falseBtnTitle,
                         weight: FontWeight.w200,
                       ),
                     ),
@@ -200,8 +212,9 @@ Future<bool?> showPermissionDialog({
                           ),
                         ),
                       ),
-                      onPressed: () => Navigator.of(context).pop(true),
-                      child: FydText.h1custom(color: fydSOrange, text: 'Allow'),
+                      onPressed: () => Navigator.pop(context, true),
+                      child: FydText.h1custom(
+                          color: fydSOrange, text: trueBtnTitle),
                     ),
                   ),
                 ),
@@ -214,8 +227,9 @@ Future<bool?> showPermissionDialog({
   );
   return showDialog<bool>(
     context: context,
-    barrierDismissible: false,
-    builder: (context) => dialog,
+    barrierDismissible: true,
+    useRootNavigator: false,
+    builder: (c1) => dialog,
   );
 }
 
@@ -231,7 +245,7 @@ void showSnack(
     Color? backgroundColor,
     double backgroundOpacity = .95,
     FydText? fydText,
-    SnackBarPosition snackPosition = SnackBarPosition.bottom}) {
+    SnackBarPosition snackPosition = SnackBarPosition.top}) {
   //------
   if (snackPosition == SnackBarPosition.top) {
     margin = EdgeInsets.only(bottom: 785.h);

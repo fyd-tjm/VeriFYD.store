@@ -14,11 +14,11 @@ class StoreNameHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return (storeName.length < 14)
-        ? FydText.d2black(text: storeName)
+        ? FydText.d3black(text: storeName)
         : FydTextScroller(
             height: 40.h,
             width: 400.h * (2 / 3),
-            fydText: FydText.d2black(text: storeName),
+            fydText: FydText.d3black(text: storeName),
           );
   }
 }

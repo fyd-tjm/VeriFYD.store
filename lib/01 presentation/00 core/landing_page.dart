@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
+import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+import 'package:verifyd_store/utils/router.dart';
 
 class LandingWrapperPage extends StatelessWidget {
   const LandingWrapperPage({Key? key}) : super(key: key);
@@ -33,15 +35,20 @@ class LandingPage extends StatelessWidget {
           final fydUserStatus = state.fydUser;
           if (authStatus == null) {
             // push login route
-            log('going to phoneLogin');
-            context.router.replaceNamed('/phoneLogin');
+            // context.router.replaceNamed('/login');
+            getIt<FydUserCubit>().getFydUserRealtime();
+            getIt<SharedInfoCubit>().getSharedInfoRealtime();
+            context.router.replaceNamed(Rn.main);
+            // context.router.replaceNamed('/test');
           } else {
             if (fydUserStatus == null) {
               // push onBoarding route
-              context.router.replaceNamed('/onBoarding');
+              context.router.replaceNamed(Rn.boarding);
             } else {
+              getIt<FydUserCubit>().getFydUserRealtime();
+              getIt<SharedInfoCubit>().getSharedInfoRealtime();
               // push home route
-              context.router.replaceNamed('/testPage');
+              context.router.replaceNamed(Rn.main);
             }
           }
         }

@@ -44,4 +44,4 @@ const Color fydParrotGreen = Color(0xffD7FF66);
 const Color fydDustyPeach = Color.fromARGB(255, 192, 174, 174);
 const Color fydBlueGrey = Color.fromRGBO(144, 164, 174, 1);
 const Color fydSCBlueGrey = Color.fromARGB(255, 75, 108, 175);
-const Color fydGreyWhite = Color.fromARGB(255, 232, 232, 232);
+const Color fydGreyWhite = Color.fromARGB(255, 217, 218, 218);

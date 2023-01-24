@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,160 +11,172 @@ import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
 import 'package:verifyd_store/presentation/core/widgets/fyd_v_h_listview.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+import 'package:verifyd_store/utils/helpers/helpers.dart';
+import 'package:verifyd_store/utils/router.dart';
 
 import '../../02 application/cart/cubit/cart_cubit.dart';
 import '../../03 domain/store/product.dart';
+
+//?-----------------------------------------------------------------------------
 
 class CartViewWrapperPage extends StatelessWidget {
   const CartViewWrapperPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<CartCubit>(),
-      child: const CartViewPage(),
+    return BlocProvider.value(
+      value: getIt<CartCubit>()..initializeCart(),
+      child: CartViewPage(),
     );
   }
 }
 
 //?-----------------------------------------------------------------------------
+
 class CartViewPage extends StatelessWidget {
-  const CartViewPage({Key? key}) : super(key: key);
+  CartViewPage({Key? key}) : super(key: key);
+
+  final FydLoadingOverlay _loadingOverlay = getIt<FydLoadingOverlay>();
 
   @override
   Widget build(BuildContext context) {
-    // final subTotal = useState(0);
-    return BlocConsumer<CartCubit, CartState>(
-      listener: (context, state) {
-        //? cartListener handling
-        if (state.failure.isSome()) {
-          state.failure.fold(
-            () => null,
-            (cartFailureOrProductFailure) => cartFailureOrProductFailure.fold(
-              (cartFailure) => showSnack(
-                context: context,
-                message: cartFailure.when(
-                  permissionDenied: () => 'permission-denied',
-                  notFound: () => 'cart not found',
-                  serverError: () => 'server error, try again',
-                  unexpectedError: () => 'unexpected error, try again',
-                  maxCartLimit: () => 'max Cart limit',
-                  maxItemAvailability: () => 'max Item Availability',
-                  notAvailableAnymore: () => 'not available anymore',
-                ),
-              ),
-              (productFailure) => showSnack(
-                context: context,
-                message: productFailure.when(
-                  permissionDenied: () => 'permission-denied',
-                  notFound: () => 'product not found',
-                  serverError: () => 'server error, try again',
-                  unexpectedError: () => 'unexpected error, try again',
-                ),
-              ),
-            ),
-          );
-        }
-      },
-      builder: ((context, state) {
-        if (state.cartRealtime == null || state.productDetails.isEmpty) {
-          return const Center(
-            child: SpinKitWave(
-              color: fydPWhite,
-              size: 40.0,
-            ),
-          );
-        } else {
-          //----
-          //-List-of-Cart-items-(sku:Size:Qty)
-          final sizeQtyTuples = <Tuple3>[];
-          state.cartRealtime!.cartMap.forEach((sku, value) => value.forEach(
-              (size, qty) => sizeQtyTuples.add(Tuple3(sku, size, qty))));
-          //----
-          // sizeQtyTuples => corresponding details via productDetails
-          Product? getProductViaSizeQtyTuples(int index) {
-            final sku = sizeQtyTuples.elementAt(index).value1;
-            if (state.productDetails[sku] == null) {
-              context.read<CartCubit>().getCartProductsDetails();
-              return null;
-            } else {
-              return state.productDetails[sku]!;
-            }
-          }
-
-          //----
-          //-SubTotaling
-          var subTotal = 0.0;
-          for (var i = 0; i < sizeQtyTuples.length; i++) {
-            final qty = sizeQtyTuples.elementAt(i).value3;
-            final price = getProductViaSizeQtyTuples(i)?.sellingPrice;
-            if (price != null) {
-              subTotal += qty * price;
-            }
-          }
-          //-----
-          //-qty-availability-check at checkout and updation
-
-          int availabilityBySizeQtyTuple(int index) {
-            final qtyFromProductDetails = state
-                .productDetails[sizeQtyTuples.elementAt(index).value1]!
-                .sizeAvailability[sizeQtyTuples.elementAt(index).value2];
-            if (qtyFromProductDetails == null) {
-              return 0;
-            } else {
-              return qtyFromProductDetails;
-            }
-          }
-
-          bool allItemsAvailableAtCheckout() {
-            var checkoutAvailability = 0;
-            for (var i = 0; i < sizeQtyTuples.length; i++) {
-              if (availabilityBySizeQtyTuple(i) >=
-                  sizeQtyTuples.elementAt(i).value3) {
-                checkoutAvailability +=
-                    sizeQtyTuples.elementAt(i).value3 as int;
-              }
-            }
-            if (checkoutAvailability == state.cartRealtime!.cartCount) {
+    return Scaffold(
+      body: SafeArea(
+        child: BlocConsumer<CartCubit, CartState>(
+          listenWhen: (previous, current) {
+            if (context.router.currentUrl == Rn.cart) {
               return true;
-            } else {
-              return false;
             }
-          }
+            return false;
+          },
+          listener: (context, state) {
+            // failure state
+            if (state.failure.isSome()) {
+              state.failure.fold(
+                () => null,
+                (cartFailure) => showSnack(
+                    context: context,
+                    message: cartFailure.when(
+                      itemNotAvailableAnymore: () =>
+                          'Few items are out of Stock!',
+                      maxItemAvailability: () => 'No more left in stock',
+                      maxCartLimit: () => 'reached cart limit!',
+                      availabilityCheckFailure: () =>
+                          'Server Error! Refresh Cart',
+                      itemsDetailFailure: () =>
+                          'something went wrong! Refresh Cart',
+                      updateCartFailure: () => 'Server Error! Refresh Cart',
+                      cartStreamFailure: () =>
+                          'something went wrong! Refresh Cart',
+                      unexpectedError: (error) =>
+                          'something went wrong! Refresh Cart',
+                    )),
+              );
+            }
+            // loading overlay
+            if (state.updating == true) {
+              _loadingOverlay.show(context);
+            }
+            if (state.updating == false) {
+              _loadingOverlay.hide();
+            }
+          },
+          // if cartRealTime updated trigger build
+          buildWhen: (previous, current) {
+            return true;
+          },
+          builder: (context, state) {
+            // Loading in case of cartState null
+            if (state.cartRealtime == null) {
+              return const Center(
+                child: SpinKitWave(
+                  color: fydLogoBlue,
+                  size: 40.0,
+                ),
+              );
+            }
+            // Empty cart
+            else if (state.cartItemsInTuple3!.isEmpty) {
+              return Center(
+                child: FydText.h2custom(
+                    text: 'Add products To Cart!', color: fydBlueGrey),
+              );
+            }
+            // if product-Detail not exist for sku
+            else if (Helpers.checkEntries(
+                    state.cartItemsInTuple3!
+                        .map((cartItem) => cartItem.value1)
+                        .toList()
+                        .cast(),
+                    state.cartItemsDetail!.cast()) ==
+                false) {
+              return Center(
+                child: Center(
+                  child: FydText.h2custom(
+                      text: 'something went Wrong, Refresh',
+                      color: fydBlueGrey),
+                ),
+              );
+            }
+            // cart-view
+            else {
+              double getTopSheetHeight() {
+                final cartItems = state.cartItemsInTuple3!.length;
+                switch (cartItems) {
+                  case 1:
+                    return 200.h;
+                  case 2:
+                    return 300.h;
 
-          //-----
+                  default:
+                    return 350.h;
+                }
+              }
 
-          return FydView(
-            pageViewType: ViewType.with_Nav_Bar,
-            isScrollable: false,
-            topSheetHeight:
-                350.h, //TODO: adjust height according to items in cart
-            topSheet: _topSheetView(context, state, sizeQtyTuples,
-                getProductViaSizeQtyTuples, availabilityBySizeQtyTuple),
-            bottomSheet: _bottomSheetView(
-                context, state, subTotal.toInt(), allItemsAvailableAtCheckout),
-          );
-        }
-      }),
+              //------
+              return FydView(
+                pageViewType: ViewType.with_Nav_Bar,
+                isScrollable: false,
+                topSheetHeight: getTopSheetHeight(),
+                topSheet: _topSheetView(
+                  context: context,
+                  state: state,
+                ),
+                bottomSheet: _bottomSheetView(
+                  context: context,
+                  state: state,
+                ),
+              );
+            }
+          },
+        ),
+      ),
     );
   }
 
 //?--Top-Sheet-View-------------------------------------------------------------
-  _topSheetView(
-      BuildContext context,
-      CartState state,
-      List<Tuple3<dynamic, dynamic, dynamic>> sizeQtyTuples,
-      Function(int) getProductViaSizeQtyTuples,
-      Function(int) availabilityBySizeQtyTuple) {
+
+  _topSheetView({
+    required BuildContext context,
+    required CartState state,
+  }) {
     //-----
-    var isCartEmpty = sizeQtyTuples.isEmpty;
+    Product getProductForCartItem(Tuple3 cartItem) {
+      return state.cartItemsDetail![cartItem.value1]!;
+    }
+
     //-----
+    int getProductAvailablilityForCartItem(Tuple3 cartItem) {
+      return getProductForCartItem(cartItem).sizeAvailability[cartItem.value2]!;
+    }
+
+    // View
     return Column(
       children: [
-        // appbar(heading + deleteBtn)
+        //! appbar(heading + deleteBtn)
         FydAppBar(
           // heading
-          main: Center(child: FydText.d2black(text: 'Cart')),
+          main: Center(child: FydText.d3black(text: 'Cart')),
           // clear-cart-btn
           trailing: Align(
             alignment: Alignment.center,
@@ -184,152 +197,101 @@ class CartViewPage extends StatelessWidget {
                 ),
               ),
               // clearCart onPressed Event
-              onPressed: (isCartEmpty == true)
-                  ? null
-                  : () {
-                      context.read<CartCubit>().clearCart();
-                    },
+              onPressed: () => context.read<CartCubit>().clearCart(),
             ),
           ),
         ),
         // ScrollView(cart tiles + delete btn + indicator)
-        (isCartEmpty == true)
-            ? Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: FydText.h3custom(
-                          text: 'Don\'t like the empty cart,',
-                          color: fydDustyPeach),
-                    ),
-                    Center(
-                      child: FydText.h2custom(
-                          text: 'add Products!', color: fydDustyPeach),
-                    ),
-                  ],
-                ),
-              )
-            : Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      top: 10.h, left: 10.w, right: 10.w, bottom: 4.h),
-                  child: FydVListView(
-                      width: double.infinity,
-                      separation: 0,
-                      itemCount: sizeQtyTuples.length,
-                      listWidget: List.generate(
-                        sizeQtyTuples.length,
-                        (index) => CartTile(
-                          prodName: getProductViaSizeQtyTuples(index).name,
-                          size: sizeQtyTuples.elementAt(index).value2,
-                          price: getProductViaSizeQtyTuples(index).sellingPrice,
-                          qty: sizeQtyTuples.elementAt(index).value3,
-                          availability: availabilityBySizeQtyTuple(index),
-                          company: getProductViaSizeQtyTuples(index).company,
-                          imageLink: '', //TODO: add pic
-                          onDecrementPressed: () {
-                            context.read<CartCubit>().updateQty(
-                                  skuId: sizeQtyTuples.elementAt(index).value1,
-                                  size: sizeQtyTuples.elementAt(index).value2,
-                                  updateBy: -1,
-                                );
-                          },
-                          onIncrementPressed: () {
-                            context.read<CartCubit>().updateQty(
-                                  skuId: sizeQtyTuples.elementAt(index).value1,
-                                  size: sizeQtyTuples.elementAt(index).value2,
-                                  updateBy: 1,
-                                );
-                          },
-                        ),
-                      )),
-                ),
-              ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.only(
+                top: 10.h, left: 10.w, right: 10.w, bottom: 4.h),
+            child: FydVListView(
+                width: double.infinity,
+                separation: 0,
+                itemCount: state.cartItemsInTuple3!.length,
+                listWidget: List.generate(
+                  state.cartItemsInTuple3!.length,
+                  (index) => CartTile(
+                      prodName:
+                          getProductForCartItem(state.cartItemsInTuple3![index])
+                              .name,
+                      size: state.cartItemsInTuple3![index].value2,
+                      price:
+                          getProductForCartItem(state.cartItemsInTuple3![index])
+                              .sellingPrice,
+                      qty: state.cartItemsInTuple3![index].value3,
+                      availability: getProductAvailablilityForCartItem(
+                          state.cartItemsInTuple3![index]),
+                      company:
+                          getProductForCartItem(state.cartItemsInTuple3![index])
+                              .company,
+                      imageLink:
+                          getProductForCartItem(state.cartItemsInTuple3![index])
+                              .thumbnailImage,
+                      onDecrementPressed: () {
+                        context.read<CartCubit>().updateQty(
+                              cartItem: state.cartItemsInTuple3![index],
+                              updateBy: -1,
+                            );
+                      },
+                      onIncrementPressed: () {
+                        context.read<CartCubit>().updateQty(
+                              cartItem: state.cartItemsInTuple3![index],
+                              updateBy: 1,
+                            );
+                      },
+                      onDeletePressed: () {
+                        context.read<CartCubit>().removeSize(
+                            cartItem: state.cartItemsInTuple3![index],
+                            qtyToBeRemoved:
+                                state.cartItemsInTuple3![index].value3);
+                      }),
+                )),
+          ),
+        ),
       ],
     );
   }
 
 //?--Bottom-Sheet-View----------------------------------------------------------
-  _bottomSheetView(
-    BuildContext context,
-    CartState state,
-    int subTotal,
-    Function allItemsAvailableAtCheckout,
-  ) {
-    const shippingCost = 100;
-    const discount = 50;
-    final total = subTotal + shippingCost - discount;
+
+  _bottomSheetView({
+    required BuildContext context,
+    required CartState state,
+  }) {
+    //--------
+    //subTotal calculation
+    double subTotal = 0;
+    for (var cartItem in state.cartItemsInTuple3!) {
+      final price = state.cartItemsDetail![cartItem.value1]!.sellingPrice;
+      subTotal += price * cartItem.value3;
+    }
+    //------
     return Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        //TODO: Discount-Section
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 15.w),
-          child: SizedBox(
-            height: 60.h,
-            child: Card(
-              color: fydPWhite,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.r)),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 20.w,
-                  ),
-                  FydText.h2grey(text: 'Discount code'),
-                  const Spacer(),
-                  FydBtn(
-                    fydText: FydText.b2white(text: 'Apply'),
-                    onPressed: () {},
-                    width: 80.w,
-                    height: 30.h,
-                  ),
-                  SizedBox(
-                    width: 15.w,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        //Billing-Section
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
+          padding:
+              EdgeInsets.only(top: 30.h, bottom: 10.h, left: 20.w, right: 20.w),
           child: Column(
             children: [
-              //!subtotal
+              //!total-Items
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  FydText.b1white(text: 'Sub-Total'),
-                  FydText.b1white(
-                    text: '+ ₹ $subTotal',
+                  FydText.b1custom(
+                    text: 'Total Items',
+                    color: fydGreyWhite,
+                  ),
+                  FydText.b1custom(
+                    text: (state.cartRealtime == null)
+                        ? '- -'
+                        : '(${state.cartRealtime!.cartCount}) ',
                     weight: FontWeight.w600,
-                  )
-                ],
-              ),
-              //!shipping
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  FydText.b1white(text: 'Shipping'),
-                  FydText.b1white(
-                    text: '+ ₹ $shippingCost',
-                    weight: FontWeight.w600,
-                  )
-                ],
-              ),
-              //!Discount
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  FydText.b1white(text: 'Discount'),
-                  FydText.b1white(
-                    text: '- ₹ $discount',
-                    weight: FontWeight.w600,
+                    color: fydBlueGrey,
                   )
                 ],
               ),
@@ -342,42 +304,53 @@ class CartViewPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  FydText.b1white(text: 'Total'),
-                  FydText.b1white(
-                    text: '₹ $total',
-                    weight: FontWeight.w600,
+                  FydText.b1custom(
+                    text: 'Sub-Total',
+                    color: fydGreyWhite,
+                  ),
+                  Text(
+                    ((state.cartRealtime == null))
+                        ? '- -'
+                        : '₹ ${subTotal.toInt()}',
+                    style: GoogleFonts.exo2(
+                      fontWeight: FontWeight.w600,
+                      color: fydLogoBlue,
+                      fontSize: 22,
+                      letterSpacing: 2,
+                    ),
                   )
                 ],
               ),
             ],
           ),
         ),
-        const Spacer(),
-        //Proceed-to-checkout BTN
+        //! Proceed-to-checkout BTN
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15.w),
+          padding: EdgeInsets.symmetric(vertical: 25, horizontal: 15.w),
           child: FydBtn(
             height: 60.h,
             color: fydPGrey,
             fydText: FydText.h2custom(
               text: 'Proceed To Checkout',
-              color: fydSOrange,
+              color: fydLogoBlue,
+              weight: FontWeight.bold,
             ),
-            onPressed: (subTotal == 0)
-                ? () {}
-                : () {
-                    //TODO: call getProductDetails
-                    //Todo: empty Cart
-                    final result = allItemsAvailableAtCheckout();
-                    if (result == true) {
-                      //TODO: Procceed Towards Checkout
-                    } else {
-                      showOkDialog(
-                          context: context,
-                          message:
-                              'Few items in Cart are Not available. \n Remove them before proceeding.');
-                    }
-                  },
+            onPressed: () async {
+              if (state.updating) return;
+              //---------
+              final availabilityCheck =
+                  await context.read<CartCubit>().cartAvailabilityCheck();
+              //---------
+              if (availabilityCheck == true) {
+                //Procceed Towards Checkout
+                context.router.navigateNamed(Rn.checkout);
+              } else {
+                showOkDialog(
+                  context: context,
+                  message: 'Items not available. \n remove before proceeding.',
+                );
+              }
+            },
           ),
         ),
       ],
@@ -399,6 +372,7 @@ class CartTile extends StatelessWidget {
   final int availability;
   final VoidCallback onDecrementPressed;
   final VoidCallback onIncrementPressed;
+  final VoidCallback onDeletePressed;
   const CartTile({
     Key? key,
     required this.prodName,
@@ -410,85 +384,107 @@ class CartTile extends StatelessWidget {
     required this.onDecrementPressed,
     required this.onIncrementPressed,
     required this.imageLink,
+    required this.onDeletePressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //top view
         SizedBox(
           height: 100.h,
           width: double.infinity,
           child: Card(
-            color: (availability >= qty) ? fydSPink : Colors.grey[300],
-            elevation: 5,
+            color: (availability >= qty) ? fydPWhite : Colors.grey[300],
+            elevation: 0.5,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.r),
               side: (availability >= qty)
                   ? BorderSide.none
-                  : const BorderSide(color: fydNotifRed, width: 2),
+                  : const BorderSide(color: fydNotifRed, width: 1.5),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                //?Product-Image (width:85w)
+                //! Product-Image (width:85w)
                 SizedBox(
                   height: double.infinity,
                   width: 85.w,
                   child: Card(
-                    color: fydSBlue,
+                    color: fydSPink,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.r)),
-                    //TODO: add image via link
+                    child: Image.network(
+                      imageLink,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-                //? Product-Detail (remaining)
+                //! Product-Detail
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.only(
-                        top: 8.h, left: 6.w, right: 6.w, bottom: 4.h),
+                        top: 3.h, left: 4.w, right: 3.w, bottom: 3.h),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        //product-Name
-                        SizedBox(
-                          width: double.infinity,
-                          child: Text(
-                            prodName,
-                            style: GoogleFonts.exo2(
-                                color: fydPDgrey,
-                                fontSize: body16.fontSize,
-                                fontWeight: FontWeight.bold),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        //Product company name
-                        SizedBox(
-                          width: double.infinity,
-                          child: Text(
-                            company,
-                            style: GoogleFonts.exo2(
-                                color: fydPLgrey,
-                                fontSize: body14.fontSize,
-                                fontWeight: FontWeight.w500),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        // Product cost and size
+                        // Name : price : delete
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            FydText.h3black(text: '₹ $price'),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // name
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width * .6,
+                                  child: Text(
+                                    prodName,
+                                    style: GoogleFonts.exo2(
+                                        color: fydPDgrey,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                // price
+                                FydText.b3custom(
+                                  text: '₹ $price',
+                                  color: fydBlueGrey,
+                                  weight: FontWeight.bold,
+                                ),
+                              ],
+                            ),
+
+                            // delete btn
+                            IconButton(
+                              onPressed: onDeletePressed,
+                              padding: EdgeInsets.symmetric(horizontal: 2.w),
+                              constraints: const BoxConstraints(),
+                              icon: const Icon(Icons.cancel_outlined),
+                              color: fydBlueGrey,
+                              iconSize: 25,
+                            ),
+                          ],
+                        ),
+                        // size : incre/decrement : qty
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // Size
                             Card(
-                              color: fydSCPink,
+                              color: fydBlueGrey,
                               elevation: 4.0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
@@ -497,49 +493,53 @@ class CartTile extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 6, vertical: 2),
                                 child: FydText.b2custom(
-                                    text: size, color: fydSOrange),
+                                  text: size,
+                                  color: fydPWhite,
+                                  weight: FontWeight.bold,
+                                ),
                               ),
                             ),
+                            //Editor
+                            Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  // Decreament-btn
+                                  IconButton(
+                                    onPressed: onDecrementPressed,
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 2.w),
+                                    constraints: const BoxConstraints(),
+                                    icon: const Icon(
+                                        Icons.remove_circle_outline_sharp),
+                                    color: fydBlueGrey,
+                                    iconSize: 25,
+                                  ),
+                                  // QTY
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.w),
+                                    child: FydText.b1custom(
+                                      text: '$qty',
+                                      color: fydBlueGrey,
+                                      weight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  // Increament-btn
+                                  IconButton(
+                                    onPressed: onIncrementPressed,
+                                    padding: EdgeInsets.zero,
+                                    constraints: const BoxConstraints(),
+                                    icon: const Icon(Icons.add_circle_sharp),
+                                    color: fydBlueGrey,
+                                    iconSize: 25,
+                                  ),
+                                ]),
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ),
-                ),
-                //? Qty-Editor (width: 110.w)
-                SizedBox(
-                  width: 110.w,
-                  child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Decreament-btn
-                        IconButton(
-                          onPressed: onDecrementPressed,
-                          padding: EdgeInsets.symmetric(horizontal: 2.w),
-                          constraints: const BoxConstraints(),
-                          icon: const Icon(Icons.remove_circle_outline_sharp),
-                          color: fydPDgrey,
-                          iconSize: 30,
-                        ),
-                        // QTY
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.w),
-                          child: FydText.h2black(
-                            text: '$qty',
-                            weight: FontWeight.w600,
-                          ),
-                        ),
-                        // Increament-btn
-                        IconButton(
-                          onPressed: onIncrementPressed,
-                          padding: EdgeInsets.zero,
-                          constraints: const BoxConstraints(),
-                          icon: const Icon(Icons.add_circle_sharp),
-                          color: fydPDgrey,
-                          iconSize: 30,
-                        ),
-                      ]),
                 ),
               ],
             ),
@@ -547,25 +547,22 @@ class CartTile extends StatelessWidget {
         ),
         //bottom view
         Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             // alert Message
             Padding(
               padding: EdgeInsets.only(left: 15.w),
               // width: double.infinity,
-              child: FydText.b3custom(
-                  text: (availability >= qty)
-                      ? ''
-                      : '$availability available right now',
-                  weight: FontWeight.bold,
-                  color: fydNotifRed),
-            ),
-            // qty's total
-            SizedBox(
-              width: 110.w,
-              child: Center(
-                  child: FydText.b2grey(text: '₹ ${(qty * price).ceil()}')),
+              child: Text(
+                (availability >= qty)
+                    ? ''
+                    : '$availability available right now',
+                style: const TextStyle(
+                    color: fydNotifRed,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         )
@@ -575,3 +572,9 @@ class CartTile extends StatelessWidget {
 }
 
 //?-----------------------------------------------------------------------------
+
+
+              
+              
+            
+          

@@ -22,6 +22,7 @@ mixin _$StoresEvent {
     required TResult Function() loadMoreStores,
     required TResult Function(String category, String? fetchAfterSid)
         fetchStores,
+    required TResult Function() toggleFailures,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,6 +30,7 @@ mixin _$StoresEvent {
     TResult Function(String category)? updateSelectedCategory,
     TResult Function()? loadMoreStores,
     TResult Function(String category, String? fetchAfterSid)? fetchStores,
+    TResult Function()? toggleFailures,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +38,7 @@ mixin _$StoresEvent {
     TResult Function(String category)? updateSelectedCategory,
     TResult Function()? loadMoreStores,
     TResult Function(String category, String? fetchAfterSid)? fetchStores,
+    TResult Function()? toggleFailures,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -45,6 +48,7 @@ mixin _$StoresEvent {
         updateSelectedCategory,
     required TResult Function(LoadMoreStores value) loadMoreStores,
     required TResult Function(FetchStores value) fetchStores,
+    required TResult Function(ToggleFailures value) toggleFailures,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,6 +56,7 @@ mixin _$StoresEvent {
     TResult Function(UpdateSelectedCategory value)? updateSelectedCategory,
     TResult Function(LoadMoreStores value)? loadMoreStores,
     TResult Function(FetchStores value)? fetchStores,
+    TResult Function(ToggleFailures value)? toggleFailures,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -59,6 +64,7 @@ mixin _$StoresEvent {
     TResult Function(UpdateSelectedCategory value)? updateSelectedCategory,
     TResult Function(LoadMoreStores value)? loadMoreStores,
     TResult Function(FetchStores value)? fetchStores,
+    TResult Function(ToggleFailures value)? toggleFailures,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -161,6 +167,7 @@ class _$UpdateSelectedCategory
     required TResult Function() loadMoreStores,
     required TResult Function(String category, String? fetchAfterSid)
         fetchStores,
+    required TResult Function() toggleFailures,
   }) {
     return updateSelectedCategory(category);
   }
@@ -171,6 +178,7 @@ class _$UpdateSelectedCategory
     TResult Function(String category)? updateSelectedCategory,
     TResult Function()? loadMoreStores,
     TResult Function(String category, String? fetchAfterSid)? fetchStores,
+    TResult Function()? toggleFailures,
   }) {
     return updateSelectedCategory?.call(category);
   }
@@ -181,6 +189,7 @@ class _$UpdateSelectedCategory
     TResult Function(String category)? updateSelectedCategory,
     TResult Function()? loadMoreStores,
     TResult Function(String category, String? fetchAfterSid)? fetchStores,
+    TResult Function()? toggleFailures,
     required TResult orElse(),
   }) {
     if (updateSelectedCategory != null) {
@@ -196,6 +205,7 @@ class _$UpdateSelectedCategory
         updateSelectedCategory,
     required TResult Function(LoadMoreStores value) loadMoreStores,
     required TResult Function(FetchStores value) fetchStores,
+    required TResult Function(ToggleFailures value) toggleFailures,
   }) {
     return updateSelectedCategory(this);
   }
@@ -206,6 +216,7 @@ class _$UpdateSelectedCategory
     TResult Function(UpdateSelectedCategory value)? updateSelectedCategory,
     TResult Function(LoadMoreStores value)? loadMoreStores,
     TResult Function(FetchStores value)? fetchStores,
+    TResult Function(ToggleFailures value)? toggleFailures,
   }) {
     return updateSelectedCategory?.call(this);
   }
@@ -216,6 +227,7 @@ class _$UpdateSelectedCategory
     TResult Function(UpdateSelectedCategory value)? updateSelectedCategory,
     TResult Function(LoadMoreStores value)? loadMoreStores,
     TResult Function(FetchStores value)? fetchStores,
+    TResult Function(ToggleFailures value)? toggleFailures,
     required TResult orElse(),
   }) {
     if (updateSelectedCategory != null) {
@@ -286,6 +298,7 @@ class _$LoadMoreStores with DiagnosticableTreeMixin implements LoadMoreStores {
     required TResult Function() loadMoreStores,
     required TResult Function(String category, String? fetchAfterSid)
         fetchStores,
+    required TResult Function() toggleFailures,
   }) {
     return loadMoreStores();
   }
@@ -296,6 +309,7 @@ class _$LoadMoreStores with DiagnosticableTreeMixin implements LoadMoreStores {
     TResult Function(String category)? updateSelectedCategory,
     TResult Function()? loadMoreStores,
     TResult Function(String category, String? fetchAfterSid)? fetchStores,
+    TResult Function()? toggleFailures,
   }) {
     return loadMoreStores?.call();
   }
@@ -306,6 +320,7 @@ class _$LoadMoreStores with DiagnosticableTreeMixin implements LoadMoreStores {
     TResult Function(String category)? updateSelectedCategory,
     TResult Function()? loadMoreStores,
     TResult Function(String category, String? fetchAfterSid)? fetchStores,
+    TResult Function()? toggleFailures,
     required TResult orElse(),
   }) {
     if (loadMoreStores != null) {
@@ -321,6 +336,7 @@ class _$LoadMoreStores with DiagnosticableTreeMixin implements LoadMoreStores {
         updateSelectedCategory,
     required TResult Function(LoadMoreStores value) loadMoreStores,
     required TResult Function(FetchStores value) fetchStores,
+    required TResult Function(ToggleFailures value) toggleFailures,
   }) {
     return loadMoreStores(this);
   }
@@ -331,6 +347,7 @@ class _$LoadMoreStores with DiagnosticableTreeMixin implements LoadMoreStores {
     TResult Function(UpdateSelectedCategory value)? updateSelectedCategory,
     TResult Function(LoadMoreStores value)? loadMoreStores,
     TResult Function(FetchStores value)? fetchStores,
+    TResult Function(ToggleFailures value)? toggleFailures,
   }) {
     return loadMoreStores?.call(this);
   }
@@ -341,6 +358,7 @@ class _$LoadMoreStores with DiagnosticableTreeMixin implements LoadMoreStores {
     TResult Function(UpdateSelectedCategory value)? updateSelectedCategory,
     TResult Function(LoadMoreStores value)? loadMoreStores,
     TResult Function(FetchStores value)? fetchStores,
+    TResult Function(ToggleFailures value)? toggleFailures,
     required TResult orElse(),
   }) {
     if (loadMoreStores != null) {
@@ -442,6 +460,7 @@ class _$FetchStores with DiagnosticableTreeMixin implements FetchStores {
     required TResult Function() loadMoreStores,
     required TResult Function(String category, String? fetchAfterSid)
         fetchStores,
+    required TResult Function() toggleFailures,
   }) {
     return fetchStores(category, fetchAfterSid);
   }
@@ -452,6 +471,7 @@ class _$FetchStores with DiagnosticableTreeMixin implements FetchStores {
     TResult Function(String category)? updateSelectedCategory,
     TResult Function()? loadMoreStores,
     TResult Function(String category, String? fetchAfterSid)? fetchStores,
+    TResult Function()? toggleFailures,
   }) {
     return fetchStores?.call(category, fetchAfterSid);
   }
@@ -462,6 +482,7 @@ class _$FetchStores with DiagnosticableTreeMixin implements FetchStores {
     TResult Function(String category)? updateSelectedCategory,
     TResult Function()? loadMoreStores,
     TResult Function(String category, String? fetchAfterSid)? fetchStores,
+    TResult Function()? toggleFailures,
     required TResult orElse(),
   }) {
     if (fetchStores != null) {
@@ -477,6 +498,7 @@ class _$FetchStores with DiagnosticableTreeMixin implements FetchStores {
         updateSelectedCategory,
     required TResult Function(LoadMoreStores value) loadMoreStores,
     required TResult Function(FetchStores value) fetchStores,
+    required TResult Function(ToggleFailures value) toggleFailures,
   }) {
     return fetchStores(this);
   }
@@ -487,6 +509,7 @@ class _$FetchStores with DiagnosticableTreeMixin implements FetchStores {
     TResult Function(UpdateSelectedCategory value)? updateSelectedCategory,
     TResult Function(LoadMoreStores value)? loadMoreStores,
     TResult Function(FetchStores value)? fetchStores,
+    TResult Function(ToggleFailures value)? toggleFailures,
   }) {
     return fetchStores?.call(this);
   }
@@ -497,6 +520,7 @@ class _$FetchStores with DiagnosticableTreeMixin implements FetchStores {
     TResult Function(UpdateSelectedCategory value)? updateSelectedCategory,
     TResult Function(LoadMoreStores value)? loadMoreStores,
     TResult Function(FetchStores value)? fetchStores,
+    TResult Function(ToggleFailures value)? toggleFailures,
     required TResult orElse(),
   }) {
     if (fetchStores != null) {
@@ -516,6 +540,131 @@ abstract class FetchStores implements StoresEvent {
   @JsonKey(ignore: true)
   _$$FetchStoresCopyWith<_$FetchStores> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ToggleFailuresCopyWith<$Res> {
+  factory _$$ToggleFailuresCopyWith(
+          _$ToggleFailures value, $Res Function(_$ToggleFailures) then) =
+      __$$ToggleFailuresCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ToggleFailuresCopyWithImpl<$Res>
+    extends _$StoresEventCopyWithImpl<$Res>
+    implements _$$ToggleFailuresCopyWith<$Res> {
+  __$$ToggleFailuresCopyWithImpl(
+      _$ToggleFailures _value, $Res Function(_$ToggleFailures) _then)
+      : super(_value, (v) => _then(v as _$ToggleFailures));
+
+  @override
+  _$ToggleFailures get _value => super._value as _$ToggleFailures;
+}
+
+/// @nodoc
+
+class _$ToggleFailures with DiagnosticableTreeMixin implements ToggleFailures {
+  const _$ToggleFailures();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'StoresEvent.toggleFailures()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'StoresEvent.toggleFailures'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ToggleFailures);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String category) updateSelectedCategory,
+    required TResult Function() loadMoreStores,
+    required TResult Function(String category, String? fetchAfterSid)
+        fetchStores,
+    required TResult Function() toggleFailures,
+  }) {
+    return toggleFailures();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String category)? updateSelectedCategory,
+    TResult Function()? loadMoreStores,
+    TResult Function(String category, String? fetchAfterSid)? fetchStores,
+    TResult Function()? toggleFailures,
+  }) {
+    return toggleFailures?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String category)? updateSelectedCategory,
+    TResult Function()? loadMoreStores,
+    TResult Function(String category, String? fetchAfterSid)? fetchStores,
+    TResult Function()? toggleFailures,
+    required TResult orElse(),
+  }) {
+    if (toggleFailures != null) {
+      return toggleFailures();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(UpdateSelectedCategory value)
+        updateSelectedCategory,
+    required TResult Function(LoadMoreStores value) loadMoreStores,
+    required TResult Function(FetchStores value) fetchStores,
+    required TResult Function(ToggleFailures value) toggleFailures,
+  }) {
+    return toggleFailures(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(UpdateSelectedCategory value)? updateSelectedCategory,
+    TResult Function(LoadMoreStores value)? loadMoreStores,
+    TResult Function(FetchStores value)? fetchStores,
+    TResult Function(ToggleFailures value)? toggleFailures,
+  }) {
+    return toggleFailures?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(UpdateSelectedCategory value)? updateSelectedCategory,
+    TResult Function(LoadMoreStores value)? loadMoreStores,
+    TResult Function(FetchStores value)? fetchStores,
+    TResult Function(ToggleFailures value)? toggleFailures,
+    required TResult orElse(),
+  }) {
+    if (toggleFailures != null) {
+      return toggleFailures(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ToggleFailures implements StoresEvent {
+  const factory ToggleFailures() = _$ToggleFailures;
 }
 
 /// @nodoc

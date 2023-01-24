@@ -7,9 +7,7 @@ import 'package:verifyd_store/03%20domain/cart/cart.dart';
 import 'package:verifyd_store/03%20domain/cart/cart_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:verifyd_store/03%20domain/cart/i_cart_repository.dart';
-
-const cartCount = 'cartCount';
-const cartMap = 'cartMap';
+import 'package:verifyd_store/04%20infrastructure/core/firebase_helper.dart';
 
 @LazySingleton(as: ICartRepository)
 class FirebaseCartRepository implements ICartRepository {
@@ -19,8 +17,8 @@ class FirebaseCartRepository implements ICartRepository {
 
 //?--Get-Cart-RealTime----------------------------------------------------------
   @override
-  Stream<Either<CartFailure, Cart>> getCartRealtime(
-      {required String cartRef}) async* {
+  Stream<Either<CartFailure, Cart>> getCartRealtime() async* {
+    final cartRef = DbRef.getCartRef();
     final cartDoc = _firestore.doc(cartRef).withConverter<Cart>(
         fromFirestore: (snapshot, _) => Cart.fromJson(snapshot.data()!),
         toFirestore: (model, _) => model.toJson());
@@ -28,24 +26,23 @@ class FirebaseCartRepository implements ICartRepository {
     yield* cartDoc.snapshots().map((cartSnapshot) {
       return right<CartFailure, Cart>(cartSnapshot.data()!);
     }).onErrorReturnWith((error, stackTrace) {
-      log(error.toString());
-      //Todo: map failure
-      return left(const CartFailure.serverError());
+      return left(const CartFailure.cartStreamFailure());
     });
   }
 
 //?--Add-New-Cart---------------------------------------------------------------
   @override
-  Future<Either<CartFailure, Unit>> addNewCart(
-      {required String cartRef, required Cart cart}) async {
-    var cartDoc = _firestore.doc(cartRef).withConverter<Cart>(
+  Future<Either<CartFailure, Unit>> addNewCart({required Cart cart}) async {
+    final cartRef = DbRef.getCartRef();
+    final cartDoc = _firestore.doc(cartRef).withConverter<Cart>(
         fromFirestore: (snapshot, _) => Cart.fromJson(snapshot.data()!),
         toFirestore: (model, _) => model.toJson());
 
-    var result = await cartDoc.set(cart).then((value) {
-      return right(unit);
-    }).onError(
-        (error, stackTrace) => left(const CartFailure.unexpectedError()));
+    final result = await cartDoc
+        .set(cart)
+        .then((value) => right<CartFailure, Unit>(unit))
+        .onError(
+            (error, stackTrace) => left(const CartFailure.updateCartFailure()));
 
     return result.fold(
       (failure) => left(failure),
@@ -56,23 +53,20 @@ class FirebaseCartRepository implements ICartRepository {
 //?--Add-New-Sku----------------------------------------------------------------
   @override
   Future<Either<CartFailure, Unit>> addNewProduct(
-      {required String cartRef,
-      required String skuId,
-      required Map<String, int> sizeQty}) async {
-    var docRef = _firestore.doc(cartRef);
+      {required String skuId, required Map<String, int> sizeQty}) async {
+    final cartRef = DbRef.getCartRef();
+    final docRef = _firestore.doc(cartRef);
 
-    var result = await docRef.set(
-      {
-        cartMap: {
-          skuId: {sizeQty.keys.first: sizeQty.values.first}
-        },
-        cartCount: FieldValue.increment(1),
-      },
-      SetOptions(merge: true),
-    ).then((value) {
-      return right(unit);
-    }).onError(
-        (error, stackTrace) => left(const CartFailure.unexpectedError()));
+    final result = await docRef
+        .set({
+          DbFKeys.cartItems(): {
+            skuId: {sizeQty.keys.first: sizeQty.values.first}
+          },
+          DbFKeys.cartCount(): FieldValue.increment(1),
+        }, SetOptions(merge: true))
+        .then((value) => right<CartFailure, Unit>(unit))
+        .onError(
+            (error, stackTrace) => left(const CartFailure.updateCartFailure()));
 
     return result.fold(
       (failure) => left(failure),
@@ -83,21 +77,25 @@ class FirebaseCartRepository implements ICartRepository {
 //?--Update-Size----------------------------------------------------------------
   @override
   Future<Either<CartFailure, Unit>> updateSize(
-      {required String cartRef,
-      required String skuId,
+      {required String skuId,
       required String size,
       required int updateBy}) async {
-    var docRef = _firestore.doc(cartRef);
+    final cartRef = DbRef.getCartRef();
+    final docRef = _firestore.doc(cartRef);
 
-    var result = await docRef.update(
-      {
-        '$cartMap.$skuId.$size': FieldValue.increment(updateBy),
-        cartCount: FieldValue.increment(updateBy),
-      },
-    ).then((value) {
-      return right(unit);
-    }).onError(
-        (error, stackTrace) => left(const CartFailure.unexpectedError()));
+    final result = await docRef
+        .update(
+          {
+            '${DbFKeys.cartItems()}.$skuId.$size':
+                FieldValue.increment(updateBy),
+            DbFKeys.cartCount(): FieldValue.increment(updateBy),
+          },
+        )
+        .then((value) => right<CartFailure, Unit>(unit))
+        .onError((error, stackTrace) {
+          log(error.toString());
+          return left(const CartFailure.updateCartFailure());
+        });
 
     return result.fold(
       (failure) => left(failure),
@@ -108,21 +106,22 @@ class FirebaseCartRepository implements ICartRepository {
 //?--Remove-Size----------------------------------------------------------------
   @override
   Future<Either<CartFailure, Unit>> removeSize(
-      {required String cartRef,
-      required String skuId,
+      {required String skuId,
       required String size,
       required int removedQty}) async {
-    var docRef = _firestore.doc(cartRef);
+    final cartRef = DbRef.getCartRef();
+    final docRef = _firestore.doc(cartRef);
 
-    var result = await docRef.update(
-      {
-        '$cartMap.$skuId.$size': FieldValue.delete(),
-        cartCount: FieldValue.increment(-removedQty),
-      },
-    ).then((value) {
-      return right(unit);
-    }).onError(
-        (error, stackTrace) => left(const CartFailure.unexpectedError()));
+    final result = await docRef
+        .update(
+          {
+            '${DbFKeys.cartItems()}.$skuId.$size': FieldValue.delete(),
+            DbFKeys.cartCount(): FieldValue.increment(-removedQty),
+          },
+        )
+        .then((value) => right<CartFailure, Unit>(unit))
+        .onError(
+            (error, stackTrace) => left(const CartFailure.updateCartFailure()));
 
     return result.fold(
       (failure) => left(failure),
@@ -133,20 +132,20 @@ class FirebaseCartRepository implements ICartRepository {
 //?--Remove-Sku-----------------------------------------------------------------
   @override
   Future<Either<CartFailure, Unit>> removeSku(
-      {required String cartRef,
-      required String skuId,
-      required int removedQty}) async {
-    var docRef = _firestore.doc(cartRef);
+      {required String skuId, required int removedQty}) async {
+    final cartRef = DbRef.getCartRef();
+    final docRef = _firestore.doc(cartRef);
 
-    var result = await docRef.update(
-      {
-        '$cartMap.$skuId': FieldValue.delete(),
-        cartCount: FieldValue.increment(-removedQty),
-      },
-    ).then((value) {
-      return right(unit);
-    }).onError(
-        (error, stackTrace) => left(const CartFailure.unexpectedError()));
+    final result = await docRef
+        .update(
+          {
+            '${DbFKeys.cartItems()}.$skuId': FieldValue.delete(),
+            DbFKeys.cartCount(): FieldValue.increment(-removedQty),
+          },
+        )
+        .then((value) => right<CartFailure, Unit>(unit))
+        .onError(
+            (error, stackTrace) => left(const CartFailure.updateCartFailure()));
 
     return result.fold(
       (failure) => left(failure),
@@ -156,18 +155,18 @@ class FirebaseCartRepository implements ICartRepository {
 
 //?--Clear-Cart-----------------------------------------------------------------
   @override
-  Future<Either<CartFailure, Unit>> clearCart({required String cartRef}) async {
-    var docRef = _firestore.doc(cartRef);
+  Future<Either<CartFailure, Unit>> clearCart() async {
+    final cartRef = DbRef.getCartRef();
+    final docRef = _firestore.doc(cartRef);
 
-    var result = await docRef.update(
-      {
-        cartMap: {},
-        cartCount: 0,
-      },
-    ).then((value) {
-      return right(unit);
-    }).onError(
-        (error, stackTrace) => left(const CartFailure.unexpectedError()));
+    final result = await docRef
+        .update({
+          DbFKeys.cartItems(): {},
+          DbFKeys.cartCount(): 0,
+        })
+        .then((value) => right<CartFailure, Unit>(unit))
+        .onError(
+            (error, stackTrace) => left(const CartFailure.updateCartFailure()));
 
     return result.fold(
       (failure) => left(failure),

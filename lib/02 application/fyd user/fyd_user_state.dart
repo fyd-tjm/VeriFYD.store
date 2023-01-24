@@ -6,6 +6,7 @@ class FydUserState with _$FydUserState {
     required bool loadingState,
     required AuthUser? authUser,
     required FydUser? fydUser,
+    required List<FydOrder>? fydOrders,
     required Option<Either<UserFailure, Unit>> failureOrSuccess,
     required bool updating,
   }) = _FydUserState;
@@ -14,6 +15,7 @@ class FydUserState with _$FydUserState {
       loadingState: false,
       authUser: null,
       fydUser: null,
+      fydOrders: null,
       failureOrSuccess: none(),
       updating: false);
 }

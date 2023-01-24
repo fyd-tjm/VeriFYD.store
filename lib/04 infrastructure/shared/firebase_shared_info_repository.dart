@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -16,15 +15,14 @@ class FirebaseSharedInfoRepository implements ISharedInfoRepository {
   @override
   Stream<Either<SharedInfoFailure, SharedInfo>> getSharedInfo() async* {
     final sharedDoc = _firestore
-        .sharedInfoCollection()
-        .where('docType', isEqualTo: 'main')
+        .doc(DbRef.getSharedInfoUserRef())
         .withConverter<SharedInfo>(
             fromFirestore: (snapshot, _) =>
                 SharedInfo.fromJson(snapshot.data()!),
             toFirestore: (model, _) => model.toJson());
 
     yield* sharedDoc.snapshots().map((qSnapshot) {
-      return right<SharedInfoFailure, SharedInfo>(qSnapshot.docs.first.data());
+      return right<SharedInfoFailure, SharedInfo>(qSnapshot.data()!);
     }).onErrorReturnWith((e, stackTrace) {
       return left(SharedInfoFailureMapper.failureMapper(e));
     });

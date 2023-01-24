@@ -86,7 +86,7 @@ class FydTextFormField extends StatelessWidget {
         counterText: '',
         // fillColor: fillColor,
         floatingLabelStyle: const TextStyle(
-          color: fydPLgrey,
+          color: fydBlueGrey,
           fontSize: 22,
         ),
         focusedBorder: OutlineInputBorder(

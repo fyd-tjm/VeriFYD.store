@@ -20,21 +20,20 @@ Store _$StoreFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Store {
-  String get sId => throw _privateConstructorUsedError;
+  String get storeId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   List<String> get categories => throw _privateConstructorUsedError;
   Map<String, int> get types => throw _privateConstructorUsedError;
   Map<String, String> get socialPresence => throw _privateConstructorUsedError;
+  Map<int, String> get featuredIn => throw _privateConstructorUsedError;
   double get rating => throw _privateConstructorUsedError;
   String get about => throw _privateConstructorUsedError;
-  List<String> get storeImages => throw _privateConstructorUsedError;
   String get storeLogo => throw _privateConstructorUsedError;
-  Map<String, String> get storeAddress => throw _privateConstructorUsedError;
-  Map<String, String> get storeContact =>
-      throw _privateConstructorUsedError; // required Map<String, List<Product>> products,
-  String get productsRef => throw _privateConstructorUsedError;
+  Map<int, String> get storeAddress => throw _privateConstructorUsedError;
+  Map<int, String> get storeContact => throw _privateConstructorUsedError;
   bool get isLive => throw _privateConstructorUsedError;
-  String get docId => throw _privateConstructorUsedError;
+  Map<String, String> get offers => throw _privateConstructorUsedError;
+  Map<int, String> get storeAlerts => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,20 +45,20 @@ abstract class $StoreCopyWith<$Res> {
   factory $StoreCopyWith(Store value, $Res Function(Store) then) =
       _$StoreCopyWithImpl<$Res>;
   $Res call(
-      {String sId,
+      {String storeId,
       String name,
       List<String> categories,
       Map<String, int> types,
       Map<String, String> socialPresence,
+      Map<int, String> featuredIn,
       double rating,
       String about,
-      List<String> storeImages,
       String storeLogo,
-      Map<String, String> storeAddress,
-      Map<String, String> storeContact,
-      String productsRef,
+      Map<int, String> storeAddress,
+      Map<int, String> storeContact,
       bool isLive,
-      String docId});
+      Map<String, String> offers,
+      Map<int, String> storeAlerts});
 }
 
 /// @nodoc
@@ -72,25 +71,25 @@ class _$StoreCopyWithImpl<$Res> implements $StoreCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? sId = freezed,
+    Object? storeId = freezed,
     Object? name = freezed,
     Object? categories = freezed,
     Object? types = freezed,
     Object? socialPresence = freezed,
+    Object? featuredIn = freezed,
     Object? rating = freezed,
     Object? about = freezed,
-    Object? storeImages = freezed,
     Object? storeLogo = freezed,
     Object? storeAddress = freezed,
     Object? storeContact = freezed,
-    Object? productsRef = freezed,
     Object? isLive = freezed,
-    Object? docId = freezed,
+    Object? offers = freezed,
+    Object? storeAlerts = freezed,
   }) {
     return _then(_value.copyWith(
-      sId: sId == freezed
-          ? _value.sId
-          : sId // ignore: cast_nullable_to_non_nullable
+      storeId: storeId == freezed
+          ? _value.storeId
+          : storeId // ignore: cast_nullable_to_non_nullable
               as String,
       name: name == freezed
           ? _value.name
@@ -108,6 +107,10 @@ class _$StoreCopyWithImpl<$Res> implements $StoreCopyWith<$Res> {
           ? _value.socialPresence
           : socialPresence // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
+      featuredIn: featuredIn == freezed
+          ? _value.featuredIn
+          : featuredIn // ignore: cast_nullable_to_non_nullable
+              as Map<int, String>,
       rating: rating == freezed
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -116,10 +119,6 @@ class _$StoreCopyWithImpl<$Res> implements $StoreCopyWith<$Res> {
           ? _value.about
           : about // ignore: cast_nullable_to_non_nullable
               as String,
-      storeImages: storeImages == freezed
-          ? _value.storeImages
-          : storeImages // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       storeLogo: storeLogo == freezed
           ? _value.storeLogo
           : storeLogo // ignore: cast_nullable_to_non_nullable
@@ -127,23 +126,23 @@ class _$StoreCopyWithImpl<$Res> implements $StoreCopyWith<$Res> {
       storeAddress: storeAddress == freezed
           ? _value.storeAddress
           : storeAddress // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
+              as Map<int, String>,
       storeContact: storeContact == freezed
           ? _value.storeContact
           : storeContact // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
-      productsRef: productsRef == freezed
-          ? _value.productsRef
-          : productsRef // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<int, String>,
       isLive: isLive == freezed
           ? _value.isLive
           : isLive // ignore: cast_nullable_to_non_nullable
               as bool,
-      docId: docId == freezed
-          ? _value.docId
-          : docId // ignore: cast_nullable_to_non_nullable
-              as String,
+      offers: offers == freezed
+          ? _value.offers
+          : offers // ignore: cast_nullable_to_non_nullable
+              as Map<String, String>,
+      storeAlerts: storeAlerts == freezed
+          ? _value.storeAlerts
+          : storeAlerts // ignore: cast_nullable_to_non_nullable
+              as Map<int, String>,
     ));
   }
 }
@@ -154,20 +153,20 @@ abstract class _$$_StoreCopyWith<$Res> implements $StoreCopyWith<$Res> {
       __$$_StoreCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String sId,
+      {String storeId,
       String name,
       List<String> categories,
       Map<String, int> types,
       Map<String, String> socialPresence,
+      Map<int, String> featuredIn,
       double rating,
       String about,
-      List<String> storeImages,
       String storeLogo,
-      Map<String, String> storeAddress,
-      Map<String, String> storeContact,
-      String productsRef,
+      Map<int, String> storeAddress,
+      Map<int, String> storeContact,
       bool isLive,
-      String docId});
+      Map<String, String> offers,
+      Map<int, String> storeAlerts});
 }
 
 /// @nodoc
@@ -181,25 +180,25 @@ class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? sId = freezed,
+    Object? storeId = freezed,
     Object? name = freezed,
     Object? categories = freezed,
     Object? types = freezed,
     Object? socialPresence = freezed,
+    Object? featuredIn = freezed,
     Object? rating = freezed,
     Object? about = freezed,
-    Object? storeImages = freezed,
     Object? storeLogo = freezed,
     Object? storeAddress = freezed,
     Object? storeContact = freezed,
-    Object? productsRef = freezed,
     Object? isLive = freezed,
-    Object? docId = freezed,
+    Object? offers = freezed,
+    Object? storeAlerts = freezed,
   }) {
     return _then(_$_Store(
-      sId: sId == freezed
-          ? _value.sId
-          : sId // ignore: cast_nullable_to_non_nullable
+      storeId: storeId == freezed
+          ? _value.storeId
+          : storeId // ignore: cast_nullable_to_non_nullable
               as String,
       name: name == freezed
           ? _value.name
@@ -217,6 +216,10 @@ class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
           ? _value._socialPresence
           : socialPresence // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
+      featuredIn: featuredIn == freezed
+          ? _value._featuredIn
+          : featuredIn // ignore: cast_nullable_to_non_nullable
+              as Map<int, String>,
       rating: rating == freezed
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -225,10 +228,6 @@ class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
           ? _value.about
           : about // ignore: cast_nullable_to_non_nullable
               as String,
-      storeImages: storeImages == freezed
-          ? _value._storeImages
-          : storeImages // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       storeLogo: storeLogo == freezed
           ? _value.storeLogo
           : storeLogo // ignore: cast_nullable_to_non_nullable
@@ -236,23 +235,23 @@ class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
       storeAddress: storeAddress == freezed
           ? _value._storeAddress
           : storeAddress // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
+              as Map<int, String>,
       storeContact: storeContact == freezed
           ? _value._storeContact
           : storeContact // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
-      productsRef: productsRef == freezed
-          ? _value.productsRef
-          : productsRef // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<int, String>,
       isLive: isLive == freezed
           ? _value.isLive
           : isLive // ignore: cast_nullable_to_non_nullable
               as bool,
-      docId: docId == freezed
-          ? _value.docId
-          : docId // ignore: cast_nullable_to_non_nullable
-              as String,
+      offers: offers == freezed
+          ? _value._offers
+          : offers // ignore: cast_nullable_to_non_nullable
+              as Map<String, String>,
+      storeAlerts: storeAlerts == freezed
+          ? _value._storeAlerts
+          : storeAlerts // ignore: cast_nullable_to_non_nullable
+              as Map<int, String>,
     ));
   }
 }
@@ -261,32 +260,34 @@ class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Store implements _Store {
   const _$_Store(
-      {required this.sId,
+      {required this.storeId,
       required this.name,
       required final List<String> categories,
       required final Map<String, int> types,
       required final Map<String, String> socialPresence,
+      required final Map<int, String> featuredIn,
       required this.rating,
       required this.about,
-      required final List<String> storeImages,
       required this.storeLogo,
-      required final Map<String, String> storeAddress,
-      required final Map<String, String> storeContact,
-      required this.productsRef,
+      required final Map<int, String> storeAddress,
+      required final Map<int, String> storeContact,
       required this.isLive,
-      required this.docId})
+      required final Map<String, String> offers,
+      required final Map<int, String> storeAlerts})
       : _categories = categories,
         _types = types,
         _socialPresence = socialPresence,
-        _storeImages = storeImages,
+        _featuredIn = featuredIn,
         _storeAddress = storeAddress,
-        _storeContact = storeContact;
+        _storeContact = storeContact,
+        _offers = offers,
+        _storeAlerts = storeAlerts;
 
   factory _$_Store.fromJson(Map<String, dynamic> json) =>
       _$$_StoreFromJson(json);
 
   @override
-  final String sId;
+  final String storeId;
   @override
   final String name;
   final List<String> _categories;
@@ -310,44 +311,52 @@ class _$_Store implements _Store {
     return EqualUnmodifiableMapView(_socialPresence);
   }
 
+  final Map<int, String> _featuredIn;
+  @override
+  Map<int, String> get featuredIn {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_featuredIn);
+  }
+
   @override
   final double rating;
   @override
   final String about;
-  final List<String> _storeImages;
-  @override
-  List<String> get storeImages {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_storeImages);
-  }
-
   @override
   final String storeLogo;
-  final Map<String, String> _storeAddress;
+  final Map<int, String> _storeAddress;
   @override
-  Map<String, String> get storeAddress {
+  Map<int, String> get storeAddress {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_storeAddress);
   }
 
-  final Map<String, String> _storeContact;
+  final Map<int, String> _storeContact;
   @override
-  Map<String, String> get storeContact {
+  Map<int, String> get storeContact {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_storeContact);
   }
 
-// required Map<String, List<Product>> products,
-  @override
-  final String productsRef;
   @override
   final bool isLive;
+  final Map<String, String> _offers;
   @override
-  final String docId;
+  Map<String, String> get offers {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_offers);
+  }
+
+  final Map<int, String> _storeAlerts;
+  @override
+  Map<int, String> get storeAlerts {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_storeAlerts);
+  }
 
   @override
   String toString() {
-    return 'Store(sId: $sId, name: $name, categories: $categories, types: $types, socialPresence: $socialPresence, rating: $rating, about: $about, storeImages: $storeImages, storeLogo: $storeLogo, storeAddress: $storeAddress, storeContact: $storeContact, productsRef: $productsRef, isLive: $isLive, docId: $docId)';
+    return 'Store(storeId: $storeId, name: $name, categories: $categories, types: $types, socialPresence: $socialPresence, featuredIn: $featuredIn, rating: $rating, about: $about, storeLogo: $storeLogo, storeAddress: $storeAddress, storeContact: $storeContact, isLive: $isLive, offers: $offers, storeAlerts: $storeAlerts)';
   }
 
   @override
@@ -355,46 +364,46 @@ class _$_Store implements _Store {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Store &&
-            const DeepCollectionEquality().equals(other.sId, sId) &&
+            const DeepCollectionEquality().equals(other.storeId, storeId) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
             const DeepCollectionEquality().equals(other._types, _types) &&
             const DeepCollectionEquality()
                 .equals(other._socialPresence, _socialPresence) &&
+            const DeepCollectionEquality()
+                .equals(other._featuredIn, _featuredIn) &&
             const DeepCollectionEquality().equals(other.rating, rating) &&
             const DeepCollectionEquality().equals(other.about, about) &&
-            const DeepCollectionEquality()
-                .equals(other._storeImages, _storeImages) &&
             const DeepCollectionEquality().equals(other.storeLogo, storeLogo) &&
             const DeepCollectionEquality()
                 .equals(other._storeAddress, _storeAddress) &&
             const DeepCollectionEquality()
                 .equals(other._storeContact, _storeContact) &&
-            const DeepCollectionEquality()
-                .equals(other.productsRef, productsRef) &&
             const DeepCollectionEquality().equals(other.isLive, isLive) &&
-            const DeepCollectionEquality().equals(other.docId, docId));
+            const DeepCollectionEquality().equals(other._offers, _offers) &&
+            const DeepCollectionEquality()
+                .equals(other._storeAlerts, _storeAlerts));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(sId),
+      const DeepCollectionEquality().hash(storeId),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(_categories),
       const DeepCollectionEquality().hash(_types),
       const DeepCollectionEquality().hash(_socialPresence),
+      const DeepCollectionEquality().hash(_featuredIn),
       const DeepCollectionEquality().hash(rating),
       const DeepCollectionEquality().hash(about),
-      const DeepCollectionEquality().hash(_storeImages),
       const DeepCollectionEquality().hash(storeLogo),
       const DeepCollectionEquality().hash(_storeAddress),
       const DeepCollectionEquality().hash(_storeContact),
-      const DeepCollectionEquality().hash(productsRef),
       const DeepCollectionEquality().hash(isLive),
-      const DeepCollectionEquality().hash(docId));
+      const DeepCollectionEquality().hash(_offers),
+      const DeepCollectionEquality().hash(_storeAlerts));
 
   @JsonKey(ignore: true)
   @override
@@ -411,25 +420,25 @@ class _$_Store implements _Store {
 
 abstract class _Store implements Store {
   const factory _Store(
-      {required final String sId,
+      {required final String storeId,
       required final String name,
       required final List<String> categories,
       required final Map<String, int> types,
       required final Map<String, String> socialPresence,
+      required final Map<int, String> featuredIn,
       required final double rating,
       required final String about,
-      required final List<String> storeImages,
       required final String storeLogo,
-      required final Map<String, String> storeAddress,
-      required final Map<String, String> storeContact,
-      required final String productsRef,
+      required final Map<int, String> storeAddress,
+      required final Map<int, String> storeContact,
       required final bool isLive,
-      required final String docId}) = _$_Store;
+      required final Map<String, String> offers,
+      required final Map<int, String> storeAlerts}) = _$_Store;
 
   factory _Store.fromJson(Map<String, dynamic> json) = _$_Store.fromJson;
 
   @override
-  String get sId;
+  String get storeId;
   @override
   String get name;
   @override
@@ -439,23 +448,23 @@ abstract class _Store implements Store {
   @override
   Map<String, String> get socialPresence;
   @override
+  Map<int, String> get featuredIn;
+  @override
   double get rating;
   @override
   String get about;
   @override
-  List<String> get storeImages;
-  @override
   String get storeLogo;
   @override
-  Map<String, String> get storeAddress;
+  Map<int, String> get storeAddress;
   @override
-  Map<String, String> get storeContact;
-  @override // required Map<String, List<Product>> products,
-  String get productsRef;
+  Map<int, String> get storeContact;
   @override
   bool get isLive;
   @override
-  String get docId;
+  Map<String, String> get offers;
+  @override
+  Map<int, String> get storeAlerts;
   @override
   @JsonKey(ignore: true)
   _$$_StoreCopyWith<_$_Store> get copyWith =>

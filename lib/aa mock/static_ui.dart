@@ -1,39 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:verifyd_store/03%20domain/checkout/customer_info.dart';
+import 'package:verifyd_store/03%20domain/checkout/order.dart';
+import 'package:verifyd_store/03%20domain/checkout/order_Info.dart';
+import 'package:verifyd_store/03%20domain/checkout/order_summary.dart';
+import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
+import 'package:verifyd_store/03%20domain/checkout/shipping_info.dart';
+import 'package:verifyd_store/03%20domain/user/address.dart';
 import '../../00 ui-core/ui_exports.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../03 domain/cart/cart.dart';
 import '../03 domain/store/00_export_store_domain.dart';
 
 class MockUi {
-  //! cart
-  // static Cart cart =  Cart(
-  //   cartId: '#A321',
-  //   cartCount: 4,
-  //   cartLimit: 4,
-  //   cartMap: {},
-  //   productsCollectionRef: ''
-  //   // cartList: [
-  //   //   // CartItem(
-  //   //   //   skuId: product.skuId,
-  //   //   //   productImages: product.productImages,
-  //   //   //   name: product.name,
-  //   //   //   category: product.category,
-  //   //   //   type: product.type,
-  //   //   //   company: product.company,
-  //   //   //   size: 'S',
-  //   //   //   qty: 2,
-  //   //   //   sellingPrice: product.sellingPrice,
-  //   //   //   productRef: product.productRef,
-  //   //   // ),
-  //   //   CartItem.fromProduct(product: product, size: 'S', qty: 2),
-  //   //   CartItem.fromProduct(product: product, size: 'M', qty: 1),
-  //   //   CartItem.fromProduct(product: product, size: 'L', qty: 1),
-  //   // ],
-  // );
+//?-----------------------------------------------------------------------------
+  //! fyd Order
+  static FydOrder fydOrder = FydOrder(
+    orderId: '#A-034233',
+    orderStatus: const OrderStatus.success(),
+    orderInfo: const OrderInfo(
+      storeId: '#A019',
+      orderItems: {},
+      orderItemsDetail: {},
+      orderSummary: OrderSummary(
+          totalItems: 03,
+          subTotal: 430,
+          discount: 60,
+          shippingCost: 100,
+          total: 470),
+      storeName: '',
+    ),
+    shippingInfo: ShippingInfo(
+      shippingAddress: fydAddress,
+      shippingCost: 100,
+      trackingUrl: '',
+    ),
+    paymentInfo: const PaymentInfo(
+      paymentAmount: 470,
+      paymentMode: PaymentMode.online(paymentId: '213adtrjklaf'),
+    ),
+    customerInfo: const CustomerInfo(
+      customerId: 'customerId',
+      name: 'name',
+      phone: 'phone',
+      email: 'email',
+    ),
+    orderDate: DateTime.now(),
+    deliveryDate: null,
+  );
+//?-----------------------------------------------------------------------------
+  //! fyd address
+  static FydAddress fydAddress = const FydAddress(
+    name: 'Lakshya Singh',
+    phone: '+915965652655',
+    email: 'email@mail.com',
+    line1: '117 Mint Road',
+    line2: 'Nr Fort Market',
+    city: 'Mumbai',
+    state: 'Punjab',
+    pincode: 124323,
+  );
 
   //! sizeList
   static List<String> sizeList = [
@@ -44,31 +72,31 @@ class MockUi {
   ];
   //! database stores doc
   static Store store = const Store(
-      sId: '#A321',
-      docId: '',
-      isLive: true,
-      name: 'Store Name #',
-      categories: ['APPARELS', 'FOOTWEAR'],
-      types: {},
-      socialPresence: {},
-      rating: 4.2,
-      about:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has",
-      storeImages: [],
-      storeLogo: '',
-      storeAddress: {
-        'default':
-            '117  Mint Road Nr Fort Market Ballard Estate, Mumbai, 400038, India'
-      },
-      storeContact: {'default': '5652683626', '0': '9597215684'},
-      // products: {},
-      productsRef: 'stores/c5U7RoGC7h94AUgopc9Z/products');
+    storeId: '#A321',
+
+    isLive: true,
+    name: 'Store Name #',
+    categories: ['APPARELS', 'FOOTWEAR'],
+    types: {},
+    socialPresence: {},
+    rating: 4.2,
+    about:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has",
+    storeLogo: '',
+    storeAddress: {
+      0: '117  Mint Road Nr Fort Market Ballard Estate, Mumbai, 400038, India'
+    },
+    storeContact: {0: '5652683626', 1: '9597215684'}, offers: {},
+    storeAlerts: {}, featuredIn: {},
+    // products: {},
+  );
 
   //! database product doc
   static Product product = Product(
     skuId: '#W2356',
     name: 'Product Name #',
     storeId: '#R53',
+    storeName: 'storename-long one as well',
     category: 'APPAREL',
     type: 'SHIRT',
     company: 'Product Company Name',
@@ -78,14 +106,13 @@ class MockUi {
       'M': 2,
       'L': 2,
     },
-    productRef: 'stores/c5U7RoGC7h94AUgopc9Z/products/007B9folMtxweKedlKpf',
     sizeGuide: '',
-    qty: 4,
     sellingPrice: 54.34,
     mrp: 60.0,
     productImages: productImages,
     popularity: 1,
     inStock: true,
+    thumbnailImage: '',
   );
 
   //! orders ui
@@ -100,7 +127,7 @@ class MockUi {
   ];
   //! confirmation ui
   static String confirmGif =
-      'https://cdn.dribbble.com/users/7213458/screenshots/19652208/media/acf8bfaf5c03d8c430a8e35ff02f49ec.gif';
+      'https://cdn.dribbble.com/users/7213458/screenshots/20298756/media/7fc74a67a4f184491867312bfcca6661.gif';
   //! newAddress ui
   static List<String> states = [
     'Select state',
@@ -338,78 +365,3 @@ class MockUi {
     ),
   );
 }
-//! to add subcollection to each doc and then add 10 docs in each of the subcollection
-  // FirebaseFirestore.instance.collection('stores').get().then((querySnapshot) {
-  //     for (var docu in querySnapshot.docs) {
-  //       var subCollection = FirebaseFirestore.instance
-  //           .collection('stores')
-  //           .doc(docu.id)
-  //           .collection('products')
-  //           .withConverter<Product>(
-  //               fromFirestore: (snapshot, _) =>
-  //                   Product.fromJson(snapshot.data()!),
-  //               toFirestore: (product, _) => product.toJson());
-  //       for (var i = 5; i > 0; i--) {
-  //         subCollection.add(Product(
-  //           skuId: '#W23${i + 10}',
-  //           name: 'Product Name #${i + 10}',
-  //           storeId: '#R53',
-  //           category: 'APPAREL',
-  //           type: 'JACKET', //'SHIRT','JACKET','PANT','SHOES'
-  //           company: 'Product Company Name',
-  //           description:
-  //               '$i Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has',
-  //           sizeAvailability: const {
-  //             'M': 2,
-  //             'L': 2,
-  //           },
-  //           sizeGuide: '',
-  //           qty: 4,
-  //           sellingPrice: 54.34,
-  //           mrp: 60.0,
-  //           productImages: [],
-  //           popularity: 1,
-  //         ));
-  //       }
-  //     }
-  //     print('added');
-  //   });
-//! to add data to collection's document
-
-  // FirebaseFirestore.instance.collection('stores').get().then((querySnapshot) {
-  //     for (var docu in querySnapshot.docs) {
-  //        docu.             
-  //      }
-  //   });
-    
-
-//! TO ADD STORES
-    // final collection = FirebaseFirestore.instance
-    //     .collection('stores')
-    //     .withConverter<Store>(
-    //         fromFirestore: (snapshot, _) => Store.fromJson(snapshot.data()!),
-    //         toFirestore: (store, _) => store.toJson());
-
-    // for (var i = 5; i > 0; i--) {
-    //   collection
-    //       .add(Store(
-    //           sId: '#A32${i }',
-    //           name: 'Store Name #${i}',
-    //           categories: ['APPARELS', 'FOOTWEAR','ELECTRONICS'],
-    //           types: [],
-    //           socialPresence: {},
-    //           rating: 4.2,
-    //           about:
-    //               "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has",
-    //           storeImages: [],
-    //           storeLogo: '',
-    //           storeAddress: {
-    //             'default':
-    //                 '${i} 117  Mint Road Nr Fort Market Ballard Estate, Mumbai, 400038, India'
-    //           },
-    //           storeContact: {'default': '${i}652683626'},
-    //           products: []))
-    //       .then((_) => print('Added'))
-    //       .catchError((error) => print('Add failed: $error'));
-    // }
-

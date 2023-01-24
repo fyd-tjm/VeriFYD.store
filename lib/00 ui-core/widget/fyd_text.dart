@@ -9,6 +9,7 @@ class FydText extends StatelessWidget {
   final TextStyle style;
   final FontWeight weight;
   final Color color;
+  bool? isSelectable;
 
   // display-custom
 
@@ -224,11 +225,11 @@ class FydText extends StatelessWidget {
 
   // body-custom
 
-  FydText.b1custom(
-      {required this.text,
-      this.weight = FontWeight.normal,
-      required this.color})
-      : style = body16.copyWith(color: color, fontWeight: weight);
+  FydText.b1custom({
+    required this.text,
+    this.weight = FontWeight.normal,
+    required this.color,
+  }) : style = body16.copyWith(color: color, fontWeight: weight);
 
   FydText.b2custom(
       {required this.text,
@@ -250,6 +251,12 @@ class FydText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (isSelectable != null && isSelectable == true) {
+      return SelectableText(
+        text,
+        style: style,
+      );
+    }
     return Text(
       text,
       style: style,

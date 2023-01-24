@@ -52,35 +52,35 @@ mixin _$UserFailure {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Aborted value) aborted,
-    required TResult Function(_InvalidArgument value) invalidArgument,
-    required TResult Function(_AlreadyExists value) alreadyExists,
-    required TResult Function(_NotFound value) notFound,
-    required TResult Function(_PermissionDenied value) permissionDenied,
-    required TResult Function(_ServerError value) serverError,
-    required TResult Function(_UnknownError value) unknownError,
+    required TResult Function(Aborted value) aborted,
+    required TResult Function(InvalidArgument value) invalidArgument,
+    required TResult Function(AlreadyExists value) alreadyExists,
+    required TResult Function(NotFound value) notFound,
+    required TResult Function(PermissionDenied value) permissionDenied,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -103,26 +103,25 @@ class _$UserFailureCopyWithImpl<$Res> implements $UserFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$$_AbortedCopyWith<$Res> {
-  factory _$$_AbortedCopyWith(
-          _$_Aborted value, $Res Function(_$_Aborted) then) =
-      __$$_AbortedCopyWithImpl<$Res>;
+abstract class _$$AbortedCopyWith<$Res> {
+  factory _$$AbortedCopyWith(_$Aborted value, $Res Function(_$Aborted) then) =
+      __$$AbortedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_AbortedCopyWithImpl<$Res> extends _$UserFailureCopyWithImpl<$Res>
-    implements _$$_AbortedCopyWith<$Res> {
-  __$$_AbortedCopyWithImpl(_$_Aborted _value, $Res Function(_$_Aborted) _then)
-      : super(_value, (v) => _then(v as _$_Aborted));
+class __$$AbortedCopyWithImpl<$Res> extends _$UserFailureCopyWithImpl<$Res>
+    implements _$$AbortedCopyWith<$Res> {
+  __$$AbortedCopyWithImpl(_$Aborted _value, $Res Function(_$Aborted) _then)
+      : super(_value, (v) => _then(v as _$Aborted));
 
   @override
-  _$_Aborted get _value => super._value as _$_Aborted;
+  _$Aborted get _value => super._value as _$Aborted;
 }
 
 /// @nodoc
 
-class _$_Aborted implements _Aborted {
-  const _$_Aborted();
+class _$Aborted implements Aborted {
+  const _$Aborted();
 
   @override
   String toString() {
@@ -132,7 +131,7 @@ class _$_Aborted implements _Aborted {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Aborted);
+        (other.runtimeType == runtimeType && other is _$Aborted);
   }
 
   @override
@@ -187,13 +186,13 @@ class _$_Aborted implements _Aborted {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Aborted value) aborted,
-    required TResult Function(_InvalidArgument value) invalidArgument,
-    required TResult Function(_AlreadyExists value) alreadyExists,
-    required TResult Function(_NotFound value) notFound,
-    required TResult Function(_PermissionDenied value) permissionDenied,
-    required TResult Function(_ServerError value) serverError,
-    required TResult Function(_UnknownError value) unknownError,
+    required TResult Function(Aborted value) aborted,
+    required TResult Function(InvalidArgument value) invalidArgument,
+    required TResult Function(AlreadyExists value) alreadyExists,
+    required TResult Function(NotFound value) notFound,
+    required TResult Function(PermissionDenied value) permissionDenied,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
   }) {
     return aborted(this);
   }
@@ -201,13 +200,13 @@ class _$_Aborted implements _Aborted {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
   }) {
     return aborted?.call(this);
   }
@@ -215,13 +214,13 @@ class _$_Aborted implements _Aborted {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
     required TResult orElse(),
   }) {
     if (aborted != null) {
@@ -231,33 +230,33 @@ class _$_Aborted implements _Aborted {
   }
 }
 
-abstract class _Aborted implements UserFailure {
-  const factory _Aborted() = _$_Aborted;
+abstract class Aborted implements UserFailure {
+  const factory Aborted() = _$Aborted;
 }
 
 /// @nodoc
-abstract class _$$_InvalidArgumentCopyWith<$Res> {
-  factory _$$_InvalidArgumentCopyWith(
-          _$_InvalidArgument value, $Res Function(_$_InvalidArgument) then) =
-      __$$_InvalidArgumentCopyWithImpl<$Res>;
+abstract class _$$InvalidArgumentCopyWith<$Res> {
+  factory _$$InvalidArgumentCopyWith(
+          _$InvalidArgument value, $Res Function(_$InvalidArgument) then) =
+      __$$InvalidArgumentCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_InvalidArgumentCopyWithImpl<$Res>
+class __$$InvalidArgumentCopyWithImpl<$Res>
     extends _$UserFailureCopyWithImpl<$Res>
-    implements _$$_InvalidArgumentCopyWith<$Res> {
-  __$$_InvalidArgumentCopyWithImpl(
-      _$_InvalidArgument _value, $Res Function(_$_InvalidArgument) _then)
-      : super(_value, (v) => _then(v as _$_InvalidArgument));
+    implements _$$InvalidArgumentCopyWith<$Res> {
+  __$$InvalidArgumentCopyWithImpl(
+      _$InvalidArgument _value, $Res Function(_$InvalidArgument) _then)
+      : super(_value, (v) => _then(v as _$InvalidArgument));
 
   @override
-  _$_InvalidArgument get _value => super._value as _$_InvalidArgument;
+  _$InvalidArgument get _value => super._value as _$InvalidArgument;
 }
 
 /// @nodoc
 
-class _$_InvalidArgument implements _InvalidArgument {
-  const _$_InvalidArgument();
+class _$InvalidArgument implements InvalidArgument {
+  const _$InvalidArgument();
 
   @override
   String toString() {
@@ -267,7 +266,7 @@ class _$_InvalidArgument implements _InvalidArgument {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_InvalidArgument);
+        (other.runtimeType == runtimeType && other is _$InvalidArgument);
   }
 
   @override
@@ -322,13 +321,13 @@ class _$_InvalidArgument implements _InvalidArgument {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Aborted value) aborted,
-    required TResult Function(_InvalidArgument value) invalidArgument,
-    required TResult Function(_AlreadyExists value) alreadyExists,
-    required TResult Function(_NotFound value) notFound,
-    required TResult Function(_PermissionDenied value) permissionDenied,
-    required TResult Function(_ServerError value) serverError,
-    required TResult Function(_UnknownError value) unknownError,
+    required TResult Function(Aborted value) aborted,
+    required TResult Function(InvalidArgument value) invalidArgument,
+    required TResult Function(AlreadyExists value) alreadyExists,
+    required TResult Function(NotFound value) notFound,
+    required TResult Function(PermissionDenied value) permissionDenied,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
   }) {
     return invalidArgument(this);
   }
@@ -336,13 +335,13 @@ class _$_InvalidArgument implements _InvalidArgument {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
   }) {
     return invalidArgument?.call(this);
   }
@@ -350,13 +349,13 @@ class _$_InvalidArgument implements _InvalidArgument {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
     required TResult orElse(),
   }) {
     if (invalidArgument != null) {
@@ -366,33 +365,33 @@ class _$_InvalidArgument implements _InvalidArgument {
   }
 }
 
-abstract class _InvalidArgument implements UserFailure {
-  const factory _InvalidArgument() = _$_InvalidArgument;
+abstract class InvalidArgument implements UserFailure {
+  const factory InvalidArgument() = _$InvalidArgument;
 }
 
 /// @nodoc
-abstract class _$$_AlreadyExistsCopyWith<$Res> {
-  factory _$$_AlreadyExistsCopyWith(
-          _$_AlreadyExists value, $Res Function(_$_AlreadyExists) then) =
-      __$$_AlreadyExistsCopyWithImpl<$Res>;
+abstract class _$$AlreadyExistsCopyWith<$Res> {
+  factory _$$AlreadyExistsCopyWith(
+          _$AlreadyExists value, $Res Function(_$AlreadyExists) then) =
+      __$$AlreadyExistsCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_AlreadyExistsCopyWithImpl<$Res>
+class __$$AlreadyExistsCopyWithImpl<$Res>
     extends _$UserFailureCopyWithImpl<$Res>
-    implements _$$_AlreadyExistsCopyWith<$Res> {
-  __$$_AlreadyExistsCopyWithImpl(
-      _$_AlreadyExists _value, $Res Function(_$_AlreadyExists) _then)
-      : super(_value, (v) => _then(v as _$_AlreadyExists));
+    implements _$$AlreadyExistsCopyWith<$Res> {
+  __$$AlreadyExistsCopyWithImpl(
+      _$AlreadyExists _value, $Res Function(_$AlreadyExists) _then)
+      : super(_value, (v) => _then(v as _$AlreadyExists));
 
   @override
-  _$_AlreadyExists get _value => super._value as _$_AlreadyExists;
+  _$AlreadyExists get _value => super._value as _$AlreadyExists;
 }
 
 /// @nodoc
 
-class _$_AlreadyExists implements _AlreadyExists {
-  const _$_AlreadyExists();
+class _$AlreadyExists implements AlreadyExists {
+  const _$AlreadyExists();
 
   @override
   String toString() {
@@ -402,7 +401,7 @@ class _$_AlreadyExists implements _AlreadyExists {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_AlreadyExists);
+        (other.runtimeType == runtimeType && other is _$AlreadyExists);
   }
 
   @override
@@ -457,13 +456,13 @@ class _$_AlreadyExists implements _AlreadyExists {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Aborted value) aborted,
-    required TResult Function(_InvalidArgument value) invalidArgument,
-    required TResult Function(_AlreadyExists value) alreadyExists,
-    required TResult Function(_NotFound value) notFound,
-    required TResult Function(_PermissionDenied value) permissionDenied,
-    required TResult Function(_ServerError value) serverError,
-    required TResult Function(_UnknownError value) unknownError,
+    required TResult Function(Aborted value) aborted,
+    required TResult Function(InvalidArgument value) invalidArgument,
+    required TResult Function(AlreadyExists value) alreadyExists,
+    required TResult Function(NotFound value) notFound,
+    required TResult Function(PermissionDenied value) permissionDenied,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
   }) {
     return alreadyExists(this);
   }
@@ -471,13 +470,13 @@ class _$_AlreadyExists implements _AlreadyExists {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
   }) {
     return alreadyExists?.call(this);
   }
@@ -485,13 +484,13 @@ class _$_AlreadyExists implements _AlreadyExists {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
     required TResult orElse(),
   }) {
     if (alreadyExists != null) {
@@ -501,32 +500,31 @@ class _$_AlreadyExists implements _AlreadyExists {
   }
 }
 
-abstract class _AlreadyExists implements UserFailure {
-  const factory _AlreadyExists() = _$_AlreadyExists;
+abstract class AlreadyExists implements UserFailure {
+  const factory AlreadyExists() = _$AlreadyExists;
 }
 
 /// @nodoc
-abstract class _$$_NotFoundCopyWith<$Res> {
-  factory _$$_NotFoundCopyWith(
-          _$_NotFound value, $Res Function(_$_NotFound) then) =
-      __$$_NotFoundCopyWithImpl<$Res>;
+abstract class _$$NotFoundCopyWith<$Res> {
+  factory _$$NotFoundCopyWith(
+          _$NotFound value, $Res Function(_$NotFound) then) =
+      __$$NotFoundCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_NotFoundCopyWithImpl<$Res> extends _$UserFailureCopyWithImpl<$Res>
-    implements _$$_NotFoundCopyWith<$Res> {
-  __$$_NotFoundCopyWithImpl(
-      _$_NotFound _value, $Res Function(_$_NotFound) _then)
-      : super(_value, (v) => _then(v as _$_NotFound));
+class __$$NotFoundCopyWithImpl<$Res> extends _$UserFailureCopyWithImpl<$Res>
+    implements _$$NotFoundCopyWith<$Res> {
+  __$$NotFoundCopyWithImpl(_$NotFound _value, $Res Function(_$NotFound) _then)
+      : super(_value, (v) => _then(v as _$NotFound));
 
   @override
-  _$_NotFound get _value => super._value as _$_NotFound;
+  _$NotFound get _value => super._value as _$NotFound;
 }
 
 /// @nodoc
 
-class _$_NotFound implements _NotFound {
-  const _$_NotFound();
+class _$NotFound implements NotFound {
+  const _$NotFound();
 
   @override
   String toString() {
@@ -536,7 +534,7 @@ class _$_NotFound implements _NotFound {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_NotFound);
+        (other.runtimeType == runtimeType && other is _$NotFound);
   }
 
   @override
@@ -591,13 +589,13 @@ class _$_NotFound implements _NotFound {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Aborted value) aborted,
-    required TResult Function(_InvalidArgument value) invalidArgument,
-    required TResult Function(_AlreadyExists value) alreadyExists,
-    required TResult Function(_NotFound value) notFound,
-    required TResult Function(_PermissionDenied value) permissionDenied,
-    required TResult Function(_ServerError value) serverError,
-    required TResult Function(_UnknownError value) unknownError,
+    required TResult Function(Aborted value) aborted,
+    required TResult Function(InvalidArgument value) invalidArgument,
+    required TResult Function(AlreadyExists value) alreadyExists,
+    required TResult Function(NotFound value) notFound,
+    required TResult Function(PermissionDenied value) permissionDenied,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
   }) {
     return notFound(this);
   }
@@ -605,13 +603,13 @@ class _$_NotFound implements _NotFound {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
   }) {
     return notFound?.call(this);
   }
@@ -619,13 +617,13 @@ class _$_NotFound implements _NotFound {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
     required TResult orElse(),
   }) {
     if (notFound != null) {
@@ -635,33 +633,33 @@ class _$_NotFound implements _NotFound {
   }
 }
 
-abstract class _NotFound implements UserFailure {
-  const factory _NotFound() = _$_NotFound;
+abstract class NotFound implements UserFailure {
+  const factory NotFound() = _$NotFound;
 }
 
 /// @nodoc
-abstract class _$$_PermissionDeniedCopyWith<$Res> {
-  factory _$$_PermissionDeniedCopyWith(
-          _$_PermissionDenied value, $Res Function(_$_PermissionDenied) then) =
-      __$$_PermissionDeniedCopyWithImpl<$Res>;
+abstract class _$$PermissionDeniedCopyWith<$Res> {
+  factory _$$PermissionDeniedCopyWith(
+          _$PermissionDenied value, $Res Function(_$PermissionDenied) then) =
+      __$$PermissionDeniedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_PermissionDeniedCopyWithImpl<$Res>
+class __$$PermissionDeniedCopyWithImpl<$Res>
     extends _$UserFailureCopyWithImpl<$Res>
-    implements _$$_PermissionDeniedCopyWith<$Res> {
-  __$$_PermissionDeniedCopyWithImpl(
-      _$_PermissionDenied _value, $Res Function(_$_PermissionDenied) _then)
-      : super(_value, (v) => _then(v as _$_PermissionDenied));
+    implements _$$PermissionDeniedCopyWith<$Res> {
+  __$$PermissionDeniedCopyWithImpl(
+      _$PermissionDenied _value, $Res Function(_$PermissionDenied) _then)
+      : super(_value, (v) => _then(v as _$PermissionDenied));
 
   @override
-  _$_PermissionDenied get _value => super._value as _$_PermissionDenied;
+  _$PermissionDenied get _value => super._value as _$PermissionDenied;
 }
 
 /// @nodoc
 
-class _$_PermissionDenied implements _PermissionDenied {
-  const _$_PermissionDenied();
+class _$PermissionDenied implements PermissionDenied {
+  const _$PermissionDenied();
 
   @override
   String toString() {
@@ -671,7 +669,7 @@ class _$_PermissionDenied implements _PermissionDenied {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_PermissionDenied);
+        (other.runtimeType == runtimeType && other is _$PermissionDenied);
   }
 
   @override
@@ -726,13 +724,13 @@ class _$_PermissionDenied implements _PermissionDenied {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Aborted value) aborted,
-    required TResult Function(_InvalidArgument value) invalidArgument,
-    required TResult Function(_AlreadyExists value) alreadyExists,
-    required TResult Function(_NotFound value) notFound,
-    required TResult Function(_PermissionDenied value) permissionDenied,
-    required TResult Function(_ServerError value) serverError,
-    required TResult Function(_UnknownError value) unknownError,
+    required TResult Function(Aborted value) aborted,
+    required TResult Function(InvalidArgument value) invalidArgument,
+    required TResult Function(AlreadyExists value) alreadyExists,
+    required TResult Function(NotFound value) notFound,
+    required TResult Function(PermissionDenied value) permissionDenied,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
   }) {
     return permissionDenied(this);
   }
@@ -740,13 +738,13 @@ class _$_PermissionDenied implements _PermissionDenied {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
   }) {
     return permissionDenied?.call(this);
   }
@@ -754,13 +752,13 @@ class _$_PermissionDenied implements _PermissionDenied {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
     required TResult orElse(),
   }) {
     if (permissionDenied != null) {
@@ -770,32 +768,32 @@ class _$_PermissionDenied implements _PermissionDenied {
   }
 }
 
-abstract class _PermissionDenied implements UserFailure {
-  const factory _PermissionDenied() = _$_PermissionDenied;
+abstract class PermissionDenied implements UserFailure {
+  const factory PermissionDenied() = _$PermissionDenied;
 }
 
 /// @nodoc
-abstract class _$$_ServerErrorCopyWith<$Res> {
-  factory _$$_ServerErrorCopyWith(
-          _$_ServerError value, $Res Function(_$_ServerError) then) =
-      __$$_ServerErrorCopyWithImpl<$Res>;
+abstract class _$$ServerErrorCopyWith<$Res> {
+  factory _$$ServerErrorCopyWith(
+          _$ServerError value, $Res Function(_$ServerError) then) =
+      __$$ServerErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_ServerErrorCopyWithImpl<$Res> extends _$UserFailureCopyWithImpl<$Res>
-    implements _$$_ServerErrorCopyWith<$Res> {
-  __$$_ServerErrorCopyWithImpl(
-      _$_ServerError _value, $Res Function(_$_ServerError) _then)
-      : super(_value, (v) => _then(v as _$_ServerError));
+class __$$ServerErrorCopyWithImpl<$Res> extends _$UserFailureCopyWithImpl<$Res>
+    implements _$$ServerErrorCopyWith<$Res> {
+  __$$ServerErrorCopyWithImpl(
+      _$ServerError _value, $Res Function(_$ServerError) _then)
+      : super(_value, (v) => _then(v as _$ServerError));
 
   @override
-  _$_ServerError get _value => super._value as _$_ServerError;
+  _$ServerError get _value => super._value as _$ServerError;
 }
 
 /// @nodoc
 
-class _$_ServerError implements _ServerError {
-  const _$_ServerError();
+class _$ServerError implements ServerError {
+  const _$ServerError();
 
   @override
   String toString() {
@@ -805,7 +803,7 @@ class _$_ServerError implements _ServerError {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_ServerError);
+        (other.runtimeType == runtimeType && other is _$ServerError);
   }
 
   @override
@@ -860,13 +858,13 @@ class _$_ServerError implements _ServerError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Aborted value) aborted,
-    required TResult Function(_InvalidArgument value) invalidArgument,
-    required TResult Function(_AlreadyExists value) alreadyExists,
-    required TResult Function(_NotFound value) notFound,
-    required TResult Function(_PermissionDenied value) permissionDenied,
-    required TResult Function(_ServerError value) serverError,
-    required TResult Function(_UnknownError value) unknownError,
+    required TResult Function(Aborted value) aborted,
+    required TResult Function(InvalidArgument value) invalidArgument,
+    required TResult Function(AlreadyExists value) alreadyExists,
+    required TResult Function(NotFound value) notFound,
+    required TResult Function(PermissionDenied value) permissionDenied,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
   }) {
     return serverError(this);
   }
@@ -874,13 +872,13 @@ class _$_ServerError implements _ServerError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
   }) {
     return serverError?.call(this);
   }
@@ -888,13 +886,13 @@ class _$_ServerError implements _ServerError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
     required TResult orElse(),
   }) {
     if (serverError != null) {
@@ -904,33 +902,32 @@ class _$_ServerError implements _ServerError {
   }
 }
 
-abstract class _ServerError implements UserFailure {
-  const factory _ServerError() = _$_ServerError;
+abstract class ServerError implements UserFailure {
+  const factory ServerError() = _$ServerError;
 }
 
 /// @nodoc
-abstract class _$$_UnknownErrorCopyWith<$Res> {
-  factory _$$_UnknownErrorCopyWith(
-          _$_UnknownError value, $Res Function(_$_UnknownError) then) =
-      __$$_UnknownErrorCopyWithImpl<$Res>;
+abstract class _$$UnknownErrorCopyWith<$Res> {
+  factory _$$UnknownErrorCopyWith(
+          _$UnknownError value, $Res Function(_$UnknownError) then) =
+      __$$UnknownErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_UnknownErrorCopyWithImpl<$Res>
-    extends _$UserFailureCopyWithImpl<$Res>
-    implements _$$_UnknownErrorCopyWith<$Res> {
-  __$$_UnknownErrorCopyWithImpl(
-      _$_UnknownError _value, $Res Function(_$_UnknownError) _then)
-      : super(_value, (v) => _then(v as _$_UnknownError));
+class __$$UnknownErrorCopyWithImpl<$Res> extends _$UserFailureCopyWithImpl<$Res>
+    implements _$$UnknownErrorCopyWith<$Res> {
+  __$$UnknownErrorCopyWithImpl(
+      _$UnknownError _value, $Res Function(_$UnknownError) _then)
+      : super(_value, (v) => _then(v as _$UnknownError));
 
   @override
-  _$_UnknownError get _value => super._value as _$_UnknownError;
+  _$UnknownError get _value => super._value as _$UnknownError;
 }
 
 /// @nodoc
 
-class _$_UnknownError implements _UnknownError {
-  const _$_UnknownError();
+class _$UnknownError implements UnknownError {
+  const _$UnknownError();
 
   @override
   String toString() {
@@ -940,7 +937,7 @@ class _$_UnknownError implements _UnknownError {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_UnknownError);
+        (other.runtimeType == runtimeType && other is _$UnknownError);
   }
 
   @override
@@ -995,13 +992,13 @@ class _$_UnknownError implements _UnknownError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Aborted value) aborted,
-    required TResult Function(_InvalidArgument value) invalidArgument,
-    required TResult Function(_AlreadyExists value) alreadyExists,
-    required TResult Function(_NotFound value) notFound,
-    required TResult Function(_PermissionDenied value) permissionDenied,
-    required TResult Function(_ServerError value) serverError,
-    required TResult Function(_UnknownError value) unknownError,
+    required TResult Function(Aborted value) aborted,
+    required TResult Function(InvalidArgument value) invalidArgument,
+    required TResult Function(AlreadyExists value) alreadyExists,
+    required TResult Function(NotFound value) notFound,
+    required TResult Function(PermissionDenied value) permissionDenied,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(UnknownError value) unknownError,
   }) {
     return unknownError(this);
   }
@@ -1009,13 +1006,13 @@ class _$_UnknownError implements _UnknownError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
   }) {
     return unknownError?.call(this);
   }
@@ -1023,13 +1020,13 @@ class _$_UnknownError implements _UnknownError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Aborted value)? aborted,
-    TResult Function(_InvalidArgument value)? invalidArgument,
-    TResult Function(_AlreadyExists value)? alreadyExists,
-    TResult Function(_NotFound value)? notFound,
-    TResult Function(_PermissionDenied value)? permissionDenied,
-    TResult Function(_ServerError value)? serverError,
-    TResult Function(_UnknownError value)? unknownError,
+    TResult Function(Aborted value)? aborted,
+    TResult Function(InvalidArgument value)? invalidArgument,
+    TResult Function(AlreadyExists value)? alreadyExists,
+    TResult Function(NotFound value)? notFound,
+    TResult Function(PermissionDenied value)? permissionDenied,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(UnknownError value)? unknownError,
     required TResult orElse(),
   }) {
     if (unknownError != null) {
@@ -1039,6 +1036,6 @@ class _$_UnknownError implements _UnknownError {
   }
 }
 
-abstract class _UnknownError implements UserFailure {
-  const factory _UnknownError() = _$_UnknownError;
+abstract class UnknownError implements UserFailure {
+  const factory UnknownError() = _$UnknownError;
 }

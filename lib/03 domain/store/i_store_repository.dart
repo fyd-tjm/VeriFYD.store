@@ -9,19 +9,19 @@ abstract class IStoreRepository {
 
   //! to listen to selected store for real time changes (live or not)
   Stream<Either<StoreFailure, Store>> getStoreRealTime(
-      {required String storeId});
+      {required String storeRef});
 
   //! get only Live stores when on client end
   Future<Either<ProductFailure, List<Product>>> getProductsByType(
       {required String type,
-      required String productsReference,
+      required String productsCollectionRef,
       String? startAfterSkuId});
 
   //! to listen to selected store for real time changes (live or not)
   Stream<Either<ProductFailure, Product>> getProductRealTime(
-      {required String productsReference});
+      {required String productRef});
 
   //! get Product by skuId
-  Future<Either<ProductFailure, Product>> getProductBySkuId(
-      {required String storeId, required String skuId});
+  Future<Either<ProductFailure, Product>> getProduct(
+      {required String productRef});
 }

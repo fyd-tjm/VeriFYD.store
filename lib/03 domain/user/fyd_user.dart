@@ -13,10 +13,8 @@ abstract class FydUser with _$FydUser {
     required String uId,
     required String phone,
     required String name,
-    @Default('') String email,
-    required Map<String, FydAddress> addresses,
-    required String cartRef,
-    required String ordersRef,
+    required String email,
+    required Map<int, FydAddress> addresses,
   }) = _FydUser;
 
   factory FydUser.fromJson(Map<String, dynamic> json) =>

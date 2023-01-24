@@ -1,31 +1,20 @@
 // ignore_for_file: avoid_print
 
 import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:verifyd_store/01%20presentation/05%20stores/product_page.dart';
-import 'package:verifyd_store/02%20application/cart/cubit/cart_cubit.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
-import 'package:verifyd_store/03%20domain/store/00_export_store_domain.dart';
-import 'package:verifyd_store/aa%20mock/static_ui.dart';
-import 'package:verifyd_store/aa%20mock/test_store.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 
-import '../../03 domain/cart/cart.dart';
-
-const String cartRef =
-    'users/6yQEkmtw9uIed83psnEpkt6rw6AV/cart/4OsMh8URJm3Xyf3u9w1I';
-
+//?-----------------------------------------------------------------------------
 class StartApp extends StatelessWidget {
   StartApp({Key? key}) : super(key: key);
   final appRouter = AppRouter();
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -33,38 +22,77 @@ class StartApp extends StatelessWidget {
         useInheritedMediaQuery: true,
         minTextAdapt: true,
         builder: (context, child) {
-          return MaterialApp(
-            title: 'testing',
-            home: MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create: (context) => getIt<SharedInfoCubit>(),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => getIt<FydUserCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => getIt<SharedInfoCubit>(),
+              ),
+            ],
+            child: MaterialApp.router(
+                title: 'veriFYD.store',
+                routerDelegate: appRouter.delegate(
+                  navigatorObservers: () => [MainRouterObserver()],
                 ),
-                BlocProvider(
-                  create: (context) => getIt<CartCubit>(),
-                ),
-                BlocProvider(
-                  create: (context) => getIt<FydUserCubit>(),
-                )
-              ],
-
-              // child: const ProductWrapperPage(),
-              child: const TestStoreScreen(),
-            ),
+                routeInformationParser: appRouter.defaultRouteParser(),
+                theme: ThemeData.dark().copyWith(
+                  scaffoldBackgroundColor: fydPDgrey,
+                  textSelectionTheme: const TextSelectionThemeData(
+                      selectionHandleColor: fydLogoBlue),
+                  pageTransitionsTheme: const PageTransitionsTheme(builders: {
+                    // TargetPlatform.iOS: NoShadowCupertinoPageTransitionsBuilder(),
+                    TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+                  }),
+                )),
           );
-          // return BlocProvider(
-          //   create: (context) => getIt<FydUserCubit>(),
-          //   child: MaterialApp.router(
-          //     title: 'veriFYD.store',
-          //     routerDelegate: appRouter.delegate(
-          //       navigatorObservers: () => [MainRouterObserver()],
-          //     ),
-          //     routeInformationParser: appRouter.defaultRouteParser(),
-          //   ),
-          // );
         });
   }
 }
+
+//?-----------------------------------------------------------------------------
+//! bloc observer ---- in void-main()
+class MyGlobalObserver extends BlocObserver {
+  @override
+  void onCreate(BlocBase bloc) {
+    super.onCreate(bloc);
+    print('onCreate Bloc-- ${bloc.runtimeType}');
+  }
+
+  @override
+  void onClose(BlocBase bloc) {
+    super.onClose(bloc);
+    print('onClose Bloc-- ${bloc.runtimeType}');
+  }
+
+  @override
+  void onEvent(Bloc bloc, Object? event) {
+    super.onEvent(bloc, event);
+    print('onEvent Bloc-- ${bloc.runtimeType} -- ${event.runtimeType}');
+  }
+
+  @override
+  void onChange(BlocBase bloc, Change change) {
+    super.onChange(bloc, change);
+    print('onChange Bloc type-- ${bloc.runtimeType}');
+    // print('onChange Bloc CurrentState-- ${change.currentState}');
+    // print('onChange Bloc NextState-- ${change.nextState}');
+  }
+
+// @override
+// void onTransition(Bloc bloc, Transition transition) {
+//   super.onTransition(bloc, transition);
+//   debugPrint('${bloc.runtimeType} $transition');
+// }
+
+  @override
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+    print('onError Bloc-- ${bloc.runtimeType}, $error');
+    super.onError(bloc, error, stackTrace);
+  }
+}
+//?-----------------------------------------------------------------------------
 
 //! route observer
 class MainRouterObserver extends AutoRouterObserver {
@@ -93,38 +121,4 @@ class MainRouterObserver extends AutoRouterObserver {
   }
 }
 
-//! trash
-const store = Store(
-  sId: '#W12R',
-  name: 'STORE-#W12R ',
-  categories: ['APPAREL'],
-  types: {'SHIRT': 5},
-  socialPresence: {},
-  rating: 4.3,
-  about: 'ABOUT THE STORE LOREM IPSUM ',
-  storeImages: [],
-  storeLogo: '',
-  storeAddress: {},
-  storeContact: {},
-  productsRef: 'stores/#W12R/products',
-  isLive: true,
-  docId: '#W12R',
-);
-const product = Product(
-  skuId: '#A112',
-  name: 'PRODUCT-name-#A112',
-  storeId: '#W12R',
-  category: 'APPAREL',
-  type: 'SHIRT',
-  company: 'LEVIS AND CO.',
-  description: 'LOREM IPSUM LALALALAL',
-  sizeAvailability: {'S': 2, 'M': 2},
-  sizeGuide: '',
-  qty: 4,
-  sellingPrice: 660,
-  mrp: 800,
-  productImages: [],
-  productRef: '',
-  popularity: 1,
-  inStock: true,
-);
+//?-----------------------------------------------------------------------------

@@ -8,7 +8,7 @@ abstract class PhoneLoginState with _$PhoneLoginState {
     required bool isSubmitting,
     required bool isCodeSent,
     required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption,
-  }) = _PhoneAuthState;
+  }) = _PhoneLoginState;
 
   factory PhoneLoginState.initial() => PhoneLoginState(
         phoneNumber: PhoneNumber(''),
