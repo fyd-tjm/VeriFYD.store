@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 extension FirebaseFireStoreX on FirebaseFirestore {
   CollectionReference storesCollection() {
@@ -20,8 +21,8 @@ extension FirebaseFireStoreX on FirebaseFirestore {
 
 class DbRef {
   static String getUserId() {
-    // final uId = FirebaseAuth.instance.currentUser!.uid;
-    const uId = '6yQEkmtw9uIed83psnEpkt6rw6AV';
+    final uId = FirebaseAuth.instance.currentUser!.uid;
+    // const uId = '6yQEkmtw9uIed83psnEpkt6rw6AV';
     return uId;
   }
 
@@ -44,7 +45,9 @@ class DbFKeys {
 
   static String sharedInfoTotalOrders() => 'totalOrders';
 
+  static String userId() => 'uId';
   static String userName() => 'name';
+  static String userPhone() => 'phone';
   static String userEmail() => 'email';
   static String userAddress() => 'addresses';
 

@@ -18,65 +18,60 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PhoneLoginEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(PhoneNumber phoneNumber) phoneNumberUpdate,
-    required TResult Function() sendOtp,
-    required TResult Function(Either<AuthFailure, bool> event)
+    required TResult Function(PhoneNumber phoneNumber) sendOtp,
+    required TResult Function(Either<AuthFailure, Unit> streamEvent)
         recievedOtpStreamEvent,
-    required TResult Function(bool codeSentStatus) updateCodeSentState,
-    required TResult Function() toggleIsCodeSentState,
+    required TResult Function() toggleCodeSentState,
+    required TResult Function() toggleFailures,
     required TResult Function(Otp otp) confirmOtp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PhoneNumber phoneNumber)? phoneNumberUpdate,
-    TResult Function()? sendOtp,
-    TResult Function(Either<AuthFailure, bool> event)? recievedOtpStreamEvent,
-    TResult Function(bool codeSentStatus)? updateCodeSentState,
-    TResult Function()? toggleIsCodeSentState,
+    TResult Function(PhoneNumber phoneNumber)? sendOtp,
+    TResult Function(Either<AuthFailure, Unit> streamEvent)?
+        recievedOtpStreamEvent,
+    TResult Function()? toggleCodeSentState,
+    TResult Function()? toggleFailures,
     TResult Function(Otp otp)? confirmOtp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PhoneNumber phoneNumber)? phoneNumberUpdate,
-    TResult Function()? sendOtp,
-    TResult Function(Either<AuthFailure, bool> event)? recievedOtpStreamEvent,
-    TResult Function(bool codeSentStatus)? updateCodeSentState,
-    TResult Function()? toggleIsCodeSentState,
+    TResult Function(PhoneNumber phoneNumber)? sendOtp,
+    TResult Function(Either<AuthFailure, Unit> streamEvent)?
+        recievedOtpStreamEvent,
+    TResult Function()? toggleCodeSentState,
+    TResult Function()? toggleFailures,
     TResult Function(Otp otp)? confirmOtp,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(PhoneNumberUpdate value) phoneNumberUpdate,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(RecievedOtpStreamEvent value)
         recievedOtpStreamEvent,
-    required TResult Function(UpdateCodeSentState value) updateCodeSentState,
-    required TResult Function(ToggleIsCodeSentState value)
-        toggleIsCodeSentState,
+    required TResult Function(ToggleCodeSentState value) toggleCodeSentState,
+    required TResult Function(ToggleFailures value) toggleFailures,
     required TResult Function(ConfirmOtp value) confirmOtp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PhoneNumberUpdate value)? phoneNumberUpdate,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
-    TResult Function(UpdateCodeSentState value)? updateCodeSentState,
-    TResult Function(ToggleIsCodeSentState value)? toggleIsCodeSentState,
+    TResult Function(ToggleCodeSentState value)? toggleCodeSentState,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(ConfirmOtp value)? confirmOtp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(PhoneNumberUpdate value)? phoneNumberUpdate,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
-    TResult Function(UpdateCodeSentState value)? updateCodeSentState,
-    TResult Function(ToggleIsCodeSentState value)? toggleIsCodeSentState,
+    TResult Function(ToggleCodeSentState value)? toggleCodeSentState,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(ConfirmOtp value)? confirmOtp,
     required TResult orElse(),
   }) =>
@@ -101,172 +96,10 @@ class _$PhoneLoginEventCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$PhoneNumberUpdateCopyWith<$Res> {
-  factory _$$PhoneNumberUpdateCopyWith(
-          _$PhoneNumberUpdate value, $Res Function(_$PhoneNumberUpdate) then) =
-      __$$PhoneNumberUpdateCopyWithImpl<$Res>;
-  $Res call({PhoneNumber phoneNumber});
-}
-
-/// @nodoc
-class __$$PhoneNumberUpdateCopyWithImpl<$Res>
-    extends _$PhoneLoginEventCopyWithImpl<$Res>
-    implements _$$PhoneNumberUpdateCopyWith<$Res> {
-  __$$PhoneNumberUpdateCopyWithImpl(
-      _$PhoneNumberUpdate _value, $Res Function(_$PhoneNumberUpdate) _then)
-      : super(_value, (v) => _then(v as _$PhoneNumberUpdate));
-
-  @override
-  _$PhoneNumberUpdate get _value => super._value as _$PhoneNumberUpdate;
-
-  @override
-  $Res call({
-    Object? phoneNumber = freezed,
-  }) {
-    return _then(_$PhoneNumberUpdate(
-      phoneNumber: phoneNumber == freezed
-          ? _value.phoneNumber
-          : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as PhoneNumber,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$PhoneNumberUpdate implements PhoneNumberUpdate {
-  const _$PhoneNumberUpdate({required this.phoneNumber});
-
-  @override
-  final PhoneNumber phoneNumber;
-
-  @override
-  String toString() {
-    return 'PhoneLoginEvent.phoneNumberUpdate(phoneNumber: $phoneNumber)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PhoneNumberUpdate &&
-            const DeepCollectionEquality()
-                .equals(other.phoneNumber, phoneNumber));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(phoneNumber));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$PhoneNumberUpdateCopyWith<_$PhoneNumberUpdate> get copyWith =>
-      __$$PhoneNumberUpdateCopyWithImpl<_$PhoneNumberUpdate>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(PhoneNumber phoneNumber) phoneNumberUpdate,
-    required TResult Function() sendOtp,
-    required TResult Function(Either<AuthFailure, bool> event)
-        recievedOtpStreamEvent,
-    required TResult Function(bool codeSentStatus) updateCodeSentState,
-    required TResult Function() toggleIsCodeSentState,
-    required TResult Function(Otp otp) confirmOtp,
-  }) {
-    return phoneNumberUpdate(phoneNumber);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PhoneNumber phoneNumber)? phoneNumberUpdate,
-    TResult Function()? sendOtp,
-    TResult Function(Either<AuthFailure, bool> event)? recievedOtpStreamEvent,
-    TResult Function(bool codeSentStatus)? updateCodeSentState,
-    TResult Function()? toggleIsCodeSentState,
-    TResult Function(Otp otp)? confirmOtp,
-  }) {
-    return phoneNumberUpdate?.call(phoneNumber);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PhoneNumber phoneNumber)? phoneNumberUpdate,
-    TResult Function()? sendOtp,
-    TResult Function(Either<AuthFailure, bool> event)? recievedOtpStreamEvent,
-    TResult Function(bool codeSentStatus)? updateCodeSentState,
-    TResult Function()? toggleIsCodeSentState,
-    TResult Function(Otp otp)? confirmOtp,
-    required TResult orElse(),
-  }) {
-    if (phoneNumberUpdate != null) {
-      return phoneNumberUpdate(phoneNumber);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PhoneNumberUpdate value) phoneNumberUpdate,
-    required TResult Function(SendOtp value) sendOtp,
-    required TResult Function(RecievedOtpStreamEvent value)
-        recievedOtpStreamEvent,
-    required TResult Function(UpdateCodeSentState value) updateCodeSentState,
-    required TResult Function(ToggleIsCodeSentState value)
-        toggleIsCodeSentState,
-    required TResult Function(ConfirmOtp value) confirmOtp,
-  }) {
-    return phoneNumberUpdate(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PhoneNumberUpdate value)? phoneNumberUpdate,
-    TResult Function(SendOtp value)? sendOtp,
-    TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
-    TResult Function(UpdateCodeSentState value)? updateCodeSentState,
-    TResult Function(ToggleIsCodeSentState value)? toggleIsCodeSentState,
-    TResult Function(ConfirmOtp value)? confirmOtp,
-  }) {
-    return phoneNumberUpdate?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PhoneNumberUpdate value)? phoneNumberUpdate,
-    TResult Function(SendOtp value)? sendOtp,
-    TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
-    TResult Function(UpdateCodeSentState value)? updateCodeSentState,
-    TResult Function(ToggleIsCodeSentState value)? toggleIsCodeSentState,
-    TResult Function(ConfirmOtp value)? confirmOtp,
-    required TResult orElse(),
-  }) {
-    if (phoneNumberUpdate != null) {
-      return phoneNumberUpdate(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class PhoneNumberUpdate implements PhoneLoginEvent {
-  const factory PhoneNumberUpdate({required final PhoneNumber phoneNumber}) =
-      _$PhoneNumberUpdate;
-
-  PhoneNumber get phoneNumber;
-  @JsonKey(ignore: true)
-  _$$PhoneNumberUpdateCopyWith<_$PhoneNumberUpdate> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
 abstract class _$$SendOtpCopyWith<$Res> {
   factory _$$SendOtpCopyWith(_$SendOtp value, $Res Function(_$SendOtp) then) =
       __$$SendOtpCopyWithImpl<$Res>;
+  $Res call({PhoneNumber phoneNumber});
 }
 
 /// @nodoc
@@ -277,67 +110,90 @@ class __$$SendOtpCopyWithImpl<$Res> extends _$PhoneLoginEventCopyWithImpl<$Res>
 
   @override
   _$SendOtp get _value => super._value as _$SendOtp;
+
+  @override
+  $Res call({
+    Object? phoneNumber = freezed,
+  }) {
+    return _then(_$SendOtp(
+      phoneNumber: phoneNumber == freezed
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as PhoneNumber,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$SendOtp implements SendOtp {
-  const _$SendOtp();
+  const _$SendOtp({required this.phoneNumber});
+
+  @override
+  final PhoneNumber phoneNumber;
 
   @override
   String toString() {
-    return 'PhoneLoginEvent.sendOtp()';
+    return 'PhoneLoginEvent.sendOtp(phoneNumber: $phoneNumber)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SendOtp);
+        (other.runtimeType == runtimeType &&
+            other is _$SendOtp &&
+            const DeepCollectionEquality()
+                .equals(other.phoneNumber, phoneNumber));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(phoneNumber));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$SendOtpCopyWith<_$SendOtp> get copyWith =>
+      __$$SendOtpCopyWithImpl<_$SendOtp>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(PhoneNumber phoneNumber) phoneNumberUpdate,
-    required TResult Function() sendOtp,
-    required TResult Function(Either<AuthFailure, bool> event)
+    required TResult Function(PhoneNumber phoneNumber) sendOtp,
+    required TResult Function(Either<AuthFailure, Unit> streamEvent)
         recievedOtpStreamEvent,
-    required TResult Function(bool codeSentStatus) updateCodeSentState,
-    required TResult Function() toggleIsCodeSentState,
+    required TResult Function() toggleCodeSentState,
+    required TResult Function() toggleFailures,
     required TResult Function(Otp otp) confirmOtp,
   }) {
-    return sendOtp();
+    return sendOtp(phoneNumber);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PhoneNumber phoneNumber)? phoneNumberUpdate,
-    TResult Function()? sendOtp,
-    TResult Function(Either<AuthFailure, bool> event)? recievedOtpStreamEvent,
-    TResult Function(bool codeSentStatus)? updateCodeSentState,
-    TResult Function()? toggleIsCodeSentState,
+    TResult Function(PhoneNumber phoneNumber)? sendOtp,
+    TResult Function(Either<AuthFailure, Unit> streamEvent)?
+        recievedOtpStreamEvent,
+    TResult Function()? toggleCodeSentState,
+    TResult Function()? toggleFailures,
     TResult Function(Otp otp)? confirmOtp,
   }) {
-    return sendOtp?.call();
+    return sendOtp?.call(phoneNumber);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PhoneNumber phoneNumber)? phoneNumberUpdate,
-    TResult Function()? sendOtp,
-    TResult Function(Either<AuthFailure, bool> event)? recievedOtpStreamEvent,
-    TResult Function(bool codeSentStatus)? updateCodeSentState,
-    TResult Function()? toggleIsCodeSentState,
+    TResult Function(PhoneNumber phoneNumber)? sendOtp,
+    TResult Function(Either<AuthFailure, Unit> streamEvent)?
+        recievedOtpStreamEvent,
+    TResult Function()? toggleCodeSentState,
+    TResult Function()? toggleFailures,
     TResult Function(Otp otp)? confirmOtp,
     required TResult orElse(),
   }) {
     if (sendOtp != null) {
-      return sendOtp();
+      return sendOtp(phoneNumber);
     }
     return orElse();
   }
@@ -345,13 +201,11 @@ class _$SendOtp implements SendOtp {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(PhoneNumberUpdate value) phoneNumberUpdate,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(RecievedOtpStreamEvent value)
         recievedOtpStreamEvent,
-    required TResult Function(UpdateCodeSentState value) updateCodeSentState,
-    required TResult Function(ToggleIsCodeSentState value)
-        toggleIsCodeSentState,
+    required TResult Function(ToggleCodeSentState value) toggleCodeSentState,
+    required TResult Function(ToggleFailures value) toggleFailures,
     required TResult Function(ConfirmOtp value) confirmOtp,
   }) {
     return sendOtp(this);
@@ -360,11 +214,10 @@ class _$SendOtp implements SendOtp {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PhoneNumberUpdate value)? phoneNumberUpdate,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
-    TResult Function(UpdateCodeSentState value)? updateCodeSentState,
-    TResult Function(ToggleIsCodeSentState value)? toggleIsCodeSentState,
+    TResult Function(ToggleCodeSentState value)? toggleCodeSentState,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(ConfirmOtp value)? confirmOtp,
   }) {
     return sendOtp?.call(this);
@@ -373,11 +226,10 @@ class _$SendOtp implements SendOtp {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(PhoneNumberUpdate value)? phoneNumberUpdate,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
-    TResult Function(UpdateCodeSentState value)? updateCodeSentState,
-    TResult Function(ToggleIsCodeSentState value)? toggleIsCodeSentState,
+    TResult Function(ToggleCodeSentState value)? toggleCodeSentState,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(ConfirmOtp value)? confirmOtp,
     required TResult orElse(),
   }) {
@@ -389,7 +241,12 @@ class _$SendOtp implements SendOtp {
 }
 
 abstract class SendOtp implements PhoneLoginEvent {
-  const factory SendOtp() = _$SendOtp;
+  const factory SendOtp({required final PhoneNumber phoneNumber}) = _$SendOtp;
+
+  PhoneNumber get phoneNumber;
+  @JsonKey(ignore: true)
+  _$$SendOtpCopyWith<_$SendOtp> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -397,7 +254,7 @@ abstract class _$$RecievedOtpStreamEventCopyWith<$Res> {
   factory _$$RecievedOtpStreamEventCopyWith(_$RecievedOtpStreamEvent value,
           $Res Function(_$RecievedOtpStreamEvent) then) =
       __$$RecievedOtpStreamEventCopyWithImpl<$Res>;
-  $Res call({Either<AuthFailure, bool> event});
+  $Res call({Either<AuthFailure, Unit> streamEvent});
 }
 
 /// @nodoc
@@ -414,13 +271,13 @@ class __$$RecievedOtpStreamEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? event = freezed,
+    Object? streamEvent = freezed,
   }) {
     return _then(_$RecievedOtpStreamEvent(
-      event: event == freezed
-          ? _value.event
-          : event // ignore: cast_nullable_to_non_nullable
-              as Either<AuthFailure, bool>,
+      streamEvent: streamEvent == freezed
+          ? _value.streamEvent
+          : streamEvent // ignore: cast_nullable_to_non_nullable
+              as Either<AuthFailure, Unit>,
     ));
   }
 }
@@ -428,14 +285,14 @@ class __$$RecievedOtpStreamEventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RecievedOtpStreamEvent implements RecievedOtpStreamEvent {
-  const _$RecievedOtpStreamEvent({required this.event});
+  const _$RecievedOtpStreamEvent({required this.streamEvent});
 
   @override
-  final Either<AuthFailure, bool> event;
+  final Either<AuthFailure, Unit> streamEvent;
 
   @override
   String toString() {
-    return 'PhoneLoginEvent.recievedOtpStreamEvent(event: $event)';
+    return 'PhoneLoginEvent.recievedOtpStreamEvent(streamEvent: $streamEvent)';
   }
 
   @override
@@ -443,12 +300,13 @@ class _$RecievedOtpStreamEvent implements RecievedOtpStreamEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RecievedOtpStreamEvent &&
-            const DeepCollectionEquality().equals(other.event, event));
+            const DeepCollectionEquality()
+                .equals(other.streamEvent, streamEvent));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(event));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(streamEvent));
 
   @JsonKey(ignore: true)
   @override
@@ -459,43 +317,42 @@ class _$RecievedOtpStreamEvent implements RecievedOtpStreamEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(PhoneNumber phoneNumber) phoneNumberUpdate,
-    required TResult Function() sendOtp,
-    required TResult Function(Either<AuthFailure, bool> event)
+    required TResult Function(PhoneNumber phoneNumber) sendOtp,
+    required TResult Function(Either<AuthFailure, Unit> streamEvent)
         recievedOtpStreamEvent,
-    required TResult Function(bool codeSentStatus) updateCodeSentState,
-    required TResult Function() toggleIsCodeSentState,
+    required TResult Function() toggleCodeSentState,
+    required TResult Function() toggleFailures,
     required TResult Function(Otp otp) confirmOtp,
   }) {
-    return recievedOtpStreamEvent(event);
+    return recievedOtpStreamEvent(streamEvent);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PhoneNumber phoneNumber)? phoneNumberUpdate,
-    TResult Function()? sendOtp,
-    TResult Function(Either<AuthFailure, bool> event)? recievedOtpStreamEvent,
-    TResult Function(bool codeSentStatus)? updateCodeSentState,
-    TResult Function()? toggleIsCodeSentState,
+    TResult Function(PhoneNumber phoneNumber)? sendOtp,
+    TResult Function(Either<AuthFailure, Unit> streamEvent)?
+        recievedOtpStreamEvent,
+    TResult Function()? toggleCodeSentState,
+    TResult Function()? toggleFailures,
     TResult Function(Otp otp)? confirmOtp,
   }) {
-    return recievedOtpStreamEvent?.call(event);
+    return recievedOtpStreamEvent?.call(streamEvent);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PhoneNumber phoneNumber)? phoneNumberUpdate,
-    TResult Function()? sendOtp,
-    TResult Function(Either<AuthFailure, bool> event)? recievedOtpStreamEvent,
-    TResult Function(bool codeSentStatus)? updateCodeSentState,
-    TResult Function()? toggleIsCodeSentState,
+    TResult Function(PhoneNumber phoneNumber)? sendOtp,
+    TResult Function(Either<AuthFailure, Unit> streamEvent)?
+        recievedOtpStreamEvent,
+    TResult Function()? toggleCodeSentState,
+    TResult Function()? toggleFailures,
     TResult Function(Otp otp)? confirmOtp,
     required TResult orElse(),
   }) {
     if (recievedOtpStreamEvent != null) {
-      return recievedOtpStreamEvent(event);
+      return recievedOtpStreamEvent(streamEvent);
     }
     return orElse();
   }
@@ -503,13 +360,11 @@ class _$RecievedOtpStreamEvent implements RecievedOtpStreamEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(PhoneNumberUpdate value) phoneNumberUpdate,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(RecievedOtpStreamEvent value)
         recievedOtpStreamEvent,
-    required TResult Function(UpdateCodeSentState value) updateCodeSentState,
-    required TResult Function(ToggleIsCodeSentState value)
-        toggleIsCodeSentState,
+    required TResult Function(ToggleCodeSentState value) toggleCodeSentState,
+    required TResult Function(ToggleFailures value) toggleFailures,
     required TResult Function(ConfirmOtp value) confirmOtp,
   }) {
     return recievedOtpStreamEvent(this);
@@ -518,11 +373,10 @@ class _$RecievedOtpStreamEvent implements RecievedOtpStreamEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PhoneNumberUpdate value)? phoneNumberUpdate,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
-    TResult Function(UpdateCodeSentState value)? updateCodeSentState,
-    TResult Function(ToggleIsCodeSentState value)? toggleIsCodeSentState,
+    TResult Function(ToggleCodeSentState value)? toggleCodeSentState,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(ConfirmOtp value)? confirmOtp,
   }) {
     return recievedOtpStreamEvent?.call(this);
@@ -531,11 +385,10 @@ class _$RecievedOtpStreamEvent implements RecievedOtpStreamEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(PhoneNumberUpdate value)? phoneNumberUpdate,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
-    TResult Function(UpdateCodeSentState value)? updateCodeSentState,
-    TResult Function(ToggleIsCodeSentState value)? toggleIsCodeSentState,
+    TResult Function(ToggleCodeSentState value)? toggleCodeSentState,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(ConfirmOtp value)? confirmOtp,
     required TResult orElse(),
   }) {
@@ -548,212 +401,48 @@ class _$RecievedOtpStreamEvent implements RecievedOtpStreamEvent {
 
 abstract class RecievedOtpStreamEvent implements PhoneLoginEvent {
   const factory RecievedOtpStreamEvent(
-          {required final Either<AuthFailure, bool> event}) =
+          {required final Either<AuthFailure, Unit> streamEvent}) =
       _$RecievedOtpStreamEvent;
 
-  Either<AuthFailure, bool> get event;
+  Either<AuthFailure, Unit> get streamEvent;
   @JsonKey(ignore: true)
   _$$RecievedOtpStreamEventCopyWith<_$RecievedOtpStreamEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UpdateCodeSentStateCopyWith<$Res> {
-  factory _$$UpdateCodeSentStateCopyWith(_$UpdateCodeSentState value,
-          $Res Function(_$UpdateCodeSentState) then) =
-      __$$UpdateCodeSentStateCopyWithImpl<$Res>;
-  $Res call({bool codeSentStatus});
+abstract class _$$ToggleCodeSentStateCopyWith<$Res> {
+  factory _$$ToggleCodeSentStateCopyWith(_$ToggleCodeSentState value,
+          $Res Function(_$ToggleCodeSentState) then) =
+      __$$ToggleCodeSentStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$UpdateCodeSentStateCopyWithImpl<$Res>
+class __$$ToggleCodeSentStateCopyWithImpl<$Res>
     extends _$PhoneLoginEventCopyWithImpl<$Res>
-    implements _$$UpdateCodeSentStateCopyWith<$Res> {
-  __$$UpdateCodeSentStateCopyWithImpl(
-      _$UpdateCodeSentState _value, $Res Function(_$UpdateCodeSentState) _then)
-      : super(_value, (v) => _then(v as _$UpdateCodeSentState));
+    implements _$$ToggleCodeSentStateCopyWith<$Res> {
+  __$$ToggleCodeSentStateCopyWithImpl(
+      _$ToggleCodeSentState _value, $Res Function(_$ToggleCodeSentState) _then)
+      : super(_value, (v) => _then(v as _$ToggleCodeSentState));
 
   @override
-  _$UpdateCodeSentState get _value => super._value as _$UpdateCodeSentState;
-
-  @override
-  $Res call({
-    Object? codeSentStatus = freezed,
-  }) {
-    return _then(_$UpdateCodeSentState(
-      codeSentStatus: codeSentStatus == freezed
-          ? _value.codeSentStatus
-          : codeSentStatus // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
+  _$ToggleCodeSentState get _value => super._value as _$ToggleCodeSentState;
 }
 
 /// @nodoc
 
-class _$UpdateCodeSentState implements UpdateCodeSentState {
-  const _$UpdateCodeSentState({required this.codeSentStatus});
-
-  @override
-  final bool codeSentStatus;
+class _$ToggleCodeSentState implements ToggleCodeSentState {
+  const _$ToggleCodeSentState();
 
   @override
   String toString() {
-    return 'PhoneLoginEvent.updateCodeSentState(codeSentStatus: $codeSentStatus)';
+    return 'PhoneLoginEvent.toggleCodeSentState()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UpdateCodeSentState &&
-            const DeepCollectionEquality()
-                .equals(other.codeSentStatus, codeSentStatus));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(codeSentStatus));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$UpdateCodeSentStateCopyWith<_$UpdateCodeSentState> get copyWith =>
-      __$$UpdateCodeSentStateCopyWithImpl<_$UpdateCodeSentState>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(PhoneNumber phoneNumber) phoneNumberUpdate,
-    required TResult Function() sendOtp,
-    required TResult Function(Either<AuthFailure, bool> event)
-        recievedOtpStreamEvent,
-    required TResult Function(bool codeSentStatus) updateCodeSentState,
-    required TResult Function() toggleIsCodeSentState,
-    required TResult Function(Otp otp) confirmOtp,
-  }) {
-    return updateCodeSentState(codeSentStatus);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PhoneNumber phoneNumber)? phoneNumberUpdate,
-    TResult Function()? sendOtp,
-    TResult Function(Either<AuthFailure, bool> event)? recievedOtpStreamEvent,
-    TResult Function(bool codeSentStatus)? updateCodeSentState,
-    TResult Function()? toggleIsCodeSentState,
-    TResult Function(Otp otp)? confirmOtp,
-  }) {
-    return updateCodeSentState?.call(codeSentStatus);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PhoneNumber phoneNumber)? phoneNumberUpdate,
-    TResult Function()? sendOtp,
-    TResult Function(Either<AuthFailure, bool> event)? recievedOtpStreamEvent,
-    TResult Function(bool codeSentStatus)? updateCodeSentState,
-    TResult Function()? toggleIsCodeSentState,
-    TResult Function(Otp otp)? confirmOtp,
-    required TResult orElse(),
-  }) {
-    if (updateCodeSentState != null) {
-      return updateCodeSentState(codeSentStatus);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PhoneNumberUpdate value) phoneNumberUpdate,
-    required TResult Function(SendOtp value) sendOtp,
-    required TResult Function(RecievedOtpStreamEvent value)
-        recievedOtpStreamEvent,
-    required TResult Function(UpdateCodeSentState value) updateCodeSentState,
-    required TResult Function(ToggleIsCodeSentState value)
-        toggleIsCodeSentState,
-    required TResult Function(ConfirmOtp value) confirmOtp,
-  }) {
-    return updateCodeSentState(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PhoneNumberUpdate value)? phoneNumberUpdate,
-    TResult Function(SendOtp value)? sendOtp,
-    TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
-    TResult Function(UpdateCodeSentState value)? updateCodeSentState,
-    TResult Function(ToggleIsCodeSentState value)? toggleIsCodeSentState,
-    TResult Function(ConfirmOtp value)? confirmOtp,
-  }) {
-    return updateCodeSentState?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PhoneNumberUpdate value)? phoneNumberUpdate,
-    TResult Function(SendOtp value)? sendOtp,
-    TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
-    TResult Function(UpdateCodeSentState value)? updateCodeSentState,
-    TResult Function(ToggleIsCodeSentState value)? toggleIsCodeSentState,
-    TResult Function(ConfirmOtp value)? confirmOtp,
-    required TResult orElse(),
-  }) {
-    if (updateCodeSentState != null) {
-      return updateCodeSentState(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class UpdateCodeSentState implements PhoneLoginEvent {
-  const factory UpdateCodeSentState({required final bool codeSentStatus}) =
-      _$UpdateCodeSentState;
-
-  bool get codeSentStatus;
-  @JsonKey(ignore: true)
-  _$$UpdateCodeSentStateCopyWith<_$UpdateCodeSentState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$ToggleIsCodeSentStateCopyWith<$Res> {
-  factory _$$ToggleIsCodeSentStateCopyWith(_$ToggleIsCodeSentState value,
-          $Res Function(_$ToggleIsCodeSentState) then) =
-      __$$ToggleIsCodeSentStateCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$ToggleIsCodeSentStateCopyWithImpl<$Res>
-    extends _$PhoneLoginEventCopyWithImpl<$Res>
-    implements _$$ToggleIsCodeSentStateCopyWith<$Res> {
-  __$$ToggleIsCodeSentStateCopyWithImpl(_$ToggleIsCodeSentState _value,
-      $Res Function(_$ToggleIsCodeSentState) _then)
-      : super(_value, (v) => _then(v as _$ToggleIsCodeSentState));
-
-  @override
-  _$ToggleIsCodeSentState get _value => super._value as _$ToggleIsCodeSentState;
-}
-
-/// @nodoc
-
-class _$ToggleIsCodeSentState implements ToggleIsCodeSentState {
-  const _$ToggleIsCodeSentState();
-
-  @override
-  String toString() {
-    return 'PhoneLoginEvent.toggleIsCodeSentState()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ToggleIsCodeSentState);
+        (other.runtimeType == runtimeType && other is _$ToggleCodeSentState);
   }
 
   @override
@@ -762,43 +451,42 @@ class _$ToggleIsCodeSentState implements ToggleIsCodeSentState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(PhoneNumber phoneNumber) phoneNumberUpdate,
-    required TResult Function() sendOtp,
-    required TResult Function(Either<AuthFailure, bool> event)
+    required TResult Function(PhoneNumber phoneNumber) sendOtp,
+    required TResult Function(Either<AuthFailure, Unit> streamEvent)
         recievedOtpStreamEvent,
-    required TResult Function(bool codeSentStatus) updateCodeSentState,
-    required TResult Function() toggleIsCodeSentState,
+    required TResult Function() toggleCodeSentState,
+    required TResult Function() toggleFailures,
     required TResult Function(Otp otp) confirmOtp,
   }) {
-    return toggleIsCodeSentState();
+    return toggleCodeSentState();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PhoneNumber phoneNumber)? phoneNumberUpdate,
-    TResult Function()? sendOtp,
-    TResult Function(Either<AuthFailure, bool> event)? recievedOtpStreamEvent,
-    TResult Function(bool codeSentStatus)? updateCodeSentState,
-    TResult Function()? toggleIsCodeSentState,
+    TResult Function(PhoneNumber phoneNumber)? sendOtp,
+    TResult Function(Either<AuthFailure, Unit> streamEvent)?
+        recievedOtpStreamEvent,
+    TResult Function()? toggleCodeSentState,
+    TResult Function()? toggleFailures,
     TResult Function(Otp otp)? confirmOtp,
   }) {
-    return toggleIsCodeSentState?.call();
+    return toggleCodeSentState?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PhoneNumber phoneNumber)? phoneNumberUpdate,
-    TResult Function()? sendOtp,
-    TResult Function(Either<AuthFailure, bool> event)? recievedOtpStreamEvent,
-    TResult Function(bool codeSentStatus)? updateCodeSentState,
-    TResult Function()? toggleIsCodeSentState,
+    TResult Function(PhoneNumber phoneNumber)? sendOtp,
+    TResult Function(Either<AuthFailure, Unit> streamEvent)?
+        recievedOtpStreamEvent,
+    TResult Function()? toggleCodeSentState,
+    TResult Function()? toggleFailures,
     TResult Function(Otp otp)? confirmOtp,
     required TResult orElse(),
   }) {
-    if (toggleIsCodeSentState != null) {
-      return toggleIsCodeSentState();
+    if (toggleCodeSentState != null) {
+      return toggleCodeSentState();
     }
     return orElse();
   }
@@ -806,51 +494,174 @@ class _$ToggleIsCodeSentState implements ToggleIsCodeSentState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(PhoneNumberUpdate value) phoneNumberUpdate,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(RecievedOtpStreamEvent value)
         recievedOtpStreamEvent,
-    required TResult Function(UpdateCodeSentState value) updateCodeSentState,
-    required TResult Function(ToggleIsCodeSentState value)
-        toggleIsCodeSentState,
+    required TResult Function(ToggleCodeSentState value) toggleCodeSentState,
+    required TResult Function(ToggleFailures value) toggleFailures,
     required TResult Function(ConfirmOtp value) confirmOtp,
   }) {
-    return toggleIsCodeSentState(this);
+    return toggleCodeSentState(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PhoneNumberUpdate value)? phoneNumberUpdate,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
-    TResult Function(UpdateCodeSentState value)? updateCodeSentState,
-    TResult Function(ToggleIsCodeSentState value)? toggleIsCodeSentState,
+    TResult Function(ToggleCodeSentState value)? toggleCodeSentState,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(ConfirmOtp value)? confirmOtp,
   }) {
-    return toggleIsCodeSentState?.call(this);
+    return toggleCodeSentState?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(PhoneNumberUpdate value)? phoneNumberUpdate,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
-    TResult Function(UpdateCodeSentState value)? updateCodeSentState,
-    TResult Function(ToggleIsCodeSentState value)? toggleIsCodeSentState,
+    TResult Function(ToggleCodeSentState value)? toggleCodeSentState,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(ConfirmOtp value)? confirmOtp,
     required TResult orElse(),
   }) {
-    if (toggleIsCodeSentState != null) {
-      return toggleIsCodeSentState(this);
+    if (toggleCodeSentState != null) {
+      return toggleCodeSentState(this);
     }
     return orElse();
   }
 }
 
-abstract class ToggleIsCodeSentState implements PhoneLoginEvent {
-  const factory ToggleIsCodeSentState() = _$ToggleIsCodeSentState;
+abstract class ToggleCodeSentState implements PhoneLoginEvent {
+  const factory ToggleCodeSentState() = _$ToggleCodeSentState;
+}
+
+/// @nodoc
+abstract class _$$ToggleFailuresCopyWith<$Res> {
+  factory _$$ToggleFailuresCopyWith(
+          _$ToggleFailures value, $Res Function(_$ToggleFailures) then) =
+      __$$ToggleFailuresCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ToggleFailuresCopyWithImpl<$Res>
+    extends _$PhoneLoginEventCopyWithImpl<$Res>
+    implements _$$ToggleFailuresCopyWith<$Res> {
+  __$$ToggleFailuresCopyWithImpl(
+      _$ToggleFailures _value, $Res Function(_$ToggleFailures) _then)
+      : super(_value, (v) => _then(v as _$ToggleFailures));
+
+  @override
+  _$ToggleFailures get _value => super._value as _$ToggleFailures;
+}
+
+/// @nodoc
+
+class _$ToggleFailures implements ToggleFailures {
+  const _$ToggleFailures();
+
+  @override
+  String toString() {
+    return 'PhoneLoginEvent.toggleFailures()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ToggleFailures);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(PhoneNumber phoneNumber) sendOtp,
+    required TResult Function(Either<AuthFailure, Unit> streamEvent)
+        recievedOtpStreamEvent,
+    required TResult Function() toggleCodeSentState,
+    required TResult Function() toggleFailures,
+    required TResult Function(Otp otp) confirmOtp,
+  }) {
+    return toggleFailures();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(PhoneNumber phoneNumber)? sendOtp,
+    TResult Function(Either<AuthFailure, Unit> streamEvent)?
+        recievedOtpStreamEvent,
+    TResult Function()? toggleCodeSentState,
+    TResult Function()? toggleFailures,
+    TResult Function(Otp otp)? confirmOtp,
+  }) {
+    return toggleFailures?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(PhoneNumber phoneNumber)? sendOtp,
+    TResult Function(Either<AuthFailure, Unit> streamEvent)?
+        recievedOtpStreamEvent,
+    TResult Function()? toggleCodeSentState,
+    TResult Function()? toggleFailures,
+    TResult Function(Otp otp)? confirmOtp,
+    required TResult orElse(),
+  }) {
+    if (toggleFailures != null) {
+      return toggleFailures();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SendOtp value) sendOtp,
+    required TResult Function(RecievedOtpStreamEvent value)
+        recievedOtpStreamEvent,
+    required TResult Function(ToggleCodeSentState value) toggleCodeSentState,
+    required TResult Function(ToggleFailures value) toggleFailures,
+    required TResult Function(ConfirmOtp value) confirmOtp,
+  }) {
+    return toggleFailures(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(SendOtp value)? sendOtp,
+    TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
+    TResult Function(ToggleCodeSentState value)? toggleCodeSentState,
+    TResult Function(ToggleFailures value)? toggleFailures,
+    TResult Function(ConfirmOtp value)? confirmOtp,
+  }) {
+    return toggleFailures?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SendOtp value)? sendOtp,
+    TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
+    TResult Function(ToggleCodeSentState value)? toggleCodeSentState,
+    TResult Function(ToggleFailures value)? toggleFailures,
+    TResult Function(ConfirmOtp value)? confirmOtp,
+    required TResult orElse(),
+  }) {
+    if (toggleFailures != null) {
+      return toggleFailures(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ToggleFailures implements PhoneLoginEvent {
+  const factory ToggleFailures() = _$ToggleFailures;
 }
 
 /// @nodoc
@@ -918,12 +729,11 @@ class _$ConfirmOtp implements ConfirmOtp {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(PhoneNumber phoneNumber) phoneNumberUpdate,
-    required TResult Function() sendOtp,
-    required TResult Function(Either<AuthFailure, bool> event)
+    required TResult Function(PhoneNumber phoneNumber) sendOtp,
+    required TResult Function(Either<AuthFailure, Unit> streamEvent)
         recievedOtpStreamEvent,
-    required TResult Function(bool codeSentStatus) updateCodeSentState,
-    required TResult Function() toggleIsCodeSentState,
+    required TResult Function() toggleCodeSentState,
+    required TResult Function() toggleFailures,
     required TResult Function(Otp otp) confirmOtp,
   }) {
     return confirmOtp(otp);
@@ -932,11 +742,11 @@ class _$ConfirmOtp implements ConfirmOtp {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PhoneNumber phoneNumber)? phoneNumberUpdate,
-    TResult Function()? sendOtp,
-    TResult Function(Either<AuthFailure, bool> event)? recievedOtpStreamEvent,
-    TResult Function(bool codeSentStatus)? updateCodeSentState,
-    TResult Function()? toggleIsCodeSentState,
+    TResult Function(PhoneNumber phoneNumber)? sendOtp,
+    TResult Function(Either<AuthFailure, Unit> streamEvent)?
+        recievedOtpStreamEvent,
+    TResult Function()? toggleCodeSentState,
+    TResult Function()? toggleFailures,
     TResult Function(Otp otp)? confirmOtp,
   }) {
     return confirmOtp?.call(otp);
@@ -945,11 +755,11 @@ class _$ConfirmOtp implements ConfirmOtp {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(PhoneNumber phoneNumber)? phoneNumberUpdate,
-    TResult Function()? sendOtp,
-    TResult Function(Either<AuthFailure, bool> event)? recievedOtpStreamEvent,
-    TResult Function(bool codeSentStatus)? updateCodeSentState,
-    TResult Function()? toggleIsCodeSentState,
+    TResult Function(PhoneNumber phoneNumber)? sendOtp,
+    TResult Function(Either<AuthFailure, Unit> streamEvent)?
+        recievedOtpStreamEvent,
+    TResult Function()? toggleCodeSentState,
+    TResult Function()? toggleFailures,
     TResult Function(Otp otp)? confirmOtp,
     required TResult orElse(),
   }) {
@@ -962,13 +772,11 @@ class _$ConfirmOtp implements ConfirmOtp {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(PhoneNumberUpdate value) phoneNumberUpdate,
     required TResult Function(SendOtp value) sendOtp,
     required TResult Function(RecievedOtpStreamEvent value)
         recievedOtpStreamEvent,
-    required TResult Function(UpdateCodeSentState value) updateCodeSentState,
-    required TResult Function(ToggleIsCodeSentState value)
-        toggleIsCodeSentState,
+    required TResult Function(ToggleCodeSentState value) toggleCodeSentState,
+    required TResult Function(ToggleFailures value) toggleFailures,
     required TResult Function(ConfirmOtp value) confirmOtp,
   }) {
     return confirmOtp(this);
@@ -977,11 +785,10 @@ class _$ConfirmOtp implements ConfirmOtp {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PhoneNumberUpdate value)? phoneNumberUpdate,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
-    TResult Function(UpdateCodeSentState value)? updateCodeSentState,
-    TResult Function(ToggleIsCodeSentState value)? toggleIsCodeSentState,
+    TResult Function(ToggleCodeSentState value)? toggleCodeSentState,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(ConfirmOtp value)? confirmOtp,
   }) {
     return confirmOtp?.call(this);
@@ -990,11 +797,10 @@ class _$ConfirmOtp implements ConfirmOtp {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(PhoneNumberUpdate value)? phoneNumberUpdate,
     TResult Function(SendOtp value)? sendOtp,
     TResult Function(RecievedOtpStreamEvent value)? recievedOtpStreamEvent,
-    TResult Function(UpdateCodeSentState value)? updateCodeSentState,
-    TResult Function(ToggleIsCodeSentState value)? toggleIsCodeSentState,
+    TResult Function(ToggleCodeSentState value)? toggleCodeSentState,
+    TResult Function(ToggleFailures value)? toggleFailures,
     TResult Function(ConfirmOtp value)? confirmOtp,
     required TResult orElse(),
   }) {
@@ -1019,7 +825,7 @@ mixin _$PhoneLoginState {
   PhoneNumber get phoneNumber => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get isCodeSent => throw _privateConstructorUsedError;
-  Option<Either<AuthFailure, Unit>> get authFailureOrSuccessOption =>
+  Option<Either<AuthFailure, Unit>> get failureOrSuccess =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -1036,7 +842,7 @@ abstract class $PhoneLoginStateCopyWith<$Res> {
       {PhoneNumber phoneNumber,
       bool isSubmitting,
       bool isCodeSent,
-      Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption});
+      Option<Either<AuthFailure, Unit>> failureOrSuccess});
 }
 
 /// @nodoc
@@ -1053,7 +859,7 @@ class _$PhoneLoginStateCopyWithImpl<$Res>
     Object? phoneNumber = freezed,
     Object? isSubmitting = freezed,
     Object? isCodeSent = freezed,
-    Object? authFailureOrSuccessOption = freezed,
+    Object? failureOrSuccess = freezed,
   }) {
     return _then(_value.copyWith(
       phoneNumber: phoneNumber == freezed
@@ -1068,9 +874,9 @@ class _$PhoneLoginStateCopyWithImpl<$Res>
           ? _value.isCodeSent
           : isCodeSent // ignore: cast_nullable_to_non_nullable
               as bool,
-      authFailureOrSuccessOption: authFailureOrSuccessOption == freezed
-          ? _value.authFailureOrSuccessOption
-          : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+      failureOrSuccess: failureOrSuccess == freezed
+          ? _value.failureOrSuccess
+          : failureOrSuccess // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, Unit>>,
     ));
   }
@@ -1087,7 +893,7 @@ abstract class _$$_PhoneLoginStateCopyWith<$Res>
       {PhoneNumber phoneNumber,
       bool isSubmitting,
       bool isCodeSent,
-      Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption});
+      Option<Either<AuthFailure, Unit>> failureOrSuccess});
 }
 
 /// @nodoc
@@ -1106,7 +912,7 @@ class __$$_PhoneLoginStateCopyWithImpl<$Res>
     Object? phoneNumber = freezed,
     Object? isSubmitting = freezed,
     Object? isCodeSent = freezed,
-    Object? authFailureOrSuccessOption = freezed,
+    Object? failureOrSuccess = freezed,
   }) {
     return _then(_$_PhoneLoginState(
       phoneNumber: phoneNumber == freezed
@@ -1121,9 +927,9 @@ class __$$_PhoneLoginStateCopyWithImpl<$Res>
           ? _value.isCodeSent
           : isCodeSent // ignore: cast_nullable_to_non_nullable
               as bool,
-      authFailureOrSuccessOption: authFailureOrSuccessOption == freezed
-          ? _value.authFailureOrSuccessOption
-          : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+      failureOrSuccess: failureOrSuccess == freezed
+          ? _value.failureOrSuccess
+          : failureOrSuccess // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, Unit>>,
     ));
   }
@@ -1136,7 +942,7 @@ class _$_PhoneLoginState extends _PhoneLoginState {
       {required this.phoneNumber,
       required this.isSubmitting,
       required this.isCodeSent,
-      required this.authFailureOrSuccessOption})
+      required this.failureOrSuccess})
       : super._();
 
   @override
@@ -1146,11 +952,11 @@ class _$_PhoneLoginState extends _PhoneLoginState {
   @override
   final bool isCodeSent;
   @override
-  final Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption;
+  final Option<Either<AuthFailure, Unit>> failureOrSuccess;
 
   @override
   String toString() {
-    return 'PhoneLoginState(phoneNumber: $phoneNumber, isSubmitting: $isSubmitting, isCodeSent: $isCodeSent, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'PhoneLoginState(phoneNumber: $phoneNumber, isSubmitting: $isSubmitting, isCodeSent: $isCodeSent, failureOrSuccess: $failureOrSuccess)';
   }
 
   @override
@@ -1164,8 +970,8 @@ class _$_PhoneLoginState extends _PhoneLoginState {
                 .equals(other.isSubmitting, isSubmitting) &&
             const DeepCollectionEquality()
                 .equals(other.isCodeSent, isCodeSent) &&
-            const DeepCollectionEquality().equals(
-                other.authFailureOrSuccessOption, authFailureOrSuccessOption));
+            const DeepCollectionEquality()
+                .equals(other.failureOrSuccess, failureOrSuccess));
   }
 
   @override
@@ -1174,7 +980,7 @@ class _$_PhoneLoginState extends _PhoneLoginState {
       const DeepCollectionEquality().hash(phoneNumber),
       const DeepCollectionEquality().hash(isSubmitting),
       const DeepCollectionEquality().hash(isCodeSent),
-      const DeepCollectionEquality().hash(authFailureOrSuccessOption));
+      const DeepCollectionEquality().hash(failureOrSuccess));
 
   @JsonKey(ignore: true)
   @override
@@ -1184,11 +990,11 @@ class _$_PhoneLoginState extends _PhoneLoginState {
 
 abstract class _PhoneLoginState extends PhoneLoginState {
   factory _PhoneLoginState(
-      {required final PhoneNumber phoneNumber,
-      required final bool isSubmitting,
-      required final bool isCodeSent,
-      required final Option<Either<AuthFailure, Unit>>
-          authFailureOrSuccessOption}) = _$_PhoneLoginState;
+          {required final PhoneNumber phoneNumber,
+          required final bool isSubmitting,
+          required final bool isCodeSent,
+          required final Option<Either<AuthFailure, Unit>> failureOrSuccess}) =
+      _$_PhoneLoginState;
   _PhoneLoginState._() : super._();
 
   @override
@@ -1198,7 +1004,7 @@ abstract class _PhoneLoginState extends PhoneLoginState {
   @override
   bool get isCodeSent;
   @override
-  Option<Either<AuthFailure, Unit>> get authFailureOrSuccessOption;
+  Option<Either<AuthFailure, Unit>> get failureOrSuccess;
   @override
   @JsonKey(ignore: true)
   _$$_PhoneLoginStateCopyWith<_$_PhoneLoginState> get copyWith =>

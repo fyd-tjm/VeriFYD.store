@@ -24,14 +24,13 @@ class FirebaseAuthFacade implements IAuthFacade {
 
 //! Interface Override SEND-OTP
   @override
-  Stream<Either<AuthFailure, bool>> sendOtp({
+  Stream<Either<AuthFailure, Unit>> sendOtp({
     required PhoneNumber phoneNumber,
   }) async* {
-    final streamController = StreamController<Either<AuthFailure, bool>>();
+    final streamController = StreamController<Either<AuthFailure, Unit>>();
     // update vid to null
     _updateVerficationId(null);
     // call verifyPhone via firebaseAuth
-    log('AuthFacade/ calling verifyPhone');
     await _firebaseAuth.verifyPhoneNumber(
         phoneNumber: '+91${phoneNumber.getOrCrash()}',
         verificationCompleted: (PhoneAuthCredential credential) async {
@@ -44,7 +43,7 @@ class FirebaseAuthFacade implements IAuthFacade {
           // update vid for this session
           _updateVerficationId(verificationId);
           // add true to stream
-          streamController.add(right(true));
+          streamController.add(right<AuthFailure, Unit>(unit));
           // close Stream controller
           streamController.close();
         },
@@ -89,10 +88,9 @@ class FirebaseAuthFacade implements IAuthFacade {
 
 //! Interface Override GET-CURRENT-USER
   @override
-  AuthUser? getCurrentUser() {
-    final authUser = _firebaseAuth.currentUser?.toDomain();
-
-    return authUser;
+  bool getAuthStatus() {
+    final authStatus = (_firebaseAuth.currentUser == null) ? false : true;
+    return authStatus;
   }
 //?-----------------------------------------------------------------------------
 

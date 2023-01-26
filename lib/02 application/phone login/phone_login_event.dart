@@ -2,19 +2,16 @@ part of 'phone_login_bloc.dart';
 
 @freezed
 class PhoneLoginEvent with _$PhoneLoginEvent {
-  const factory PhoneLoginEvent.phoneNumberUpdate({
-    required PhoneNumber phoneNumber,
-  }) = PhoneNumberUpdate;
-
-  const factory PhoneLoginEvent.sendOtp() = SendOtp;
+  const factory PhoneLoginEvent.sendOtp({required PhoneNumber phoneNumber}) =
+      SendOtp;
 
   const factory PhoneLoginEvent.recievedOtpStreamEvent(
-      {required Either<AuthFailure, bool> event}) = RecievedOtpStreamEvent;
+          {required Either<AuthFailure, Unit> streamEvent}) =
+      RecievedOtpStreamEvent;
 
-  const factory PhoneLoginEvent.updateCodeSentState(
-      {required bool codeSentStatus}) = UpdateCodeSentState;
+  const factory PhoneLoginEvent.toggleCodeSentState() = ToggleCodeSentState;
 
-  const factory PhoneLoginEvent.toggleIsCodeSentState() = ToggleIsCodeSentState;
+  const factory PhoneLoginEvent.toggleFailures() = ToggleFailures;
 
   const factory PhoneLoginEvent.confirmOtp({
     required Otp otp,

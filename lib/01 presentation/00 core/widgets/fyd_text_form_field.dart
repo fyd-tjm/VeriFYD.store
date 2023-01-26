@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 
-enum TextFieldColor { Dark, Light }
+enum TextFieldColor { dark, light }
 
 //! fydTextFormField
 class FydTextFormField extends StatelessWidget {
@@ -22,7 +22,7 @@ class FydTextFormField extends StatelessWidget {
     this.onSaved,
     this.validator,
     this.onScrollPadding = true,
-    this.color = TextFieldColor.Dark,
+    this.color = TextFieldColor.dark,
     this.isDigitOnly = false,
   }) : super(key: key);
 
@@ -55,7 +55,7 @@ class FydTextFormField extends StatelessWidget {
       controller: controller,
       // text Styling
       style: TextStyle(
-        color: (color == TextFieldColor.Dark) ? fydPGrey : fydPWhite,
+        color: (color == TextFieldColor.dark) ? fydPGrey : fydPWhite,
         fontWeight: FontWeight.w600,
         letterSpacing: 1,
         fontSize: 22,
@@ -65,7 +65,7 @@ class FydTextFormField extends StatelessWidget {
       showCursor: true,
       maxLength: maxLength,
       textInputAction: TextInputAction.next,
-      cursorColor: (color == TextFieldColor.Dark) ? fydPGrey : fydPLgrey,
+      cursorColor: (color == TextFieldColor.dark) ? fydPGrey : fydPLgrey,
       cursorWidth: 2,
       cursorHeight: 30,
 
@@ -87,12 +87,12 @@ class FydTextFormField extends StatelessWidget {
         // fillColor: fillColor,
         floatingLabelStyle: const TextStyle(
           color: fydBlueGrey,
-          fontSize: 22,
+          fontSize: 18,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-              color: (color == TextFieldColor.Dark) ? fydPDgrey : fydGreyWhite,
+              color: (color == TextFieldColor.dark) ? fydPDgrey : fydGreyWhite,
               style: BorderStyle.solid,
               width: 2.0),
         ),
@@ -100,7 +100,7 @@ class FydTextFormField extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-              color: (color == TextFieldColor.Dark) ? fydPGrey : fydPLgrey,
+              color: (color == TextFieldColor.dark) ? fydPGrey : fydPLgrey,
               style: BorderStyle.solid,
               width: 2.0),
         ),

@@ -271,7 +271,7 @@ class UpdateAddressPage extends HookWidget {
             children: [
               // address: line 1
               FydTextFormField(
-                color: TextFieldColor.Light,
+                color: TextFieldColor.light,
                 controller: line1Controller,
                 labelText: 'address line 1:',
                 keyboardType: TextInputType.visiblePassword,
@@ -291,7 +291,7 @@ class UpdateAddressPage extends HookWidget {
               ),
               // address: line 2
               FydTextFormField(
-                color: TextFieldColor.Light,
+                color: TextFieldColor.light,
                 controller: line2Controller,
                 labelText: 'address line 2: (optional)',
                 maxLength: 40,
@@ -312,7 +312,7 @@ class UpdateAddressPage extends HookWidget {
                   SizedBox(
                     width: 220.w,
                     child: FydTextFormField(
-                      color: TextFieldColor.Light,
+                      color: TextFieldColor.light,
                       controller: cityController,
                       labelText: 'city: ',
                       keyboardType: TextInputType.visiblePassword,
@@ -332,7 +332,7 @@ class UpdateAddressPage extends HookWidget {
                   SizedBox(
                     width: 150.w,
                     child: FydTextFormField(
-                      color: TextFieldColor.Light,
+                      color: TextFieldColor.light,
                       controller: pincodeController,
                       labelText: 'pincode: ',
                       isDigitOnly: true,

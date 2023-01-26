@@ -3,8 +3,9 @@ part of 'fyd_user_cubit.dart';
 @freezed
 class FydUserState with _$FydUserState {
   const factory FydUserState({
+    required bool isFetching,
     required bool loadingState,
-    required AuthUser? authUser,
+    required bool isAuthenticated,
     required FydUser? fydUser,
     required List<FydOrder>? fydOrders,
     required Option<Either<UserFailure, Unit>> failureOrSuccess,
@@ -12,8 +13,9 @@ class FydUserState with _$FydUserState {
   }) = _FydUserState;
 
   factory FydUserState.initial() => FydUserState(
+      isFetching: false,
       loadingState: false,
-      authUser: null,
+      isAuthenticated: false,
       fydUser: null,
       fydOrders: null,
       failureOrSuccess: none(),

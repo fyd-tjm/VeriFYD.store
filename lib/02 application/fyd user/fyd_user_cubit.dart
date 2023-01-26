@@ -16,22 +16,34 @@ part 'fyd_user_cubit.freezed.dart';
 @lazySingleton
 class FydUserCubit extends Cubit<FydUserState> {
   final IUserRepository _iUserRepo;
-  StreamSubscription<Either<UserFailure, FydUser>>? _subscription;
+  final IAuthFacade _iAuthFacade;
+  StreamSubscription<Either<UserFailure, FydUser?>>? _subscription;
 
 //?-----------------------------------------------------------------------------
-  FydUserCubit(this._iUserRepo) : super(FydUserState.initial());
+  FydUserCubit(this._iUserRepo, this._iAuthFacade)
+      : super(FydUserState.initial());
 
 //?-Get-UserStatus--------------------------------------------------------------
   Future<void> getUserStatus() async {
     // emit loading state
-    emit(state.copyWith(loadingState: true, authUser: null, fydUser: null));
-    // get fydUser from db
-    final userStatus = await _iUserRepo.getFydUser();
-    // emit the result
     emit(state.copyWith(
-        loadingState: false,
-        authUser: userStatus.head,
-        fydUser: userStatus.tail));
+      isFetching: true,
+      isAuthenticated: false,
+      fydUser: null,
+      failureOrSuccess: none(),
+    ));
+
+    final authStatus = _iAuthFacade.getAuthStatus();
+
+    if (authStatus == false) {
+      emit(state.copyWith(
+        isFetching: false,
+        isAuthenticated: authStatus,
+        failureOrSuccess: none(),
+      ));
+    } else {
+      getFydUserRealtime();
+    }
   }
 
 //?-Get-FydUser-Realtime--------------------------------------------------------
@@ -43,14 +55,24 @@ class FydUserCubit extends Cubit<FydUserState> {
   }
 
   //-------------------
-  void _handleStreamEvent(Either<UserFailure, FydUser> event) {
+  void _handleStreamEvent(Either<UserFailure, FydUser?> event) {
     // log('handleUserEvent');
     event.fold(
-      (failure) => emit(state.copyWith(failureOrSuccess: some(left(failure)))),
+      (failure) {
+        emit(state.copyWith(
+          isFetching: false,
+          isAuthenticated: true,
+          failureOrSuccess: some(left(failure)),
+        ));
+        toggleFailures();
+      },
       (fydUser) {
-        emit(
-          state.copyWith(fydUser: fydUser, failureOrSuccess: none()),
-        );
+        emit(state.copyWith(
+          isFetching: false,
+          fydUser: fydUser,
+          isAuthenticated: true,
+          failureOrSuccess: none(),
+        ));
       },
     );
   }
@@ -94,7 +116,7 @@ class FydUserCubit extends Cubit<FydUserState> {
                 emit(state.copyWith(
                     updating: false,
                     failureOrSuccess: some(left(userFailure))));
-                toggleStates();
+                toggleFailures();
               },
               (success) => emit(state.copyWith(
                   failureOrSuccess: some(right(success)), updating: false)),
@@ -141,12 +163,12 @@ class FydUserCubit extends Cubit<FydUserState> {
             (userFailure) {
               emit(state.copyWith(
                   updating: false, failureOrSuccess: some(left(userFailure))));
-              toggleStates();
+              toggleFailures();
             },
             (success) {
               emit(state.copyWith(
                   failureOrSuccess: some(right(success)), updating: false));
-              toggleStates();
+              toggleFailures();
             },
           ),
         );
@@ -190,12 +212,12 @@ class FydUserCubit extends Cubit<FydUserState> {
             (userFailure) {
               emit(state.copyWith(
                   updating: false, failureOrSuccess: some(left(userFailure))));
-              toggleStates();
+              toggleFailures();
             },
             (success) {
               emit(state.copyWith(
                   failureOrSuccess: some(right(success)), updating: false));
-              toggleStates();
+              toggleFailures();
             },
           ),
         );
@@ -215,7 +237,7 @@ class FydUserCubit extends Cubit<FydUserState> {
           updating: false,
           failureOrSuccess: some(left(failure)),
         ));
-        toggleStates();
+        toggleFailures();
       },
       (ordersList) => emit(state.copyWith(
         updating: false,
@@ -229,7 +251,7 @@ class FydUserCubit extends Cubit<FydUserState> {
 
 //?-Toggle-States---------------------------------------------------------------
 
-  void toggleStates() {
+  void toggleFailures() {
     // log('toggleStates');
     emit(state.copyWith(failureOrSuccess: none()));
   }

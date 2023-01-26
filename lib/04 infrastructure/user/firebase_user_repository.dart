@@ -5,13 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:dartz/dartz.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:verifyd_store/03%20domain/auth/00_export_auth_domain.dart';
 import 'package:verifyd_store/03%20domain/cart/cart.dart';
 import 'package:verifyd_store/03%20domain/checkout/order.dart';
 import 'package:verifyd_store/03%20domain/user/00_export_user_domain.dart';
 import 'package:verifyd_store/03%20domain/user/address.dart';
 import 'package:verifyd_store/04%20infrastructure/core/firebase_helper.dart';
-import 'package:verifyd_store/04%20infrastructure/user/firestore_user_mapper.dart';
 import 'package:verifyd_store/04%20infrastructure/user/user_failure_map.dart';
 import 'user_failure_map.dart';
 
@@ -29,22 +27,19 @@ class FirebaseUserRepository implements IUserRepository {
 
 //?-Create-User-----------------------------------------------------------------
   @override
-  Future<Either<UserFailure, Unit>> createUser({required String name}) async {
+  Future<Either<UserFailure, Unit>> createUser(
+      {required String name, required String email}) async {
     try {
-      // update currentUser displayName
-      await FirebaseAuth.instance.currentUser!.updateDisplayName(name);
-      // create userDoc with id as uid
       // create fydUser
       final fydUser = FydUser(
         uId: DbRef.getUserId(),
-        phone: FirebaseAuth.instance.currentUser!.phoneNumber.toString(),
-        name: FirebaseAuth.instance.currentUser!.displayName!,
-        email: FirebaseAuth.instance.currentUser!.email ?? '',
+        phone: FirebaseAuth.instance.currentUser!.phoneNumber!,
+        name: name,
+        email: email,
         addresses: const {},
       );
       await fydUserCollectionRef.doc(fydUser.uId).set(fydUser);
       await _firestore.doc(DbRef.getCartRef()).set(Cart.initial().toJson());
-
       return right(unit);
     } catch (e) {
       // error handling
@@ -52,39 +47,15 @@ class FirebaseUserRepository implements IUserRepository {
     }
   }
 
-//?-LogOut-User-----------------------------------------------------------------
-  @override
-  Future<Tuple2<AuthUser?, FydUser?>> getFydUser() async {
-    final authUser = FirebaseAuth.instance.currentUser?.toAuthUser();
-    if (authUser == null) return const Tuple2(null, null);
-    FydUser? fydUser;
-    try {
-      fydUser = await _firestore
-          .usersCollection()
-          .doc(authUser.userId)
-          .get()
-          .then((DocumentSnapshot documentSnapshot) {
-        if (documentSnapshot.exists) {
-          return documentSnapshot.toFydUser();
-        } else {
-          return null;
-        }
-      });
-    } catch (e) {
-      //todo error Handling
-    }
-    return Tuple2(authUser, fydUser);
-  }
-
 //?-FydUser-In-Realtime---------------------------------------------------------
   @override
-  Stream<Either<UserFailure, FydUser>> getFydUserRealtime() async* {
+  Stream<Either<UserFailure, FydUser?>> getFydUserRealtime() async* {
     final userDoc = fydUserCollectionRef.doc(DbRef.getUserId());
 
     yield* userDoc.snapshots().map((userSnapshot) {
-      return right<UserFailure, FydUser>(userSnapshot.data()!);
+      return right<UserFailure, FydUser?>(userSnapshot.data());
     }).onErrorReturnWith((error, stackTrace) {
-      log("fydRealtime-REPO: ${error.toString()}");
+      log('Infra: error.toString()');
       return left(UserFailureMapper.failureMapper(error));
     });
   }

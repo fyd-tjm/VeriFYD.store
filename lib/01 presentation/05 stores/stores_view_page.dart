@@ -224,9 +224,8 @@ class StoresViewPage extends StatelessWidget {
             (index) => StoresTile(
                 store: state.storeList.elementAt(index),
                 onPressedCallback: (store) {
-                  // Store onClick navigation
-                  context.router
-                      .push(StoreViewWrapperRoute(storeId: store.storeId));
+                  context.navigateTo(
+                      StoreViewWrapperRoute(storeId: store.storeId));
                 }),
           ),
           footer: (liveStores == null)

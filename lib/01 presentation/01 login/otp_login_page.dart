@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,6 +30,7 @@ class OtpLoginPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(context.router.currentUrl);
     final otpText = useState('');
     return SafeArea(
       child: Scaffold(
@@ -79,161 +82,147 @@ class OtpLoginPage extends HookWidget {
   }
 
 //?-----------------------------------------------------------------------------
-  SizedBox topView(BuildContext context, ValueNotifier<String> otpText) {
-    return SizedBox(
-      height: 468.h,
-      child: Padding(
-        padding:
-            EdgeInsets.only(top: 40.h, left: 15.w, right: 15.w, bottom: 10.h),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Column(
+  Widget topView(BuildContext context, ValueNotifier<String> otpText) {
+    return BlocConsumer<PhoneLoginBloc, PhoneLoginState>(
+      listener: (context, state) {
+        if (state.failureOrSuccess.isSome()) {
+          state.failureOrSuccess.fold(
+              () => null,
+              (failureOrSuccess) => failureOrSuccess.fold(
+                    (failure) => showSnack(
+                        context: context,
+                        message: failure.whenOrNull(
+                          invalidPhoneNumber: () => 'invalid Phone Number',
+                          invalidOtpEntered: () => 'invalid Otp Entered',
+                          sessionExpired: () => 'session Expired: try again',
+                          userDisabled: () => 'user is disabled',
+                          tooManyRequests: () => 'too Many Requests: try again',
+                          serverError: () => 'server Error',
+                          unknownError: () => 'something went wrong',
+                        )),
+                    (success) {
+                      context.router.replaceAll([const LandingWrapperRoute()]);
+                    },
+                  ));
+        }
+      },
+      builder: (context, state) {
+        return SizedBox(
+          height: 468.h,
+          child: Padding(
+            padding: EdgeInsets.only(
+                top: 40.h, left: 15.w, right: 15.w, bottom: 10.h),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
               children: [
+                //! otp text view
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-// info text area
-                    FydText.d1black(
-                      text: AuthenticationString.OTPHEADING1,
-                      weight: FontWeight.w100,
-                    ),
-                    FydText.d1black(
-                      text: AuthenticationString.OTPHEADING2,
-                      weight: FontWeight.w100,
-                    ),
-                    FydText.h2white(
-                      text: AuthenticationString.TRANSPARENTTEXT,
-                      weight: FontWeight.w100,
-                    ),
-                    FydText.h2white(
-                      text: AuthenticationString.TRANSPARENTTEXT,
-                      weight: FontWeight.w100,
-                    ),
-                    FydText.h2white(
-                      text: AuthenticationString.TRANSPARENTTEXT,
-                      weight: FontWeight.w100,
-                    ),
-//! phoneNumber via bloc state
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        FydText.b4black(
-                            text: AuthenticationString.OTPSUBHEADING),
-                        Builder(builder: (context) {
-                          final phoneNumber = context.select(
-                              (PhoneLoginBloc bloc) => bloc.state.phoneNumber);
-                          return FydText.b2black(
-                            text: Helpers.phoneMask(phoneNumber.getOrCrash()),
-                            weight: FontWeight.w600,
-                          );
-                        })
+                        // info text area
+                        FydText.d1black(
+                          text: AuthenticationString.OTPHEADING1,
+                          weight: FontWeight.w100,
+                        ),
+                        FydText.d1black(
+                          text: AuthenticationString.OTPHEADING2,
+                          weight: FontWeight.w100,
+                        ),
+                        FydText.h2white(
+                          text: AuthenticationString.TRANSPARENTTEXT,
+                          weight: FontWeight.w100,
+                        ),
+                        FydText.h2white(
+                          text: AuthenticationString.TRANSPARENTTEXT,
+                          weight: FontWeight.w100,
+                        ),
+                        FydText.h2white(
+                          text: AuthenticationString.TRANSPARENTTEXT,
+                          weight: FontWeight.w100,
+                        ),
+                        //! phoneNumber via bloc state
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            FydText.b4black(
+                                text: AuthenticationString.OTPSUBHEADING),
+                            Builder(builder: (context) {
+                              final phoneNumber = context.select(
+                                  (PhoneLoginBloc bloc) =>
+                                      bloc.state.phoneNumber);
+                              return FydText.b2black(
+                                text:
+                                    Helpers.phoneMask(phoneNumber.getOrCrash()),
+                                weight: FontWeight.w600,
+                              );
+                            })
+                          ],
+                        ),
+                        // Otp Textfield ui
+                        Padding(
+                          padding: EdgeInsets.only(top: 25.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              (otpText.value.isNotEmpty)
+                                  ? Text(
+                                      otpText.value,
+                                      style: TextStyle(
+                                          fontSize: 26.sp,
+                                          letterSpacing: 5.0,
+                                          color: Colors.black87,
+                                          fontWeight: FontWeight.w500),
+                                    )
+                                  : Text(
+                                      ("X-X-X-X-X-X"),
+                                      style: TextStyle(
+                                          fontSize: 26.sp,
+                                          letterSpacing: 3.0,
+                                          color: const Color.fromARGB(
+                                                  221, 104, 103, 103)
+                                              .withOpacity(.4),
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                            ],
+                          ),
+                        ),
                       ],
-                    ),
-// Otp Textfield ui
-                    Padding(
-                      padding: EdgeInsets.only(top: 25.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          (otpText.value.isNotEmpty)
-                              ? Text(
-                                  otpText.value,
-                                  style: TextStyle(
-                                      fontSize: 26.sp,
-                                      letterSpacing: 5.0,
-                                      color: Colors.black87,
-                                      fontWeight: FontWeight.w500),
-                                )
-                              : Text(
-                                  ("X-X-X-X-X-X"),
-                                  style: TextStyle(
-                                      fontSize: 26.sp,
-                                      letterSpacing: 3.0,
-                                      color: const Color.fromARGB(
-                                              221, 104, 103, 103)
-                                          .withOpacity(.4),
-                                      fontWeight: FontWeight.w500),
-                                ),
-                        ],
-                      ),
                     ),
                   ],
                 ),
+                //! confirm-otp btn
+                Center(
+                  child: FydBtn(
+                    height: 60.h,
+                    widget: (state.isSubmitting == true)
+                        ? const SpinKitWave(color: fydPWhite, size: 20.0)
+                        : FydText.h1white(text: 'Confirm Otp'),
+                    onPressed: () {
+                      HapticFeedback.mediumImpact();
+                      // validate if otp
+                      if (otpText.value.length != 6) {
+                        showSnack(
+                            context: context, message: '6 digit otp expected');
+                      } else {
+                        // add confirmOtp event
+                        context
+                            .read<PhoneLoginBloc>()
+                            .add(PhoneLoginEvent.confirmOtp(
+                              otp: Otp(otpText.value),
+                            ));
+                      }
+                    },
+                  ),
+                ),
               ],
             ),
-//! submit btn -- bloc consumer
-            Center(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: BlocConsumer<PhoneLoginBloc, PhoneLoginState>(
-                      listener: (c1, state) {
-                        state.authFailureOrSuccessOption.fold(
-                          () {},
-                          (authFailureOrUnit) => authFailureOrUnit.fold(
-                            // errorstate
-                            (authFailure) => showSnack(
-                              context: context,
-                              durationSeconds: 3,
-                              message: authFailure.when(
-                                invalidPhoneNumber: () =>
-                                    'invalid Phone Number',
-                                invalidOtpEntered: () => 'invalid Otp Entered',
-                                sessionExpired: () =>
-                                    'session Expired: try again',
-                                tooManyRequests: () =>
-                                    'too Many Requests: try again',
-                                serverError: () => 'server Error',
-                                unknownError: () => 'something went wrong',
-                                userDisabled: () => 'user is disabled',
-                              ),
-                            ),
-                            // success state
-                            (unit) async {
-                              showSnack(context: context, message: 'success');
-                              await Future.delayed(const Duration(seconds: 1));
-
-                              context.router
-                                  .replaceAll([const LandingWrapperRoute()]);
-                            },
-                          ),
-                        );
-                      },
-                      builder: (context, state) {
-                        return FydBtn(
-                          widget: (state.isSubmitting == true)
-                              ? const SpinKitWave(color: fydPWhite, size: 20.0)
-                              : FydText.h1white(
-                                  text: AuthenticationString.CONFIRMBTN),
-                          onPressed: () {
-                            HapticFeedback.mediumImpact();
-                            // validate if otp
-                            if (otpText.value.length != 6) {
-                              showSnack(
-                                  context: context,
-                                  message: '6 digit otp expected');
-                            } else {
-                              // add confirmOtp event
-                              context.read<PhoneLoginBloc>().add(
-                                    PhoneLoginEvent.confirmOtp(
-                                      otp: Otp(otpText.value),
-                                    ),
-                                  );
-                            }
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 //?-----------------------------------------------------------------------------

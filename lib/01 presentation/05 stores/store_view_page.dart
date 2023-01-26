@@ -25,13 +25,14 @@ import 'widgets/export_widgets.dart';
 class StoreViewWrapperPage extends StatelessWidget {
   const StoreViewWrapperPage({
     Key? key,
-    @PathParam('storeId') required this.storeId,
+    @PathParam() required this.storeId,
   }) : super(key: key);
   final String storeId;
 
   @override
   Widget build(BuildContext context) {
     log(context.router.currentUrl);
+    log(storeId);
     return BlocProvider(
       create: (context) =>
           getIt<StoreBloc>()..add(GetStoreRealtime(storeId: storeId)),

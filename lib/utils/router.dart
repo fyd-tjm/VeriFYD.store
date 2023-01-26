@@ -32,7 +32,7 @@ class Rn {
   static const splash = '/';
   static const landing = '/landing';
   static const login = '/login';
-  static const otp = '/login/otp';
+  static const otp = 'otp';
   static const boarding = '/boarding';
 
   static const main = '/main';

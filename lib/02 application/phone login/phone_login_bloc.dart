@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -16,34 +15,28 @@ part 'phone_login_bloc.freezed.dart';
 class PhoneLoginBloc extends Bloc<PhoneLoginEvent, PhoneLoginState> {
 //?-----------------------------------------------------------------------------
   late final IAuthFacade _iAuthFacade;
-  StreamSubscription<Either<AuthFailure, bool>>? _sendOtpSubscription;
+  StreamSubscription<Either<AuthFailure, Unit>>? _sendOtpSubscription;
 //?-----------------------------------------------------------------------------
   PhoneLoginBloc() : super(PhoneLoginState.initial()) {
 //?-----------------------------------------------------------------------------
     _iAuthFacade = getIt<IAuthFacade>();
-    on<PhoneNumberUpdate>((event, emit) async {
-      log('phoneNumberUpdate Event');
-      emit(state.copyWith(phoneNumber: event.phoneNumber));
-    });
 //?-----------------------------------------------------------------------------
-
     on<SendOtp>((event, emit) async {
-      log('sendOtp Event');
       // return if already in progress
       if (state.isSubmitting) return;
       // emit new state with submitting and phoneNumber
-      emit(PhoneLoginState(
-        phoneNumber: state.phoneNumber,
+      emit(state.copyWith(
+        phoneNumber: event.phoneNumber,
         isSubmitting: true,
         isCodeSent: false,
-        authFailureOrSuccessOption: none(),
+        failureOrSuccess: none(),
       ));
       await Future.delayed(const Duration(seconds: 1));
       // subscribe to codeSent Stream
       await _sendOtpSubscription?.cancel();
       // subcribing to  sendOtp stream
       _sendOtpSubscription = _iAuthFacade
-          .sendOtp(phoneNumber: state.phoneNumber)
+          .sendOtp(phoneNumber: event.phoneNumber)
           .timeout(
         const Duration(seconds: 15),
         onTimeout: (sink) {
@@ -52,61 +45,68 @@ class PhoneLoginBloc extends Bloc<PhoneLoginEvent, PhoneLoginState> {
           // closing subscription
           _sendOtpSubscription!.cancel();
         },
-      ).listen((failureOrCodeSent) => add(
-              PhoneLoginEvent.recievedOtpStreamEvent(
-                  event: failureOrCodeSent)));
+      ).listen((failureOrCodeSent) =>
+              add(RecievedOtpStreamEvent(streamEvent: failureOrCodeSent)));
     });
 
 //?-----------------------------------------------------------------------------
     on<RecievedOtpStreamEvent>((event, emit) async {
-      emit(event.event.fold(
-        (authFailure) => state.copyWith(
-          isSubmitting: false,
-          isCodeSent: false,
-          authFailureOrSuccessOption: some(left(authFailure)),
-        ),
-        (codeSent) => state.copyWith(
+      event.streamEvent.fold(
+        (authFailure) {
+          emit(state.copyWith(
+            isSubmitting: false,
+            isCodeSent: false,
+            failureOrSuccess: some(left(authFailure)),
+          ));
+          add(const ToggleFailures());
+        },
+        (isCodeSent) {
+          emit(state.copyWith(
             isSubmitting: false,
             isCodeSent: true,
-            authFailureOrSuccessOption: none()),
-      ));
+            failureOrSuccess: none(),
+          ));
+          add(const ToggleCodeSentState());
+        },
+      );
       // closing subscription
       _sendOtpSubscription!.cancel();
     });
 
 //?-----------------------------------------------------------------------------
-    on<ToggleIsCodeSentState>((event, emit) => {
-          log('toggleCodeSentState Event'),
-          // set to false so that while comming back on phoneAuth,
-          // ui won't navigate based on iscodeSent
-          emit(state.copyWith(isCodeSent: false))
+    on<ToggleFailures>((event, emit) => {
+          emit(state.copyWith(failureOrSuccess: none())),
+        });
+
+//?-----------------------------------------------------------------------------
+    on<ToggleCodeSentState>((event, emit) => {
+          emit(state.copyWith(isCodeSent: false, failureOrSuccess: none())),
         });
 //?-----------------------------------------------------------------------------
 
     on<ConfirmOtp>((event, emit) async {
-      log('confirmOtp Event');
       // return if already in progress
       if (state.isSubmitting) return;
       // emit loading state
       emit(state.copyWith(
         isSubmitting: true,
-        authFailureOrSuccessOption: none(),
+        failureOrSuccess: none(),
       ));
       await Future.delayed(const Duration(seconds: 1));
       // calling confirmOtp via authFacade
       await _iAuthFacade.confirmOtp(otp: event.otp).then(
             (result) => result.fold(
-              (authFailure) => emit(
-                state.copyWith(
+              (authFailure) {
+                emit(state.copyWith(
                   isSubmitting: false,
-                  authFailureOrSuccessOption: some(left(authFailure)),
-                ),
-              ),
-              (success) => emit(
-                state.copyWith(
-                    isSubmitting: false,
-                    authFailureOrSuccessOption: some(right(success))),
-              ),
+                  failureOrSuccess: some(left(authFailure)),
+                ));
+                add(const ToggleFailures());
+              },
+              (success) => emit(state.copyWith(
+                isSubmitting: false,
+                failureOrSuccess: some(right(success)),
+              )),
             ),
           );
     });
@@ -114,7 +114,6 @@ class PhoneLoginBloc extends Bloc<PhoneLoginEvent, PhoneLoginState> {
 //?-----------------------------------------------------------------------------
   @override
   Future<void> close() async {
-    log('PhoneAuth Bloc close callback');
     await _sendOtpSubscription?.cancel();
     return super.close();
   }
