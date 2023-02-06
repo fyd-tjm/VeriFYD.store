@@ -24,35 +24,35 @@ class _FydDropdownSectionState extends State<FydDropdownSection> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            FydText.h2white(text: widget.heading),
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  _isVisible = !_isVisible;
-                });
-              },
-              padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(),
-              icon: Icon((_isVisible)
-                  ? Icons.keyboard_arrow_up_rounded
-                  : Icons.keyboard_arrow_down_rounded),
-              color: fydPWhite,
-              iconSize: 50.sp,
-              splashRadius: 20.r,
-              splashColor: fydPGrey,
-            ),
-          ],
-        ),
-        Visibility(
-          visible: _isVisible,
-          child: FydText.b3grey(text: widget.description)
-              .paddingSymmetric(vertical: 0.h, horizontal: 5.w),
-        )
+        // Row(
+        //   mainAxisSize: MainAxisSize.max,
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   crossAxisAlignment: CrossAxisAlignment.center,
+        //   children: [
+        //     FydText.h2white(text: widget.heading),
+        //     IconButton(
+        //       onPressed: () {
+        //         setState(() {
+        //           _isVisible = !_isVisible;
+        //         });
+        //       },
+        //       padding: EdgeInsets.zero,
+        //       constraints: const BoxConstraints(),
+        //       icon: Icon((_isVisible)
+        //           ? Icons.keyboard_arrow_up_rounded
+        //           : Icons.keyboard_arrow_down_rounded),
+        //       color: fydPWhite,
+        //       iconSize: 50.sp,
+        //       splashRadius: 20.r,
+        //       splashColor: fydPGrey,
+        //     ),
+        //   ],
+        // ),
+        // Visibility(
+        //   visible: _isVisible,
+        //   child: FydText.b3grey(text: widget.description)
+        //       .paddingSymmetric(vertical: 0.h, horizontal: 5.w),
+        // )
       ],
     );
   }

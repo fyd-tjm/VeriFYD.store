@@ -19,15 +19,15 @@ class FydTextScroller extends StatelessWidget {
     return SizedBox(
       width: width,
       height: height,
-      child: Marquee(
-        text: fydText.text,
-        style: GoogleFonts.exo2(
-            color: fydText.color,
-            fontSize: fydText.style.fontSize,
-            fontWeight: fydText.weight),
-        blankSpace: 40,
-        velocity: 50,
-      ),
+      // child: Marquee(
+      //   text: fydText.text,
+      //   style: GoogleFonts.exo2(
+      //       color: fydText.color,
+      //       fontSize: fydText.style.fontSize,
+      //       fontWeight: fydText.weight),
+      //   blankSpace: 40,
+      //   velocity: 50,
+      // ),
     );
   }
 }

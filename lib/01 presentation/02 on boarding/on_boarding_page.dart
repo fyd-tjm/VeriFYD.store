@@ -8,12 +8,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
 import 'package:verifyd_store/02%20application/on%20boarding/on_boarding_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
-
-import '../00 core/widgets/00_core_widgets_export.dart';
 
 //?-----------------------------------------------------------------------------
 class OnBoardingWrapperPage extends StatelessWidget {
@@ -48,7 +47,7 @@ class OnBoardingPage extends HookWidget {
         child: FydView(
           pageViewType: ViewType.without_Nav_Bar,
           isScrollable: false,
-          topSheetHeight: 300.h,
+          topSheetHeight: 380.h,
           topSheet: _topSheetView(context, nameController, emailController),
           bottomSheet: _bottomSheet(context, nameController, emailController),
         ),
@@ -64,27 +63,58 @@ class OnBoardingPage extends HookWidget {
   ) {
     return Column(
       mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        //! Heading
         Padding(
-          padding: EdgeInsets.only(top: 10.h, bottom: 20.h),
-          child: FydText.d3custom(text: 'Final Step', color: fydPDgrey),
+          padding: EdgeInsets.only(top: 60.h, bottom: 10.h, left: 15.w),
+          child: const FydText.d1black(
+            text: 'Welcome!',
+            letterSpacing: 1.3,
+            weight: FontWeight.w600,
+          ),
         ),
+        //! Sub-Heading
+        Padding(
+          padding: EdgeInsets.only(left: 15.w, right: 15.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              FydText.b2black(
+                text: 'we see you\'re a new user,',
+                weight: FontWeight.w600,
+                color: fydLogoBlue,
+              ),
+              FydText.b2black(
+                text: 'just create an account and start ordering.',
+                weight: FontWeight.w600,
+                color: fydLogoBlue,
+              ),
+            ],
+          ),
+        ),
+        //! Input-Fields
         Expanded(
           child: Form(
             key: _formKey1,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              padding: EdgeInsets.only(
+                left: 15.w,
+                right: 15.w,
+              ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  // name
+                  //! name
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 5.h),
                     child: FydTextFormField(
                       controller: nameController,
+                      autoFocus: true,
                       textCapitalization: TextCapitalization.words,
                       labelText: 'name:',
+                      floatColor: fydTGrey,
                       maxLength: 35,
                       keyboardType: TextInputType.visiblePassword,
                       onScrollPadding: false,
@@ -97,13 +127,13 @@ class OnBoardingPage extends HookWidget {
                       },
                     ),
                   ),
-
-                  // email
+                  //! email
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 5.h),
                     child: FydTextFormField(
                       controller: emailController,
                       labelText: 'em@il:',
+                      floatColor: fydTGrey,
                       keyboardType: TextInputType.emailAddress,
                       maxLength: 35,
                       onScrollPadding: false,
@@ -122,14 +152,6 @@ class OnBoardingPage extends HookWidget {
                 ],
               ),
             ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 20.h, bottom: 15.h),
-          child: FydText.b3custom(
-            text: 'can be change later as well',
-            color: fydBlueGrey,
-            weight: FontWeight.bold,
           ),
         ),
       ],
@@ -159,8 +181,9 @@ class OnBoardingPage extends HookWidget {
                           serverError: () => 'server Error',
                           unknownError: () => 'something went wrong! try again',
                         )),
-                    (success) => context.router
-                        .replaceAll([const LandingWrapperRoute()]),
+                    (success) {
+                      context.router.replaceAll([const MainWrapperRoute()]);
+                    },
                   ));
         }
       },
@@ -169,16 +192,17 @@ class OnBoardingPage extends HookWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            //! Finish Setup btn
+            //! create-Account btn
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 30.h),
               child: FydBtn(
                 color: fydPGrey,
                 height: 60.h,
                 widget: (state.isSubmitting == true)
-                    ? const SpinKitWave(color: fydPWhite, size: 20.0)
-                    : FydText.h1white(text: 'Finish setup'),
-                onPressed: () {
+                    ? const SpinKitWave(color: fydLogoBlue, size: 20.0)
+                    : const FydText.h2custom(
+                        text: 'create account  ➢', color: fydLogoBlue),
+                onPressed: () async {
                   HapticFeedback.mediumImpact();
                   if (_formKey1.currentState!.validate()) {
                     FocusScope.of(context).unfocus();
@@ -198,6 +222,3 @@ class OnBoardingPage extends HookWidget {
 }
 
 //?-----------------------------------------------------------------------------
-
-
-

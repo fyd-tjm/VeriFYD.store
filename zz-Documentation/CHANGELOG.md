@@ -1,5 +1,8 @@
 ## commit-History
 
+`x-6`
+* splash, login, onboarding ui-cleanup
+
 `x-5.1`
 * startup logic, application Layer cleanUp 
 

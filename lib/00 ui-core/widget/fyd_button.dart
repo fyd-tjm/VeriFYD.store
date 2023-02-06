@@ -7,7 +7,8 @@ class FydBtn extends StatelessWidget {
   final FydText? fydText;
   final Widget? widget;
   final Color color;
-  final Color textColor;
+  final Color fillColor;
+  final Color splashColor;
   final double height;
   final double width;
   final VoidCallback onPressed;
@@ -19,10 +20,11 @@ class FydBtn extends StatelessWidget {
     required this.onPressed,
     this.widget,
     this.color = fydPDgrey,
-    this.textColor = fydPWhite,
+    this.fillColor = fydPWhite,
     this.height = 55,
     this.width = double.infinity,
     this.isFilled = true,
+    this.splashColor = fydPWhite,
   }) : super(key: key);
 
   @override
@@ -32,8 +34,8 @@ class FydBtn extends StatelessWidget {
       width: width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: (isFilled) ? color : fydPWhite, // background
-          onPrimary: textColor, // foreground
+          primary: (isFilled) ? color : fillColor, // background
+          onPrimary: splashColor, // foreground
           elevation: 10.0,
           shape: RoundedRectangleBorder(
               side: (isFilled)

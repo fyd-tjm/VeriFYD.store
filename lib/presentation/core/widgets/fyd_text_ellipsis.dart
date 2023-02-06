@@ -23,7 +23,7 @@ class FydTextEllipsis extends StatelessWidget {
         textAlign: textAlignmnet,
         style: GoogleFonts.exo2(
             color: fydText.color,
-            fontSize: fydText.style.fontSize,
+            fontSize: fydText.size,
             fontWeight: fydText.weight),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,

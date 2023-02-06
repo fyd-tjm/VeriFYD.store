@@ -2,16 +2,23 @@ import 'package:flutter/material.dart';
 
 // T<extcolor> Scope  code:T
 
-const Color fydTBlack = Color(0xff1C1C1E);
+const Color fydTBlack = Color(0xff2C2C2E);
 const Color fydTWhite = Color(0xffFDFDFD);
-const Color fydTGrey = Color(0xff7E7E7E);
+const Color fydTGrey = Color.fromARGB(255, 146, 145, 145);
 
 // P<rimary> Scope  code:P
 
-const Color fydPDgrey = Color(0xff1C1C1E);
-const Color fydPGrey = Color(0xff2C2C2E);
-const Color fydPLgrey = Color(0xff7E7E7E);
-const Color fydPWhite = Color(0xffFDFDFD);
+const Color fydPDgrey = Colors.black;
+const Color fydPGrey = Color.fromARGB(255, 21, 21, 21);
+const Color fydPLgrey = Color.fromARGB(255, 179, 179, 179);
+const Color fydPWhite = Color.fromARGB(255, 215, 215, 215);
+
+// Extra color
+const Color fydParrotGreen = Color(0xffD7FF66);
+const Color fydDustyPeach = Color.fromARGB(255, 192, 174, 174);
+const Color fydBlueGrey = Color.fromRGBO(144, 164, 174, 1);
+const Color fydSCBlueGrey = Color.fromARGB(255, 75, 108, 175);
+const Color fydGreyWhite = Color.fromARGB(255, 202, 202, 202);
 
 // S<econdary> Scope  code:S
 
@@ -38,10 +45,3 @@ const Color fydLogoGreen = Color(0xff05FF00);
 const Color fydNotifGreen = Color(0xff1FAA59);
 const Color fydNotifRed = Color(0xffE21717);
 const Color fydNotifOrange = Color(0xffE07C24);
-
-// Extra color
-const Color fydParrotGreen = Color(0xffD7FF66);
-const Color fydDustyPeach = Color.fromARGB(255, 192, 174, 174);
-const Color fydBlueGrey = Color.fromRGBO(144, 164, 174, 1);
-const Color fydSCBlueGrey = Color.fromARGB(255, 75, 108, 175);
-const Color fydGreyWhite = Color.fromARGB(255, 217, 218, 218);

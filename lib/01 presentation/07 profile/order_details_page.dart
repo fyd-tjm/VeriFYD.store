@@ -194,13 +194,15 @@ class OrderDetailsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     //date
-                    FydText.b3grey(
+                    FydText.b3custom(
+                      color: fydTGrey,
                       text:
                           DateFormat("dd-MM-yyyy").format(fydOrder.orderDate!),
                       weight: FontWeight.bold,
                     ),
                     //time
-                    FydText.b3grey(
+                    FydText.b3custom(
+                      color: fydTGrey,
                       text:
                           "${fydOrder.orderDate!.hour}:${fydOrder.orderDate!.minute}",
                       weight: FontWeight.bold,
@@ -381,7 +383,8 @@ class PaymentInfoSection extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            FydText.b2grey(
+            FydText.b2custom(
+              color: fydTGrey,
               text: 'Payment Mode:',
               weight: FontWeight.bold,
             ),
@@ -399,7 +402,8 @@ class PaymentInfoSection extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            FydText.b2grey(
+            FydText.b2custom(
+              color: fydTGrey,
               text: paymentMode.when(
                   online: (id) => 'Payment Id:', payOnDelivery: () => ''),
               weight: FontWeight.bold,

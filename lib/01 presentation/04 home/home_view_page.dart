@@ -41,7 +41,7 @@ class HomeViewPage extends StatelessWidget {
     return Column(
       children: [
         // appBar
-        FydAppBar(
+        const FydAppBar(
           main: Center(
             child: FydText.d3black(
               text: "veriFYD.store",
@@ -80,10 +80,11 @@ class HomeViewPage extends StatelessWidget {
                       ),
 
                       //! hint Text
-                      Expanded(
-                          child: FydText.b3grey(
+                      const Expanded(
+                          child: FydText.b3custom(
                         text: 'Find Store via name (or) #id',
                         weight: FontWeight.w600,
+                        color: fydTGrey,
                       )),
                     ],
                   ),
@@ -114,11 +115,11 @@ class HomeViewPage extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(top: 15.h, left: 15.w),
           child: Row(
-            children: [
-              FydText.b2grey(
+            children: const [
+              FydText.b2custom(
                 text: 'Category',
                 weight: FontWeight.w600,
-                color: fydPLgrey,
+                color: fydTGrey,
               )
             ],
           ),

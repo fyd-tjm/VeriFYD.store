@@ -13,7 +13,6 @@ import 'package:verifyd_store/03%20domain/auth/value_objects.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/router.dart';
 import '../../00 ui-core/ui_exports.dart';
-import 'package:verifyd_store/utils/constants/constants.dart';
 
 import 'widgets/key_pad.dart';
 
@@ -56,9 +55,7 @@ class PhoneLoginPage extends HookWidget {
               screenType: Screen.PhoneScreen,
               text: phoneText,
               onPhoneLengthValidation: () {
-                showSnack(
-                    context: context,
-                    message: AuthenticationString.NUMBERVALIDATION);
+                showSnack(context: context, message: '10 digit long only');
               },
               onOtpLengthValidation: () {},
             )
@@ -74,7 +71,7 @@ class PhoneLoginPage extends HookWidget {
   ) {
     return BlocConsumer<PhoneLoginBloc, PhoneLoginState>(
       listenWhen: (previous, current) {
-        if (context.router.currentUrl == Rn.login) {
+        if (context.router.currentUrl == '/login') {
           return true;
         }
         return false;
@@ -104,7 +101,7 @@ class PhoneLoginPage extends HookWidget {
         }
       },
       buildWhen: (previous, current) {
-        if (context.router.currentUrl == Rn.login) {
+        if (context.router.currentUrl == '/login') {
           return true;
         }
         return false;
@@ -126,59 +123,51 @@ class PhoneLoginPage extends HookWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Info text ui
-                          FydText.d1black(
-                            text: AuthenticationString.MAINHEADING1,
-                            weight: FontWeight.w100,
+                          const FydText.d1black(
+                            text: 'Enter',
+                            weight: FontWeight.w600,
                           ),
-                          FydText.d1black(
-                            text: AuthenticationString.MAINHEADING2,
-                            weight: FontWeight.w100,
+                          const FydText.d1black(
+                            text: 'mobile number',
+                            weight: FontWeight.w600,
                           ),
-                          FydText.h2white(
-                            text: AuthenticationString.TRANSPARENTTEXT,
-                            weight: FontWeight.w100,
+                          const FydText.h2custom(
+                            text: 'TRANSPARENT',
+                            color: Colors.transparent,
                           ),
-                          FydText.h2white(
-                            text: AuthenticationString.TRANSPARENTTEXT,
-                            weight: FontWeight.w100,
+                          const FydText.h2custom(
+                            text: 'TRANSPARENT',
+                            color: Colors.transparent,
                           ),
-                          FydText.h2white(
-                            text: AuthenticationString.TRANSPARENTTEXT,
-                            weight: FontWeight.w100,
+                          const FydText.h2custom(
+                            text: 'TRANSPARENT',
+                            color: Colors.transparent,
                           ),
-                          FydText.b4black(
-                            text: AuthenticationString.SUBHEADING,
-                            weight: FontWeight.w100,
+                          const FydText.b3black(
+                            text: 'we will send you a confirmation code',
+                            weight: FontWeight.w500,
                           ),
                           // PhoneNumber text ui
                           Padding(
                             padding: EdgeInsets.only(top: 20.h),
                             child: Row(
                               children: [
-                                FydText.h1black(
-                                  text: AuthenticationString.COUNTRYCODE,
-                                  weight: FontWeight.w100,
+                                const FydText.h1custom(
+                                  text: '+91  ',
+                                  weight: FontWeight.w400,
+                                  letterSpacing: 1.1,
+                                  color: fydTGrey,
                                 ),
                                 (phoneText.value.isNotEmpty)
-                                    ? Text(
-                                        phoneText.value,
-                                        style: TextStyle(
-                                            fontSize: 26.sp,
-                                            letterSpacing: 3.0,
-                                            color: Colors.black87,
-                                            fontWeight: FontWeight.w500),
+                                    ? FydText.h1black(
+                                        text: phoneText.value,
+                                        letterSpacing: 3,
                                       )
-                                    : Text(
-                                        ('XXXX-XXX-XXX'),
-                                        style: TextStyle(
-                                            fontSize: 26.sp,
-                                            letterSpacing: 3.0,
-                                            color: const Color.fromARGB(
-                                                    221, 104, 103, 103)
-                                                .withOpacity(.4),
-                                            fontWeight: FontWeight.w500),
+                                    : const FydText.h1custom(
+                                        text: 'XXXX-XXX-XXX',
+                                        color: fydTGrey,
+                                        letterSpacing: 2,
                                       ),
-                                // }),
                               ],
                             ),
                           ),
@@ -187,28 +176,30 @@ class PhoneLoginPage extends HookWidget {
                     ],
                   ),
                   //! send Otp Btn
-                  Center(
-                    child: FydBtn(
-                      height: 60.h,
-                      widget: (state.isSubmitting == true)
-                          ? const SpinKitWave(color: fydPWhite, size: 20.0)
-                          : FydText.h1white(text: 'Send Otp'),
-                      onPressed: () async {
-                        HapticFeedback.mediumImpact();
-                        if (phoneText.value.length != 10) {
-                          showSnack(
-                              context: context,
-                              message: 'enter 10 digit number');
-                        } else {
-                          //? sendOtpEvent
-                          context
-                              .read<PhoneLoginBloc>()
-                              .add(PhoneLoginEvent.sendOtp(
-                                phoneNumber: PhoneNumber(phoneText.value),
-                              ));
-                        }
-                      },
-                    ),
+                  FydBtn(
+                    height: 60.h,
+                    widget: (state.isSubmitting == true)
+                        ? const SpinKitWave(color: fydPWhite, size: 20.0)
+                        : FydText.h2custom(
+                            text: 'Send Otp',
+                            color: (phoneText.value.length != 10)
+                                ? fydTGrey
+                                : fydTWhite,
+                          ),
+                    onPressed: () async {
+                      HapticFeedback.mediumImpact();
+                      if (phoneText.value.length != 10) {
+                        showSnack(
+                            context: context, message: 'enter 10 digit number');
+                      } else {
+                        //? sendOtpEvent
+                        context
+                            .read<PhoneLoginBloc>()
+                            .add(PhoneLoginEvent.sendOtp(
+                              phoneNumber: PhoneNumber(phoneText.value),
+                            ));
+                      }
+                    },
                   ),
                 ],
               ),

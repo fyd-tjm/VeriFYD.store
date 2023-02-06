@@ -444,7 +444,7 @@ class DeliveryInfoCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FydText.b1grey(
+                  FydText.b1custom(
                     text: 'Delivery Info',
                     weight: FontWeight.bold,
                     color: fydLogoBlue,

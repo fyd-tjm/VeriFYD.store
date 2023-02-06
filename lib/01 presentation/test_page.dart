@@ -1,16 +1,24 @@
 import 'dart:developer';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart' as flutterHooks;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/01%20presentation/03%20main%20root/main_page.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/03%20domain/cart/cart.dart';
 import 'package:verifyd_store/03%20domain/shared/shared_info.dart';
@@ -32,29 +40,254 @@ class TestWrapperPage extends StatelessWidget {
 }
 
 //?-----------------------------------------------------------------------------
-class TestPage extends StatelessWidget {
+const bColor = Colors.black87;
+
+//-------
+class TestPage extends flutterHooks.HookWidget {
   const TestPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final state1 = flutterHooks.useState(true);
     return Scaffold(
+      backgroundColor: bColor,
       body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FydBtn(
-              onPressed: () {
-                context.navigateNamedTo('/main/cart');
-              },
-              height: 60,
-              fydText: FydText.b1custom(text: 'upload', color: fydBlueGrey),
-            ),
-          ],
+        child: FydView(
+          pageViewType: ViewType.with_Nav_Bar,
+          isScrollable: false,
+          topSheetHeight: 400.h,
+          topSheetColor: fydPDgrey,
+          topSheet: _topSheet(context, state1),
+          bottomSheet: _bottomSheet(context, state1),
         ),
+      ),
+      bottomNavigationBar: builBottomNavigationBar(
+        context: context,
+        currentIndex: 1,
+        onTap: (v) {},
       ),
     );
   }
+
+//?-----------------------------------------------------------------------------
+  _topSheet(BuildContext context, ValueNotifier<bool> state1) {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // FydText.b1custom(
+        //   text: 'testing long.text',
+        //   color: fydLogoBlue,
+        //   isSelectable: true,
+        // ),
+        // FydRichText(
+        //   textList: [
+        //     TextSpan(
+        //         text: 'testing ',
+        //         style: TextStyle(color: fydLogoPurple)),
+        //     TextSpan(
+        //       text: 'long',
+        //     ),
+        //     TextSpan(
+        //         text: '.test', style: TextStyle(color: fydNotifGreen)),
+        //   ],
+        //   size: 18,
+        //   color: fydLogoBlue,
+        //   isSelectable: true,
+        //   letterSpacing: 1.5,
+        // ),
+        // FydEllipsisText(
+        //   width: 200,
+        //   fydText: FydText.b1custom(
+        //     text: 'testing long.text for Ellipsis',
+        //     color: fydLogoBlue,
+        //     isSelectable: true,
+        //     letterSpacing: 1.3,
+        //   ),
+        // ),
+        // FydAutoScrollingText(
+        //   fydText: FydText.b1custom(
+        //     text: 'testing long.text for Ellipsis',
+        //     color: fydLogoBlue,
+        //     isSelectable: true,
+        //     letterSpacing: 1.3,
+        //   ),
+        //   width: 200,
+        //   height: 60,
+        //   rounds: 2,
+        //   velocity: 20,
+        // ),
+        // // autoscroll
+        // Row(
+        //   mainAxisSize: MainAxisSize.min,
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     SizedBox(
+        //       height: 70,
+        //       child: AnimatedTextKit(
+        //         animatedTexts: [
+        //           ColorizeAnimatedText(
+        //             'veriFYD',
+        //             textStyle: GoogleFonts.exo2(
+        //               fontSize: 34.0,
+        //               color: Colors.white,
+        //               fontWeight: FontWeight.bold,
+        //               letterSpacing: 1.1,
+        //             ),
+        //             colors: [fydLogoBlue, fydSCBlueGrey, fydBlueGrey],
+        //             speed: const Duration(milliseconds: 400),
+        //           ),
+        //         ],
+        //         totalRepeatCount: 1,
+        //         repeatForever: false,
+        //         pause: const Duration(milliseconds: 1000),
+        //         onNext: (p0, p1) => state1.value = !state1.value,
+        //       ),
+        //     ),
+        //     (state1.value)
+        //         ? const SizedBox.shrink()
+        //         : SizedBox(
+        //             height: 70,
+        //             child: AnimatedTextKit(
+        //               animatedTexts: [
+        //                 TypewriterAnimatedText('.store',
+        //                     textStyle: GoogleFonts.exo2(
+        //                         fontSize: 34.0,
+        //                         color: fydLogoGreen,
+        //                         fontWeight: FontWeight.w500,
+        //                         letterSpacing: 1.1),
+        //                     speed: const Duration(milliseconds: 90),
+        //                     cursor: '_'),
+        //               ],
+        //               totalRepeatCount: 1,
+        //               repeatForever: false,
+        //             ),
+        //           ),
+        //   ],
+        // )
+        //?----------
+        SizedBox(
+          // height: ,
+          child: Image.network(
+            'https://s9.gifyu.com/images/splash.gif',
+            filterQuality: FilterQuality.high,
+            // scale: 4,
+            height: 300,
+            fit: BoxFit.fitHeight,
+            repeat: ImageRepeat.repeat,
+          ),
+        ),
+      ],
+    );
+  }
+
+//?-----------------------------------------------------------------------------
+  _bottomSheet(BuildContext context, ValueNotifier<bool> state1) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 60.h,
+        ),
+        FydBtn(
+          onPressed: () async {
+            HapticFeedback.heavyImpact();
+            context.router.pushNamed('test2');
+          },
+          height: 60.h,
+          color: fydSCBlueGrey,
+          isFilled: false,
+          fillColor: fydPDgrey,
+          splashColor: fydSCBlueGrey,
+          fydText: const FydText.b1custom(
+            text: 'on-Press',
+            color: fydSCBlueGrey,
+            weight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
+  }
+
+//?-----------------------------------------------------------------------------
+}
+
+//?-----------------------------------------------------------------------------
+//! bottom nav bar
+Widget builBottomNavigationBar({
+  required BuildContext context,
+  required int currentIndex,
+  required Function(int) onTap,
+}) {
+  return PreferredSize(
+    preferredSize: Size(double.infinity, 65.5.h),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(bottom: 8.h),
+          child: Row(
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [fydSCBlueGrey, Colors.transparent],
+                    begin: Alignment.center,
+                    end: Alignment.centerLeft,
+                  ),
+                ),
+                height: 1.0,
+                width: MediaQuery.of(context).size.width / 2,
+              ),
+              Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [fydSCBlueGrey, Colors.transparent],
+                    begin: Alignment.center,
+                    end: Alignment.centerRight,
+                  ),
+                ),
+                height: 1.0,
+                width: MediaQuery.of(context).size.width / 2,
+              ),
+            ],
+          ),
+        ),
+        CustomNavigationBar(
+          elevation: 8,
+          iconSize: 35.h,
+          selectedColor: fydSCBlueGrey,
+          strokeColor: Colors.transparent,
+          unSelectedColor: fydBlueGrey,
+          backgroundColor: fydPDgrey,
+          scaleFactor: 0.2,
+          scaleCurve: Curves.elasticOut,
+          items: [
+            CustomNavigationBarItem(
+              icon: const Icon(Icons.home),
+              title: Text('', style: TextStyle(fontSize: 8.h)),
+            ),
+            CustomNavigationBarItem(
+              icon: const Icon(Icons.storefront_sharp),
+              title: Text('', style: TextStyle(fontSize: 8.h)),
+            ),
+            CustomNavigationBarItem(
+              icon: const Icon(Icons.shopping_cart),
+              title: Text('', style: TextStyle(fontSize: 8.h)),
+            ),
+            CustomNavigationBarItem(
+              icon: const Icon(Icons.account_circle),
+              title: Text('', style: TextStyle(fontSize: 8.h)),
+            ),
+          ],
+          currentIndex: currentIndex,
+          onTap: (index) {
+            HapticFeedback.mediumImpact();
+            onTap(index);
+          },
+        ),
+      ],
+    ),
+  );
 }
 
 //?-----------------------------------------------------------------------------

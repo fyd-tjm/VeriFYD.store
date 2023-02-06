@@ -24,6 +24,9 @@ class FydTextFormField extends StatelessWidget {
     this.onScrollPadding = true,
     this.color = TextFieldColor.dark,
     this.isDigitOnly = false,
+    this.labelColor = fydTGrey,
+    this.floatColor = fydBlueGrey,
+    this.inputStyle,
   }) : super(key: key);
 
   final TextFieldColor color;
@@ -41,6 +44,9 @@ class FydTextFormField extends StatelessWidget {
   final bool onScrollPadding;
   final String? Function(String?)? validator;
   final bool isDigitOnly;
+  final Color labelColor;
+  final Color floatColor;
+  final TextStyle? inputStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -54,18 +60,19 @@ class FydTextFormField extends StatelessWidget {
       textCapitalization: textCapitalization,
       controller: controller,
       // text Styling
-      style: TextStyle(
-        color: (color == TextFieldColor.dark) ? fydPGrey : fydPWhite,
-        fontWeight: FontWeight.w600,
-        letterSpacing: 1,
-        fontSize: 22,
-        decoration: TextDecoration.none,
-      ),
+      style: inputStyle ??
+          TextStyle(
+            color: (color == TextFieldColor.dark) ? fydTBlack : fydTWhite,
+            fontWeight: FontWeight.w500,
+            letterSpacing: 1,
+            fontSize: 22,
+            decoration: TextDecoration.none,
+          ),
       textAlign: textAlign,
       showCursor: true,
       maxLength: maxLength,
       textInputAction: TextInputAction.next,
-      cursorColor: (color == TextFieldColor.dark) ? fydPGrey : fydPLgrey,
+      cursorColor: (color == TextFieldColor.dark) ? fydPGrey : fydTGrey,
       cursorWidth: 2,
       cursorHeight: 30,
 
@@ -78,15 +85,15 @@ class FydTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         // focusColor: fydPDgrey,
         labelText: labelText,
-        labelStyle: const TextStyle(
-            color: fydPLgrey, fontSize: 22, fontWeight: FontWeight.w600),
+        labelStyle: TextStyle(
+            color: labelColor, fontSize: 22, fontWeight: FontWeight.w600),
         contentPadding:
             EdgeInsets.symmetric(vertical: vPadding, horizontal: hPadding),
         // to hide max length counter
         counterText: '',
         // fillColor: fillColor,
-        floatingLabelStyle: const TextStyle(
-          color: fydBlueGrey,
+        floatingLabelStyle: TextStyle(
+          color: floatColor,
           fontSize: 18,
         ),
         focusedBorder: OutlineInputBorder(

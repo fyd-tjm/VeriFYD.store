@@ -1,5 +1,7 @@
+import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/landing_page.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/splash_page.dart';
 import 'package:verifyd_store/01%20presentation/01%20login/otp_login_page.dart';
@@ -27,6 +29,7 @@ import 'package:verifyd_store/01%20presentation/08%20checkout/error_page.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/gateway.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/payment_page.dart';
 import 'package:verifyd_store/01%20presentation/test_page.dart';
+import 'package:verifyd_store/aa%20mock/test_store.dart';
 
 class Rn {
   static const splash = '/';
@@ -57,97 +60,187 @@ class Rn {
   static const confirmation = '/checkout/confirmation';
 }
 
-@AdaptiveAutoRouter(
+@CustomAutoRouter(
   replaceInRouteName: 'Page,Route',
   preferRelativeImports: true,
+  durationInMilliseconds: 1000,
+  transitionsBuilder: TransitionsBldr.sharedAxisHorizontal,
+  reverseDurationInMilliseconds: 50,
   routes: [
     //! splash
     AutoRoute(path: Rn.splash, page: SplashPage),
     //! landing
-    AutoRoute(path: Rn.landing, page: LandingWrapperPage),
+    CustomRoute(
+        path: Rn.landing,
+        page: LandingWrapperPage,
+        durationInMilliseconds: 1500),
     //! login-Router
-    AutoRoute(
+    CustomRoute(
       path: Rn.login,
       name: 'LoginRouter',
       page: PhoneLoginWrapperPage,
       children: [
-        AutoRoute(
+        CustomRoute(
           path: '',
           page: PhoneLoginPage,
         ),
         CustomRoute(
           path: 'otp',
           page: OtpLoginPage,
-          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-          durationInMilliseconds: 150,
         ),
       ],
     ),
     //! boarding-Router
-    AutoRoute(path: Rn.boarding, page: OnBoardingWrapperPage),
+    CustomRoute(path: Rn.boarding, page: OnBoardingWrapperPage),
     //! main
-    AutoRoute(path: Rn.main, page: MainWrapperPage, children: [
+    CustomRoute(path: Rn.main, page: MainWrapperPage, children: [
       //! home
-      AutoRoute(path: 'home', page: HomeViewWrapperPage),
+      CustomRoute(path: 'home', page: HomeViewWrapperPage),
       //! stores-Router
-      AutoRoute(
+      CustomRoute(
           path: 'stores',
           name: 'StoresRouter',
           page: EmptyRouterPage,
           children: [
             //! stores (all-stores)
-            AutoRoute(path: '', page: StoresViewWrapperPage),
+            CustomRoute(path: '', page: StoresViewWrapperPage),
             //! store
-            AutoRoute(path: ':storeId', page: StoreViewWrapperPage),
+            CustomRoute(path: ':storeId', page: StoreViewWrapperPage),
           ]),
       //! cart
-      AutoRoute(path: 'cart', page: CartViewWrapperPage),
+      CustomRoute(path: 'cart', page: CartViewWrapperPage),
       //! profile
-      AutoRoute(path: 'profile', page: ProfileViewWrapperPage),
+      CustomRoute(path: 'profile', page: ProfileViewWrapperPage),
     ]),
     //! product
-    AutoRoute(path: '/product', page: ProductWrapperPage),
+    CustomRoute(path: '/product', page: ProductWrapperPage),
     //! store-Info
-    AutoRoute(path: '/storeInfo', page: StoreInfoViewWrapperPage),
+    CustomRoute(path: '/storeInfo', page: StoreInfoViewWrapperPage),
     //! editProfile
-    AutoRoute(path: Rn.editProfile, page: EditProfileWrapperPage),
+    CustomRoute(path: Rn.editProfile, page: EditProfileWrapperPage),
     //! profileAddress
-    AutoRoute(path: Rn.profileAddress, page: ProfileAddressesWrapperPage),
+    CustomRoute(path: Rn.profileAddress, page: ProfileAddressesWrapperPage),
     //! updateAddress
-    AutoRoute(path: '/updateAddress', page: UpdateAddressWrapperPage),
+    CustomRoute(path: '/updateAddress', page: UpdateAddressWrapperPage),
     //! newAddress
-    AutoRoute(path: Rn.newAddress, page: NewAddressWrapperPage),
+    CustomRoute(path: Rn.newAddress, page: NewAddressWrapperPage),
     //! orders-Router
-    AutoRoute(
+    CustomRoute(
         path: Rn.orders,
         name: 'OrdersRouter',
         page: EmptyRouterPage,
         children: [
-          AutoRoute(path: '', page: OrdersWrapperPage),
-          AutoRoute(path: 'details', page: OrderDetailsWrapperPage),
+          CustomRoute(path: '', page: OrdersWrapperPage),
+          CustomRoute(path: 'details', page: OrderDetailsWrapperPage),
         ]),
     //! help
-    AutoRoute(path: Rn.help, page: HelpWrapperPage),
+    CustomRoute(path: Rn.help, page: HelpWrapperPage),
     //! checkout-Router
-    AutoRoute(
+    CustomRoute(
       path: Rn.checkout,
       name: 'CheckoutRouter',
       page: CheckoutWrapperPage,
       children: [
         RedirectRoute(path: '', redirectTo: 'delivery'),
-        AutoRoute(path: 'delivery', page: DeliveryAddressWrapperPage),
-        AutoRoute(path: 'payment', page: PaymentWrapperPage),
-        AutoRoute(path: 'confirmation', page: ConfirmationWrapperPage),
-        AutoRoute(path: 'gateway', page: GatewayWrapperPage),
-        AutoRoute(path: 'error', page: CheckoutErrorWrapperPage),
+        CustomRoute(path: 'delivery', page: DeliveryAddressWrapperPage),
+        CustomRoute(path: 'payment', page: PaymentWrapperPage),
+        CustomRoute(path: 'confirmation', page: ConfirmationWrapperPage),
+        CustomRoute(path: 'gateway', page: GatewayWrapperPage),
+        CustomRoute(path: 'error', page: CheckoutErrorWrapperPage),
       ],
     ), //todo: Testing page
-    AutoRoute(
+    CustomRoute(
       path: '/test',
       name: 'testRouter',
       page: EmptyRouterPage,
-      children: [AutoRoute(path: '', page: TestWrapperPage)],
+      durationInMilliseconds: 1000,
+      reverseDurationInMilliseconds: 1000,
+      children: [
+        CustomRoute(
+            path: '',
+            page: TestWrapperPage,
+            transitionsBuilder: TransitionsBldr.sharedAxisHorizontal,
+            durationInMilliseconds: 1000,
+            reverseDurationInMilliseconds: 500),
+        CustomRoute(
+            path: 'test2',
+            page: TestStoreScreen,
+            transitionsBuilder: TransitionsBldr.sharedAxisHorizontal,
+            deferredLoading: true,
+            durationInMilliseconds: 1000),
+      ],
     ),
   ],
 )
 class $AppRouter {}
+
+class TransitionsBldr {
+  const TransitionsBldr._();
+
+  static const RouteTransitionsBuilder sharedAxisScale = _sharedAxisScale;
+
+  static Widget _sharedAxisScale(
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
+    return SharedAxisTransition(
+      animation: animation,
+      secondaryAnimation: secondaryAnimation,
+      transitionType: SharedAxisTransitionType.scaled,
+      child: child,
+    );
+  }
+
+  static const RouteTransitionsBuilder sharedAxisHorizontal =
+      _sharedAxisHorizontal;
+
+  static Widget _sharedAxisHorizontal(
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
+    return SharedAxisTransition(
+      animation: animation,
+      secondaryAnimation: secondaryAnimation,
+      transitionType: SharedAxisTransitionType.horizontal,
+      child: child,
+    );
+  }
+
+  static const RouteTransitionsBuilder sharedAxisVertical = _sharedAxisVertical;
+
+  static Widget _sharedAxisVertical(
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
+    return SharedAxisTransition(
+      animation: animation,
+      secondaryAnimation: secondaryAnimation,
+      transitionType: SharedAxisTransitionType.vertical,
+      child: child,
+    );
+  }
+
+  static const RouteTransitionsBuilder fadeScale = _fadeScale;
+
+  static Widget _fadeScale(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return FadeScaleTransition(
+      animation: animation,
+      child: child,
+    );
+  }
+
+  static const RouteTransitionsBuilder fadeThrough = _fadeThrough;
+
+  static Widget _fadeThrough(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return FadeThroughTransition(
+      animation: animation,
+      secondaryAnimation: secondaryAnimation,
+      child: child,
+    );
+  }
+}

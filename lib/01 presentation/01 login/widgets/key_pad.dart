@@ -30,8 +30,8 @@ class FydNumPad extends StatelessWidget {
       decoration: const BoxDecoration(
         color: fydPDgrey,
         borderRadius: BorderRadius.only(
-          topRight: Radius.circular(30.0),
-          topLeft: Radius.circular(30.0),
+          topRight: Radius.circular(25.0),
+          topLeft: Radius.circular(25.0),
         ),
       ),
       child: Padding(
@@ -139,7 +139,10 @@ class NumBtn extends StatelessWidget {
         width: 100.h,
         child: (number != '<')
             ? Center(
-                child: FydText.h1white(text: number),
+                child: FydText.h1custom(
+                  text: number,
+                  color: fydLogoGreen,
+                ),
               )
             : Center(
                 child: Icon(

@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
-import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/router.dart';
 
@@ -30,7 +29,7 @@ class LandingPage extends StatelessWidget {
     return BlocListener<FydUserCubit, FydUserState>(
       listener: (context, state) async {
         if (state.isFetching == false) {
-          await Future.delayed(const Duration(milliseconds: 500));
+          await Future.delayed(const Duration(milliseconds: 1000));
           if (state.isAuthenticated == false) {
             // navigate to login
             context.router.replaceNamed(Rn.login);
@@ -38,7 +37,6 @@ class LandingPage extends StatelessWidget {
             // navigate to onBoarding
             context.router.replaceNamed(Rn.boarding);
           } else {
-            getIt<SharedInfoCubit>().getSharedInfoRealtime();
             // navigate to main
             context.router.replaceNamed(Rn.main);
           }

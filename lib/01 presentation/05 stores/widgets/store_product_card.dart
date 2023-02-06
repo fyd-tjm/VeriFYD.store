@@ -47,7 +47,10 @@ class StoreProductCard extends StatelessWidget {
             children: [
               FydTextEllipsis(
                 width: 170.h,
-                fydText: FydText.b2grey(text: product.name),
+                fydText: FydText.b2custom(
+                  text: product.name,
+                  color: fydTGrey,
+                ),
               ),
               SizedBox(
                 height: 4.h,

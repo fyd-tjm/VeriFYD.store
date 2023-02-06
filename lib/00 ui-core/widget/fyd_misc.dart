@@ -1,14 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
+import 'dart:ui';
 
-import 'dart:developer';
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-
-import 'package:verifyd_store/00%20ui-core/core/fyd_colors.dart';
-import 'package:verifyd_store/00%20ui-core/core/fyd_styles.dart';
-import 'package:verifyd_store/00%20ui-core/widget/fyd_text.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 
 //?--fyd-divider----------------------------------------------------------------
 
@@ -53,62 +52,64 @@ class FydDivider extends StatelessWidget {
 //?--Ok-Diaolog-----------------------------------------------------------------
 Future<bool?> showOkDialog({
   required BuildContext context,
+  String title = 'Title',
   required String message,
 }) {
   final dialog = Dialog(
     backgroundColor: fydPWhite,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-    child: Padding(
-      padding: const EdgeInsets.all(0.0),
-      child: SizedBox(
-        width: 280.w,
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.r),
+        side: const BorderSide(color: fydPDgrey)),
+    child: ConstrainedBox(
+      constraints: BoxConstraints(minHeight: 160.h, maxWidth: 240.w),
+      child: Padding(
+        padding:
+            const EdgeInsets.only(top: 15, bottom: 15, left: 15, right: 15),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-// message
-            ConstrainedBox(
-              constraints: BoxConstraints(minHeight: 140.h),
-              child: Padding(
-                padding: EdgeInsets.only(
-                    top: 20.h, right: 15.w, left: 15.w, bottom: 20.h),
-                child: Center(
-                  child: Text(
-                    message,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: fydPDgrey,
-                      fontSize: 18,
-                      fontFamily: body16.fontFamily,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.exo2(
+                color: fydPDgrey,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Text(
+                message,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.exo2(
+                  color: fydBlueGrey,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
-// Button
+            // Button
             Row(
               mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 54.h,
-                    // width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: fydPGrey, // background
-                        onPrimary: fydPWhite, // foreground
-                        elevation: 10.0,
-                        shape: RoundedRectangleBorder(
-                          //to set border radius to button
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20.r),
-                            bottomRight: Radius.circular(20.r),
-                          ),
-                        ),
+                SizedBox(
+                  height: 40.h,
+                  width: 100.w,
+                  child: FydBtn(
+                    onPressed: () => Navigator.of(context).pop(true),
+                    height: 40.h,
+                    color: fydPDgrey,
+                    widget: Text(
+                      'Okay',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.exo2(
+                        color: fydPWhite,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
-                      onPressed: () => Navigator.of(context).pop(true),
-                      child: FydText.h1custom(color: fydSOrange, text: 'Ok'),
                     ),
                   ),
                 ),
@@ -119,102 +120,99 @@ Future<bool?> showOkDialog({
       ),
     ),
   );
-  return showDialog<bool>(
+  return showModal<bool>(
     context: context,
-    barrierDismissible: true,
+    configuration: const FadeScaleTransitionConfiguration(
+      barrierDismissible: false,
+    ),
     useRootNavigator: false,
     builder: (context) => dialog,
   );
 }
-
 //?--Permission-Dialog----------------------------------------------------------
 
 Future<bool?> showPermissionDialog({
   required BuildContext context,
+  String title = 'Title',
   required String message,
   String trueBtnTitle = 'Allow',
   String falseBtnTitle = 'Cancel',
 }) {
   final dialog = Dialog(
     backgroundColor: fydPWhite,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-    child: Padding(
-      padding: const EdgeInsets.all(0.0),
-      child: SizedBox(
-        width: 280.w,
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.r),
+        side: const BorderSide(color: fydPDgrey)),
+    child: ConstrainedBox(
+      constraints: BoxConstraints(minHeight: 160.h, maxWidth: 240.w),
+      child: Padding(
+        padding:
+            const EdgeInsets.only(top: 15, bottom: 15, left: 15, right: 15),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-// message
-            ConstrainedBox(
-              constraints: BoxConstraints(minHeight: 140.h),
-              child: Padding(
-                padding: EdgeInsets.only(
-                    top: 20.h, right: 15.w, left: 15.w, bottom: 20.h),
-                child: Center(
-                  child: Text(
-                    message,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: fydPDgrey,
-                      fontSize: 18,
-                      fontFamily: body16.fontFamily,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.exo2(
+                color: fydPDgrey,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Text(
+                message,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.exo2(
+                  color: fydBlueGrey,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
-// Button
+            // Button
             Row(
               mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 54.h,
-                    // width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: fydPGrey, // background
-                        onPrimary: fydPWhite, // foreground
-                        elevation: 10.0,
-                        shape: RoundedRectangleBorder(
-                          //to set border radius to button
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20.r),
-                            // bottomRight: Radius.circular(20.r),
-                          ),
-                        ),
-                      ),
-                      onPressed: () async => Navigator.of(context).pop(false),
-                      child: FydText.h1white(
-                        text: falseBtnTitle,
-                        weight: FontWeight.w200,
+                SizedBox(
+                  height: 40.h,
+                  width: 100.w,
+                  child: FydBtn(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    height: 40.h,
+                    color: fydPDgrey,
+                    widget: Text(
+                      falseBtnTitle,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.exo2(
+                        color: fydPWhite,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
-                Expanded(
-                  child: SizedBox(
-                    height: 54.h,
-                    // width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: fydPGrey, // background
-                        onPrimary: fydPWhite, // foreground
-                        elevation: 10.0,
-                        shape: RoundedRectangleBorder(
-                          //to set border radius to button
-                          borderRadius: BorderRadius.only(
-                            // bottomLeft: Radius.circular(20.r),
-                            bottomRight: Radius.circular(20.r),
-                          ),
-                        ),
+                SizedBox(
+                  height: 40.h,
+                  width: 100.w,
+                  child: FydBtn(
+                    onPressed: () => Navigator.of(context).pop(true),
+                    height: 40.h,
+                    isFilled: false,
+                    fillColor: fydPWhite,
+                    color: fydPDgrey,
+                    widget: Text(
+                      trueBtnTitle,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.exo2(
+                        color: fydPDgrey,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
-                      onPressed: () => Navigator.pop(context, true),
-                      child: FydText.h1custom(
-                          color: fydSOrange, text: trueBtnTitle),
                     ),
                   ),
                 ),
@@ -225,34 +223,48 @@ Future<bool?> showPermissionDialog({
       ),
     ),
   );
-  return showDialog<bool>(
+  return showModal<bool>(
     context: context,
-    barrierDismissible: true,
+    configuration: const FadeScaleTransitionConfiguration(
+      barrierDismissible: false,
+    ),
     useRootNavigator: false,
     builder: (c1) => dialog,
   );
 }
-
 //?---Snack-bar-----------------------------------------------------------------
 
 enum SnackBarPosition { top, bottom }
 
+enum SnackBarColor { dark, light }
+
 void showSnack(
     {required BuildContext context,
     String? message,
-    int durationSeconds = 2,
+    FydText? fydText,
     EdgeInsetsGeometry? margin,
     Color? backgroundColor,
-    double backgroundOpacity = .95,
-    FydText? fydText,
-    SnackBarPosition snackPosition = SnackBarPosition.top}) {
+    double backgroundOpacity = .90,
+    int durationSeconds = 2,
+    SnackBarPosition snackPosition = SnackBarPosition.top,
+    SnackBarColor snackBarColor = SnackBarColor.dark}) {
   //------
   if (snackPosition == SnackBarPosition.top) {
-    margin = EdgeInsets.only(bottom: 785.h);
+    margin = EdgeInsets.only(
+      bottom: MediaQuery.of(context).size.height * .87,
+      left: 10,
+      right: 10,
+    );
   }
   //------
-  backgroundColor ??= fydBlueGrey.withOpacity(.95);
-  log(backgroundColor.value.toRadixString(16).padLeft(6, '0').toUpperCase());
+  if (backgroundColor == null) {
+    if (snackBarColor == SnackBarColor.dark) {
+      backgroundColor = fydPGrey;
+    }
+    if (snackBarColor == SnackBarColor.light) {
+      backgroundColor = const Color.fromARGB(221, 178, 178, 178);
+    }
+  }
   //------
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
   //------
@@ -265,16 +277,14 @@ void showSnack(
       backgroundColor: backgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
-        side: BorderSide(
-          color: Colors.black.withOpacity(0.4),
-          width: 3.0,
-        ),
       ),
       content: (fydText == null)
-          ? FydText.h3custom(
+          ? FydText.b1custom(
               text: message ?? '',
-              weight: FontWeight.w700,
-              color: fydSCBlueGrey,
+              weight: FontWeight.bold,
+              color: (snackBarColor == SnackBarColor.dark)
+                  ? fydBlueGrey
+                  : fydPGrey,
             )
           : fydText,
     ),
@@ -310,9 +320,11 @@ CloseDialog showLoadingScreen({
       ],
     ),
   );
-  showDialog(
+  showModal(
     context: context,
-    barrierDismissible: false,
+    configuration: const FadeScaleTransitionConfiguration(
+      barrierDismissible: false,
+    ),
     builder: (_) => dialog,
   );
 

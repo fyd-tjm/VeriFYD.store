@@ -41,12 +41,14 @@ class ProfileAddressTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //name
-                      FydText.b1grey(
+                      FydText.b1custom(
+                        color: fydTGrey,
                         text: address.name,
                         weight: FontWeight.w600,
                       ),
                       // phone
-                      FydText.b1grey(
+                      FydText.b1custom(
+                        color: fydTGrey,
                         text: Helpers.phoneMaskWithCountryCode(address.phone),
                         weight: FontWeight.w600,
                       ),
@@ -89,7 +91,8 @@ class ProfileAddressTile extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
-                    child: FydText.b2grey(
+                    child: FydText.b2custom(
+                      color: fydTGrey,
                       text: 'Edit',
                       weight: FontWeight.bold,
                     ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
@@ -32,7 +33,7 @@ class FydUserCubit extends Cubit<FydUserState> {
       fydUser: null,
       failureOrSuccess: none(),
     ));
-
+    await Future.delayed(const Duration(seconds: 1));
     final authStatus = _iAuthFacade.getAuthStatus();
 
     if (authStatus == false) {

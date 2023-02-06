@@ -10,7 +10,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/02%20application/phone%20login/phone_login_bloc.dart';
 import 'package:verifyd_store/03%20domain/auth/value_objects.dart';
-import 'package:verifyd_store/utils/constants/constants.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 
@@ -47,9 +46,7 @@ class OtpLoginPage extends HookWidget {
                   text: otpText,
                   onPhoneLengthValidation: () {},
                   onOtpLengthValidation: () {
-                    showSnack(
-                        context: context,
-                        message: AuthenticationString.OTPVALIDATION);
+                    showSnack(context: context, message: 'enter 6 digit code');
                   },
                 ),
               ],
@@ -123,69 +120,58 @@ class OtpLoginPage extends HookWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // info text area
-                        FydText.d1black(
-                          text: AuthenticationString.OTPHEADING1,
-                          weight: FontWeight.w100,
+                        const FydText.d1black(
+                          text: 'Enter',
+                          weight: FontWeight.w600,
                         ),
-                        FydText.d1black(
-                          text: AuthenticationString.OTPHEADING2,
-                          weight: FontWeight.w100,
+                        const FydText.d1black(
+                          text: 'verification code',
+                          weight: FontWeight.w600,
                         ),
-                        FydText.h2white(
-                          text: AuthenticationString.TRANSPARENTTEXT,
-                          weight: FontWeight.w100,
+                        const FydText.h2custom(
+                          text: 'Transparent',
+                          color: Colors.transparent,
                         ),
-                        FydText.h2white(
-                          text: AuthenticationString.TRANSPARENTTEXT,
-                          weight: FontWeight.w100,
+                        const FydText.h2custom(
+                          text: 'Transparent',
+                          color: Colors.transparent,
                         ),
-                        FydText.h2white(
-                          text: AuthenticationString.TRANSPARENTTEXT,
-                          weight: FontWeight.w100,
+                        const FydText.h2custom(
+                          text: 'Transparent',
+                          color: Colors.transparent,
                         ),
+
                         //! phoneNumber via bloc state
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            FydText.b4black(
-                                text: AuthenticationString.OTPSUBHEADING),
-                            Builder(builder: (context) {
-                              final phoneNumber = context.select(
-                                  (PhoneLoginBloc bloc) =>
-                                      bloc.state.phoneNumber);
-                              return FydText.b2black(
-                                text:
-                                    Helpers.phoneMask(phoneNumber.getOrCrash()),
-                                weight: FontWeight.w600,
-                              );
-                            })
+                            const FydText.b3black(
+                              text: 'we have send you on +91 ',
+                              weight: FontWeight.w500,
+                            ),
+                            FydText.b2black(
+                              text: Helpers.phoneMask(
+                                  state.phoneNumber.getOrCrash()),
+                              letterSpacing: 1.5,
+                            ),
                           ],
                         ),
                         // Otp Textfield ui
                         Padding(
-                          padding: EdgeInsets.only(top: 25.h),
+                          padding: const EdgeInsets.only(top: 25),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               (otpText.value.isNotEmpty)
-                                  ? Text(
-                                      otpText.value,
-                                      style: TextStyle(
-                                          fontSize: 26.sp,
-                                          letterSpacing: 5.0,
-                                          color: Colors.black87,
-                                          fontWeight: FontWeight.w500),
+                                  ? FydText.h1black(
+                                      text: otpText.value,
+                                      letterSpacing: 3,
                                     )
-                                  : Text(
-                                      ("X-X-X-X-X-X"),
-                                      style: TextStyle(
-                                          fontSize: 26.sp,
-                                          letterSpacing: 3.0,
-                                          color: const Color.fromARGB(
-                                                  221, 104, 103, 103)
-                                              .withOpacity(.4),
-                                          fontWeight: FontWeight.w500),
+                                  : const FydText.h1custom(
+                                      text: "X-X-X-X-X-X",
+                                      color: fydTGrey,
+                                      letterSpacing: 2,
                                     ),
                             ],
                           ),
@@ -200,7 +186,12 @@ class OtpLoginPage extends HookWidget {
                     height: 60.h,
                     widget: (state.isSubmitting == true)
                         ? const SpinKitWave(color: fydPWhite, size: 20.0)
-                        : FydText.h1white(text: 'Confirm Otp'),
+                        : FydText.h2custom(
+                            text: 'Confirm Otp',
+                            color: (otpText.value.length != 6)
+                                ? fydTGrey
+                                : fydTWhite,
+                          ),
                     onPressed: () {
                       HapticFeedback.mediumImpact();
                       // validate if otp

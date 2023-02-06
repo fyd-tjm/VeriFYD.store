@@ -298,7 +298,10 @@ class ProductPage extends HookWidget {
                               FydText.h2white(text: 'Size'),
                               InkWell(
                                   onTap: () {},
-                                  child: FydText.b3grey(text: 'Size Guide'))
+                                  child: const FydText.b3custom(
+                                    text: 'Size Guide',
+                                    color: fydTGrey,
+                                  ))
                             ],
                           ),
                         ),
@@ -430,9 +433,10 @@ class ProductInfoSection extends StatelessWidget {
                 weight: FontWeight.bold,
               ),
             ),
-            FydText.b2grey(
+            FydText.b2custom(
               text: company,
               weight: FontWeight.w500,
+              color: fydTGrey,
             )
           ],
         ),
@@ -522,17 +526,19 @@ class ProductExpansionTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Description
-                  FydText.b2grey(
+                  FydText.b2custom(
                     text: description,
                     weight: FontWeight.w600,
+                    color: fydTGrey,
                   ),
                   SizedBox(
                     height: 20.h,
                   ),
                   // Policy
-                  FydText.b2grey(
+                  FydText.b2custom(
                     text: policy,
                     weight: FontWeight.w600,
+                    color: fydTGrey,
                   ),
                 ],
               ),

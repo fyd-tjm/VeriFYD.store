@@ -32,19 +32,19 @@ TextStyle display30 = GoogleFonts.exo2(
 TextStyle heading22 = GoogleFonts.exo2(
   textStyle: TextStyle(
     fontSize: 26.sp,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.bold,
   ),
 );
 TextStyle heading20 = GoogleFonts.exo2(
   textStyle: TextStyle(
     fontSize: 24.sp,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.bold,
   ),
 );
 TextStyle heading18 = GoogleFonts.exo2(
   textStyle: TextStyle(
     fontSize: 22.sp,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.bold,
   ),
 );
 

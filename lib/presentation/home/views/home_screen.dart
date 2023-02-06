@@ -20,92 +20,92 @@ class HomeScreen extends StatelessWidget {
       topSheetHeight: 420.h,
       pageViewType: PageViewType.with_Nav_Bar,
       topSheet: Column(
-        children: [
-          //! veriFyd.store heading
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FydText.d3black(
-                text: 'veriFyd.store',
-                weight: FontWeight.w100,
-              ),
-            ],
-          ).paddingOnly(top: 10.h),
-          //! Search Bar
-          GestureDetector(
-            onTap: () =>
-                showSearch(context: context, delegate: DataSearch(context)),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 60.h,
-                  width: 360.w,
-                  child: Card(
-                    elevation: 15.0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        //! icon
-                        Icon(
-                          Icons.manage_search_sharp,
-                          size: 32.sp,
-                          color: fydPDgrey,
-                        ).paddingSymmetric(horizontal: 15.w),
+          // children: [
+          //   //! veriFyd.store heading
+          //   Row(
+          //     mainAxisSize: MainAxisSize.max,
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       FydText.d3black(
+          //         text: 'veriFyd.store',
+          //         weight: FontWeight.w100,
+          //       ),
+          //     ],
+          //   ).paddingOnly(top: 10.h),
+          //   //! Search Bar
+          //   GestureDetector(
+          //     onTap: () =>
+          //         showSearch(context: context, delegate: DataSearch(context)),
+          //     child: Row(
+          //       mainAxisSize: MainAxisSize.max,
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         SizedBox(
+          //           height: 60.h,
+          //           width: 360.w,
+          //           child: Card(
+          //             elevation: 15.0,
+          //             shape: RoundedRectangleBorder(
+          //                 borderRadius: BorderRadius.circular(10.r)),
+          //             child: Row(
+          //               mainAxisAlignment: MainAxisAlignment.start,
+          //               crossAxisAlignment: CrossAxisAlignment.center,
+          //               mainAxisSize: MainAxisSize.max,
+          //               children: [
+          //                 //! icon
+          //                 Icon(
+          //                   Icons.manage_search_sharp,
+          //                   size: 32.sp,
+          //                   color: fydPDgrey,
+          //                 ).paddingSymmetric(horizontal: 15.w),
 
-                        //! hint Text
-                        Expanded(
-                            child: FydText.b3grey(
-                          text: 'Find Store via name (or) #id',
-                        )),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ).paddingOnly(top: 8.h),
+          //                 //! hint Text
+          //                 Expanded(
+          //                     child: FydText.b3grey(
+          //                   text: 'Find Store via name (or) #id',
+          //                 )),
+          //               ],
+          //             ),
+          //           ),
+          //         )
+          //       ],
+          //     ).paddingOnly(top: 8.h),
+          //   ),
+          //   //! Banners
+          //   SizedBox(
+          //     height: 420.h / 3,
+          //     width: double.infinity,
+          //     child: CarouselSlider(
+          //       options: CarouselOptions(
+          //           aspectRatio: 3.2,
+          //           enlargeCenterPage: true,
+          //           scrollDirection: Axis.horizontal,
+          //           autoPlay: true,
+          //           viewportFraction: 0.9,
+          //           enlargeStrategy: CenterPageEnlargeStrategy.height),
+          //       items: MockUi.imageSliders,
+          //     ),
+          //   ).paddingOnly(top: 15.h),
+
+          //   // //! Category subHeading
+          //   Row(
+          //     children: [
+          //       FydText.b2grey(
+          //         text: 'Category',
+          //         weight: FontWeight.w600,
+          //         color: fydPLgrey,
+          //       )
+          //     ],
+          //   ).paddingOnly(top: 20.h, left: 15.w),
+          //   //! Category list
+          //   FydHListView(
+          //           height: 80.h,
+          //           separation: 35.w,
+          //           itemCount: MockUi.categoryIconList.length,
+          //           listWidget: MockUi.categoryIconList)
+          //       .paddingOnly(top: 10.h),
+          // ],
           ),
-          //! Banners
-          SizedBox(
-            height: 420.h / 3,
-            width: double.infinity,
-            child: CarouselSlider(
-              options: CarouselOptions(
-                  aspectRatio: 3.2,
-                  enlargeCenterPage: true,
-                  scrollDirection: Axis.horizontal,
-                  autoPlay: true,
-                  viewportFraction: 0.9,
-                  enlargeStrategy: CenterPageEnlargeStrategy.height),
-              items: MockUi.imageSliders,
-            ),
-          ).paddingOnly(top: 15.h),
-
-          // //! Category subHeading
-          Row(
-            children: [
-              FydText.b2grey(
-                text: 'Category',
-                weight: FontWeight.w600,
-                color: fydPLgrey,
-              )
-            ],
-          ).paddingOnly(top: 20.h, left: 15.w),
-          //! Category list
-          FydHListView(
-                  height: 80.h,
-                  separation: 35.w,
-                  itemCount: MockUi.categoryIconList.length,
-                  listWidget: MockUi.categoryIconList)
-              .paddingOnly(top: 10.h),
-        ],
-      ),
       bottomSheet: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

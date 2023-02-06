@@ -264,7 +264,8 @@ class OrdersTile extends StatelessWidget {
                         ),
                       ],
                     ),
-                    FydText.b4grey(
+                    FydText.b4custom(
+                      color: fydTGrey,
                       text:
                           DateFormat("dd-MM-yyyy").format(fydOrder.orderDate!),
                       weight: FontWeight.bold,

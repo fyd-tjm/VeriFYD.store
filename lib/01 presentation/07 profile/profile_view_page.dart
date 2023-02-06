@@ -11,6 +11,7 @@ import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 import 'package:verifyd_store/utils/router.dart';
+import 'package:verifyd_store/utils/router.gr.dart';
 
 import 'widgets/exports.dart';
 
@@ -164,7 +165,8 @@ class ProfileViewPage extends StatelessWidget {
                     // Profile-Name
                     Padding(
                       padding: EdgeInsets.only(top: 10.h, bottom: 4.h),
-                      child: FydText.h3grey(text: fydUser.name),
+                      child:
+                          FydText.h3custom(color: fydTGrey, text: fydUser.name),
                     ),
 
                     // Profile-Phone
@@ -175,8 +177,10 @@ class ProfileViewPage extends StatelessWidget {
 
                     // Profile-email
                     (fydUser.email.isEmpty)
-                        ? FydText.b1grey(text: 'user@email.com')
-                        : FydText.b1grey(text: fydUser.email),
+                        ? FydText.b1custom(
+                            color: fydTGrey, text: 'user@email.com')
+                        : FydText.b1custom(
+                            color: fydTGrey, text: fydUser.email),
                   ],
                 ),
               ),
@@ -245,10 +249,15 @@ class ProfileViewPage extends StatelessWidget {
           ),
           Center(
             child: TextButton(
-              onPressed: () {
-                context.read<FydUserCubit>().logOutUser();
+              onPressed: () async {
+                await context.read<FydUserCubit>().logOutUser();
+                context.router.replaceAll(const [
+                  LoginRouter(
+                    children: [PhoneLoginRoute()],
+                  )
+                ]);
               },
-              child: FydText.b2custom(
+              child: const FydText.b2custom(
                 text: 'Logout',
                 color: fydBlueGrey,
                 weight: FontWeight.bold,

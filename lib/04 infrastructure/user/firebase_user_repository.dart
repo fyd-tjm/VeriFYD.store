@@ -27,8 +27,10 @@ class FirebaseUserRepository implements IUserRepository {
 
 //?-Create-User-----------------------------------------------------------------
   @override
-  Future<Either<UserFailure, Unit>> createUser(
-      {required String name, required String email}) async {
+  Future<Either<UserFailure, Unit>> createUser({
+    required String name,
+    required String email,
+  }) async {
     try {
       // create fydUser
       final fydUser = FydUser(
@@ -55,7 +57,6 @@ class FirebaseUserRepository implements IUserRepository {
     yield* userDoc.snapshots().map((userSnapshot) {
       return right<UserFailure, FydUser?>(userSnapshot.data());
     }).onErrorReturnWith((error, stackTrace) {
-      log('Infra: error.toString()');
       return left(UserFailureMapper.failureMapper(error));
     });
   }

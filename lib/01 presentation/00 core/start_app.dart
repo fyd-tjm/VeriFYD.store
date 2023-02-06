@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:developer';
+import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,20 +33,23 @@ class StartApp extends StatelessWidget {
               ),
             ],
             child: MaterialApp.router(
-                title: 'veriFYD.store',
-                routerDelegate: appRouter.delegate(
-                  navigatorObservers: () => [MainRouterObserver()],
-                ),
-                routeInformationParser: appRouter.defaultRouteParser(),
-                theme: ThemeData.dark().copyWith(
-                  scaffoldBackgroundColor: fydPDgrey,
-                  textSelectionTheme: const TextSelectionThemeData(
-                      selectionHandleColor: fydLogoBlue),
-                  pageTransitionsTheme: const PageTransitionsTheme(builders: {
-                    // TargetPlatform.iOS: NoShadowCupertinoPageTransitionsBuilder(),
-                    TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-                  }),
-                )),
+              title: 'veriFYD.store',
+              routerDelegate: appRouter.delegate(
+                navigatorObservers: () => [MainRouterObserver()],
+              ),
+              routeInformationParser: appRouter.defaultRouteParser(),
+              theme: ThemeData.dark().copyWith(
+                scaffoldBackgroundColor: fydPDgrey,
+                textSelectionTheme: const TextSelectionThemeData(
+                    selectionHandleColor: fydLogoBlue),
+                pageTransitionsTheme: const PageTransitionsTheme(builders: {
+                  // TargetPlatform.iOS: NoShadowCupertinoPageTransitionsBuilder(),
+                  TargetPlatform.android: SharedAxisPageTransitionsBuilder(
+                    transitionType: SharedAxisTransitionType.horizontal,
+                  ),
+                }),
+              ),
+            ),
           );
         });
   }
@@ -75,7 +79,7 @@ class MyGlobalObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    print('onChange Bloc type-- ${bloc.runtimeType}');
+    print('onChange Bloc type-- ${bloc.runtimeType} -- ${change.currentState}');
     // print('onChange Bloc CurrentState-- ${change.currentState}');
     // print('onChange Bloc NextState-- ${change.nextState}');
   }

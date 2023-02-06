@@ -57,7 +57,7 @@ class ProfileTile extends StatelessWidget {
               // tile-title
               FydText.h2white(text: title),
               // tile-description
-              FydText.b3grey(text: description)
+              FydText.b3custom(color: fydTGrey, text: description)
             ],
           )
         ],
