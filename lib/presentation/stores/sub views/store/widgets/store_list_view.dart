@@ -15,35 +15,55 @@ class StoreListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: ListView.separated(
-        padding: EdgeInsets.symmetric(vertical: 15.h),
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: (1 + widgetList.length),
-        itemBuilder: ((context, index) {
-          if (index == (widgetList.length)) {
-            return Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TextButton(
-                    onPressed: onPressed, child: FydText.b3white(text: footer)),
-              ],
-            );
-          } else {
-            if (index.isEven) {
-              return widgetList[index];
+    return ShaderMask(
+      shaderCallback: (Rect rect) {
+        return const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            fydLogoBlue,
+            Colors.transparent,
+            Colors.transparent,
+            fydLogoBlue
+          ],
+          stops: [0.0, 0.04, 0.96, 1.0],
+        ).createShader(rect);
+      },
+      blendMode: BlendMode.dstOut,
+      child: SizedBox(
+        width: double.infinity,
+        child: ListView.separated(
+          padding: EdgeInsets.symmetric(vertical: 20.h),
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: (1 + widgetList.length),
+          itemBuilder: ((context, index) {
+            if (index == (widgetList.length)) {
+              return Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  TextButton(
+                      onPressed: onPressed,
+                      child: FydText.b3custom(
+                        text: footer,
+                        color: fydBlueGrey,
+                      )),
+                ],
+              );
             } else {
-              return const SizedBox.shrink();
+              if (index.isEven) {
+                return widgetList[index];
+              } else {
+                return const SizedBox.shrink();
+              }
             }
-          }
-        }),
-        separatorBuilder: (context, index) => SizedBox(
-          height: 5.h,
+          }),
+          separatorBuilder: (context, index) => SizedBox(
+            height: 5.h,
+          ),
         ),
       ),
     );

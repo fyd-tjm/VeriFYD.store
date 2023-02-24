@@ -30,13 +30,10 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductBloc(this._iStoreRepo, this._iCartRepo, this._cartCubit,
       this._fydUserCubit, this._sharedInfoCubit)
       : super(ProductState.initial()) {
-    String? cartRef;
-
 //?--Get-Product-In-Realtime----------------------------------------------------
 
     on<GetProductRealtime>((event, emit) {
       //------
-      cartRef = Helpers.getCartRef(userId: _fydUserCubit.state.fydUser!.uId);
       if (_cartCubit.state.cartRealtime == null) {
         _cartCubit.initializeCart();
       }
@@ -80,9 +77,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 //?--Add-To-Cart----------------------------------------------------------------
 
     on<AddToCart>((event, emit) {
+      if (state.addingToCart) return;
       //------
       emit(state.copyWith(addingToCart: true, cartFailureOrSuccess: none()));
       //------
+
       final productsStoreId = state.productRealtime!.storeId;
       final cartId = _cartCubit.state.cartRealtime!.cartId;
 

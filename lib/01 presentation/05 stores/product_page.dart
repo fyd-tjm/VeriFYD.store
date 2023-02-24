@@ -6,11 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
 import 'package:verifyd_store/01%20presentation/05%20stores/store_info_view_page.dart';
 import 'package:verifyd_store/02%20application/product/product_bloc.dart';
-import 'package:verifyd_store/presentation/core/widgets/fyd_text_ellipsis.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 
 import 'widgets/export_widgets.dart';
@@ -44,12 +44,18 @@ class ProductPage extends HookWidget {
     final imageIndex = useState(0);
     final selectedSize = useState('');
 
-    return Scaffold(
-      backgroundColor: fydPDgrey,
-      body: SafeArea(
-        child: BlocConsumer<ProductBloc, ProductState>(
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: BlocConsumer<ProductBloc, ProductState>(
+          listenWhen: (previous, current) {
+            if (context.router.currentUrl == '/product') {
+              return true;
+            }
+            return false;
+          },
           listener: (context, state) {
-            // Failure-Product
+            //! Failure
             if (state.failure.isSome()) {
               state.failure.fold(
                   () => null,
@@ -58,38 +64,36 @@ class ProductPage extends HookWidget {
                         message: productFailure.when(
                           permissionDenied: () => 'permission-denied',
                           notFound: () => 'product not found',
-                          serverError: () => 'server error, try again',
-                          unexpectedError: () => 'unexpected error, try again',
+                          serverError: () => 'server error, try later!',
+                          unexpectedError: () => 'unexpected error, try later!',
                         ),
                       ));
             }
-            // Failure(Or)Success-AddingToCart
+            //! Failure(Or)Success-AddingToCart
             if (state.cartFailureOrSuccess.isSome()) {
               state.cartFailureOrSuccess.fold(
-                  () => null,
-                  (failureOrSuccess) => failureOrSuccess.fold(
-                        (addCartFailure) => addCartFailure.whenOrNull(
-                          maxItemAvailability: () => showSnack(
-                              context: context,
-                              message: 'max Item Availability'),
-                          maxCartLimit: () => showSnack(
-                              context: context, message: 'max Cart limit'),
-                          unexpectedError: (e) => showSnack(
-                              context: context,
-                              message: 'unexpected Error, try again!'),
-                        ),
-                        (addCartSuccess) => showSnack(
-                            context: context, message: 'item Added to cart'),
-                      ));
+                () => null,
+                (failureOrSuccess) => showSnack(
+                    context: context,
+                    durationSeconds: 1,
+                    textSize: 18,
+                    message: failureOrSuccess.fold(
+                      (failure) => failure.whenOrNull(
+                        maxItemAvailability: () => 'No more left in stock',
+                        maxCartLimit: () => 'Max cart limit reached.',
+                        unexpectedError: (e) => 'unexpected Error, try later!',
+                      ),
+                      (success) => 'item Added to cart!',
+                    )),
+              );
             }
-            // Cart-Permission-state
+            //! Cart-Permission-state
             if (state.newCartPermissionState == true) {
-              //? dialog and add newCartEvent
               showPermissionDialog(
                 context: context,
-                // title: 'title',
+                title: 'Alert!',
                 message:
-                    'Items of other Store exists in cart. \n Should we proceed by removing those ',
+                    'Items of other Store exists in cart. Should we proceed by removing those ',
               ).then((permission) {
                 if (permission == true) {
                   context
@@ -99,35 +103,59 @@ class ProductPage extends HookWidget {
               });
             }
           },
-          buildWhen: (previous, current) {
-            return true;
-          },
           builder: (context, state) {
+            //! fetching
             if (state.isFetching && state.productRealtime == null) {
               return const Center(
                 child: SpinKitWave(
-                  color: fydBlueGrey,
+                  color: fydLogoBlue,
                   size: 40.0,
                 ),
               );
-            } else if (state.productRealtime == null) {
-              return Center(
-                child: FydText.h1custom(
-                  text: 'product not available at the moment',
-                  weight: FontWeight.w700,
-                  color: fydBlueGrey,
-                ),
+            }
+            //! null
+            else if (state.productRealtime == null) {
+              return Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Image.network(
+                    'https://imgtr.ee/images/2023/02/18/OHk7I.png',
+                    fit: BoxFit.fitWidth,
+                    width: 250,
+                  ),
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 100),
+                    child: FydBtn(
+                      color: fydPGrey,
+                      onPressed: () => context.router.pop(),
+                      height: 50,
+                      fydText: const FydText.b1custom(
+                        text: 'Go Back',
+                        color: fydBlueGrey,
+                      ),
+                    ),
+                  )
+                ],
               );
             }
             //! product-Page
             else {
+              final inStock = (state.productRealtime!.inStock ||
+                  !state.productRealtime!.sizeAvailability.values
+                      .every((value) => value == 0));
               return FydView(
                 pageViewType: ViewType.without_Nav_Bar,
                 isScrollable: false,
                 topSheetHeight: 350.h,
-                topSheetColor: fydPDgrey,
-                topSheet: _topSheetView(context, state, imageIndex),
-                bottomSheet: _bottomSheetView(context, state, selectedSize),
+                topSheetColor: fydPGrey,
+                topSheet: _topSheetView(context, state, imageIndex, inStock),
+                bottomSheet:
+                    _bottomSheetView(context, state, selectedSize, inStock),
               );
             }
           },
@@ -141,17 +169,32 @@ class ProductPage extends HookWidget {
     BuildContext context,
     ProductState state,
     ValueNotifier<int> imageIndex,
+    bool inStock,
   ) {
-    final inStock = state.productRealtime!.inStock;
     return Stack(
       fit: StackFit.expand,
       children: [
-        // image-carousel
+        //! image-carousel
         (state.productRealtime!.productImages.isEmpty)
-            ? Placeholder(
-                child: Center(
-                  child: FydText.b1white(text: 'Image Not Available'),
-                ),
+            ? Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.hide_image_outlined,
+                    size: 150.h,
+                    color: fydTGrey,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20.h),
+                    child: const FydText.b2custom(
+                      text: 'Image Not Available',
+                      color: fydTGrey,
+                      letterSpacing: .9,
+                      weight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               )
             : ProductCarouselSlider(
                 imageUrls: (inStock)
@@ -163,7 +206,7 @@ class ProductPage extends HookWidget {
                   imageIndex.value = idx;
                 },
               ),
-        // dot Indicators
+        //! dot Indicators
         Padding(
           padding: EdgeInsets.only(bottom: 15.h),
           child: Align(
@@ -182,32 +225,19 @@ class ProductPage extends HookWidget {
                 ),
               )),
         ),
-
-        // close Btn
-        Padding(
-          padding: EdgeInsets.only(left: 15.w, top: 15.w),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  minimumSize: Size.zero,
-                  padding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r)),
-                  primary: fydPDgrey),
-              child: Padding(
-                padding: EdgeInsets.all(5.w),
-                child: Icon(
-                  Icons.close_rounded,
-                  size: 30.w,
-                  color: fydDustyPeach,
-                ),
-              ),
-              //! back to previous route navigation
-              onPressed: () {
-                context.router.navigateBack();
-              },
-            ),
+        //! back Btn
+        Align(
+          alignment: Alignment.topCenter,
+          child: FydAppBar(
+            leading: AppBarBtn(
+                iconData: FontAwesomeIcons.arrowLeftLong,
+                iconSize: 20,
+                padding: const EdgeInsets.all(10.0),
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  context.router.pop();
+                }),
+            main: const SizedBox(),
           ),
         ),
       ],
@@ -219,37 +249,40 @@ class ProductPage extends HookWidget {
     BuildContext context,
     ProductState state,
     ValueNotifier<String> selectedSize,
+    bool inStock,
   ) {
-    //! product-loading
-    if (state.isFetching && state.productRealtime == null) {
-      return Center(
-        child: SpinKitWave(
-          color: fydBlueGrey,
-          size: 30.w,
-        ),
+    //! sold out
+    if (inStock == false) {
+      return Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          //! sold-out Image
+          Image.asset(
+            'assets/logo/soldout.png',
+            fit: BoxFit.contain,
+            height: 300.h,
+          ),
+          //! go-back btn
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: FydBtn(
+              onPressed: () {
+                HapticFeedback.lightImpact();
+                context.router.pop();
+              },
+              color: fydPGrey,
+              fydText: const FydText.h3custom(
+                text: 'Go back ←',
+                color: fydLogoBlue,
+                weight: FontWeight.w600,
+              ),
+            ),
+          )
+        ],
       );
     }
-    //! product-Error
-    else if (state.isFetching == false && state.productRealtime == null) {
-      return Center(
-        child: FydText.b1custom(
-          text: 'something went wrong!',
-          color: fydBlueGrey,
-          weight: FontWeight.bold,
-        ),
-      );
-    }
-    //! product-stockout
-    else if (state.productRealtime!.inStock == false) {
-      return Center(
-        child: FydText.b1custom(
-          text: 'Stock out!',
-          color: fydBlueGrey,
-          weight: FontWeight.bold,
-        ),
-      );
-    }
-    //! product-Info-view
+    //! product-details
     else {
       // filter map for stockout sizes
       final sizeMap = Map.of(state.productRealtime!.sizeAvailability)
@@ -258,135 +291,198 @@ class ProductPage extends HookWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          //! Product-Detail-Section
           Expanded(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+                padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 15.h),
                 child: Column(
                   children: [
-                    const Divider(
-                      color: fydBlueGrey,
-                      thickness: 1.2,
-                      height: 30,
+                    const FydDivider(color: fydBlueGrey),
+                    //! product-Info section
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 15.w,
+                        vertical: 15.h,
+                      ),
+                      child: ProductInfoSection(
+                        productName: state.productRealtime!.name,
+                        company: state.productRealtime!.company,
+                        price: state.productRealtime!.sellingPrice.toString(),
+                      ),
                     ),
-                    ProductInfoSection(
-                      productName: state.productRealtime!.name,
-                      company: state.productRealtime!.company,
-                      price: state.productRealtime!.sellingPrice.toString(),
-                    ),
-                    const Divider(
-                      color: fydBlueGrey,
-                      thickness: 1.2,
-                      height: 30,
-                    ),
-                    //? ProductSizeSection
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        //? size and sizeGuide btn
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 15.h),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              FydText.h2white(text: 'Size'),
-                              InkWell(
+                    const FydDivider(color: fydBlueGrey),
+                    //! Product-Size section
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 15.w,
+                        vertical: 15.h,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          //! top-section
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 10.h),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                //! heading
+                                const FydText.b2custom(
+                                  text: 'Size',
+                                  color: fydPWhite,
+                                  letterSpacing: .9,
+                                ),
+                                //! size-guide btn
+                                InkWell(
                                   onTap: () {},
                                   child: const FydText.b3custom(
                                     text: 'Size Guide',
                                     color: fydTGrey,
-                                  ))
-                            ],
+                                    weight: FontWeight.w500,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        //? Size-selection-List
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.w),
-                          child: Wrap(
-                            direction: Axis.horizontal,
-                            alignment: WrapAlignment.start,
-                            runAlignment: WrapAlignment.start,
-                            spacing: 20.w,
-                            runSpacing: 10.h,
-                            children: List.generate(
-                              sizeMap.entries.length,
-                              (idx) => ProductSizeTile(
-                                size: sizeMap.keys.elementAt(idx),
-                                tileColor: (selectedSize.value ==
-                                        sizeMap.keys.elementAt(idx))
-                                    ? fydLogoBlue
-                                    : fydPGrey,
-                                onPressed: (size) => selectedSize.value = size,
+                          //! Size-selection-List
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            child: Wrap(
+                              direction: Axis.horizontal,
+                              alignment: WrapAlignment.start,
+                              runAlignment: WrapAlignment.start,
+                              spacing: 20.w,
+                              runSpacing: 10.h,
+                              children: List.generate(
+                                sizeMap.entries.length,
+                                (idx) => ProductSizeTile(
+                                  size: sizeMap.keys.elementAt(idx),
+                                  tileColor: (selectedSize.value ==
+                                          sizeMap.keys.elementAt(idx))
+                                      ? fydLogoBlue.withOpacity(.8)
+                                      : fydPGrey,
+                                  onPressed: (size) =>
+                                      selectedSize.value = size,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                    const Divider(
-                      color: fydBlueGrey,
-                      thickness: 1.2,
-                      height: 30,
-                    ),
-                    StoreInfoExpansionTile(
-                      title: 'Description & Policy',
-                      color: fydBlueGrey,
-                      widgets: [
-                        FydTextCard(
-                          backgroundColor: Colors.transparent,
-                          message: (state.productRealtime!.description.isEmpty)
-                              ? 'Description is Empty at the moment. show the policy in this scenario.'
-                              : state.productRealtime!.description,
-                          textColor: fydGreyWhite,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 15.w, vertical: 15.w),
-                        ),
-                        FydTextCard(
-                          backgroundColor: Colors.transparent,
-                          message: (state.productRealtime!.description.isEmpty)
-                              ? 'Description is Empty at the moment. show the policy in this scenario.'
-                              : state.productRealtime!.description,
-                          textColor: fydGreyWhite,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 15.w, vertical: 15.w),
-                        ),
-                      ],
+                    const FydDivider(color: fydBlueGrey),
+                    //! Description and policy
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 15.w,
+                        vertical: 15.h,
+                      ),
+                      child: StoreInfoExpansionTile(
+                        title: 'Description & Policy',
+                        titleSize: 18,
+                        color: fydPWhite,
+                        widgets: [
+                          //! sku+storeId
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: 20.w,
+                              right: 20.w,
+                              top: 10.h,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                //! storeId
+                                FydRichText(
+                                  size: 14,
+                                  color: fydTGrey,
+                                  weight: FontWeight.w600,
+                                  textList: [
+                                    const TextSpan(text: 'storeId : '),
+                                    TextSpan(
+                                        text: state.productRealtime!.storeId,
+                                        style: const TextStyle(
+                                            color: fydBlueGrey,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700)),
+                                  ],
+                                ),
+                                //! skuId
+                                FydRichText(
+                                  size: 14,
+                                  color: fydTGrey,
+                                  weight: FontWeight.w600,
+                                  textList: [
+                                    const TextSpan(text: 'skuId : '),
+                                    TextSpan(
+                                        text: state.productRealtime!.skuId,
+                                        style: const TextStyle(
+                                            color: fydBlueGrey,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700)),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          //! description
+                          FydTextCard(
+                            backgroundColor: Colors.transparent,
+                            message: state.productRealtime!.description,
+                            textColor: fydBlueGrey,
+                            textSize: 15,
+                            weight: FontWeight.w500,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 15.w, vertical: 15.w),
+                          ),
+                          //! policy
+                          FydTextCard(
+                            backgroundColor: Colors.transparent,
+                            message: state.productRealtime!.policy,
+                            textColor: fydTGrey,
+                            textSize: 14,
+                            weight: FontWeight.w500,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 15.w, vertical: 25.w),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
           ),
-
           //! AddToCart-BTN
           Padding(
             padding: EdgeInsets.only(
-                bottom: 25.h, top: 15.h, left: 15.w, right: 15.w),
+                bottom: 25.h, top: 10.h, left: 10.w, right: 10.w),
             child: FydBtn(
               height: 60.h,
               color: fydPGrey,
               widget: (state.addingToCart == true)
                   ? const SpinKitWave(color: fydLogoBlue, size: 20.0)
-                  : FydText.h1custom(
-                      text: 'Add to Cart',
+                  : const FydText.h3custom(
+                      text: 'Add to Cart  ➢',
                       color: fydLogoBlue,
+                      weight: FontWeight.w600,
                     ),
               onPressed: () {
                 if (state.addingToCart == true) {
                   return;
                 } else if (selectedSize.value.isEmpty) {
                   return showSnack(
-                      durationSeconds: 2,
+                      viewType: SnackBarViewType.withoutNav,
+                      durationSeconds: 3,
                       context: context,
-                      fydText: FydText.h1black(
-                          weight: FontWeight.bold,
-                          text: 'select Size before adding to Cart'));
+                      message: 'select  SIZE  before adding to Cart',
+                      textSize: 18);
                 } else {
                   context
                       .read<ProductBloc>()
@@ -421,33 +517,38 @@ class ProductInfoSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        //! product-company names
         Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FydTextEllipsis(
+            FydEllipsisText(
               width: MediaQuery.of(context).size.width * (2 / 3),
-              fydText: FydText.b1white(
+              fydText: FydText.b2custom(
                 text: productName,
-                weight: FontWeight.bold,
+                color: fydPWhite,
+                weight: FontWeight.w700,
               ),
             ),
-            FydText.b2custom(
+            FydText.b4custom(
               text: company,
-              weight: FontWeight.w500,
+              weight: FontWeight.bold,
               color: fydTGrey,
+              letterSpacing: .9,
             )
           ],
         ),
+        //! price
         Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FydText.h3custom(
+            FydText.b1custom(
               text: '₹ $price',
               color: fydLogoBlue,
+              weight: FontWeight.w600,
             ),
           ],
         ),
@@ -484,7 +585,7 @@ class ProductSizeTile extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
           ),
-          child: Center(child: FydText.h2custom(text: size, color: fydPWhite)),
+          child: Center(child: FydText.b1custom(text: size, color: fydPWhite)),
         ),
       ),
     );
@@ -492,64 +593,3 @@ class ProductSizeTile extends StatelessWidget {
 }
 
 //?-----------------------------------------------------------------------------
-//! product-expansion-tile
-class ProductExpansionTile extends StatelessWidget {
-  const ProductExpansionTile({
-    Key? key,
-    required this.description,
-    required this.policy,
-  }) : super(key: key);
-  final String description;
-  final String policy;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: fydPGrey,
-      child: Padding(
-        padding:
-            const EdgeInsets.only(top: 0.0, left: 0.0, right: 0.0, bottom: 0.0),
-        child: ExpansionTile(
-          iconColor: fydSOrange,
-          collapsedIconColor: fydDustyPeach,
-          title: FydText.h3custom(
-            color: fydDustyPeach,
-            text: 'Description and Policy',
-            weight: FontWeight.w600,
-          ),
-          onExpansionChanged: (bool value) {},
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 20.w),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Description
-                  FydText.b2custom(
-                    text: description,
-                    weight: FontWeight.w600,
-                    color: fydTGrey,
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  // Policy
-                  FydText.b2custom(
-                    text: policy,
-                    weight: FontWeight.w600,
-                    color: fydTGrey,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-//?-----------------------------------------------------------------------------
-

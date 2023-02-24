@@ -1,8 +1,11 @@
 import 'dart:developer';
 
+import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -10,7 +13,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
 import 'package:verifyd_store/presentation/stores/sub%20views/store/widgets/store_list_view.dart';
-import 'package:verifyd_store/presentation/stores/sub%20views/store/widgets/store_name_header.dart';
 import 'package:verifyd_store/01%20presentation/05%20stores/widgets/store_product_card.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
@@ -19,6 +21,7 @@ import 'package:verifyd_store/utils/router.gr.dart';
 import '../../02 application/stores/store/store_bloc.dart';
 import '../../presentation/core/widgets/fyd_v_h_listview.dart';
 import 'widgets/export_widgets.dart';
+import 'widgets/store_offer_card.dart';
 
 //?-----------------------------------------------------------------------------
 
@@ -31,8 +34,6 @@ class StoreViewWrapperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(context.router.currentUrl);
-    log(storeId);
     return BlocProvider(
       create: (context) =>
           getIt<StoreBloc>()..add(GetStoreRealtime(storeId: storeId)),
@@ -45,9 +46,7 @@ class StoreViewWrapperPage extends StatelessWidget {
               trueBtnTitle: 'Yes');
           return popResult ?? false;
         },
-        child: StoreViewPage(
-          color: Helpers.getRandomColor(),
-        ),
+        child: const StoreViewPage(),
       ),
     );
   }
@@ -55,18 +54,20 @@ class StoreViewWrapperPage extends StatelessWidget {
 //?-----------------------------------------------------------------------------
 
 class StoreViewPage extends StatelessWidget {
-  const StoreViewPage({Key? key, required this.color}) : super(key: key);
-
-  final Color color;
+  const StoreViewPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: BlocConsumer<StoreBloc, StoreState>(
+    log(context.router.currentUrl);
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: BlocConsumer<StoreBloc, StoreState>(
           listenWhen: (previous, current) {
-            //TODO: router logic
-            return true;
+            if (context.tabsRouter.currentUrl == '/main/stores') {
+              return true;
+            }
+            return false;
           },
           listener: (context, state) {
             if (state.failure.isSome()) {
@@ -75,6 +76,7 @@ class StoreViewPage extends StatelessWidget {
                 (storeOrProductFailure) => storeOrProductFailure.fold(
                   (storeFailure) => showSnack(
                     context: context,
+                    viewType: SnackBarViewType.withNav,
                     message: storeFailure.when(
                       permissionDenied: () => 'permission denied',
                       notFound: () => 'store not found',
@@ -84,6 +86,7 @@ class StoreViewPage extends StatelessWidget {
                   ),
                   (productFailure) => showSnack(
                     context: context,
+                    viewType: SnackBarViewType.withNav,
                     message: productFailure.when(
                       permissionDenied: () => 'permission denied',
                       notFound: () => 'product not found',
@@ -95,17 +98,13 @@ class StoreViewPage extends StatelessWidget {
               );
             }
           },
-          buildWhen: (previous, current) {
-            //TODO: router/buildWhen logic
-            return true;
-          },
           builder: (context, state) {
             //! loading
             if (state.isFetching && state.storeRealtime == null) {
               return const Center(
                 child: SpinKitWave(
-                  color: fydBlueGrey,
-                  size: 40.0,
+                  color: fydLogoBlue,
+                  size: 30.0,
                 ),
               );
             }
@@ -115,10 +114,10 @@ class StoreViewPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  FydText.h3custom(
-                    text: 'store not available at the moment',
-                    weight: FontWeight.w700,
-                    color: fydBlueGrey,
+                  Image.asset(
+                    'assets/logo/oops.png',
+                    fit: BoxFit.fitWidth,
+                    width: 250,
                   ),
                   const SizedBox(
                     height: 100,
@@ -127,10 +126,13 @@ class StoreViewPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 50, vertical: 100),
                     child: FydBtn(
+                      color: fydPGrey,
                       onPressed: () => context.router.navigateBack(),
                       height: 50,
-                      fydText:
-                          FydText.b1custom(text: 'Go Back', color: fydBlueGrey),
+                      fydText: const FydText.b1custom(
+                        text: 'Go Back',
+                        color: fydBlueGrey,
+                      ),
                     ),
                   )
                 ],
@@ -141,7 +143,6 @@ class StoreViewPage extends StatelessWidget {
               return FydView(
                 pageViewType: ViewType.with_Nav_Bar,
                 isScrollable: false,
-                topSheetColor: color,
                 topSheetHeight: 200.h,
                 topSheet: _topSheetView(context, state),
                 bottomSheet: _bottomSheetView(context, state),
@@ -156,15 +157,10 @@ class StoreViewPage extends StatelessWidget {
 //?--TopSheetView---------------------------------------------------------------
   _topSheetView(BuildContext context, StoreState state) {
     //-------
-    final messages = <dynamic, String>{};
-    state.storeRealtime!.storeAlerts.forEach((key, value) {
-      final entry = {key: value};
-      messages.addAll(entry);
-    });
-    state.storeRealtime!.offers.forEach((key, value) {
-      final entry = {key: value};
-      messages.addAll(entry);
-    });
+    final messages = <dynamic, String>{
+      ...state.storeRealtime!.storeAlerts,
+      ...state.storeRealtime!.offers
+    };
     //-------
     return Column(
       mainAxisSize: MainAxisSize.max,
@@ -172,32 +168,23 @@ class StoreViewPage extends StatelessWidget {
       children: [
         //! AppBar (backBTN + heading)
         FydAppBar(
-          leading: Center(
-            child: IconButton(
-              //!: back navigation
+          //! close-btn
+          leading: AppBarBtn(
+              iconData: Icons.close_rounded,
               onPressed: () {
+                HapticFeedback.mediumImpact();
                 context.router.pop();
-              },
-              icon: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                size: 30.w,
-                color: Helpers.getContrastColor(color),
-              ),
-            ),
-          ),
+              }),
+          //! store name
           main: Center(
-            child: StoreNameHeader(storeName: state.storeRealtime!.name),
-          ),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.star_outlined,
-                size: 20.w,
-              ),
-            ],
+            child: FydAutoScrollingText(
+                width: 300.w,
+                height: 50.h,
+                velocity: 10,
+                fydText: FydText.h3custom(
+                  text: state.storeRealtime!.name,
+                  color: fydPGrey,
+                )),
           ),
         ),
         //! Message/offers Section
@@ -206,10 +193,22 @@ class StoreViewPage extends StatelessWidget {
           child: CarouselSlider(
             items: List.generate(
               messages.length,
-              (index) => FydTextCard(
+              (index) => StoreOfferCard(
                 message: messages.values.elementAt(index),
-                textColor: Helpers.getContrastColor(color),
-                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                iconData: Icons.auto_awesome_mosaic_outlined,
+                onTap: (message) async {
+                  await showModal<bool>(
+                    context: context,
+                    configuration: const FadeScaleTransitionConfiguration(
+                      barrierDismissible: true,
+                    ),
+                    useRootNavigator: false,
+                    builder: (context) => FydCloseDialog(
+                      message: message,
+                      onClose: () => Navigator.of(context).pop(true),
+                    ),
+                  );
+                },
               ),
             ),
             options: CarouselOptions(
@@ -231,24 +230,25 @@ class StoreViewPage extends StatelessWidget {
               //! storeId
               Row(
                 children: [
-                  FydText.b3custom(
+                  const FydText.b3custom(
                     text: "store Id: ",
-                    color: Helpers.getContrastColor(color),
+                    color: fydLogoBlue,
                     weight: FontWeight.bold,
                   ),
-                  FydText.b2custom(
+                  FydText.b3custom(
                     text: state.storeRealtime!.storeId,
-                    color: fydBlueGrey,
+                    color: fydTGrey,
                     weight: FontWeight.bold,
+                    letterSpacing: .9,
                   )
                 ],
               ),
               //! storeInfo
               InkWell(
                 onTap: () {
+                  HapticFeedback.lightImpact();
                   context.router.push(
-                    StoreInfoViewWrapperRoute(
-                        store: state.storeRealtime!, color: color),
+                    StoreInfoViewWrapperRoute(store: state.storeRealtime!),
                   );
                 },
                 child: Padding(
@@ -259,15 +259,16 @@ class StoreViewPage extends StatelessWidget {
                       FaIcon(
                         FontAwesomeIcons.store,
                         size: 15.w,
-                        color: Helpers.getContrastColor(color),
+                        color: fydLogoBlue,
                       ),
                       SizedBox(
                         width: 8.w,
                       ),
-                      FydText.b2custom(
+                      const FydText.b3custom(
                         text: 'Store Info',
-                        color: fydBlueGrey,
+                        color: fydTGrey,
                         weight: FontWeight.bold,
+                        letterSpacing: .9,
                       ),
                     ],
                   ),
@@ -285,30 +286,33 @@ class StoreViewPage extends StatelessWidget {
     //! store-Closed
     if (state.storeRealtime!.isLive == false) {
       return Center(
-        child: FydText.h1custom(
-          text: 'Store is closed at the moment.',
-          weight: FontWeight.w700,
-          color: fydDustyPeach,
+        child: Image.asset(
+          'assets/logo/closed.png',
+          fit: BoxFit.contain,
+          height: 300.h,
         ),
       );
     }
     //! products-notAdded
-    else if (state.storeRealtime!.types.isEmpty) {
+    else if (state.storeRealtime!.types.isEmpty ||
+        state.storeRealtime!.types.values.every((value) => value == 0)) {
       return Center(
-        child: FydText.h1custom(
-          text: 'No products live at the moment.',
-          weight: FontWeight.w700,
-          color: fydDustyPeach,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 40.w),
+          child: Image.asset(
+            'assets/logo/launching-soon.webp',
+            width: 300.w,
+            fit: BoxFit.fitWidth,
+          ),
         ),
       );
     }
-    //! Types and products view
+    //! Types and product-grid view
     else {
       //-------
-      final sortedTypeList = Helpers.sortMapByValues(state.storeRealtime!.types)
-          .keys
-          .toList()
-          .reversed;
+      final sortedTypeList = state.storeRealtime!.types.entries.toList()
+        ..sort((a, b) => b.value.compareTo(a.value))
+        ..map((entry) => entry.key).toList();
       //-------
       return Column(
         mainAxisSize: MainAxisSize.max,
@@ -316,7 +320,7 @@ class StoreViewPage extends StatelessWidget {
         children: [
           //! types-listView
           Padding(
-            padding: EdgeInsets.only(top: 15.h, bottom: 10.h),
+            padding: EdgeInsets.only(top: 20.h, bottom: 5.h),
             child: FydHListView(
               height: 32.h,
               widgetListPadding: EdgeInsets.only(left: 40.w),
@@ -332,12 +336,12 @@ class StoreViewPage extends StatelessWidget {
                           .read<StoreBloc>()
                           .add(UpdateSelectedType(type: type));
                     },
-                    title: sortedTypeList.elementAt(idx),
-                    color:
-                        (sortedTypeList.elementAt(idx) != state.selectedType ||
-                                state.selectedType == null)
-                            ? fydPLgrey
-                            : color,
+                    title: sortedTypeList.elementAt(idx).key,
+                    color: (sortedTypeList.elementAt(idx).key !=
+                                state.selectedType ||
+                            state.selectedType == null)
+                        ? fydPLgrey
+                        : fydLogoBlue,
                   );
                 },
               ),
@@ -349,30 +353,33 @@ class StoreViewPage extends StatelessWidget {
               return const Expanded(
                 child: Center(
                   child: SpinKitWave(
-                    color: fydPWhite,
-                    size: 40.0,
+                    color: fydLogoBlue,
+                    size: 30.0,
                   ),
                 ),
               );
             }
             //! select Product Type
             else if (state.selectedType == null) {
-              return Expanded(
+              return const Expanded(
                 child: Center(
-                  child: FydText.h1custom(
+                  child: FydText.h3custom(
                     text: 'select a Type',
                     weight: FontWeight.w700,
-                    color: fydDustyPeach,
+                    color: fydBlueGrey,
                   ),
                 ),
               );
             }
-            //! product-List Empty
+            //! Type-stockout
             else if (state.productList.isEmpty) {
               return Expanded(
                 child: Center(
-                  child: FydText.h2custom(
-                      text: 'Out of Stock', color: fydBlueGrey),
+                  child: Image.asset(
+                    'assets/logo/stockout.png',
+                    fit: BoxFit.contain,
+                    height: 300.h,
+                  ),
                 ),
               );
             }

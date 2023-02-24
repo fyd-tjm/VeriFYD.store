@@ -51,10 +51,13 @@ class HelpTile extends StatelessWidget {
                   children: [
                     FydText.b3white(
                       text: heading,
-                      weight: FontWeight.bold,
+                      weight: FontWeight.w600,
                     ),
                     (subHeading != null)
-                        ? FydText.b3white(text: subHeading!)
+                        ? FydText.b4white(
+                            text: subHeading!,
+                            letterSpacing: 1.2,
+                          )
                         : const SizedBox.shrink(),
                   ],
                 ),

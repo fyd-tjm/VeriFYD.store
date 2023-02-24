@@ -225,7 +225,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
       //------
       final fydOrder = FydOrder(
         orderId: failureOrOrderId ?? orderNumber.toString().padLeft(3, '1'),
-        orderStatus: const OrderStatus.confirmed(),
+        orderStatus: const OrderStatus.success(),
         orderInfo: state.orderInfo!,
         shippingInfo: state.shippingInfo!,
         paymentInfo: event.paymentInfo,

@@ -24,8 +24,7 @@ class EditProfileWrapperPage extends StatelessWidget {
           onWillPop: () async {
             final popResult = await showPermissionDialog(
                 context: context,
-                message:
-                    " Changes not saved. Leave page? Press Yes to leave, Cancel to stay.",
+                message: "Changes not saved. Yes to leave, Cancel to stay.",
                 falseBtnTitle: 'Cancel',
                 trueBtnTitle: 'Yes');
             return popResult ?? false;
@@ -43,6 +42,7 @@ class EditProfilePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(context.router.currentUrl);
     //-----
     final fydUserName = getIt<FydUserCubit>().state.fydUser!.name;
     final fydUserEmail = getIt<FydUserCubit>().state.fydUser!.email;
@@ -50,25 +50,41 @@ class EditProfilePage extends HookWidget {
     final nameController = useTextEditingController(text: fydUserName);
     final emailController = useTextEditingController(text: fydUserEmail);
     //-----
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: fydPDgrey,
-      body: SafeArea(
-        child: BlocListener<FydUserCubit, FydUserState>(
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: fydPDgrey,
+        body: BlocListener<FydUserCubit, FydUserState>(
           listener: (context, state) {
-            // implement listener
             if (state.failureOrSuccess.isSome()) {
               state.failureOrSuccess.fold(
                 () => null,
-                (failureOrSuccess) => failureOrSuccess.fold(
-                  // in case of failure: snackBar
-                  (userFailure) => null,
-                  //! in case of success
-                  (success) {
-                    _loadingOverlay.hide();
-                    context.navigateBack();
-                  },
-                ),
+                (userFailure) {
+                  _loadingOverlay.hide();
+                  //------
+                  userFailure.fold(
+                    (failure) => showSnack(
+                      viewType: SnackBarViewType.withNav,
+                      context: context,
+                      message: failure.when(
+                        aborted: () => 'Failed! try again later',
+                        invalidArgument: () => 'Invalid Argument. try again',
+                        alreadyExists: () => 'Data already Exists',
+                        notFound: () => 'Data not found!',
+                        permissionDenied: () => 'Permission Denied',
+                        serverError: () => 'Server Error. try again later',
+                        unknownError: () =>
+                            'Something went wrong. try again later',
+                      ),
+                    ),
+                    (success) => showSnack(
+                        context: context,
+                        viewType: SnackBarViewType.withNav,
+                        message: 'success!'),
+                  );
+                  //------
+                  context.navigateBack();
+                },
               );
             }
             if (state.updating == true) {
@@ -101,30 +117,18 @@ class EditProfilePage extends HookWidget {
       children: [
         //! AppBar (heading + close-Btn)
         FydAppBar(
-          leading: Center(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  minimumSize: Size.zero,
-                  padding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r)),
-                  primary: fydPDgrey),
-              child: Padding(
-                padding: EdgeInsets.all(5.w),
-                child: Icon(
-                  Icons.close_rounded,
-                  size: 25.w,
-                  color: fydPWhite,
-                ),
-              ),
-              //! close navigation
-              onPressed: () {
-                context.router.pop();
-              },
-            ),
+          leading: AppBarBtn(
+            iconData: Icons.close_rounded,
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              context.router.pop();
+            },
           ),
-          main: Center(
-            child: FydText.d2black(text: 'edit-Profile'),
+          main: const Center(
+            child: FydText.d3black(
+              text: 'edit-Profile',
+              letterSpacing: 1.3,
+            ),
           ),
         ),
         //! EditForm (name + email)
@@ -142,6 +146,7 @@ class EditProfilePage extends HookWidget {
                     child: FydTextFormField(
                       controller: nameController,
                       labelText: 'name:',
+                      floatColor: fydTGrey,
                       keyboardType: TextInputType.visiblePassword,
                       onScrollPadding: false,
                       validator: (value) {
@@ -158,6 +163,7 @@ class EditProfilePage extends HookWidget {
                     child: FydTextFormField(
                       controller: emailController,
                       labelText: 'em@il:',
+                      floatColor: fydTGrey,
                       keyboardType: TextInputType.emailAddress,
                       onScrollPadding: false,
                       validator: (value) {
@@ -188,28 +194,25 @@ class EditProfilePage extends HookWidget {
       String fydUsername,
       String fydUseremail) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 30.h),
       child: Column(
         children: [
           //! Updater btn
           FydBtn(
             color: fydPGrey,
             height: 60.h,
-            fydText: FydText.h1white(
-              text: 'Update',
+            fydText: const FydText.h2custom(
+              text: 'Update  ⇪',
+              color: fydLogoBlue,
               weight: FontWeight.w600,
             ),
             onPressed: () {
-              // form validation
               if (_formKey.currentState!.validate()) {
-                // update call
-                //-----
-                final updatedName = nameController.text;
-                final updatedEmail = emailController.text;
-                //-----
-                context
-                    .read<FydUserCubit>()
-                    .updateUserInfo(name: updatedName, email: updatedEmail);
+                FocusScope.of(context).unfocus();
+                context.read<FydUserCubit>().updateUserInfo(
+                      name: nameController.text,
+                      email: emailController.text,
+                    );
               }
             },
           )

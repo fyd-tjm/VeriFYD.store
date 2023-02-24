@@ -12,6 +12,7 @@ abstract class FydAddress implements _$FydAddress {
     required String email,
     required String line1,
     required String line2,
+    required String landmark,
     required String city,
     required String state,
     required int pincode,
@@ -22,10 +23,10 @@ abstract class FydAddress implements _$FydAddress {
 
   @override
   String toString() {
-    if (line2.isEmpty) {
-      return '$line1, $city, $state, $pincode';
-    } else {
+    if (landmark.isEmpty) {
       return '$line1, $line2, $city, $state, $pincode';
+    } else {
+      return '$line1, $line2, $landmark, $city, $state, $pincode';
     }
   }
 }

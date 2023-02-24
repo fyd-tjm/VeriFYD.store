@@ -6,8 +6,9 @@ class SharedInfoState with _$SharedInfoState {
   const factory SharedInfoState({
     required bool isFetching,
     required SharedInfo? sharedInfo,
+    required Map<String, String> recentSearchMap,
     required Option<SharedInfoFailure> failure,
   }) = _SharedInfoState;
-  factory SharedInfoState.initial() =>
-      SharedInfoState(isFetching: true, sharedInfo: null, failure: none());
+  factory SharedInfoState.initial() => SharedInfoState(
+      isFetching: true, sharedInfo: null, recentSearchMap: {}, failure: none());
 }

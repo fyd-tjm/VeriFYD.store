@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/landing_page.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/splash_page.dart';
 import 'package:verifyd_store/01%20presentation/01%20login/otp_login_page.dart';
@@ -117,7 +118,11 @@ class Rn {
     //! store-Info
     CustomRoute(path: '/storeInfo', page: StoreInfoViewWrapperPage),
     //! editProfile
-    CustomRoute(path: Rn.editProfile, page: EditProfileWrapperPage),
+    CustomRoute(
+      path: Rn.editProfile,
+      page: EditProfileWrapperPage,
+      transitionsBuilder: TransitionsBldr.fadeThrough,
+    ),
     //! profileAddress
     CustomRoute(path: Rn.profileAddress, page: ProfileAddressesWrapperPage),
     //! updateAddress
@@ -134,7 +139,12 @@ class Rn {
           CustomRoute(path: 'details', page: OrderDetailsWrapperPage),
         ]),
     //! help
-    CustomRoute(path: Rn.help, page: HelpWrapperPage),
+    CustomRoute(
+        path: Rn.help,
+        page: HelpWrapperPage,
+        durationInMilliseconds: 150,
+        reverseDurationInMilliseconds: 150,
+        transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
     //! checkout-Router
     CustomRoute(
       path: Rn.checkout,
@@ -188,6 +198,7 @@ class TransitionsBldr {
       animation: animation,
       secondaryAnimation: secondaryAnimation,
       transitionType: SharedAxisTransitionType.scaled,
+      fillColor: fydPDgrey,
       child: child,
     );
   }
@@ -204,6 +215,7 @@ class TransitionsBldr {
       animation: animation,
       secondaryAnimation: secondaryAnimation,
       transitionType: SharedAxisTransitionType.horizontal,
+      fillColor: fydPDgrey,
       child: child,
     );
   }
@@ -219,6 +231,7 @@ class TransitionsBldr {
       animation: animation,
       secondaryAnimation: secondaryAnimation,
       transitionType: SharedAxisTransitionType.vertical,
+      fillColor: fydPDgrey,
       child: child,
     );
   }
@@ -240,6 +253,7 @@ class TransitionsBldr {
     return FadeThroughTransition(
       animation: animation,
       secondaryAnimation: secondaryAnimation,
+      fillColor: fydPDgrey,
       child: child,
     );
   }

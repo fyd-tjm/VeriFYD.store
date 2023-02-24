@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,11 +33,15 @@ class ProfileAddressesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: BlocConsumer<FydUserCubit, FydUserState>(
+    log(context.router.currentUrl);
+    return SafeArea(
+      child: Scaffold(
+          body: BlocConsumer<FydUserCubit, FydUserState>(
         listenWhen: (previous, current) {
-          return true;
+          if (context.router.currentUrl == '/profileAddress') {
+            return true;
+          }
+          return false;
         },
         listener: (context, state) {
           if (state.fydUser == null) {
@@ -43,11 +49,27 @@ class ProfileAddressesPage extends StatelessWidget {
           }
           if (state.failureOrSuccess.isSome()) {
             state.failureOrSuccess.fold(
-                () => null,
-                (failureOrSuccess) => failureOrSuccess.fold(
-                      (failure) => null,
-                      (success) => null,
-                    ));
+              () => null,
+              (userFailure) => userFailure.fold(
+                (failure) => showSnack(
+                  viewType: SnackBarViewType.withoutNav,
+                  context: context,
+                  message: failure.when(
+                    aborted: () => 'Failed! try again later',
+                    invalidArgument: () => 'Invalid Argument. try again',
+                    alreadyExists: () => 'Data already Exists',
+                    notFound: () => 'Data not found!',
+                    permissionDenied: () => 'Permission Denied',
+                    serverError: () => 'Server Error. try again later',
+                    unknownError: () => 'Something went wrong. try again later',
+                  ),
+                ),
+                (success) => showSnack(
+                    context: context,
+                    viewType: SnackBarViewType.withoutNav,
+                    message: 'success!'),
+              ),
+            );
           }
         },
         buildWhen: (previous, current) {
@@ -68,7 +90,7 @@ class ProfileAddressesPage extends StatelessWidget {
             return FydView(
               pageViewType: ViewType.without_Nav_Bar,
               isScrollable: false,
-              topSheetHeight: 150.h,
+              topSheetHeight: 160.h,
               topSheet: _topSheetView(context, state),
               bottomSheet: _bottomSheetView(context, state),
             );
@@ -87,30 +109,15 @@ class ProfileAddressesPage extends StatelessWidget {
       children: [
         //! AppBar (heading + back-Btn )
         FydAppBar(
-          leading: Center(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  minimumSize: Size.zero,
-                  padding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r)),
-                  primary: fydPDgrey),
-              child: Padding(
-                padding: EdgeInsets.all(5.w),
-                child: Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  size: 25.w,
-                  color: fydPWhite,
-                ),
-              ),
-              //! back navigation
-              onPressed: () {
-                context.router.pop();
-              },
-            ),
+          leading: AppBarBtn(
+            iconData: Icons.arrow_back_ios_new_rounded,
+            onPressed: () => context.router.pop(),
           ),
-          main: Center(
-            child: FydText.d3black(text: 'Address(es)'),
+          main: const Center(
+            child: FydText.d3black(
+              text: 'Address(es)',
+              letterSpacing: 1.3,
+            ),
           ),
         ),
         //! newAddress-Btn
@@ -118,31 +125,37 @@ class ProfileAddressesPage extends StatelessWidget {
           padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 15.h),
           child: FydBtn(
             height: 50.h,
-            color: fydPGrey,
-            widget: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: Icon(
-                      Icons.add_circle_outline_sharp,
-                      size: 25.w,
-                    ),
+            color: fydPDgrey,
+            widget: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 10.0),
+                  child: Icon(
+                    Icons.add_circle_outline_sharp,
+                    size: 25.w,
+                    color: (fydUser.addresses.entries.length > 2)
+                        ? fydTGrey
+                        : fydLogoBlue,
                   ),
-                  FydText.h3white(text: 'Add New Address'),
-                ],
-              ),
+                ),
+                FydText.b1custom(
+                  text: 'add address',
+                  color: (fydUser.addresses.entries.length > 2)
+                      ? fydTGrey
+                      : fydLogoBlue,
+                ),
+              ],
             ),
             //! navigate to  NewAddress-page
-            onPressed: () {
+            onPressed: () async {
               //max 3 addresses
               if (fydUser.addresses.entries.length > 2) {
                 showSnack(
                     context: context,
                     snackPosition: SnackBarPosition.bottom,
-                    durationSeconds: 3,
-                    message: 'address Limit is 3!  edit old one');
+                    durationSeconds: 2,
+                    message: 'address Limit is 3!');
               } else {
                 context.navigateNamedTo(Rn.newAddress);
               }
@@ -158,7 +171,7 @@ class ProfileAddressesPage extends StatelessWidget {
     //! ListView Profile-Address-Tiles
     final userAddressMap = state.fydUser!.addresses;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -175,7 +188,6 @@ class ProfileAddressesPage extends StatelessWidget {
                   child: ProfileAddressTile(
                     address: userAddressMap.values.elementAt(reverseIndex),
                     addressIndex: userAddressMap.keys.elementAt(reverseIndex),
-                    //! Navigate to updateAddress Screen
                     onEditPresses: (addressIndex) {
                       context.navigateTo(UpdateAddressWrapperRoute(
                         existingAddress:

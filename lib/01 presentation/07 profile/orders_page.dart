@@ -33,55 +33,58 @@ class OrdersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: BlocConsumer<FydUserCubit, FydUserState>(
-        listenWhen: (previous, current) {
-          //-------
-          if (context.router.currentUrl == '/orders') return true;
-          return false;
-        },
-        listener: (context, state) {
-          //--------
-          if (state.failureOrSuccess.isSome()) {
-            state.failureOrSuccess.fold(
-                () => null,
-                (failureOrSuccess) => failureOrSuccess.fold(
-                      (failure) {
-                        showSnack(
-                          context: context,
-                          message: 'something went wrong!',
-                        );
-                        context.navigateNamedTo(Rn.home);
-                      },
-                      (success) => null,
-                    ));
-          }
-        },
-        buildWhen: (previous, current) {
-          //-------
-          if (context.router.currentUrl == '/orders') return true;
-          return false;
-        },
-        builder: (context, state) {
-          if (state.updating || state.fydOrders == null) {
-            return const Center(
-              child: SpinKitWave(
-                color: fydLogoBlue,
-                size: 40,
-              ),
-            );
-          } else {
-            return FydView(
-              pageViewType: ViewType.without_Nav_Bar,
-              isScrollable: false,
-              topSheetHeight: 150.h,
-              topSheet: _topSheetView(context, state),
-              bottomSheet: _bottomSheetView(context, state),
-            );
-          }
-        },
-      )),
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: BlocConsumer<FydUserCubit, FydUserState>(
+          listenWhen: (previous, current) {
+            if (context.router.currentUrl == '/orders') return true;
+            return false;
+          },
+          listener: (context, state) {
+            if (state.failureOrSuccess.isSome()) {
+              state.failureOrSuccess.fold(
+                  () => null,
+                  (failureOrSuccess) => failureOrSuccess.fold(
+                        (failure) {
+                          showSnack(
+                            context: context,
+                            viewType: SnackBarViewType.withNav,
+                            message: 'something went wrong!',
+                          );
+                          context.navigateNamedTo(Rn.home);
+                        },
+                        (success) => null,
+                      ));
+            }
+          },
+          buildWhen: (previous, current) {
+            if (context.router.currentUrl == '/orders') return true;
+            return false;
+          },
+          builder: (context, state) {
+            //! Loading
+            if (state.updating || state.fydOrders == null) {
+              return const Center(
+                child: SpinKitWave(
+                  color: fydBlueGrey,
+                  size: 30,
+                ),
+              );
+            }
+            //! Orders-View
+            else {
+              return FydView(
+                pageViewType: ViewType.without_Nav_Bar,
+                isScrollable: false,
+                topSheetHeight: 150.h,
+                topSheet: _topSheetView(context, state),
+                bottomSheet: _bottomSheetView(context, state),
+              );
+            }
+          },
+        ),
+      ),
     );
   }
 
@@ -100,34 +103,20 @@ class OrdersPage extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        //! AppBar (heading + back-Btn )
+        //! AppBar (backBTN + heading)
         FydAppBar(
-          leading: Center(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  minimumSize: Size.zero,
-                  padding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r)),
-                  primary: fydPDgrey),
-              child: Padding(
-                padding: EdgeInsets.all(5.w),
-                child: Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  size: 25.w,
-                  color: fydPWhite,
-                ),
-              ),
-              //! close navigation
+          //! close-btn
+          leading: AppBarBtn(
+              iconData: Icons.close_rounded,
               onPressed: () {
-                context.navigateNamedTo('/main/profile');
-              },
-            ),
-          ),
-          main: Center(
-            child: FydText.d3black(
+                HapticFeedback.mediumImpact();
+                context.router.pop();
+              }),
+          //! Heading
+          main: const Center(
+            child: FydText.d3custom(
               text: 'Orders',
-              weight: FontWeight.bold,
+              color: fydPGrey,
             ),
           ),
         ),
@@ -137,19 +126,18 @@ class OrdersPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              //Active orders
+              //! Active orders
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FydText.b2black(
+                  const FydText.b2custom(
                     text: 'Active-Orders :  ',
-                    weight: FontWeight.bold,
+                    color: fydTGrey,
                   ),
-                  // FydText.b1black(text: ':'),
                   FydText.b2custom(
                     text: activeOrders.toString().padLeft(2, '0'),
-                    color: fydBlueGrey,
+                    color: fydLogoBlue,
                     weight: FontWeight.w700,
                   ),
                 ],
@@ -160,19 +148,18 @@ class OrdersPage extends StatelessWidget {
                   color: fydBlueGrey,
                 ),
               ),
-              // Operating-Hours
+              //! Total orders
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FydText.b2black(
+                  const FydText.b2custom(
                     text: 'Total-Orders :  ',
-                    weight: FontWeight.bold,
+                    color: fydTGrey,
                   ),
-                  // FydText.b1black(text: ':'),
                   FydText.b2custom(
                     text: state.fydOrders!.length.toString().padLeft(2, '0'),
-                    color: fydBlueGrey,
+                    color: fydLogoBlue,
                     weight: FontWeight.w700,
                   ),
                 ],
@@ -187,24 +174,64 @@ class OrdersPage extends StatelessWidget {
 
 //?-----------------------------------------------------------------------------
   _bottomSheetView(BuildContext context, FydUserState state) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ListView(
-        shrinkWrap: true,
-        padding: EdgeInsets.only(top: 25.h),
-        physics: const BouncingScrollPhysics(),
-        children: List.generate(state.fydOrders!.length, (index) {
-          return Padding(
-            padding: EdgeInsets.symmetric(vertical: 5.h),
-            child: OrdersTile(
-              fydOrder: state.fydOrders![index],
-              onPressed: (fydOrder) => context
-                  .navigateTo(OrderDetailsWrapperRoute(fydOrder: fydOrder)),
+    return (state.fydOrders!.isEmpty)
+        ? Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/logo/no-orders.png',
+                    fit: BoxFit.fitWidth,
+                    width: 100.w,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 30.h,
+              ),
+              const FydText.b1custom(
+                text: 'It seems you have no Orders, Yet!',
+                color: fydBlueGrey,
+                letterSpacing: .8,
+              ),
+            ],
+          )
+        : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ShaderMask(
+              shaderCallback: (Rect rect) {
+                return const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    fydLogoBlue,
+                    Colors.transparent,
+                    Colors.transparent,
+                    fydLogoBlue
+                  ],
+                  stops: [0.0, 0.04, 0.96, 1.0],
+                ).createShader(rect);
+              },
+              blendMode: BlendMode.dstOut,
+              child: ListView(
+                shrinkWrap: true,
+                padding: EdgeInsets.only(top: 15.h, bottom: 20.h),
+                physics: const BouncingScrollPhysics(),
+                children: List.generate(state.fydOrders!.length, (index) {
+                  return OrdersTile(
+                    fydOrder: state.fydOrders![index],
+                    onPressed: (fydOrder) => context.navigateTo(
+                        OrderDetailsWrapperRoute(fydOrder: fydOrder)),
+                  );
+                }),
+              ),
             ),
           );
-        }),
-      ),
-    );
   }
 //?-----------------------------------------------------------------------------
 } //ordersPage
@@ -220,7 +247,7 @@ class OrdersTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 150.h,
+      height: 130.h,
       width: double.infinity,
       child: InkWell(
         splashColor: fydLogoBlue,
@@ -238,54 +265,60 @@ class OrdersTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
+                //! upper section
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    //! id: storeName: itemsCount
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        //! orderId
                         FydText.b2custom(
-                          text: 'Order ${fydOrder.orderId}',
+                          text: 'Order-Id: ${fydOrder.orderId}',
                           weight: FontWeight.w600,
                           color: fydBlueGrey,
                         ),
-                        FydText.b2white(
-                          text: 'StoreId ${fydOrder.orderInfo.storeId}',
+                        //! storeName
+                        FydText.b4custom(
+                          text: fydOrder.orderInfo.storeName,
                           weight: FontWeight.w600,
-                          color: fydBlueGrey,
+                          color: fydTGrey,
                         ),
-                        FydText.b3white(
+                        //! itemCount
+                        FydText.b4custom(
                           text:
                               '${fydOrder.orderInfo.orderSummary.totalItems} Items',
                           weight: FontWeight.w600,
-                          color: fydBlueGrey,
+                          color: fydTGrey,
                         ),
                       ],
                     ),
+                    //! date
                     FydText.b4custom(
-                      color: fydTGrey,
+                      color: fydBlueGrey,
                       text:
                           DateFormat("dd-MM-yyyy").format(fydOrder.orderDate!),
                       weight: FontWeight.bold,
                     )
                   ],
                 ),
+                //! lower section
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        FydText.b1white(
-                            text: '₹ ${fydOrder.paymentInfo.paymentAmount}',
-                            weight: FontWeight.bold)
-                      ],
+                    //! price
+                    FydText.b2white(
+                      text: '₹ ${fydOrder.paymentInfo.paymentAmount}',
+                      weight: FontWeight.bold,
+                      color: fydBlueGrey,
                     ),
-                    FydText.b4white(
+                    //! status
+                    FydText.b4custom(
                       text: fydOrder.orderStatus.when(
                         failure: (f) => '',
                         success: () => 'Processing',
@@ -298,14 +331,14 @@ class OrdersTile extends StatelessWidget {
                       ),
                       weight: FontWeight.bold,
                       color: fydOrder.orderStatus.when(
-                        failure: (f) => fydPGrey,
+                        failure: (f) => Colors.transparent,
                         success: () => fydLogoGreen,
                         confirmed: () => fydLogoGreen,
                         declined: () => fydNotifRed,
                         shipped: () => fydLogoYellow,
                         delivered: (date) => fydSOrange,
                         fullFilled: () => fydBlueGrey,
-                        refunded: (id) => fydNotifRed.withOpacity(.6),
+                        refunded: (id) => fydNotifRed.withOpacity(.5),
                       ),
                     )
                   ],

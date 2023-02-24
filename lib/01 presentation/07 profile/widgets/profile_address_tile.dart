@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/03%20domain/user/address.dart';
-import 'package:verifyd_store/presentation/core/widgets/fyd_text_ellipsis.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 
 class ProfileAddressTile extends StatelessWidget {
@@ -19,7 +18,7 @@ class ProfileAddressTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 150.h,
+      height: 140.h,
       width: double.infinity,
       child: Card(
         color: fydPGrey,
@@ -40,15 +39,15 @@ class ProfileAddressTile extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      //name
-                      FydText.b1custom(
-                        color: fydTGrey,
+                      //! name
+                      FydText.b3custom(
+                        color: fydPWhite,
                         text: address.name,
                         weight: FontWeight.w600,
                       ),
-                      // phone
-                      FydText.b1custom(
-                        color: fydTGrey,
+                      //! phone
+                      FydText.b3custom(
+                        color: fydPWhite,
                         text: Helpers.phoneMaskWithCountryCode(address.phone),
                         weight: FontWeight.w600,
                       ),
@@ -65,25 +64,27 @@ class ProfileAddressTile extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // (al1 + al2)
-                      FydTextEllipsis(
-                        width: 260.w,
-                        fydText: FydText.b3white(
+                      //! (al1 + al2)
+                      FydEllipsisText(
+                        width: 270.w,
+                        fydText: FydText.b3custom(
                           text: "${address.line1}, ${address.line2}",
+                          color: fydBlueGrey,
                           weight: FontWeight.w600,
                         ),
                       ),
-                      // (state + pincode)
-                      FydTextEllipsis(
-                        width: 260.w,
-                        fydText: FydText.b3white(
+                      //! (state + pincode)
+                      FydEllipsisText(
+                        width: 270.w,
+                        fydText: FydText.b3custom(
                           text: '${address.city}, ${address.pincode}',
+                          color: fydBlueGrey,
                           weight: FontWeight.w600,
                         ),
                       ),
                     ],
                   ),
-                  // edit-Btn
+                  //! edit-Btn
                   TextButton(
                     onPressed: () => onEditPresses(addressIndex),
                     style: TextButton.styleFrom(
@@ -91,10 +92,9 @@ class ProfileAddressTile extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
-                    child: FydText.b2custom(
-                      color: fydTGrey,
+                    child: const FydText.b2custom(
+                      color: fydLogoBlue,
                       text: 'Edit',
-                      weight: FontWeight.bold,
                     ),
                   ),
                 ],

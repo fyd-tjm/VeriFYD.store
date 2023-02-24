@@ -54,6 +54,8 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
     });
 //?-----------------------------------------------------------------------------
     on<UpdateSelectedType>((event, emit) async {
+      if (state.isFetching) return;
+
       emit(state.copyWith(
         isFetching: true,
         selectedType: event.type,

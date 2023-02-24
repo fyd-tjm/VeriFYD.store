@@ -35,49 +35,53 @@ class ProfileViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(context.router.currentUrl);
     return SafeArea(
-      child: BlocConsumer<FydUserCubit, FydUserState>(
-        listenWhen: (previous, current) {
-          if (context.tabsRouter.activeIndex == 3) {
-            return true;
-          }
-          return false;
-        },
-        listener: (context, state) {
-          //! listener Handler
-          if (state.failureOrSuccess.isSome()) {
-            state.failureOrSuccess.fold(
-              () => null,
-              (userFailure) => userFailure.fold(
-                (failure) => showSnack(
-                  context: context,
-                  message: failure.when(
-                    aborted: () => 'Failed! try again later',
-                    invalidArgument: () => 'Invalid Argument. try again',
-                    alreadyExists: () => 'Data already Exists',
-                    notFound: () => 'Data not found!',
-                    permissionDenied: () => 'Permission Denied',
-                    serverError: () => 'Server Error. try again later',
-                    unknownError: () => 'Something went wrong. try again later',
+      child: Scaffold(
+        body: BlocConsumer<FydUserCubit, FydUserState>(
+          listenWhen: (previous, current) {
+            if (context.tabsRouter.currentUrl == '/main/profile') {
+              return true;
+            }
+            return false;
+          },
+          listener: (context, state) {
+            if (state.failureOrSuccess.isSome()) {
+              state.failureOrSuccess.fold(
+                () => null,
+                (userFailure) => userFailure.fold(
+                  (failure) => showSnack(
+                    viewType: SnackBarViewType.withNav,
+                    context: context,
+                    message: failure.when(
+                      aborted: () => 'Failed! try again later',
+                      invalidArgument: () => 'Invalid Argument. try again',
+                      alreadyExists: () => 'Data already Exists',
+                      notFound: () => 'Data not found!',
+                      permissionDenied: () => 'Permission Denied',
+                      serverError: () => 'Server Error. try again later',
+                      unknownError: () =>
+                          'Something went wrong. try again later',
+                    ),
                   ),
+                  (success) => showSnack(
+                      context: context,
+                      viewType: SnackBarViewType.withNav,
+                      message: 'success!'),
                 ),
-                (success) => showSnack(context: context, message: 'success!'),
-              ),
+              );
+            }
+          },
+          builder: (context, state) {
+            return FydView(
+              pageViewType: ViewType.with_Nav_Bar,
+              isScrollable: false,
+              topSheetHeight: 300.h,
+              topSheet: _topSheetView(context, state),
+              bottomSheet: _bottomSheetView(context, state),
             );
-          }
-        },
-        buildWhen: (previous, current) {
-          return true;
-        },
-        builder: (context, state) {
-          return FydView(
-            pageViewType: ViewType.with_Nav_Bar,
-            isScrollable: true,
-            topSheetHeight: 300.h,
-            topSheet: _topSheetView(context, state),
-            bottomSheet: _bottomSheetView(context, state),
-          );
-        },
+          },
+        ),
       ),
     );
   }
@@ -89,38 +93,24 @@ class ProfileViewPage extends StatelessWidget {
       children: [
         //! appbar(heading + editBtn)
         FydAppBar(
-          // heading
-          main: Center(child: FydText.d3black(text: 'Profile')),
-          // edit-btn
-          trailing: Align(
-            alignment: Alignment.center,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  minimumSize: Size.zero,
-                  padding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r)),
-                  primary: fydPDgrey),
-              // ignore: sort_child_properties_last
-              child: Padding(
-                padding: EdgeInsets.all(5.w),
-                child: Icon(
-                  Icons.mode_edit_outlined,
-                  size: 25.w,
-                  color: fydPWhite,
-                ),
-              ),
-
-              onPressed: (fydUser == null)
-                  ? null
-                  : () {
-                      //! EditProfile Page navigation
-                      context.router.navigateNamed(Rn.editProfile);
-                    },
-            ),
+          //! heading
+          main: const Center(
+              child: FydText.d3black(
+            text: 'Profile',
+            letterSpacing: 1.3,
+          )),
+          //! edit-btn
+          trailing: AppBarBtn(
+            iconData: Icons.mode_edit_outline_outlined,
+            onPressed: (fydUser == null)
+                ? null
+                : () {
+                    //! EditProfile Page navigation
+                    context.router.navigateNamed(Rn.editProfile);
+                  },
           ),
         ),
-        // Profile-Logo
+        //! Profile-Logo
         Padding(
           padding: EdgeInsets.only(top: 15.h),
           child: Column(
@@ -132,7 +122,7 @@ class ProfileViewPage extends StatelessWidget {
                 child: Card(
                   color: fydPDgrey,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25.r)),
+                      borderRadius: BorderRadius.circular(15.r)),
                   child: Icon(
                     Icons.person_outline_rounded,
                     color: fydBlueGrey,
@@ -162,25 +152,31 @@ class ProfileViewPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    // Profile-Name
+                    //! Name
                     Padding(
-                      padding: EdgeInsets.only(top: 10.h, bottom: 4.h),
-                      child:
-                          FydText.h3custom(color: fydTGrey, text: fydUser.name),
+                      padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
+                      child: FydText.h3custom(
+                        color: fydTGrey,
+                        text: fydUser.name,
+                        weight: FontWeight.w600,
+                      ),
                     ),
 
-                    // Profile-Phone
-                    FydText.h2black(
-                      text: Helpers.phoneMaskWithCountryCode(fydUser.phone),
-                      weight: FontWeight.w700,
+                    //! Phone
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 2.h),
+                      child: FydText.b2black(
+                        text: Helpers.phoneMaskWithCountryCode(fydUser.phone),
+                        weight: FontWeight.w700,
+                      ),
                     ),
 
-                    // Profile-email
-                    (fydUser.email.isEmpty)
-                        ? FydText.b1custom(
-                            color: fydTGrey, text: 'user@email.com')
-                        : FydText.b1custom(
-                            color: fydTGrey, text: fydUser.email),
+                    //! email
+                    FydText.b2custom(
+                      color: fydTGrey,
+                      text: fydUser.email,
+                      weight: FontWeight.w600,
+                    ),
                   ],
                 ),
               ),
@@ -204,7 +200,7 @@ class ProfileViewPage extends StatelessWidget {
             children: [
               //!Orders
               ProfileTile(
-                iconColor: fydSBlue,
+                iconColor: fydLogoBlue,
                 title: 'Orders',
                 description: 'your order history',
                 iconAsset: 'assets/icons/orders.svg',
@@ -219,7 +215,7 @@ class ProfileViewPage extends StatelessWidget {
               ),
               //!Address(es)
               ProfileTile(
-                iconColor: fydSYellow,
+                iconColor: fydLogoBlue,
                 title: 'Address(es)',
                 description: 'manage your addresses',
                 iconAsset: 'assets/icons/address.svg',
@@ -235,7 +231,7 @@ class ProfileViewPage extends StatelessWidget {
               ),
               //!Help
               ProfileTile(
-                iconColor: fydSPink,
+                iconColor: fydLogoBlue,
                 title: 'Help',
                 description: 'wants to speak with us',
                 iconAsset: 'assets/icons/help.svg',
@@ -247,6 +243,7 @@ class ProfileViewPage extends StatelessWidget {
               ),
             ],
           ),
+          //! Logout-btn
           Center(
             child: TextButton(
               onPressed: () async {
@@ -261,6 +258,7 @@ class ProfileViewPage extends StatelessWidget {
                 text: 'Logout',
                 color: fydBlueGrey,
                 weight: FontWeight.bold,
+                letterSpacing: 1.2,
               ),
             ),
           ),

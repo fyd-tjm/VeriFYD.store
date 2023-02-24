@@ -1,5 +1,8 @@
 ## commit-History
 
+`x-7`
+* stores, cart, profile, checkout cleanup
+
 `x-6`
 * splash, login, onboarding ui-cleanup
 

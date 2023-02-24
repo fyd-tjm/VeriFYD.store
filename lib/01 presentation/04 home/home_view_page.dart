@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/01%20presentation/04%20home/widgets/store_search.dart';
 import 'package:verifyd_store/aa%20mock/static_ui.dart';
 
 import '../00 core/widgets/00_core_widgets_export.dart';
@@ -51,8 +53,9 @@ class HomeViewPage extends StatelessWidget {
         ),
         //todo search section
         GestureDetector(
-          onTap: () =>
-              showSearch(context: context, delegate: DataSearch(context)),
+          onTap: () => context.router.pushNamed('/test'),
+          // onTap: () =>
+          //     showSearch(context: context, delegate: StoreSearch(context)),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -185,50 +188,4 @@ Widget _homeCategoryCard({required String svgAsset, required String title}) {
       ],
     ),
   );
-}
-
-//! search
-class DataSearch extends SearchDelegate {
-  final BuildContext parentContext;
-
-  DataSearch(this.parentContext)
-      : super(
-          keyboardType: TextInputType.visiblePassword,
-          searchFieldLabel: 'Find Store via name (or) #id',
-        );
-
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-        icon: const Icon(Icons.clear),
-        onPressed: () {
-          query = "";
-        },
-      )
-    ];
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: AnimatedIcon(
-        icon: AnimatedIcons.menu_arrow,
-        progress: transitionAnimation,
-      ),
-      onPressed: () {
-        //Todo back navigation
-      },
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    return Container();
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    return Container();
-  }
 }

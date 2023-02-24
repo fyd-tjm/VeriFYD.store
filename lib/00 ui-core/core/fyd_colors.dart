@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 const Color fydTBlack = Color(0xff2C2C2E);
 const Color fydTWhite = Color(0xffFDFDFD);
-const Color fydTGrey = Color.fromARGB(255, 146, 145, 145);
+const Color fydTGrey = Color.fromARGB(255, 125, 124, 124);
 
 // P<rimary> Scope  code:P
 

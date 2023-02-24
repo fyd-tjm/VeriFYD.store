@@ -49,7 +49,7 @@ class HelpPage extends StatelessWidget {
             return (state.sharedInfo == null)
                 ? const Center(
                     child: SpinKitWave(
-                      color: fydPDgrey,
+                      color: fydPLgrey,
                       size: 30.0,
                     ),
                   )
@@ -57,7 +57,6 @@ class HelpPage extends StatelessWidget {
                     pageViewType: ViewType.without_Nav_Bar,
                     isScrollable: false,
                     topSheetHeight: 170.h,
-                    topSheetColor: fydSPink,
                     topSheet: _topSheetView(context, state),
                     bottomSheet: _bottomSheetView(context, state),
                   );
@@ -75,35 +74,20 @@ class HelpPage extends StatelessWidget {
       children: [
         //! appBar(back-btn + heading)
         FydAppBar(
-          leading: Center(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  minimumSize: Size.zero,
-                  padding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r)),
-                  primary: fydPDgrey),
-              child: Padding(
-                padding: EdgeInsets.all(5.w),
-                child: Icon(
-                  Icons.close_rounded,
-                  size: 25.w,
-                  color: fydPWhite,
-                ),
-              ),
-              //! close navigation
-              onPressed: () {
-                context.router.pop();
-                // context.navigateNamedTo('/main/home');
-                // log(context.router.currentUrl);
-              },
+          leading: AppBarBtn(
+            iconData: Icons.close_rounded,
+            onPressed: () => context.router.pop(),
+          ),
+          main: const Center(
+            child: FydText.d3black(
+              text: 'Help',
+              letterSpacing: 1.3,
             ),
           ),
-          main: Center(
-            child: FydText.d2black(text: 'Help'),
-          ),
         ),
-        const FydDivider(),
+        const FydDivider(
+          color: fydBlueGrey,
+        ),
         //! timmings via sharedInfo
         Padding(
           padding: EdgeInsets.only(bottom: 20.h),
@@ -111,19 +95,20 @@ class HelpPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
-              // Calling-Hours
+              //! Calling-Hours
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FydText.b2black(
+                  const FydText.b2black(
                     text: 'Calling-Hours :  ',
-                    weight: FontWeight.bold,
+                    weight: FontWeight.w600,
+                    letterSpacing: 1.1,
                   ),
                   FydText.b2custom(
                     text: state.sharedInfo!.timmings[
                         DbHelpers.getSharedInfoField(SharedInfo.callingHours)]!,
-                    color: fydSCPink,
+                    color: fydTGrey,
                     weight: FontWeight.w700,
                   ),
                 ],
@@ -131,20 +116,20 @@ class HelpPage extends StatelessWidget {
               SizedBox(
                 height: 5.h,
               ),
-              // Operating-Hours
+              //! Operating-Hours
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FydText.b2black(
+                  const FydText.b2black(
                     text: 'Operating-Hours :  ',
-                    weight: FontWeight.bold,
+                    weight: FontWeight.w600,
                   ),
                   FydText.b2custom(
                     text: state.sharedInfo!.timmings[
                         DbHelpers.getSharedInfoField(
                             SharedInfo.operatingHours)]!,
-                    color: fydSCPink,
+                    color: fydTGrey,
                     weight: FontWeight.w700,
                   ),
                 ],
@@ -159,7 +144,7 @@ class HelpPage extends StatelessWidget {
 //?-----------------------------------------------------------------------------
   _bottomSheetView(BuildContext context, SharedInfoState state) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 40.h),
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 40.h),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -170,7 +155,7 @@ class HelpPage extends StatelessWidget {
             icon: const Icon(
               Icons.whatsapp_sharp,
               size: 40,
-              color: fydSPink,
+              color: fydLogoBlue,
             ),
             heading: 'Whatsapp support. Quick resolution',
             subHeading: '(recommended)',
@@ -181,12 +166,15 @@ class HelpPage extends StatelessWidget {
               );
             },
           ),
+          SizedBox(
+            height: 20.h,
+          ),
           //! phone expansion
           HelpTile(
             icon: const Icon(
               Icons.phone_outlined,
               size: 40,
-              color: fydSPink,
+              color: fydLogoBlue,
             ),
             heading: Helpers.phoneMaskWithCountryCode(state.sharedInfo!
                 .support[DbHelpers.getSharedInfoField(SharedInfo.phone)]!),
@@ -197,12 +185,15 @@ class HelpPage extends StatelessWidget {
               );
             },
           ),
+          SizedBox(
+            height: 20.h,
+          ),
           //! mail
           HelpTile(
             icon: const Icon(
               Icons.mail_rounded,
               size: 40,
-              color: fydSPink,
+              color: fydLogoBlue,
             ),
             heading: 'Mail us at',
             subHeading: state.sharedInfo!

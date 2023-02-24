@@ -28,6 +28,7 @@ mixin _$Product {
   String get type => throw _privateConstructorUsedError;
   String get company => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  String get policy => throw _privateConstructorUsedError;
   Map<String, int> get sizeAvailability => throw _privateConstructorUsedError;
   String get sizeGuide => throw _privateConstructorUsedError;
   double get sellingPrice => throw _privateConstructorUsedError;
@@ -55,6 +56,7 @@ abstract class $ProductCopyWith<$Res> {
       String type,
       String company,
       String description,
+      String policy,
       Map<String, int> sizeAvailability,
       String sizeGuide,
       double sellingPrice,
@@ -83,6 +85,7 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
     Object? type = freezed,
     Object? company = freezed,
     Object? description = freezed,
+    Object? policy = freezed,
     Object? sizeAvailability = freezed,
     Object? sizeGuide = freezed,
     Object? sellingPrice = freezed,
@@ -124,6 +127,10 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      policy: policy == freezed
+          ? _value.policy
+          : policy // ignore: cast_nullable_to_non_nullable
               as String,
       sizeAvailability: sizeAvailability == freezed
           ? _value.sizeAvailability
@@ -176,6 +183,7 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       String type,
       String company,
       String description,
+      String policy,
       Map<String, int> sizeAvailability,
       String sizeGuide,
       double sellingPrice,
@@ -205,6 +213,7 @@ class __$$_ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
     Object? type = freezed,
     Object? company = freezed,
     Object? description = freezed,
+    Object? policy = freezed,
     Object? sizeAvailability = freezed,
     Object? sizeGuide = freezed,
     Object? sellingPrice = freezed,
@@ -246,6 +255,10 @@ class __$$_ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      policy: policy == freezed
+          ? _value.policy
+          : policy // ignore: cast_nullable_to_non_nullable
               as String,
       sizeAvailability: sizeAvailability == freezed
           ? _value._sizeAvailability
@@ -295,6 +308,7 @@ class _$_Product implements _Product {
       required this.type,
       required this.company,
       required this.description,
+      required this.policy,
       required final Map<String, int> sizeAvailability,
       required this.sizeGuide,
       required this.sellingPrice,
@@ -325,6 +339,8 @@ class _$_Product implements _Product {
   final String company;
   @override
   final String description;
+  @override
+  final String policy;
   final Map<String, int> _sizeAvailability;
   @override
   Map<String, int> get sizeAvailability {
@@ -354,7 +370,7 @@ class _$_Product implements _Product {
 
   @override
   String toString() {
-    return 'Product(skuId: $skuId, name: $name, storeId: $storeId, storeName: $storeName, category: $category, type: $type, company: $company, description: $description, sizeAvailability: $sizeAvailability, sizeGuide: $sizeGuide, sellingPrice: $sellingPrice, mrp: $mrp, productImages: $productImages, thumbnailImage: $thumbnailImage, inStock: $inStock, popularity: $popularity)';
+    return 'Product(skuId: $skuId, name: $name, storeId: $storeId, storeName: $storeName, category: $category, type: $type, company: $company, description: $description, policy: $policy, sizeAvailability: $sizeAvailability, sizeGuide: $sizeGuide, sellingPrice: $sellingPrice, mrp: $mrp, productImages: $productImages, thumbnailImage: $thumbnailImage, inStock: $inStock, popularity: $popularity)';
   }
 
   @override
@@ -371,6 +387,7 @@ class _$_Product implements _Product {
             const DeepCollectionEquality().equals(other.company, company) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
+            const DeepCollectionEquality().equals(other.policy, policy) &&
             const DeepCollectionEquality()
                 .equals(other._sizeAvailability, _sizeAvailability) &&
             const DeepCollectionEquality().equals(other.sizeGuide, sizeGuide) &&
@@ -398,6 +415,7 @@ class _$_Product implements _Product {
       const DeepCollectionEquality().hash(type),
       const DeepCollectionEquality().hash(company),
       const DeepCollectionEquality().hash(description),
+      const DeepCollectionEquality().hash(policy),
       const DeepCollectionEquality().hash(_sizeAvailability),
       const DeepCollectionEquality().hash(sizeGuide),
       const DeepCollectionEquality().hash(sellingPrice),
@@ -430,6 +448,7 @@ abstract class _Product implements Product {
       required final String type,
       required final String company,
       required final String description,
+      required final String policy,
       required final Map<String, int> sizeAvailability,
       required final String sizeGuide,
       required final double sellingPrice,
@@ -457,6 +476,8 @@ abstract class _Product implements Product {
   String get company;
   @override
   String get description;
+  @override
+  String get policy;
   @override
   Map<String, int> get sizeAvailability;
   @override

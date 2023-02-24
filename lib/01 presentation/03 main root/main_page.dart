@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +20,11 @@ class MainWrapperPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) =>
-              getIt<SharedInfoCubit>()..getSharedInfoRealtime(),
+        BlocProvider.value(
+          value: getIt<SharedInfoCubit>()..getSharedInfoRealtime(),
         ),
-        BlocProvider(
-          create: (context) => getIt<FydUserCubit>(),
+        BlocProvider.value(
+          value: getIt<FydUserCubit>(),
         ),
       ],
       child: const MainPage(),
@@ -40,14 +40,23 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
       backgroundColor: fydPDgrey,
+      resizeToAvoidBottomInset: false,
       routes: const [
         HomeViewWrapperRoute(),
         StoresRouter(),
         CartViewWrapperRoute(),
         ProfileViewWrapperRoute(),
       ],
-      builder: (_, child, animation) => FadeTransition(
-        opacity: animation,
+      animationDuration: const Duration(milliseconds: 300),
+      builder: (_, child, animation) => PageTransitionSwitcher(
+        transitionBuilder: (child, primaryAnimation, secondaryAnimation) =>
+            SharedAxisTransition(
+          animation: animation,
+          secondaryAnimation: secondaryAnimation,
+          transitionType: SharedAxisTransitionType.horizontal,
+          fillColor: fydPDgrey,
+          child: child,
+        ),
         child: child,
       ),
       bottomNavigationBuilder: (context, tabsRouter) {
@@ -79,10 +88,7 @@ Widget buildBottomNavigationBar({
               Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(255, 192, 174, 174),
-                      Colors.transparent
-                    ],
+                    colors: [fydLogoBlue, Colors.transparent],
                     begin: Alignment.center,
                     end: Alignment.centerLeft,
                   ),
@@ -93,10 +99,7 @@ Widget buildBottomNavigationBar({
               Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(255, 192, 174, 174),
-                      Colors.transparent
-                    ],
+                    colors: [fydLogoBlue, Colors.transparent],
                     begin: Alignment.center,
                     end: Alignment.centerRight,
                   ),
@@ -110,9 +113,9 @@ Widget buildBottomNavigationBar({
         CustomNavigationBar(
           elevation: 8,
           iconSize: 35.h,
-          selectedColor: fydPWhite,
+          selectedColor: fydLogoBlue,
           strokeColor: Colors.transparent,
-          unSelectedColor: fydPLgrey,
+          unSelectedColor: fydBlueGrey,
           backgroundColor: fydPDgrey,
           scaleFactor: 0.2,
           scaleCurve: Curves.elasticOut,

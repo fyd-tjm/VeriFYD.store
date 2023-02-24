@@ -4,10 +4,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
-import 'package:verifyd_store/utils/router.gr.dart';
 import '../../01 presentation/00 core/start_app.dart';
 import '../app_config.dart';
 import '../firebase/dev/firebase_options.dart';
@@ -21,6 +21,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  //! local-db
+  await Hive.initFlutter();
+  await Hive.openBox('local-db');
 
   //! Firebase-Emulator
   if (useEmulator) {

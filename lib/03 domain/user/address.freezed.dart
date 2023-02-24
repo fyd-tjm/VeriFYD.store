@@ -25,6 +25,7 @@ mixin _$FydAddress {
   String get email => throw _privateConstructorUsedError;
   String get line1 => throw _privateConstructorUsedError;
   String get line2 => throw _privateConstructorUsedError;
+  String get landmark => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
   String get state => throw _privateConstructorUsedError;
   int get pincode => throw _privateConstructorUsedError;
@@ -46,6 +47,7 @@ abstract class $FydAddressCopyWith<$Res> {
       String email,
       String line1,
       String line2,
+      String landmark,
       String city,
       String state,
       int pincode});
@@ -66,6 +68,7 @@ class _$FydAddressCopyWithImpl<$Res> implements $FydAddressCopyWith<$Res> {
     Object? email = freezed,
     Object? line1 = freezed,
     Object? line2 = freezed,
+    Object? landmark = freezed,
     Object? city = freezed,
     Object? state = freezed,
     Object? pincode = freezed,
@@ -90,6 +93,10 @@ class _$FydAddressCopyWithImpl<$Res> implements $FydAddressCopyWith<$Res> {
       line2: line2 == freezed
           ? _value.line2
           : line2 // ignore: cast_nullable_to_non_nullable
+              as String,
+      landmark: landmark == freezed
+          ? _value.landmark
+          : landmark // ignore: cast_nullable_to_non_nullable
               as String,
       city: city == freezed
           ? _value.city
@@ -120,6 +127,7 @@ abstract class _$$_FydAddressCopyWith<$Res>
       String email,
       String line1,
       String line2,
+      String landmark,
       String city,
       String state,
       int pincode});
@@ -142,6 +150,7 @@ class __$$_FydAddressCopyWithImpl<$Res> extends _$FydAddressCopyWithImpl<$Res>
     Object? email = freezed,
     Object? line1 = freezed,
     Object? line2 = freezed,
+    Object? landmark = freezed,
     Object? city = freezed,
     Object? state = freezed,
     Object? pincode = freezed,
@@ -166,6 +175,10 @@ class __$$_FydAddressCopyWithImpl<$Res> extends _$FydAddressCopyWithImpl<$Res>
       line2: line2 == freezed
           ? _value.line2
           : line2 // ignore: cast_nullable_to_non_nullable
+              as String,
+      landmark: landmark == freezed
+          ? _value.landmark
+          : landmark // ignore: cast_nullable_to_non_nullable
               as String,
       city: city == freezed
           ? _value.city
@@ -192,6 +205,7 @@ class _$_FydAddress extends _FydAddress {
       required this.email,
       required this.line1,
       required this.line2,
+      required this.landmark,
       required this.city,
       required this.state,
       required this.pincode})
@@ -211,6 +225,8 @@ class _$_FydAddress extends _FydAddress {
   @override
   final String line2;
   @override
+  final String landmark;
+  @override
   final String city;
   @override
   final String state;
@@ -227,6 +243,7 @@ class _$_FydAddress extends _FydAddress {
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.line1, line1) &&
             const DeepCollectionEquality().equals(other.line2, line2) &&
+            const DeepCollectionEquality().equals(other.landmark, landmark) &&
             const DeepCollectionEquality().equals(other.city, city) &&
             const DeepCollectionEquality().equals(other.state, state) &&
             const DeepCollectionEquality().equals(other.pincode, pincode));
@@ -241,6 +258,7 @@ class _$_FydAddress extends _FydAddress {
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(line1),
       const DeepCollectionEquality().hash(line2),
+      const DeepCollectionEquality().hash(landmark),
       const DeepCollectionEquality().hash(city),
       const DeepCollectionEquality().hash(state),
       const DeepCollectionEquality().hash(pincode));
@@ -265,6 +283,7 @@ abstract class _FydAddress extends FydAddress {
       required final String email,
       required final String line1,
       required final String line2,
+      required final String landmark,
       required final String city,
       required final String state,
       required final int pincode}) = _$_FydAddress;
@@ -283,6 +302,8 @@ abstract class _FydAddress extends FydAddress {
   String get line1;
   @override
   String get line2;
+  @override
+  String get landmark;
   @override
   String get city;
   @override

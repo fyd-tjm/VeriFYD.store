@@ -22,47 +22,66 @@ class StoresVerticleListview extends StatelessWidget {
     if (widgetList.isEmpty) {
       return onEmptyListWidget;
     } else {
-      return SizedBox(
-        width: double.infinity,
-        child: ListView.separated(
-          padding: EdgeInsets.symmetric(vertical: 5.h),
-          physics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: (2 + widgetList.length),
-          itemBuilder: ((context, index) {
-            if (index == 0) {
-              return Padding(
-                padding: EdgeInsets.only(top: 20.h, left: 20.w),
-                child: Row(
+      return ShaderMask(
+        shaderCallback: (Rect rect) {
+          return const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              fydLogoBlue,
+              Colors.transparent,
+              Colors.transparent,
+              fydLogoBlue
+            ],
+            stops: [0.0, 0.05, 0.95, 1.0],
+          ).createShader(rect);
+        },
+        blendMode: BlendMode.dstOut,
+        child: SizedBox(
+          width: double.infinity,
+          child: ListView.separated(
+            padding: EdgeInsets.symmetric(vertical: 5.h),
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: (2 + widgetList.length),
+            itemBuilder: ((context, index) {
+              if (index == 0) {
+                return Padding(
+                  padding: EdgeInsets.only(top: 20.h, left: 20.w),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      FydText.h2custom(
+                        text: categoryHeader,
+                        weight: FontWeight.w700,
+                        color: fydPWhite,
+                      ),
+                    ],
+                  ),
+                );
+              } else if (index == (1 + widgetList.length)) {
+                return Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    FydText.h1custom(
-                      text: categoryHeader,
-                      weight: FontWeight.w700,
-                      color: fydDustyPeach,
-                    ),
+                    TextButton(
+                        onPressed: onPressed,
+                        child: FydText.b3custom(
+                          text: footer,
+                          color: fydBlueGrey,
+                        )),
                   ],
-                ),
-              );
-            } else if (index == (1 + widgetList.length)) {
-              return Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  TextButton(
-                      onPressed: onPressed,
-                      child: FydText.b3white(text: footer)),
-                ],
-              );
-            } else {
-              return widgetList[index - 1];
-            }
-          }),
-          separatorBuilder: (context, index) => SizedBox(
-            height: 10.h,
+                );
+              } else {
+                return widgetList[index - 1];
+              }
+            }),
+            separatorBuilder: (context, index) => SizedBox(
+              height: 10.h,
+            ),
           ),
         ),
       );

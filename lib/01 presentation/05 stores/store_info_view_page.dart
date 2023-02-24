@@ -1,28 +1,29 @@
+import 'dart:developer';
+
+import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/utils/helpers/db_helpers.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 
 import '../../03 domain/store/store.dart';
-import '../../presentation/stores/sub views/store/widgets/store_name_header.dart';
 
 //?-----------------------------------------------------------------------------
 
 class StoreInfoViewWrapperPage extends StatelessWidget {
-  const StoreInfoViewWrapperPage(
-      {Key? key, required this.store, required this.color})
+  const StoreInfoViewWrapperPage({Key? key, required this.store})
       : super(key: key);
   final Store store;
-  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return StoreInfoViewPage(
       store: store,
-      color: color,
     );
   }
 }
@@ -30,19 +31,18 @@ class StoreInfoViewWrapperPage extends StatelessWidget {
 //?-----------------------------------------------------------------------------
 
 class StoreInfoViewPage extends StatelessWidget {
-  const StoreInfoViewPage({Key? key, required this.store, required this.color})
-      : super(key: key);
+  const StoreInfoViewPage({Key? key, required this.store}) : super(key: key);
   final Store store;
-  final Color color;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: FydView(
+    log(context.router.currentUrl);
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: FydView(
           pageViewType: ViewType.without_Nav_Bar,
           isScrollable: false,
-          topSheetColor: color,
           topSheetHeight: 200.h,
           topSheet: _topSheetView(context),
           bottomSheet: _bottomSheetView(context),
@@ -59,41 +59,48 @@ class StoreInfoViewPage extends StatelessWidget {
       children: [
         //! AppBar
         FydAppBar(
-          leading: Center(
-            child: IconButton(
+          leading: AppBarBtn(
+              iconData: FontAwesomeIcons.arrowLeftLong,
+              iconSize: 20,
+              padding: const EdgeInsets.all(10.0),
               onPressed: () {
+                HapticFeedback.lightImpact();
                 context.router.pop();
-              },
-              icon: Icon(
-                Icons.close_rounded,
-                size: 35.w,
-                color: Helpers.getContrastColor(color),
-              ),
-            ),
-          ),
+              }),
           main: Center(
-            child: StoreNameHeader(storeName: store.name),
-          ),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.star_outlined,
-                size: 20.w,
-              ),
-              FydText.b3black(text: store.rating.toString()),
-            ],
+            child: FydAutoScrollingText(
+                width: 300.w,
+                height: 50.h,
+                velocity: 10,
+                fydText: FydText.h3custom(
+                  text: store.name,
+                  color: fydPGrey,
+                )),
           ),
         ),
         //! [store-about]
         Padding(
           padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 15.w),
           child: FydTextCard(
+            backgroundColor: fydPLgrey,
             message: store.about,
-            textColor: Helpers.getContrastColor(color),
+            textColor: fydTGrey,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 3,
             padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+            onTap: () async {
+              await showModal<bool>(
+                context: context,
+                configuration: const FadeScaleTransitionConfiguration(
+                  barrierDismissible: true,
+                ),
+                useRootNavigator: false,
+                builder: (context) => FydCloseDialog(
+                  message: store.about,
+                  onClose: () => Navigator.of(context).pop(true),
+                ),
+              );
+            },
           ),
         )
       ],
@@ -103,175 +110,172 @@ class StoreInfoViewPage extends StatelessWidget {
 //?--bottom-Sheet-view----------------------------------------------------------
   _bottomSheetView(BuildContext context) {
     //-------
-    String? facebook = store.socialPresence['FACEBOOK'];
-    String? instagram = store.socialPresence['INSTAGRAM'];
-    String? youtube = store.socialPresence['YOUTUBE'];
-    String? whatsapp = store.socialPresence['WHATSAPP'];
-    String? website = store.socialPresence['WEBSITE'];
+    String? facebook =
+        store.socialPresence[DbHelpers.getStoreInfoField(StoreInfo.facebook)];
+    String? instagram =
+        store.socialPresence[DbHelpers.getStoreInfoField(StoreInfo.instagram)];
+    String? youtube =
+        store.socialPresence[DbHelpers.getStoreInfoField(StoreInfo.youtube)];
+    String? whatsapp =
+        store.socialPresence[DbHelpers.getStoreInfoField(StoreInfo.whatsapp)];
+    String? website =
+        store.socialPresence[DbHelpers.getStoreInfoField(StoreInfo.website)];
     //-------
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: Column(
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
+        child: Column(
+          children: [
+            //! social-Links
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 30.h),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  // TODO: Featured-In StoreInfo
-                  Padding(
-                    padding: EdgeInsets.only(top: 40.h, bottom: 20.h),
-                    child: StoreInfoExpansionTile(
-                        title: 'Featured-In',
-                        color: color,
-                        widgets: List.generate(
-                          2,
-                          (index) => FydTextCard(
-                            message:
-                                "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                            onTap: () async {
-                              Helpers.launchLink(
-                                  url:
-                                      "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-                            },
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            textColor: fydBlueGrey,
-                            backgroundColor: Colors.transparent,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 15.w, vertical: 15.w),
-                          ),
-                        )),
-                  ),
-                  //! Address-es
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20.h),
-                    child: StoreInfoExpansionTile(
-                        title: 'Address-(es)',
-                        expanded: true,
-                        color: color,
-                        widgets: List.generate(
-                          store.storeAddress.length,
-                          (index) => FydTextCard(
-                            message: store.storeAddress.values.elementAt(index),
-                            textColor: fydBlueGrey,
-                            backgroundColor: Colors.transparent,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 15.w, vertical: 15.w),
-                          ),
-                        )),
-                  ),
-                  //! contacts
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20.h),
-                    child: StoreInfoExpansionTile(
-                        title: 'Contact us on: ',
-                        color: color,
-                        widgets: List.generate(
-                          store.storeContact.length,
-                          (index) => FydTextCard(
-                            message: Helpers.phoneMaskWithCountryCode(
-                                store.storeContact.values.elementAt(index)),
-                            onTap: () async {
-                              Helpers.launchPhone(
-                                phone:
-                                    store.storeContact.values.elementAt(index),
-                              );
-                            },
-                            textColor: fydBlueGrey,
-                            backgroundColor: Colors.transparent,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 15.w, vertical: 15.w),
-                          ),
-                        )),
-                  ),
+                  //! FaceBook
+                  if (facebook != null && facebook.isNotEmpty)
+                    IconButton(
+                      onPressed: () async {
+                        await Helpers.launchLink(url: facebook);
+                      },
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                      icon: const FaIcon(
+                        FontAwesomeIcons.facebook,
+                        size: 30,
+                        color: fydLogoBlue,
+                      ),
+                    ),
+                  //! Instagram
+                  if (instagram != null && instagram.isNotEmpty)
+                    IconButton(
+                      onPressed: () async {
+                        await Helpers.launchLink(url: instagram);
+                      },
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                      icon: const FaIcon(
+                        FontAwesomeIcons.instagram,
+                        size: 30,
+                        color: fydLogoBlue,
+                      ),
+                    ),
+                  //! Youtube
+                  if (youtube != null && youtube.isNotEmpty)
+                    IconButton(
+                      onPressed: () async {
+                        await Helpers.launchLink(url: youtube);
+                      },
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                      icon: const FaIcon(
+                        FontAwesomeIcons.youtube,
+                        size: 30,
+                        color: fydLogoBlue,
+                      ),
+                    ),
+                  //! Whatsapp
+                  if (whatsapp != null && whatsapp.isNotEmpty)
+                    IconButton(
+                      onPressed: () async {
+                        await Helpers.launchWhatsApp(phone: whatsapp);
+                      },
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                      icon: const FaIcon(
+                        FontAwesomeIcons.whatsapp,
+                        size: 30,
+                        color: fydLogoBlue,
+                      ),
+                    ),
+                  //! web
+                  if (website != null && website.isNotEmpty)
+                    IconButton(
+                      onPressed: () async {
+                        await Helpers.launchLink(url: website);
+                      },
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                      icon: const FaIcon(
+                        FontAwesomeIcons.globe,
+                        size: 30,
+                        color: fydLogoBlue,
+                      ),
+                    ),
                 ],
               ),
             ),
-          ),
+            //! Featured-In
+            Padding(
+              padding: EdgeInsets.only(top: 10.h, bottom: 20.h),
+              child: StoreInfoExpansionTile(
+                  title: 'Featured-In',
+                  color: fydLogoBlue,
+                  widgets: List.generate(store.featuredIn.length, (index) {
+                    final featuredInList = store.featuredIn.values.toList()
+                      ..reversed;
+                    return FydTextCard(
+                      message: featuredInList.elementAt(index),
+                      onTap: () async {
+                        Helpers.launchLink(
+                          url: featuredInList.elementAt(index),
+                        );
+                      },
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textColor: fydBlueGrey,
+                      backgroundColor: Colors.transparent,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10.w, vertical: 15.w),
+                    );
+                  })),
+            ),
+            //! Address-es
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 20.h),
+              child: StoreInfoExpansionTile(
+                  title: 'Address-(es)',
+                  expanded: true,
+                  color: fydLogoBlue,
+                  widgets: List.generate(
+                    store.storeAddress.length,
+                    (index) => FydTextCard(
+                      message: store.storeAddress.values.elementAt(index),
+                      textColor: fydBlueGrey,
+                      backgroundColor: Colors.transparent,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 15.w, vertical: 15.w),
+                    ),
+                  )),
+            ),
+            //! contacts
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 20.h),
+              child: StoreInfoExpansionTile(
+                  title: 'Contact us on: ',
+                  color: fydLogoBlue,
+                  widgets: List.generate(
+                    store.storeContact.length,
+                    (index) => FydTextCard(
+                      message: Helpers.phoneMaskWithCountryCode(
+                          store.storeContact.values.elementAt(index)),
+                      onTap: () async {
+                        Helpers.launchPhone(
+                          phone: store.storeContact.values.elementAt(index),
+                        );
+                      },
+                      textColor: fydBlueGrey,
+                      backgroundColor: Colors.transparent,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 15.w, vertical: 15.w),
+                    ),
+                  )),
+            ),
+          ],
         ),
-        //! social-Links
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 25.h),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              //! FaceBook
-              if (facebook != null)
-                IconButton(
-                  onPressed: () async {
-                    await Helpers.launchLink(url: facebook);
-                  },
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  icon: const FaIcon(
-                    FontAwesomeIcons.facebook,
-                    size: 30,
-                    color: fydBlueGrey,
-                  ),
-                ),
-              //! Instagram
-              if (instagram != null)
-                IconButton(
-                  onPressed: () async {
-                    await Helpers.launchLink(url: instagram);
-                  },
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  icon: const FaIcon(
-                    FontAwesomeIcons.instagram,
-                    size: 30,
-                    color: fydBlueGrey,
-                  ),
-                ),
-              //! Youtube
-              if (youtube != null)
-                IconButton(
-                  onPressed: () async {
-                    await Helpers.launchLink(url: youtube);
-                  },
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  icon: const FaIcon(
-                    FontAwesomeIcons.youtube,
-                    size: 30,
-                    color: fydBlueGrey,
-                  ),
-                ),
-              //! Whatsapp
-              if (whatsapp != null)
-                IconButton(
-                  onPressed: () async {
-                    await Helpers.launchWhatsApp(phone: whatsapp);
-                  },
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  icon: const FaIcon(
-                    FontAwesomeIcons.whatsapp,
-                    size: 30,
-                    color: fydBlueGrey,
-                  ),
-                ),
-              //! web
-              if (website != null)
-                IconButton(
-                  onPressed: () async {
-                    await Helpers.launchLink(url: website);
-                  },
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  icon: const FaIcon(
-                    FontAwesomeIcons.globe,
-                    size: 30,
-                    color: fydBlueGrey,
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ],
+      ),
     );
   }
 //?-----------------------------------------------------------------------------
@@ -281,12 +285,14 @@ class StoreInfoExpansionTile extends StatelessWidget {
   const StoreInfoExpansionTile({
     Key? key,
     required this.title,
+    this.titleSize = 22,
     required this.color,
     this.expanded = false,
     required this.widgets,
   }) : super(key: key);
 
   final String title;
+  final double titleSize;
   final Color color;
   final bool expanded;
   final List<Widget> widgets;
@@ -299,11 +305,12 @@ class StoreInfoExpansionTile extends StatelessWidget {
         initiallyExpanded: expanded,
         backgroundColor: fydPGrey,
         collapsedBackgroundColor: fydPGrey,
-        iconColor: Helpers.getContrastColor(color),
+        iconColor: fydTGrey,
         collapsedIconColor: color,
         expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
         title: FydText.h3custom(
           color: color,
+          size: titleSize,
           text: title,
           weight: FontWeight.w600,
         ),

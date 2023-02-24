@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -230,6 +229,7 @@ class CartCubit extends Cubit<CartState> {
     // (-ve): check if only 1 QTY IN CART
     // if true: then remove THE SIZE
     //   else : DECREASE SIZE QTY
+    if (state.updating) return;
     emit(state.copyWith(updating: true, failure: none()));
     //-----
     await Future.delayed(const Duration(milliseconds: 900));
@@ -258,11 +258,16 @@ class CartCubit extends Cubit<CartState> {
         // qty =1 and updateBy is -1
         removeSize(cartItem: cartItem, qtyToBeRemoved: 1);
       }
-    } else {
+    } // when updateBy is +1
+    else {
       if (state.cartRealtime!.cartCount ==
-          _sharedInfoCubit.state.sharedInfo!.cartLimit) return;
-      //TODO: Cart Limit notification
-      // when updateBy = +1
+          _sharedInfoCubit.state.sharedInfo!.cartLimit) {
+        emit(state.copyWith(
+            updating: false, failure: some(const CartFailure.maxCartLimit())));
+        const ToggleFailureOrSuccess();
+        return;
+      }
+
       final sizeAvailability = state.cartItemsDetail![cartItem.value1]!
           .sizeAvailability[cartItem.value2]!;
       //------
@@ -275,7 +280,6 @@ class CartCubit extends Cubit<CartState> {
                 updateBy: updateBy)
             .then((cartFailureOrSuccess) => cartFailureOrSuccess.fold(
                   (cartFailure) {
-                    log(cartFailure.toString());
                     emit(state.copyWith(
                       updating: false,
                       failure: some((cartFailure)),
@@ -303,6 +307,7 @@ class CartCubit extends Cubit<CartState> {
     required Tuple3 cartItem,
     required int qtyToBeRemoved,
   }) async {
+    if (state.updating) return;
     //------
     emit(state.copyWith(updating: true, failure: none()));
     await Future.delayed(const Duration(milliseconds: 900));

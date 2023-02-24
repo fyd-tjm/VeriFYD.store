@@ -1,20 +1,21 @@
 import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
-import 'package:verifyd_store/01%20presentation/05%20stores/store_view_page.dart';
+import 'package:verifyd_store/01%20presentation/04%20home/widgets/store_search.dart';
 import 'package:verifyd_store/02%20application/stores/stores_bloc.dart';
 import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+import 'package:verifyd_store/utils/helpers/db_helpers.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
-import 'package:verifyd_store/utils/router.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 import '../../00 ui-core/ui_exports.dart';
-import '../../presentation/core/widgets/fyd_v_h_listview.dart';
 import 'widgets/export_widgets.dart';
 
 //?-----------------------------------------------------------------------------
@@ -43,9 +44,11 @@ class StoresViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: BlocConsumer<StoresBloc, StoresState>(
+    log(context.router.currentUrl);
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: BlocConsumer<StoresBloc, StoresState>(
           listenWhen: (previous, current) {
             //TODO: Listen when routing condition
             return true;
@@ -90,16 +93,36 @@ class StoresViewPage extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // TODO: search bar
-        Padding(
-          padding: EdgeInsets.only(top: 15.h),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
+        //! search bar
+        Builder(builder: (context) {
+          final searchMap = context.select((SharedInfoCubit cubit) =>
+              cubit.state.sharedInfo!.storeSearchMap);
+          final recentMap = context
+              .select((SharedInfoCubit cubit) => cubit.state.recentSearchMap);
+          return Padding(
+            padding: EdgeInsets.only(top: 20.h, left: 8.w, right: 8.w),
+            child: InkWell(
+              onTap: () async {
+                HapticFeedback.mediumImpact();
+                await showCustomSearch(
+                  context: context,
+                  delegate: StoreSearch(
+                    context: context,
+                    searchMap: searchMap,
+                    recentMap: recentMap,
+                    onTap: (searchMapEntry) {
+                      context.read<SharedInfoCubit>().updateRecentSearchMap(
+                            recentSearchEntry: searchMapEntry,
+                          );
+                      context.navigateTo(
+                          StoreViewWrapperRoute(storeId: searchMapEntry.key));
+                    },
+                  ),
+                );
+              },
+              child: SizedBox(
                 height: 60.h,
-                width: 380.w,
+                width: double.infinity,
                 child: Card(
                   color: fydPDgrey,
                   elevation: 15.0,
@@ -116,67 +139,81 @@ class StoresViewPage extends StatelessWidget {
                         child: Icon(
                           Icons.manage_search_sharp,
                           size: 32.sp,
-                          color: fydPWhite,
+                          color: fydBlueGrey,
                         ),
                       ),
-
                       //! hint Text
-                      Expanded(
-                          child: FydText.b3white(
-                        text: 'Find Store via name (or) #id',
-                        weight: FontWeight.w600,
-                      )),
+                      const Expanded(
+                        child: FydRichText(
+                          size: 16,
+                          color: fydBlueGrey,
+                          weight: FontWeight.w600,
+                          letterSpacing: .9,
+                          textList: [
+                            TextSpan(
+                              text: 'find store via ',
+                            ),
+                            TextSpan(
+                                text: '#',
+                                style: TextStyle(
+                                    color: fydLogoBlue, fontSize: 18)),
+                            TextSpan(
+                                text: 'store-id',
+                                style: TextStyle(
+                                    color: fydLogoBlue, fontSize: 18)),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              )
+              ),
+            ),
+          );
+        }),
+
+        //! categories
+        Padding(
+          padding: EdgeInsets.only(bottom: 15.h),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              //! apparel
+              FydCategoryCard(
+                svgAsset: 'assets/icons/apparels.svg',
+                title: DbHelpers.getSharedInfoField(SharedInfo.apparel),
+                color: fydSBlue,
+                onPressed: (category) {
+                  context
+                      .read<StoresBloc>()
+                      .add(UpdateSelectedCategory(category: category));
+                },
+              ),
+              //! footwear
+              FydCategoryCard(
+                svgAsset: 'assets/icons/footwear.svg',
+                title: DbHelpers.getSharedInfoField(SharedInfo.footwear),
+                color: fydDustyPeach,
+                onPressed: (category) {
+                  context
+                      .read<StoresBloc>()
+                      .add(UpdateSelectedCategory(category: category));
+                },
+              ),
+              //! other
+              FydCategoryCard(
+                svgAsset: 'assets/icons/others.svg',
+                title: DbHelpers.getSharedInfoField(SharedInfo.other),
+                color: fydSPink,
+                onPressed: (category) {
+                  context
+                      .read<StoresBloc>()
+                      .add(UpdateSelectedCategory(category: category));
+                },
+              ),
             ],
           ),
-        ),
-        //! category  H-listView
-        Builder(
-          builder: (context) {
-            final categoryList = context.select(
-                (SharedInfoCubit cubit) => cubit.state.sharedInfo?.categories);
-            if (categoryList == null) {
-              return Padding(
-                padding: EdgeInsets.only(bottom: 40.h),
-                child: const Center(
-                  child: SpinKitThreeBounce(
-                    color: fydPDgrey,
-                    size: 30.0,
-                  ),
-                ),
-              );
-            } //-------
-            else {
-              // sorting category
-              final sortedCategoryMap = Helpers.sortMapByKeys(categoryList);
-              //---------
-              return Padding(
-                padding: EdgeInsets.only(bottom: 15.h),
-                child: FydHListView(
-                  height: 95.h,
-                  widgetListPadding: EdgeInsets.only(left: 30.h),
-                  separation: 40.w,
-                  itemCount: sortedCategoryMap.length,
-                  listWidget: List.generate(
-                    sortedCategoryMap.length,
-                    (idx) => FydCategoryCard(
-                      svgAsset: sortedCategoryMap.values.elementAt(idx),
-                      title: sortedCategoryMap.keys.elementAt(idx),
-                      color: Helpers.getColorForIndex(idx),
-                      onPressed: (category) {
-                        context
-                            .read<StoresBloc>()
-                            .add(UpdateSelectedCategory(category: category));
-                      },
-                    ),
-                  ),
-                ),
-              );
-            }
-          },
         ),
       ],
     );
@@ -188,18 +225,18 @@ class StoresViewPage extends StatelessWidget {
     if (state.isFetching) {
       return const Center(
         child: SpinKitWave(
-          color: fydPWhite,
+          color: fydLogoBlue,
           size: 40.0,
         ),
       );
     }
     //! No Selected Category
     else if (state.selectedCategory == null) {
-      return Center(
-        child: FydText.h1custom(
+      return const Center(
+        child: FydText.h3custom(
           text: 'select a category',
           weight: FontWeight.w700,
-          color: fydDustyPeach,
+          color: fydBlueGrey,
         ),
       );
     }
@@ -208,15 +245,18 @@ class StoresViewPage extends StatelessWidget {
       // footer logic
       final liveStores = (context.select((SharedInfoCubit cubit) =>
           cubit.state.sharedInfo?.liveStores[state.selectedCategory]));
+      // launching soon image url
       //--------
       return Padding(
-        padding: EdgeInsets.only(left: 10.w, right: 10.w),
+        padding: EdgeInsets.only(left: 5.w, right: 5.w),
         child: StoresVerticleListview(
           onEmptyListWidget: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 80.w, vertical: 80.w),
-            //TODO: SharedInfo-Image-Caching/Alternate
-            child: Image.network(
-                'https://cdn-icons-png.flaticon.com/512/5578/5578691.png'),
+            padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 40.w),
+            child: Image.asset(
+              'assets/logo/launching-soon.webp',
+              width: 300.w,
+              fit: BoxFit.fitWidth,
+            ),
           ),
           categoryHeader: Helpers.toPascalCase(state.selectedCategory)!,
           widgetList: List.generate(

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 
@@ -247,6 +248,12 @@ class Helpers {
     } else {
       return fydPDgrey;
     }
+  }
+
+//?-----------------------------------------------------------------------------
+//! Map to String
+  static String mapToString(Map<String, String> map) {
+    return jsonEncode(map);
   }
 
 //?-----------------------------------------------------------------------------

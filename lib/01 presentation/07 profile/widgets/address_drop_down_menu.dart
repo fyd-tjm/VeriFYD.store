@@ -42,7 +42,8 @@ class AddressDropdownMenu extends HookWidget {
           borderRadius: BorderRadius.circular(8),
         ),
       ),
-      hint: FydText.h2custom(
+      menuMaxHeight: MediaQuery.of(context).size.height / 2,
+      hint: const FydText.h2custom(
         text: 'select state:',
         color: fydTGrey,
       ),

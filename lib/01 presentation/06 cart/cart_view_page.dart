@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,27 +42,30 @@ class CartViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: BlocConsumer<CartCubit, CartState>(
+    log(context.router.currentUrl);
+    return SafeArea(
+      child: Scaffold(
+        body: BlocConsumer<CartCubit, CartState>(
           listenWhen: (previous, current) {
-            if (context.router.currentUrl == Rn.cart) {
+            if (context.router.currentUrl == '/main/cart') {
               return true;
             }
             return false;
           },
           listener: (context, state) {
-            // failure state
+            //! failure
             if (state.failure.isSome()) {
               state.failure.fold(
                 () => null,
                 (cartFailure) => showSnack(
                     context: context,
+                    durationSeconds: 2,
+                    viewType: SnackBarViewType.withNav,
                     message: cartFailure.when(
                       itemNotAvailableAnymore: () =>
                           'Few items are out of Stock!',
                       maxItemAvailability: () => 'No more left in stock',
-                      maxCartLimit: () => 'reached cart limit!',
+                      maxCartLimit: () => 'Max cart limit reached!',
                       availabilityCheckFailure: () =>
                           'Server Error! Refresh Cart',
                       itemsDetailFailure: () =>
@@ -73,7 +78,7 @@ class CartViewPage extends StatelessWidget {
                     )),
               );
             }
-            // loading overlay
+            //! loading overlay
             if (state.updating == true) {
               _loadingOverlay.show(context);
             }
@@ -81,13 +86,9 @@ class CartViewPage extends StatelessWidget {
               _loadingOverlay.hide();
             }
           },
-          // if cartRealTime updated trigger build
-          buildWhen: (previous, current) {
-            return true;
-          },
           builder: (context, state) {
-            // Loading in case of cartState null
-            if (state.cartRealtime == null) {
+            //! Loading
+            if (state.updating && state.cartRealtime == null) {
               return const Center(
                 child: SpinKitWave(
                   color: fydLogoBlue,
@@ -95,41 +96,95 @@ class CartViewPage extends StatelessWidget {
                 ),
               );
             }
-            // Empty cart
+            //! error state
+            else if (state.cartRealtime == null ||
+                Helpers.checkEntries(
+                        state.cartItemsInTuple3!
+                            .map((cartItem) => cartItem.value1)
+                            .toList()
+                            .cast(),
+                        state.cartItemsDetail!.cast()) ==
+                    false) {
+              return Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Image.asset(
+                    'assets/logo/oops.png',
+                    fit: BoxFit.fitWidth,
+                    width: 250,
+                  ),
+                  const FydText.b1custom(
+                    text: 'Ahhh! something went wrong',
+                    color: fydBlueGrey,
+                    letterSpacing: .8,
+                  ),
+                  SizedBox(
+                    height: 80.h,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 100),
+                    child: FydBtn(
+                      color: fydPGrey,
+                      onPressed: () {
+                        context.read<CartCubit>().initializeCart();
+                      },
+                      height: 50,
+                      fydText: const FydText.b1custom(
+                        text: 'Refresh cart',
+                        color: fydBlueGrey,
+                      ),
+                    ),
+                  )
+                ],
+              );
+            }
+            //! Empty cart
             else if (state.cartItemsInTuple3!.isEmpty) {
-              return Center(
-                child: FydText.h2custom(
-                    text: 'Add products To Cart!', color: fydBlueGrey),
+              return Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/logo/empty-cart.png',
+                        fit: BoxFit.fitWidth,
+                        width: 150,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  const FydText.b1custom(
+                    text: 'Shop to add items in Cart!',
+                    color: fydBlueGrey,
+                    letterSpacing: .8,
+                  ),
+                ],
               );
             }
-            // if product-Detail not exist for sku
-            else if (Helpers.checkEntries(
-                    state.cartItemsInTuple3!
-                        .map((cartItem) => cartItem.value1)
-                        .toList()
-                        .cast(),
-                    state.cartItemsDetail!.cast()) ==
-                false) {
-              return Center(
-                child: Center(
-                  child: FydText.h2custom(
-                      text: 'something went Wrong, Refresh',
-                      color: fydBlueGrey),
-                ),
-              );
-            }
-            // cart-view
+            //! cart-view
             else {
               double getTopSheetHeight() {
                 final cartItems = state.cartItemsInTuple3!.length;
                 switch (cartItems) {
                   case 1:
-                    return 200.h;
+                    return 180.h;
                   case 2:
-                    return 300.h;
+                    return 280.h;
+                  case 3:
+                    return 380.h;
+                  case 4:
+                    return 490.h;
 
                   default:
-                    return 350.h;
+                    return 490.h;
                 }
               }
 
@@ -170,42 +225,31 @@ class CartViewPage extends StatelessWidget {
       return getProductForCartItem(cartItem).sizeAvailability[cartItem.value2]!;
     }
 
-    // View
     return Column(
       children: [
-        //! appbar(heading + deleteBtn)
+        //! Appbar
         FydAppBar(
-          // heading
-          main: Center(child: FydText.d3black(text: 'Cart')),
-          // clear-cart-btn
-          trailing: Align(
-            alignment: Alignment.center,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  minimumSize: Size.zero,
-                  padding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r)),
-                  primary: fydPDgrey),
-              // ignore: sort_child_properties_last
-              child: Padding(
-                padding: EdgeInsets.all(5.w),
-                child: Icon(
-                  Icons.delete_forever,
-                  size: 25.w,
-                  color: fydPWhite,
-                ),
-              ),
-              // clearCart onPressed Event
-              onPressed: () => context.read<CartCubit>().clearCart(),
-            ),
+          //! heading
+          main: const Center(
+              child: FydText.d3black(
+            text: 'Cart',
+            letterSpacing: 1.3,
+          )),
+          //! edit-btn
+          trailing: AppBarBtn(
+            iconData: Icons.delete_forever,
+            onPressed: () => context.read<CartCubit>().clearCart(),
           ),
         ),
-        // ScrollView(cart tiles + delete btn + indicator)
+        //! List-View
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(
-                top: 10.h, left: 10.w, right: 10.w, bottom: 4.h),
+              top: (state.cartItemsInTuple3!.length == 1) ? 10.h : 0,
+              left: 10.w,
+              right: 10.w,
+              bottom: 4.h,
+            ),
             child: FydVListView(
                 width: double.infinity,
                 separation: 0,
@@ -273,53 +317,79 @@ class CartViewPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding:
-              EdgeInsets.only(top: 30.h, bottom: 10.h, left: 20.w, right: 20.w),
+          padding: EdgeInsets.only(
+            top: 30.h,
+            bottom: 10.h,
+          ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //!total-Items
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  FydText.b1custom(
-                    text: 'Total Items',
-                    color: fydGreyWhite,
-                  ),
-                  FydText.b1custom(
-                    text: (state.cartRealtime == null)
-                        ? '- -'
-                        : '(${state.cartRealtime!.cartCount}) ',
-                    weight: FontWeight.w600,
-                    color: fydBlueGrey,
-                  )
-                ],
+              //! store-name
+              Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 5.h),
+                child: FydText.b3custom(
+                  text: state.cartRealtime!.storeName,
+                  color: fydTGrey,
+                  weight: FontWeight.w600,
+                ),
               ),
-              Divider(
-                height: 20.h,
-                color: fydPWhite,
+              //! store-id
+              Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
+                child: FydText.b3custom(
+                  text: state.cartRealtime!.cartId,
+                  color: fydTGrey,
+                  weight: FontWeight.w600,
+                ),
+              ),
+
+              //!total-Items
+              Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 10.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const FydText.b2custom(
+                      text: 'Total Items',
+                      color: fydBlueGrey,
+                      letterSpacing: .8,
+                    ),
+                    FydText.b2custom(
+                      text:
+                          '(${state.cartRealtime!.cartCount.toString().padLeft(2, '0')}) ',
+                      weight: FontWeight.w600,
+                      color: fydLogoBlue,
+                    )
+                  ],
+                ),
+              ),
+              const FydDivider(
+                color: fydBlueGrey,
               ),
               //!total
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  FydText.b1custom(
-                    text: 'Sub-Total',
-                    color: fydGreyWhite,
-                  ),
-                  Text(
-                    ((state.cartRealtime == null))
-                        ? '- -'
-                        : '₹ ${subTotal.toInt()}',
-                    style: GoogleFonts.exo2(
-                      fontWeight: FontWeight.w600,
-                      color: fydLogoBlue,
-                      fontSize: 22,
-                      letterSpacing: 2,
+              Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const FydText.b2custom(
+                      text: 'Sub-Total',
+                      color: fydBlueGrey,
+                      letterSpacing: .8,
                     ),
-                  )
-                ],
+                    Text(
+                      '₹ ${subTotal.toInt()}',
+                      style: GoogleFonts.exo2(
+                        fontWeight: FontWeight.w600,
+                        color: fydLogoBlue,
+                        fontSize: 20,
+                        letterSpacing: .9,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ],
           ),
@@ -330,7 +400,7 @@ class CartViewPage extends StatelessWidget {
           child: FydBtn(
             height: 60.h,
             color: fydPGrey,
-            fydText: FydText.h2custom(
+            fydText: const FydText.h3custom(
               text: 'Proceed To Checkout',
               color: fydLogoBlue,
               weight: FontWeight.bold,
@@ -347,7 +417,9 @@ class CartViewPage extends StatelessWidget {
               } else {
                 showOkDialog(
                   context: context,
-                  message: 'Items not available. \n remove before proceeding.',
+                  title: 'Alert!',
+                  message:
+                      'Product/Products not available. \n remove before proceeding.',
                 );
               }
             },
@@ -392,15 +464,15 @@ class CartTile extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //top view
+        //! available view
         SizedBox(
-          height: 100.h,
+          height: 90.h,
           width: double.infinity,
           child: Card(
             color: (availability >= qty) ? fydPWhite : Colors.grey[300],
-            elevation: 0.5,
+            elevation: 0.8,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.r),
+              borderRadius: BorderRadius.circular(5.r),
               side: (availability >= qty)
                   ? BorderSide.none
                   : const BorderSide(color: fydNotifRed, width: 1.5),
@@ -411,29 +483,53 @@ class CartTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 //! Product-Image (width:85w)
-                SizedBox(
-                  height: double.infinity,
-                  width: 85.w,
-                  child: Card(
-                    color: fydSPink,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: Image.network(
-                      imageLink,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                GestureDetector(
+                  onTap: () async {
+                    //! image-Pop dialog
+                    await showModal<bool>(
+                      context: context,
+                      configuration: const FadeScaleTransitionConfiguration(
+                        barrierDismissible: true,
+                      ),
+                      useRootNavigator: false,
+                      builder: (context) => FydImageDialog(
+                        imageUrl: imageLink,
+                        onClose: () => Navigator.of(context).pop(true),
+                      ),
+                    );
+                  },
+                  child: SizedBox(
+                      height: double.infinity,
+                      width: 85.w,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5.0),
+                        child: CachedNetworkImage(
+                          imageUrl: imageLink,
+                          fit: BoxFit.cover,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  const SpinKitWave(
+                            size: 20,
+                            color: fydTGrey,
+                          ),
+                          errorWidget: (context, url, error) => Icon(
+                            Icons.image_not_supported_outlined,
+                            color: fydTGrey,
+                            size: 70.h,
+                          ),
+                        ),
+                      )),
                 ),
                 //! Product-Detail
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.only(
-                        top: 3.h, left: 4.w, right: 3.w, bottom: 3.h),
+                        top: 3.h, left: 5.w, right: 3.w, bottom: 3.h),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Name : price : delete
+                        //! Name : price : delete
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -444,47 +540,40 @@ class CartTile extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // name
-                                SizedBox(
+                                //! name
+                                FydEllipsisText(
                                   width: MediaQuery.of(context).size.width * .6,
-                                  child: Text(
-                                    prodName,
-                                    style: GoogleFonts.exo2(
-                                        color: fydPDgrey,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
+                                  fydText: FydText.b3black(text: prodName),
                                 ),
-                                // price
-                                FydText.b3custom(
+
+                                //! price
+                                FydText.b4custom(
                                   text: '₹ $price',
-                                  color: fydBlueGrey,
+                                  color: fydLogoBlue,
                                   weight: FontWeight.bold,
                                 ),
                               ],
                             ),
-
-                            // delete btn
-                            IconButton(
-                              onPressed: onDeletePressed,
-                              padding: EdgeInsets.symmetric(horizontal: 2.w),
-                              constraints: const BoxConstraints(),
-                              icon: const Icon(Icons.cancel_outlined),
-                              color: fydBlueGrey,
-                              iconSize: 25,
+                            //! delete btn
+                            InkResponse(
+                              onTap: onDeletePressed,
+                              radius: 50,
+                              child: const Icon(
+                                Icons.cancel_outlined,
+                                size: 22,
+                                color: fydTGrey,
+                              ),
                             ),
                           ],
                         ),
-                        // size : incre/decrement : qty
+                        //! size : incre/decrement : qty
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            // Size
+                            //! Size
                             Card(
-                              color: fydBlueGrey,
+                              color: fydTGrey,
                               elevation: 4.0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
@@ -492,47 +581,46 @@ class CartTile extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 6, vertical: 2),
-                                child: FydText.b2custom(
+                                child: FydText.b3custom(
                                   text: size,
                                   color: fydPWhite,
                                   weight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            //Editor
+                            //! Editor
                             Row(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  // Decreament-btn
-                                  IconButton(
-                                    onPressed: onDecrementPressed,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 2.w),
-                                    constraints: const BoxConstraints(),
-                                    icon: const Icon(
-                                        Icons.remove_circle_outline_sharp),
-                                    color: fydBlueGrey,
-                                    iconSize: 25,
+                                  //! Decreament-btn
+                                  InkResponse(
+                                    onTap: onDecrementPressed,
+                                    child: const Icon(
+                                      Icons.remove_circle_outline,
+                                      size: 22,
+                                      color: fydTGrey,
+                                    ),
                                   ),
-                                  // QTY
+                                  //! QTY
                                   Padding(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 8.w),
-                                    child: FydText.b1custom(
-                                      text: '$qty',
-                                      color: fydBlueGrey,
+                                    child: FydText.b3custom(
+                                      text: qty.toString().padLeft(2, '0'),
+                                      color: fydPDgrey,
                                       weight: FontWeight.w600,
                                     ),
                                   ),
-                                  // Increament-btn
-                                  IconButton(
-                                    onPressed: onIncrementPressed,
-                                    padding: EdgeInsets.zero,
-                                    constraints: const BoxConstraints(),
-                                    icon: const Icon(Icons.add_circle_sharp),
-                                    color: fydBlueGrey,
-                                    iconSize: 25,
+                                  //! Increament-btn
+                                  InkResponse(
+                                    onTap: onIncrementPressed,
+                                    splashColor: fydLogoBlue,
+                                    child: const Icon(
+                                      Icons.add_circle_sharp,
+                                      size: 22,
+                                      color: fydTGrey,
+                                    ),
                                   ),
                                 ]),
                           ],
@@ -545,12 +633,12 @@ class CartTile extends StatelessWidget {
             ),
           ),
         ),
-        //bottom view
+        //! not available view
         Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // alert Message
+            //! alert Message
             Padding(
               padding: EdgeInsets.only(left: 15.w),
               // width: double.infinity,
@@ -561,7 +649,8 @@ class CartTile extends StatelessWidget {
                 style: const TextStyle(
                     color: fydNotifRed,
                     fontSize: 12,
-                    fontWeight: FontWeight.bold),
+                    letterSpacing: .9,
+                    fontWeight: FontWeight.w700),
               ),
             ),
           ],
@@ -572,9 +661,3 @@ class CartTile extends StatelessWidget {
 }
 
 //?-----------------------------------------------------------------------------
-
-
-              
-              
-            
-          

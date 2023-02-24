@@ -160,10 +160,7 @@ class FirebaseCartRepository implements ICartRepository {
     final docRef = _firestore.doc(cartRef);
 
     final result = await docRef
-        .update({
-          DbFKeys.cartItems(): {},
-          DbFKeys.cartCount(): 0,
-        })
+        .update(Cart.initial().toJson())
         .then((value) => right<CartFailure, Unit>(unit))
         .onError(
             (error, stackTrace) => left(const CartFailure.updateCartFailure()));

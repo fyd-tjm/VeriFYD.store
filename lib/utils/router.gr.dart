@@ -117,7 +117,6 @@ class AppRouter extends _i30.RootStackRouter {
         child: _i7.StoreInfoViewWrapperPage(
           key: args.key,
           store: args.store,
-          color: args.color,
         ),
         opaque: true,
         barrierDismissible: false,
@@ -127,6 +126,7 @@ class AppRouter extends _i30.RootStackRouter {
       return _i30.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i8.EditProfileWrapperPage(),
+        transitionsBuilder: _i32.TransitionsBldr.fadeThrough,
         opaque: true,
         barrierDismissible: false,
       );
@@ -172,6 +172,9 @@ class AppRouter extends _i30.RootStackRouter {
       return _i30.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i13.HelpWrapperPage(),
+        transitionsBuilder: _i30.TransitionsBuilders.slideLeftWithFade,
+        durationInMilliseconds: 150,
+        reverseDurationInMilliseconds: 150,
         opaque: true,
         barrierDismissible: false,
       );
@@ -628,14 +631,12 @@ class StoreInfoViewWrapperRoute
   StoreInfoViewWrapperRoute({
     _i31.Key? key,
     required _i33.Store store,
-    required _i31.Color color,
   }) : super(
           StoreInfoViewWrapperRoute.name,
           path: '/storeInfo',
           args: StoreInfoViewWrapperRouteArgs(
             key: key,
             store: store,
-            color: color,
           ),
         );
 
@@ -646,18 +647,15 @@ class StoreInfoViewWrapperRouteArgs {
   const StoreInfoViewWrapperRouteArgs({
     this.key,
     required this.store,
-    required this.color,
   });
 
   final _i31.Key? key;
 
   final _i33.Store store;
 
-  final _i31.Color color;
-
   @override
   String toString() {
-    return 'StoreInfoViewWrapperRouteArgs{key: $key, store: $store, color: $color}';
+    return 'StoreInfoViewWrapperRouteArgs{key: $key, store: $store}';
   }
 }
 

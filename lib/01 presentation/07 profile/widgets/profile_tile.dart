@@ -37,13 +37,14 @@ class ProfileTile extends StatelessWidget {
               height: 60.h,
               width: 60.h,
               child: Card(
-                color: iconColor,
+                color: fydPGrey,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.r)),
                 child: Padding(
                   padding: EdgeInsets.all(5.r),
                   child: SvgPicture.asset(
                     iconAsset,
+                    color: iconColor,
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -55,9 +56,17 @@ class ProfileTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // tile-title
-              FydText.h2white(text: title),
+              FydText.h3white(
+                text: title,
+                weight: FontWeight.w600,
+                letterSpacing: 1.3,
+              ),
               // tile-description
-              FydText.b3custom(color: fydTGrey, text: description)
+              FydText.b4custom(
+                color: fydTGrey,
+                text: description,
+                weight: FontWeight.w500,
+              )
             ],
           )
         ],

@@ -40,6 +40,7 @@ class StartApp extends StatelessWidget {
               routeInformationParser: appRouter.defaultRouteParser(),
               theme: ThemeData.dark().copyWith(
                 scaffoldBackgroundColor: fydPDgrey,
+                backgroundColor: fydPDgrey,
                 textSelectionTheme: const TextSelectionThemeData(
                     selectionHandleColor: fydLogoBlue),
                 pageTransitionsTheme: const PageTransitionsTheme(builders: {
@@ -79,7 +80,7 @@ class MyGlobalObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    print('onChange Bloc type-- ${bloc.runtimeType} -- ${change.currentState}');
+    print('onChange Bloc type-- ${bloc.runtimeType} -- ${change.runtimeType}');
     // print('onChange Bloc CurrentState-- ${change.currentState}');
     // print('onChange Bloc NextState-- ${change.nextState}');
   }

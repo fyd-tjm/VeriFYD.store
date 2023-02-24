@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 
 class ProductCarouselSlider extends StatelessWidget {
   final List<String> imageUrls;
@@ -44,15 +47,24 @@ class ProductImageHolder extends StatelessWidget {
       height: double.infinity,
       width: double.infinity,
       child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30.r),
-          bottomRight: Radius.circular(30.r),
-        ),
-        child: Image.network(
-          imageUrl,
-          fit: BoxFit.cover,
-        ),
-      ),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(30.r),
+            bottomRight: Radius.circular(30.r),
+          ),
+          child: CachedNetworkImage(
+            imageUrl: imageUrl,
+            fit: BoxFit.cover,
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                const SpinKitWave(
+              size: 20,
+              color: fydBlueGrey,
+            ),
+            errorWidget: (context, url, error) => const Icon(
+              Icons.hide_image_outlined,
+              size: 50,
+              color: fydTGrey,
+            ),
+          )),
     );
   }
 }

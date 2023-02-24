@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../00 ui-core/ui_exports.dart';
+//?-----------------------------------------------------------------------------
 
 class FydCategoryCard extends StatelessWidget {
   const FydCategoryCard({
@@ -38,11 +39,12 @@ class FydCategoryCard extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.r)),
                 elevation: 10.0,
-                color: color,
+                color: fydPDgrey,
                 child: Padding(
-                  padding: EdgeInsets.all(5.r),
+                  padding: EdgeInsets.all(10.r),
                   child: SvgPicture.asset(
                     svgAsset,
+                    color: color,
                   ),
                 ),
               ),

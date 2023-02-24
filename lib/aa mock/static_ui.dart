@@ -58,6 +58,7 @@ class MockUi {
     email: 'email@mail.com',
     line1: '117 Mint Road',
     line2: 'Nr Fort Market',
+    landmark: '',
     city: 'Mumbai',
     state: 'Punjab',
     pincode: 124323,
@@ -102,6 +103,8 @@ class MockUi {
     company: 'Product Company Name',
     description:
         'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has',
+    policy:
+        'Thank you for shopping at (Store Name)! We offer refund and/or exchange within the first 30 days of your purchase, if 30 days have passed since your purchase, you will not be offered a refund and/or exchange of any kind. Your item must be unused and in the same condition that you received it.',
     sizeAvailability: const {
       'M': 2,
       'L': 2,
@@ -130,10 +133,41 @@ class MockUi {
       'https://cdn.dribbble.com/users/7213458/screenshots/20298756/media/7fc74a67a4f184491867312bfcca6661.gif';
   //! newAddress ui
   static List<String> states = [
-    'Select state',
-    'Uttar Pradesh',
-    'Punjab',
-    'Haryana'
+    "Andaman and Nicobar Islands",
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chandigarh",
+    "Chhattisgarh",
+    "Dadra and Nagar Haveli",
+    "Daman and Diu",
+    "Delhi",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Lakshadweep",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Puducherry",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal",
   ];
   //! deliveryinfo ui
   static List<String> deliveryAddress = [

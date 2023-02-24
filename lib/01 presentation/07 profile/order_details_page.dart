@@ -1,8 +1,12 @@
+import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/payment_page.dart';
@@ -29,15 +33,17 @@ class OrderDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: FydView(
-        pageViewType: ViewType.without_Nav_Bar,
-        isScrollable: false,
-        topSheetHeight: 250.h,
-        topSheet: _topSheetView(context),
-        bottomSheet: _bottomSheetView(context),
-      )),
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: FydView(
+          pageViewType: ViewType.without_Nav_Bar,
+          isScrollable: false,
+          topSheetHeight: 250.h,
+          topSheet: _topSheetView(context),
+          bottomSheet: _bottomSheetView(context),
+        ),
+      ),
     );
   }
 
@@ -64,43 +70,37 @@ class OrderDetailsPage extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        //! AppBar (heading + close-Btn )
+        //! AppBar (backBTN + heading)
         FydAppBar(
-          leading: Center(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  minimumSize: Size.zero,
-                  padding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r)),
-                  primary: fydPDgrey),
-              child: Padding(
-                padding: EdgeInsets.all(5.w),
-                child: Icon(
-                  Icons.close_rounded,
-                  size: 25.w,
-                  color: fydPWhite,
-                ),
-              ),
-              //! close navigation
+          //! close-btn
+          leading: AppBarBtn(
+              iconData: FontAwesomeIcons.arrowLeftLong,
+              iconSize: 20,
+              padding: const EdgeInsets.all(8.0),
               onPressed: () {
+                HapticFeedback.lightImpact();
                 context.router.pop();
-              },
-            ),
-          ),
+              }),
+          //! Heading-OrderId
           main: Center(
-            child: FydText.h2black(
-              text: 'Order: ${fydOrder.orderId}',
-              weight: FontWeight.bold,
-            ),
-          ),
+              child: FydRichText(
+            size: 24,
+            color: fydTBlack,
+            textList: [
+              const TextSpan(
+                  text: 'Order: ',
+                  style:
+                      TextStyle(color: fydTGrey, fontWeight: FontWeight.w500)),
+              TextSpan(text: fydOrder.orderId)
+            ],
+          )),
         ),
         //! order-Status-section
         Padding(
-          padding: EdgeInsets.only(bottom: 25.h, left: 0),
+          padding: EdgeInsets.only(bottom: 25.h),
           child: Column(
             children: [
-              // status Message
+              //! status Message
               Padding(
                 padding: EdgeInsets.only(bottom: 25.h, left: 15.w, right: 15.w),
                 child: SizedBox(
@@ -116,7 +116,8 @@ class OrderDetailsPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        FydText.b1custom(
+                        //! title
+                        FydText.b2custom(
                           text: orderStatus.value2,
                           color: orderStatus.value4,
                           weight: FontWeight.bold,
@@ -124,9 +125,10 @@ class OrderDetailsPage extends StatelessWidget {
                         SizedBox(
                           height: 5.h,
                         ),
+                        //! message
                         FydText.b3custom(
                           text: orderStatus.value3,
-                          color: fydPLgrey,
+                          color: fydTGrey,
                           weight: FontWeight.bold,
                         ),
                       ],
@@ -134,7 +136,7 @@ class OrderDetailsPage extends StatelessWidget {
                   ),
                 ),
               ),
-              // status Tracker
+              //! status Tracker
               Tracker4(
                 activeIndex: orderStatus.value1,
                 activeColor: orderStatus.value4,
@@ -163,121 +165,138 @@ class OrderDetailsPage extends StatelessWidget {
     //-------
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          //! storeName: storeId: Date: time
-          Padding(
-            padding: EdgeInsets.only(top: 25.h, left: 10.w, right: 10.w),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //storeId
-                    FydText.b1custom(
-                      text: 'StoreId: ${fydOrder.orderInfo.storeId}',
-                      weight: FontWeight.w600,
-                      color: fydBlueGrey,
-                    ),
-                    //storeName
-                    FydText.b2white(
-                      text: fydOrder.orderInfo.storeName,
-                      weight: FontWeight.w600,
-                      color: fydPLgrey,
-                    ),
-                  ],
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    //date
-                    FydText.b3custom(
-                      color: fydTGrey,
-                      text:
-                          DateFormat("dd-MM-yyyy").format(fydOrder.orderDate!),
-                      weight: FontWeight.bold,
-                    ),
-                    //time
-                    FydText.b3custom(
-                      color: fydTGrey,
-                      text:
-                          "${fydOrder.orderDate!.hour}:${fydOrder.orderDate!.minute}",
-                      weight: FontWeight.bold,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          //! divider
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: FydDivider(
-              color: fydBlueGrey,
-            ),
-          ),
-          //! paymentInfo-Section
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-            child: PaymentInfoSection(
-              paymentMode: fydOrder.paymentInfo.paymentMode,
-            ),
-          ),
-          //! Divider
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: FydDivider(
-              color: fydBlueGrey,
-            ),
-          ),
-          //! OrderItems-Tiles list
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 5.h),
-            child: ListView(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              children: List.generate(orderItemsInTuple3.length, (index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: OrderItemTile(
-                    product: getProductForOrderItem(orderItemsInTuple3[index]),
-                    sku: orderItemsInTuple3[index].value1,
-                    size: orderItemsInTuple3[index].value2,
-                    qty: orderItemsInTuple3[index].value3,
+      child: ShaderMask(
+        shaderCallback: (Rect rect) {
+          return const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              fydLogoBlue,
+              Colors.transparent,
+              Colors.transparent,
+              fydLogoBlue
+            ],
+            stops: [0.0, 0.04, 0.96, 1.0],
+          ).createShader(rect);
+        },
+        blendMode: BlendMode.dstOut,
+        child: Column(
+          children: [
+            //! storeInfo: Date: time
+            Padding(
+              padding: EdgeInsets.only(top: 30.h, left: 10.w, right: 10.w),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //! storeInfo
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //! storeId
+                      FydText.b2custom(
+                        text: 'store-Id: ${fydOrder.orderInfo.storeId}',
+                        weight: FontWeight.w600,
+                        color: fydBlueGrey,
+                      ),
+                      //! storeName
+                      FydText.b4white(
+                        text: fydOrder.orderInfo.storeName,
+                        weight: FontWeight.w600,
+                        color: fydPLgrey,
+                      ),
+                    ],
                   ),
-                );
-              }),
+                  //! date/time
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      //! date
+                      FydText.b4custom(
+                        color: fydTGrey,
+                        text: DateFormat("dd-MM-yyyy")
+                            .format(fydOrder.orderDate!),
+                        weight: FontWeight.bold,
+                      ),
+                      //! time
+                      FydText.b4custom(
+                        color: fydTGrey,
+                        size: 12,
+                        text:
+                            "${fydOrder.orderDate!.hour}:${fydOrder.orderDate!.minute}",
+                        weight: FontWeight.bold,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          //! Divider
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 5),
-            child: FydDivider(
-              color: fydBlueGrey,
+            //! Divider
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: FydDivider(
+                color: fydBlueGrey,
+              ),
             ),
-          ),
-          //! OrderSummary-Section
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
-            child: OrderSummarySection(
+            //! paymentInfo-Section
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+              child: PaymentInfoSection(
+                paymentMode: fydOrder.paymentInfo.paymentMode,
+              ),
+            ),
+            //! Divider
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: FydDivider(
+                color: fydBlueGrey,
+              ),
+            ),
+            //! OrderItems-Tiles list
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 5.h),
+              child: ListView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: List.generate(orderItemsInTuple3.length, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: OrderItemTile(
+                      product:
+                          getProductForOrderItem(orderItemsInTuple3[index]),
+                      sku: orderItemsInTuple3[index].value1,
+                      size: orderItemsInTuple3[index].value2,
+                      qty: orderItemsInTuple3[index].value3,
+                    ),
+                  );
+                }),
+              ),
+            ),
+            //! Divider
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: FydDivider(
+                color: fydBlueGrey,
+              ),
+            ),
+            //! OrderSummary-Section
+            OrderSummarySection(
               totalItems: fydOrder.orderInfo.orderSummary.totalItems,
               subTotal: fydOrder.orderInfo.orderSummary.subTotal,
               shipping: fydOrder.orderInfo.orderSummary.shippingCost!,
               discount: fydOrder.orderInfo.orderSummary.discount,
               total: fydOrder.orderInfo.orderSummary.total!,
             ),
-          ),
-          //divider
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: FydDivider(
-              color: fydBlueGrey,
+            //! divider
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: FydDivider(
+                color: fydBlueGrey,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -378,12 +397,12 @@ class PaymentInfoSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        //paymentMode
+        //! paymentMode
         Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            FydText.b2custom(
+            const FydText.b3custom(
               color: fydTGrey,
               text: 'Payment Mode:',
               weight: FontWeight.bold,
@@ -397,22 +416,25 @@ class PaymentInfoSection extends StatelessWidget {
             ),
           ],
         ),
-        //paymentStatus
+        //! paymentStatus
         Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            FydText.b2custom(
+            FydText.b3custom(
               color: fydTGrey,
               text: paymentMode.when(
                   online: (id) => 'Payment Id:', payOnDelivery: () => ''),
               weight: FontWeight.bold,
             ),
-            FydText.b2custom(
+            FydText.b4custom(
               text: paymentMode.when(
                   online: (id) => id!, payOnDelivery: () => ''),
-              color: fydBlueGrey,
+              color: fydLogoBlue,
               weight: FontWeight.bold,
+              letterSpacing: .8,
+              isSelectable: true,
+              isScalable: false,
             ),
           ],
         ),
@@ -438,127 +460,147 @@ class OrderItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 90.w,
-      color: fydPGrey,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          //! Product-Image (width:85w)
-          SizedBox(
-            height: 90.w,
-            width: 90.w,
-            child: Card(
-              color: fydSPink,
-              margin: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.r)),
-              child: Image.network(product.thumbnailImage),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(5.0),
+      child: Container(
+        height: 80.w,
+        color: fydPGrey,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            //! Product-Image (width:85w)
+            GestureDetector(
+              onTap: () async {
+                //! image-Pop dialog
+                await showModal<bool>(
+                  context: context,
+                  configuration: const FadeScaleTransitionConfiguration(
+                    barrierDismissible: true,
+                  ),
+                  useRootNavigator: false,
+                  builder: (context) => FydImageDialog(
+                    imageUrl: product.thumbnailImage,
+                    onClose: () => Navigator.of(context).pop(true),
+                  ),
+                );
+              },
+              child: SizedBox(
+                height: double.infinity,
+                width: 75.w,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5.0),
+                  child: CachedNetworkImage(
+                    imageUrl: product.thumbnailImage,
+                    fit: BoxFit.cover,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) => const SpinKitWave(
+                      size: 20,
+                      color: fydTGrey,
+                    ),
+                    errorWidget: (context, url, error) => Icon(
+                      Icons.image_not_supported_outlined,
+                      color: fydTGrey,
+                      size: 30.h,
+                    ),
+                  ),
+                ),
+              ),
             ),
-          ),
-          //! Product-Detail
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.w),
-              child: Row(
+            //! Product-Detail
+            Expanded(
+              child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // productName: companyName: Size
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // productName
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * .40,
-                            child: Text(
-                              product.name,
-                              style: GoogleFonts.exo2(
-                                  color: fydBlueGrey,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          // companyName
-                          FydText.b4custom(
-                            text: product.company,
-                            color: fydBlueGrey,
-                            weight: FontWeight.bold,
-                          ),
-                        ],
-                      ),
-                      // Size
-                      Card(
-                        color: fydBlueGrey,
-                        elevation: 4.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 2),
-                          child: FydText.b2custom(
-                            text: size,
-                            color: fydPWhite,
-                            weight: FontWeight.bold,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  // qty X price
+                  //! productName: companyName: skuId
                   Padding(
-                    padding: EdgeInsets.only(right: 5.w),
-                    child: Column(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+                    child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        //skuId
-                        Row(
+                        //! productName: companyName
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            FydText.b3custom(
-                              text: 'sku: ',
-                              color: fydBlueGrey,
-                              weight: FontWeight.bold,
+                            //! productName
+                            FydEllipsisText(
+                              width: MediaQuery.of(context).size.width * .6,
+                              fydText: FydText.b4custom(
+                                text: product.name,
+                                color: fydTGrey,
+                                weight: FontWeight.normal,
+                              ),
                             ),
-                            FydText.b3custom(
-                              text: sku,
-                              color: fydSCBlueGrey,
-                              weight: FontWeight.bold,
+                            //! companyName
+                            FydText.b4custom(
+                              text: product.company,
+                              color: fydBlueGrey,
+                              size: 13,
+                              weight: FontWeight.w600,
                             ),
                           ],
                         ),
-
-                        Row(
-                          children: [
-                            //price
-                            FydText.b3custom(
-                              text: '₹ ${product.sellingPrice.toString()}',
-                              color: fydBlueGrey,
+                        //! skuId
+                        FydRichText(
+                          size: 13,
+                          color: fydTGrey,
+                          textList: [
+                            const TextSpan(text: 'sku: '),
+                            TextSpan(
+                              text: product.skuId,
+                              style: const TextStyle(
+                                  color: fydSCBlueGrey, fontSize: 14),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  //! size : qty X price
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        //! Size
+                        Card(
+                          color: fydTGrey,
+                          elevation: 4.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 4, vertical: 2),
+                            child: FydText.b3custom(
+                              text: size,
+                              color: fydPWhite,
                               weight: FontWeight.bold,
                             ),
-                            FydText.h3custom(
-                              text: '  X  ',
-                              color: fydSCBlueGrey,
-                              weight: FontWeight.bold,
-                            ),
-                            //qty
-                            FydText.b3custom(
-                              text: qty.toString().padLeft(2, '0'),
-                              color: fydBlueGrey,
-                              weight: FontWeight.bold,
-                            ),
+                          ),
+                        ),
+                        //! qty X price
+                        FydRichText(
+                          size: 15,
+                          color: fydBlueGrey,
+                          textList: [
+                            //! Price
+                            TextSpan(text: '₹ ${product.sellingPrice.toInt()}'),
+                            //! X
+                            const TextSpan(
+                                text: '  X  ',
+                                style: TextStyle(
+                                    color: fydSCBlueGrey, fontSize: 18)),
+                            //! Qty
+                            TextSpan(text: qty.toString().padLeft(2, '0'))
                           ],
                         ),
                       ],
@@ -567,8 +609,8 @@ class OrderItemTile extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -28,6 +28,8 @@ class StoresBloc extends Bloc<StoresEvent, StoresState> {
 //?-----------------------------------------------------------------------------
 
     on<UpdateSelectedCategory>((event, emit) async {
+      if (state.isFetching) return;
+
       emit(state.copyWith(
         isFetching: true,
         selectedCategory: event.category,
@@ -37,7 +39,6 @@ class StoresBloc extends Bloc<StoresEvent, StoresState> {
       ));
       // check if category available in _storesLocally if not add it with []
       if (_storesLocally.containsKey(state.selectedCategory) == false) {
-        log('1');
         final newEntry = <String, List<Store>>{state.selectedCategory!: []};
         _storesLocally.addEntries(newEntry.entries);
       }
@@ -45,8 +46,6 @@ class StoresBloc extends Bloc<StoresEvent, StoresState> {
       // (1)=> emit isFetching: false, storeList: _storesLocally(selectedCategory)
       // (0)=> AddStoresLocally(state.category)
       if (_storesLocally[state.selectedCategory!]!.isNotEmpty) {
-        log('2');
-
         emit(state.copyWith(
           isFetching: false,
           storeList: _storesLocally[state.selectedCategory!]!,
@@ -56,15 +55,12 @@ class StoresBloc extends Bloc<StoresEvent, StoresState> {
         // check if stores available via LiveStores
         // (1)=> FetchStores(state.category)
         // (0)=> emit isFetching: false, notAvailable: true
-        log('3');
 
         final liveStores = _sharedInfoCubit
             .state.sharedInfo?.liveStores[state.selectedCategory];
         if (liveStores != null && liveStores > 0) {
-          log('4');
-
           final category = state.selectedCategory!;
-          log('6');
+
           // FetchStores(category, afterSId?):
           // fetchStores via iStoreRepo -->
           // (0)=> emit isFetching: fasle, failure: some(failure)
@@ -91,7 +87,6 @@ class StoresBloc extends Bloc<StoresEvent, StoresState> {
             },
           );
         } else {
-          log('5');
           emit(state.copyWith(
               isFetching: false,
               notAvailable: true,
@@ -103,7 +98,7 @@ class StoresBloc extends Bloc<StoresEvent, StoresState> {
 //?-----------------------------------------------------------------------------
 
     on<LoadMoreStores>((event, emit) async {
-      log('7');
+      if (state.isFetching) return;
       emit(state.copyWith(
         loadingMore: true,
         notAvailable: false,
@@ -111,7 +106,6 @@ class StoresBloc extends Bloc<StoresEvent, StoresState> {
       ));
       final category = state.selectedCategory!;
       final fetchAfterSid = state.storeList.last.storeId;
-      log('8');
       // FetchStores(category, afterSId?):
       // fetchStores via iStoreRepo -->
       // (0)=> emit isFetching: fasle, failure: some(failure)

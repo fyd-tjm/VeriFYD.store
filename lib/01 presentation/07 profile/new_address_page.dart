@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,10 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 
 import '../../02 application/fyd user/fyd_user_cubit.dart';
-import '../../aa mock/static_ui.dart';
 import '../../utils/helpers/helpers.dart';
 import '../00 core/widgets/00_core_widgets_export.dart';
 import 'widgets/exports.dart';
@@ -20,14 +22,21 @@ class NewAddressWrapperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: getIt<FydUserCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(
+          value: getIt<FydUserCubit>(),
+        ),
+        BlocProvider.value(
+          value: getIt<SharedInfoCubit>(),
+        ),
+      ],
       child: WillPopScope(
           onWillPop: () async {
             final popResult = await showPermissionDialog(
                 context: context,
-                message:
-                    " Changes not saved. Leave page? Press Yes to leave, Cancel to stay.",
+                message: " Changes not saved. Cancel to stay, Yes to leave.",
+                title: 'Alert!',
                 falseBtnTitle: 'Cancel',
                 trueBtnTitle: 'Yes');
             return popResult ?? false;
@@ -50,6 +59,7 @@ class NewAddressPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(context.router.currentUrl);
     //------
     final fydUserName = getIt<FydUserCubit>().state.fydUser!.name;
     final fydUserPhone = getIt<FydUserCubit>().state.fydUser!.phone;
@@ -61,20 +71,52 @@ class NewAddressPage extends HookWidget {
     final emailController = useTextEditingController(text: fydUserEmail);
     final line1Controller = useTextEditingController();
     final line2Controller = useTextEditingController();
+    final landmarkController = useTextEditingController();
     final cityController = useTextEditingController();
     final pincodeController = useTextEditingController();
     final addressState = useState<String?>(null);
     //-------
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: fydPDgrey,
-      body: SafeArea(
-        child: BlocListener<FydUserCubit, FydUserState>(
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: BlocListener<FydUserCubit, FydUserState>(
+          listenWhen: (previous, current) {
+            if (context.router.currentUrl == '/newAddress') {
+              return true;
+            }
+            return false;
+          },
           listener: (context, state) {
-            //! navigate to previous Screen
             if (state.failureOrSuccess.isSome()) {
-              _loadingOverlay.hide();
-              context.navigateBack();
+              state.failureOrSuccess.fold(
+                () => null,
+                (userFailure) {
+                  _loadingOverlay.hide();
+                  //------
+                  userFailure.fold(
+                    (failure) => showSnack(
+                      viewType: SnackBarViewType.withoutNav,
+                      context: context,
+                      message: failure.when(
+                        aborted: () => 'Failed! try again later',
+                        invalidArgument: () => 'Invalid Argument. try again',
+                        alreadyExists: () => 'Data already Exists',
+                        notFound: () => 'Data not found!',
+                        permissionDenied: () => 'Permission Denied',
+                        serverError: () => 'Server Error. try again later',
+                        unknownError: () =>
+                            'Something went wrong. try again later',
+                      ),
+                    ),
+                    (success) => showSnack(
+                        context: context,
+                        viewType: SnackBarViewType.withoutNav,
+                        message: 'success!'),
+                  );
+                  //------
+                  context.navigateBack();
+                },
+              );
             }
             if (state.updating == true) {
               // loading overlay diolog
@@ -102,6 +144,7 @@ class NewAddressPage extends HookWidget {
               emailController,
               line1Controller,
               line2Controller,
+              landmarkController,
               cityController,
               pincodeController,
               addressState,
@@ -123,30 +166,18 @@ class NewAddressPage extends HookWidget {
       children: [
         //! AppBar (heading + close-Btn )
         FydAppBar(
-          leading: Center(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  minimumSize: Size.zero,
-                  padding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r)),
-                  primary: fydPDgrey),
-              child: Padding(
-                padding: EdgeInsets.all(5.w),
-                child: Icon(
-                  Icons.close_rounded,
-                  size: 25.w,
-                  color: fydPWhite,
-                ),
-              ),
-              //! back navigation
-              onPressed: () {
-                context.router.pop();
-              },
-            ),
+          leading: AppBarBtn(
+            iconData: Icons.close_rounded,
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              context.router.pop();
+            },
           ),
-          main: Center(
-            child: FydText.d2black(text: 'new-Address'),
+          main: const Center(
+            child: FydText.d3black(
+              text: 'new-Address',
+              letterSpacing: 1.3,
+            ),
           ),
         ),
         //! EditForm (name + phone + email)
@@ -159,13 +190,14 @@ class NewAddressPage extends HookWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  // name
+                  //! name
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 5.h),
                     child: FydTextFormField(
                       controller: nameController,
                       textCapitalization: TextCapitalization.words,
                       labelText: 'name:',
+                      floatColor: fydTGrey,
                       maxLength: 30,
                       keyboardType: TextInputType.visiblePassword,
                       onScrollPadding: false,
@@ -178,12 +210,13 @@ class NewAddressPage extends HookWidget {
                       },
                     ),
                   ),
-                  // phone
+                  //! phone
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 5.h),
                     child: FydTextFormField(
                       controller: phoneController,
                       labelText: 'phone: (+91) ',
+                      floatColor: fydTGrey,
                       isDigitOnly: true,
                       keyboardType: TextInputType.number,
                       maxLength: 10,
@@ -199,12 +232,13 @@ class NewAddressPage extends HookWidget {
                       },
                     ),
                   ),
-                  // email
+                  //! email
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 5.h),
                     child: FydTextFormField(
                       controller: emailController,
                       labelText: 'em@il:',
+                      floatColor: fydTGrey,
                       keyboardType: TextInputType.emailAddress,
                       maxLength: 30,
                       onScrollPadding: false,
@@ -237,25 +271,29 @@ class NewAddressPage extends HookWidget {
     TextEditingController emailController,
     TextEditingController line1Controller,
     TextEditingController line2Controller,
+    TextEditingController landmarkController,
     TextEditingController cityController,
     TextEditingController pincodeController,
     ValueNotifier<String?> addressState,
   ) {
+    final statesList = context.select(
+        (SharedInfoCubit cubit) => cubit.state.sharedInfo!.deliveryStates);
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       child: Padding(
         padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-            top: 25.h,
-            left: 10.w,
-            right: 10.w),
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+          top: 20.h,
+          left: 10.w,
+          right: 10.w,
+        ),
         child: Form(
           key: _formKey2,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // address: line 1
+              //! address: line 1
               FydTextFormField(
                 color: TextFieldColor.light,
                 controller: line1Controller,
@@ -273,28 +311,48 @@ class NewAddressPage extends HookWidget {
                 },
               ),
               SizedBox(
-                height: 25.h,
+                height: 20.h,
               ),
-              // address: line 2
+              //! address: line 2
               FydTextFormField(
                 color: TextFieldColor.light,
                 controller: line2Controller,
-                labelText: 'address line 2: (optional)',
+                labelText: 'address line 2:',
                 maxLength: 40,
+                keyboardType: TextInputType.visiblePassword,
+                textCapitalization: TextCapitalization.words,
+                onScrollPadding: true,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'cannot be empty';
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              //! Landmark
+              FydTextFormField(
+                color: TextFieldColor.light,
+                controller: landmarkController,
+                labelText: 'landmark (optional)',
+                maxLength: 45,
                 keyboardType: TextInputType.visiblePassword,
                 textCapitalization: TextCapitalization.words,
                 onScrollPadding: true,
                 validator: (value) => null,
               ),
               SizedBox(
-                height: 25.h,
+                height: 20.h,
               ),
-              // city + pincode
+              //! city + pincode
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // city
+                  //! city
                   SizedBox(
                     width: 220.w,
                     child: FydTextFormField(
@@ -314,7 +372,7 @@ class NewAddressPage extends HookWidget {
                       },
                     ),
                   ),
-                  // pincode
+                  //! pincode
                   SizedBox(
                     width: 150.w,
                     child: FydTextFormField(
@@ -339,11 +397,11 @@ class NewAddressPage extends HookWidget {
                 ],
               ),
               SizedBox(
-                height: 25.h,
+                height: 20.h,
               ),
-              // state-drp-dwn-menu
+              //! state-drp-dwn-menu
               AddressDropdownMenu(
-                list: MockUi.states,
+                list: statesList,
                 startValue: addressState.value,
                 onSelect: (value) {
                   addressState.value = value;
@@ -357,36 +415,39 @@ class NewAddressPage extends HookWidget {
                 },
               ),
               SizedBox(
-                height: 30.h,
+                height: 25.h,
               ),
-              // save-btn
+              //! save-btn
               FydBtn(
                 color: fydPGrey,
                 height: 55.h,
-                fydText: FydText.h1custom(
-                  text: 'Save',
-                  weight: FontWeight.w700,
+                fydText: const FydText.h2custom(
+                  text: 'save  💾',
+                  weight: FontWeight.w600,
                   color: fydLogoBlue,
                 ),
-                //! call add Address event
                 onPressed: () async {
                   HapticFeedback.mediumImpact();
-                  // forms validation
                   if (_formKey1.currentState!.validate() &&
                       _formKey2.currentState!.validate()) {
                     // call add-address-Event
+                    FocusScope.of(context).unfocus();
                     await context.read<FydUserCubit>().addNewAddress(
                           name: nameController.text,
                           phone: phoneController.text,
                           email: emailController.text,
                           al1: line1Controller.text,
                           al2: line2Controller.text,
+                          landmark: landmarkController.text,
                           city: cityController.text,
                           pincode: int.parse(pincodeController.text),
                           addressState: addressState.value!,
                         );
                   }
                 },
+              ),
+              SizedBox(
+                height: 30.h,
               ),
             ],
           ),

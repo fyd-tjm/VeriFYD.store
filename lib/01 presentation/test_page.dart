@@ -15,12 +15,21 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart' as flutterHooks;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pinput/pinput.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_pin_field.dart';
 import 'package:verifyd_store/01%20presentation/03%20main%20root/main_page.dart';
+import 'package:verifyd_store/01%20presentation/05%20stores/widgets/store_offer_card.dart';
+import 'package:verifyd_store/01%20presentation/07%20profile/widgets/profile_address_tile.dart';
+import 'package:verifyd_store/01%20presentation/08%20checkout/delivery_address_page.dart';
+import 'package:verifyd_store/01%20presentation/08%20checkout/payment_page.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/03%20domain/cart/cart.dart';
+import 'package:verifyd_store/03%20domain/checkout/order.dart';
+import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
 import 'package:verifyd_store/03%20domain/shared/shared_info.dart';
 import 'package:verifyd_store/03%20domain/store/00_export_store_domain.dart';
 import 'package:verifyd_store/03%20domain/user/fyd_user.dart';
@@ -49,10 +58,57 @@ class TestPage extends flutterHooks.HookWidget {
   @override
   Widget build(BuildContext context) {
     final state1 = flutterHooks.useState(true);
-    return Scaffold(
-      backgroundColor: bColor,
-      body: SafeArea(
-        child: FydView(
+    final pinController = flutterHooks.useTextEditingController();
+    const borderColor = fydLogoBlue;
+    const fillColor = fydPGrey;
+    final defaultPinTheme = PinTheme(
+      width: 56,
+      height: 50,
+      textStyle: GoogleFonts.exo2(
+          fontSize: 22, color: fydBlueGrey, fontWeight: FontWeight.bold),
+      decoration: BoxDecoration(
+        color: fillColor,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.transparent),
+      ),
+    );
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: bColor,
+        // appBar: AppBar(
+        //   elevation: 0,
+        //   automaticallyImplyLeading: false,
+        //   backgroundColor: fydPDgrey,
+        //   leadingWidth: 0,
+        //   titleSpacing: 0,
+        //   title: Row(
+        //     mainAxisSize: MainAxisSize.max,
+        //     mainAxisAlignment: MainAxisAlignment.start,
+        //     children: [
+        //       IconButton(
+        //         onPressed: () {
+        //           HapticFeedbackType.heavyImpact;
+        //         },
+        //         icon: const FaIcon(
+        //           FontAwesomeIcons.arrowLeftLong,
+        //           color: fydBlueGrey,
+        //         ),
+        //         splashColor: fydPGrey,
+        //         padding: const EdgeInsets.symmetric(horizontal: 20),
+        //       ),
+        //       const Padding(
+        //         padding: EdgeInsets.only(left: 15),
+        //         child: FydText.d2custom(text: '#', color: fydLogoBlue),
+        //       ),
+        //       Padding(
+        //         padding: const EdgeInsets.only(left: 10),
+        //         child: FydPinField(pinController: pinController),
+        //       )
+        //     ],
+        //   ),
+        // ),
+        body: FydView(
           pageViewType: ViewType.with_Nav_Bar,
           isScrollable: false,
           topSheetHeight: 400.h,
@@ -60,11 +116,6 @@ class TestPage extends flutterHooks.HookWidget {
           topSheet: _topSheet(context, state1),
           bottomSheet: _bottomSheet(context, state1),
         ),
-      ),
-      bottomNavigationBar: builBottomNavigationBar(
-        context: context,
-        currentIndex: 1,
-        onTap: (v) {},
       ),
     );
   }
@@ -75,107 +126,19 @@ class TestPage extends flutterHooks.HookWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // FydText.b1custom(
-        //   text: 'testing long.text',
-        //   color: fydLogoBlue,
-        //   isSelectable: true,
-        // ),
-        // FydRichText(
-        //   textList: [
-        //     TextSpan(
-        //         text: 'testing ',
-        //         style: TextStyle(color: fydLogoPurple)),
-        //     TextSpan(
-        //       text: 'long',
-        //     ),
-        //     TextSpan(
-        //         text: '.test', style: TextStyle(color: fydNotifGreen)),
-        //   ],
-        //   size: 18,
-        //   color: fydLogoBlue,
-        //   isSelectable: true,
-        //   letterSpacing: 1.5,
-        // ),
-        // FydEllipsisText(
-        //   width: 200,
-        //   fydText: FydText.b1custom(
-        //     text: 'testing long.text for Ellipsis',
-        //     color: fydLogoBlue,
-        //     isSelectable: true,
-        //     letterSpacing: 1.3,
-        //   ),
-        // ),
-        // FydAutoScrollingText(
-        //   fydText: FydText.b1custom(
-        //     text: 'testing long.text for Ellipsis',
-        //     color: fydLogoBlue,
-        //     isSelectable: true,
-        //     letterSpacing: 1.3,
-        //   ),
-        //   width: 200,
-        //   height: 60,
-        //   rounds: 2,
-        //   velocity: 20,
-        // ),
-        // // autoscroll
-        // Row(
-        //   mainAxisSize: MainAxisSize.min,
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     SizedBox(
-        //       height: 70,
-        //       child: AnimatedTextKit(
-        //         animatedTexts: [
-        //           ColorizeAnimatedText(
-        //             'veriFYD',
-        //             textStyle: GoogleFonts.exo2(
-        //               fontSize: 34.0,
-        //               color: Colors.white,
-        //               fontWeight: FontWeight.bold,
-        //               letterSpacing: 1.1,
-        //             ),
-        //             colors: [fydLogoBlue, fydSCBlueGrey, fydBlueGrey],
-        //             speed: const Duration(milliseconds: 400),
-        //           ),
-        //         ],
-        //         totalRepeatCount: 1,
-        //         repeatForever: false,
-        //         pause: const Duration(milliseconds: 1000),
-        //         onNext: (p0, p1) => state1.value = !state1.value,
-        //       ),
-        //     ),
-        //     (state1.value)
-        //         ? const SizedBox.shrink()
-        //         : SizedBox(
-        //             height: 70,
-        //             child: AnimatedTextKit(
-        //               animatedTexts: [
-        //                 TypewriterAnimatedText('.store',
-        //                     textStyle: GoogleFonts.exo2(
-        //                         fontSize: 34.0,
-        //                         color: fydLogoGreen,
-        //                         fontWeight: FontWeight.w500,
-        //                         letterSpacing: 1.1),
-        //                     speed: const Duration(milliseconds: 90),
-        //                     cursor: '_'),
-        //               ],
-        //               totalRepeatCount: 1,
-        //               repeatForever: false,
-        //             ),
-        //           ),
-        //   ],
-        // )
-        //?----------
-        SizedBox(
-          // height: ,
-          child: Image.network(
-            'https://s9.gifyu.com/images/splash.gif',
-            filterQuality: FilterQuality.high,
-            // scale: 4,
-            height: 300,
-            fit: BoxFit.fitHeight,
-            repeat: ImageRepeat.repeat,
-          ),
+        DeliveryAddressTile(
+          addressIndex: 0,
+          address: MockUi.fydAddress,
+          selectedIndex: 0,
+          onSelect: (a) {},
+          onEditPresses: (a) {},
+        ),
+        DeliveryInfoCard(address: MockUi.fydAddress),
+        PaymentTile(
+          onSelect: (v) {},
+          paymentMode: null,
+          title: 'pay on delivery',
+          selectedMode: null,
         ),
       ],
     );
@@ -185,13 +148,19 @@ class TestPage extends flutterHooks.HookWidget {
   _bottomSheet(BuildContext context, ValueNotifier<bool> state1) {
     return Column(
       children: [
+        const OrderSummarySection(
+          totalItems: 3,
+          subTotal: 3555,
+          shipping: 150,
+          discount: 50,
+          total: 3655,
+        ),
         SizedBox(
           height: 60.h,
         ),
         FydBtn(
           onPressed: () async {
             HapticFeedback.heavyImpact();
-            context.router.pushNamed('test2');
           },
           height: 60.h,
           color: fydSCBlueGrey,
@@ -327,6 +296,8 @@ void dbProducts() async {
       company: 'H&M CLOTHINGS @INC.',
       description:
           'A product description is the marketing copy that explains what a product is and why its worth purchasing.',
+      policy:
+          'Thank you for shopping at (Store Name)! We offer refund and/or exchange within the first 30 days of your purchase, if 30 days have passed since your purchase, you will not be offered a refund and/or exchange of any kind. Your item must be unused and in the same condition that you received it.',
       sizeAvailability: {'S': 1, 'M': 3, 'L': 2},
       sizeGuide: '',
       sellingPrice: 950,
@@ -435,31 +406,37 @@ void dbSharedInfo() async {
   final fire = FirebaseFirestore.instance;
   final docRef = fire.collection('shared-info').doc('user');
 
-  const sharedInfo = SharedInfo(
-    categories: {
-      'APPAREL': 'assets/icons/apparels.svg',
-      'ELECTRONICS': 'assets/icons/electronics.svg',
-      'FOOTWEAR': 'assets/icons/footwear.svg',
-    },
-    shippingCost: 100,
-    totalOrders: 0,
-    cartLimit: 10,
-    liveStores: {'APPAREL': 10, 'FOOTWEAR': 5, 'ELECTRONICS': 0},
-    timmings: {
-      'CALLING HOURS': "09:00 - 18:00",
-      'OPERATING HOURS': "09:00 - 21:00"
-    },
-    images: {
-      'COMING SOON': 'https://cdn-icons-png.flaticon.com/512/5578/5578691.png'
-    },
-    support: {
-      'MAIL': 'fyd.technologies@gmail.com',
-      'PHONE': '+919690590197',
-      'WHATSAPP': '+919690590197'
-    },
-    banners: {},
-    offers: {},
-  );
+  const sharedInfo =
+      SharedInfo(shippingCost: 100, totalOrders: 0, cartLimit: 10, liveStores: {
+    'APPAREL': 10,
+    'FOOTWEAR': 5,
+    'OTHER': 0
+  }, timmings: {
+    'CALLING HOURS': "09:00 - 18:00",
+    'OPERATING HOURS': "09:00 - 21:00"
+  }, deliveryStates: [], images: {
+    'LAUNCHING SOON': 'https://cdn-icons-png.flaticon.com/512/5578/5578691.png'
+  }, support: {
+    'MAIL': 'fyd.technologies@gmail.com',
+    'PHONE': '+919690590197',
+    'WHATSAPP': '+919690590197'
+  }, banners: {}, offers: {}, storeSearchMap: {
+    "#A108": "LOREM IPSUM A-108",
+    "#B110": "LOREM IPSUM B-110",
+    "#B111": "LOREM IPSUM B-111",
+    "#B112": "LOREM IPSUM B-112",
+    "#B113": "LOREM IPSUM B-113",
+    "#B114": "LOREM IPSUM B-114",
+    "#B115": "LOREM IPSUM B-115",
+    "#B116": "LOREM IPSUM B-116",
+    "#B117": "LOREM IPSUM B-117",
+    "#B118": "LOREM IPSUM B-118",
+    "#B210": "LOREM IPSUM B-210",
+    "#B211": "LOREM IPSUM B-211",
+    "#B212": "LOREM IPSUM B-212",
+    "#B213": "LOREM IPSUM B-213",
+    "#B214": "LOREM IPSUM B-214"
+  });
 
   await docRef
       .set(sharedInfo.toJson())
@@ -494,6 +471,7 @@ const product = Product(
   type: 'SHIRT',
   company: 'LEVIS AND CO.',
   description: 'LOREM IPSUM LALALALAL',
+  policy: '',
   sizeAvailability: {'S': 2, 'M': 2},
   sizeGuide: '',
   sellingPrice: 660,

@@ -10,7 +10,6 @@ import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widget
 import 'package:verifyd_store/02%20application/checkout/checkout_bloc.dart';
 import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
 import 'package:verifyd_store/03%20domain/user/address.dart';
-import 'package:verifyd_store/presentation/core/widgets/fyd_text_ellipsis.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 import 'package:verifyd_store/utils/router.dart';
@@ -37,89 +36,92 @@ class PaymentWrapperPage extends StatelessWidget {
 }
 
 //?-----------------------------------------------------------------------------
+//TODO: add remote config condition for pay On Delivery
+const remoteCondition = true;
 
 class PaymentPage extends HookWidget {
   const PaymentPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final selectedPaymentMode = useState<PaymentMode?>(
+        (remoteCondition) ? const PaymentMode.online() : null);
     //-------
-    final selectedPaymentMode = useState<PaymentMode?>(null);
-    //-------
-    return BlocConsumer<CheckoutBloc, CheckoutState>(
-      //-------
-      listenWhen: (previous, current) {
-        // weather on current route or not
-        return context.router.isPathActive(Rn.payment);
-      },
-      //-------
-      listener: (context, state) {
-        //failure Or Success
-        if (state.failureOrSuccess.isSome()) {
-          state.failureOrSuccess.fold(
-            () => null,
-            (failureOrSuccess) => failureOrSuccess.fold(
-              //-------
-              (failure) => failure.when(
-                cartAvailabilityFailure: () => context.navigateNamedTo(Rn.cart),
-                //-------
-                paymentFailure: () => null,
-                orderIdFailure: (id) => null,
-                createOrderFailure: (order) => null,
-                //-------
-                unexpectedFailure: (error) {
-                  showSnack(context: context, message: 'something went wrong!');
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: BlocConsumer<CheckoutBloc, CheckoutState>(
+          listenWhen: (previous, current) {
+            if (context.router.currentUrl == '/checkout/payment') {
+              return true;
+            }
+            return false;
+          },
+          listener: (context, state) {
+            //! failure and Success
+            if (state.failureOrSuccess.isSome()) {
+              state.failureOrSuccess.fold(
+                () => null,
+                (failureOrSuccess) => failureOrSuccess.fold(
                   //-------
-                  context.navigateNamedTo(Rn.home);
-                },
-              ), //-------
-              (success) {
-                //-----
-                context.router.replaceAll([const GatewayWrapperRoute()]);
-              },
-            ),
-          );
-        }
-      },
-      //-------
-      buildWhen: (previous, current) {
-        // weather on current route or not
-        return context.router.isPathActive(Rn.payment);
-      },
-      //-------
-      builder: (context, state) {
-        return Scaffold(
-          body: SafeArea(
-            child: (state.shippingInfo == null ||
+                  (failure) => failure.when(
+                    cartAvailabilityFailure: () =>
+                        context.navigateNamedTo(Rn.cart),
+                    //-------
+                    paymentFailure: () => null,
+                    orderIdFailure: (id) => null,
+                    createOrderFailure: (order) => null,
+                    //-------
+                    unexpectedFailure: (error) {
+                      showSnack(
+                          context: context,
+                          viewType: SnackBarViewType.withNav,
+                          message: 'something went wrong!');
+                      //-------
+                      context.navigateNamedTo(Rn.home);
+                    },
+                  ), //-------
+                  (success) {
+                    //-----
+                    context.router.replaceAll([const GatewayWrapperRoute()]);
+                  },
+                ),
+              );
+            }
+          },
+          builder: (context, state) {
+            return (state.shippingInfo == null ||
                     state.orderInfo == null ||
                     state.customerInfo == null)
-                //Loading-View
+                //! Loading-View
                 ? const Center(
                     child: SpinKitWave(
                       color: fydLogoBlue,
                       size: 40.0,
                     ),
                   )
-                // Payment-View
+                //! Fyd-View
                 : FydView(
                     pageViewType: ViewType.without_Nav_Bar,
                     isScrollable: false,
-                    topSheetHeight: 400.h,
+                    topSheetHeight: 380.h,
                     topSheet:
                         _topSheetView(context, selectedPaymentMode, state),
                     bottomSheet:
                         _bottomSheetView(context, selectedPaymentMode, state),
-                  ),
-          ),
-        );
-      },
-      //-------
+                  );
+          },
+        ),
+      ),
     );
   }
 //?-----------------------------------------------------------------------------
 
-  _topSheetView(BuildContext context,
-      ValueNotifier<PaymentMode?> selectedPaymentMode, CheckoutState state) {
+  _topSheetView(
+    BuildContext context,
+    ValueNotifier<PaymentMode?> selectedPaymentMode,
+    CheckoutState state,
+  ) {
     //-------
     return Padding(
       padding:
@@ -132,26 +134,22 @@ class PaymentPage extends HookWidget {
           DeliveryInfoCard(address: state.shippingInfo!.shippingAddress),
           //! payment-mode Heading
           Padding(
-            padding: EdgeInsets.only(top: 20.h, bottom: 15.h),
+            padding: EdgeInsets.only(top: 20.h, bottom: 15.h, left: 5.w),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(
-                  'Select Payment Mode',
-                  style: GoogleFonts.exo2(
-                    color: fydLogoBlue,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 22.sp,
-                  ),
-                ),
+              children: const [
+                FydText.b1custom(
+                  text: 'Payment Mode',
+                  color: Color.fromARGB(255, 60, 69, 249),
+                )
               ],
             ),
           ),
           //! Payment-mode Tiles (online : cod)
           Column(
             children: [
-              // online Mode tile
+              //! online Mode tile
               PaymentTile(
                 title: 'online payment',
                 paymentMode: const PaymentMode.online(),
@@ -163,10 +161,12 @@ class PaymentPage extends HookWidget {
               SizedBox(
                 height: 15.h,
               ),
-              // cod Mode tile
+              //! cod Mode tile
               PaymentTile(
-                title: 'cash on delivery',
-                paymentMode: const PaymentMode.payOnDelivery(),
+                title: 'pay on delivery',
+                paymentMode: (remoteCondition)
+                    ? null
+                    : const PaymentMode.payOnDelivery(),
                 selectedMode: selectedPaymentMode.value,
                 onSelect: (mode) {
                   selectedPaymentMode.value = mode;
@@ -181,8 +181,11 @@ class PaymentPage extends HookWidget {
 
 //?-----------------------------------------------------------------------------
 
-  _bottomSheetView(BuildContext context,
-      ValueNotifier<PaymentMode?> selectedPaymentMode, CheckoutState state) {
+  _bottomSheetView(
+    BuildContext context,
+    ValueNotifier<PaymentMode?> selectedPaymentMode,
+    CheckoutState state,
+  ) {
     //-------
     final totalItems = state.orderInfo!.orderSummary.totalItems;
     final subTotal = state.orderInfo!.orderSummary.subTotal;
@@ -192,59 +195,67 @@ class PaymentPage extends HookWidget {
     final total = (subTotal + shippingCost - (discount)).ceil().toDouble();
     //-------
     return Padding(
-      padding:
-          EdgeInsets.only(top: 20.h, left: 15.w, right: 15.w, bottom: 20.h),
+      padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
       child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(children: [
               //TODO: Discount-Section
-              SizedBox(
-                height: 60.h,
-                width: double.infinity,
-                child: Card(
-                  color: fydPLgrey.withOpacity(.3),
-                  elevation: 25.0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      //! icon
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: Icon(
-                          Icons.discount_outlined,
-                          size: 25.sp,
-                          color: fydPWhite,
+              Padding(
+                padding: EdgeInsets.only(bottom: 20.h, left: 10.w, right: 10.w),
+                child: SizedBox(
+                  height: 60.h,
+                  width: double.infinity,
+                  child: Card(
+                    color: fydPLgrey.withOpacity(.3),
+                    elevation: 25.0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.r)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        //! icon
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Icon(
+                            Icons.discount_outlined,
+                            size: 25.sp,
+                            color: fydPWhite,
+                          ),
                         ),
-                      ),
 
-                      //! hint Text
-                      Expanded(
-                          child: FydText.b3white(
-                        text: 'apply codes and offers!',
-                        weight: FontWeight.w600,
-                      )),
-                    ],
+                        //! hint Text
+                        const Expanded(
+                            child: FydText.b3white(
+                          text: 'apply codes and discounts!',
+                          weight: FontWeight.w600,
+                          color: fydPWhite,
+                        )),
+                      ],
+                    ),
                   ),
                 ),
               ),
               //! Order-Summary
-              OrderSummarySection(
-                totalItems: totalItems,
-                subTotal: subTotal,
-                shipping: shippingCost,
-                discount: discount,
-                total: total,
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 20.h,
+                ),
+                child: OrderSummarySection(
+                  totalItems: totalItems,
+                  subTotal: subTotal,
+                  shipping: shippingCost,
+                  discount: discount,
+                  total: total,
+                ),
               ),
             ]),
             //! Place Order Btn
             Padding(
-              padding: EdgeInsets.only(bottom: 25.h),
+              padding: EdgeInsets.only(bottom: 20.h, left: 10.w, right: 10.w),
               child: FydBtn(
                 height: 60.h,
                 color: fydPGrey,
@@ -254,10 +265,9 @@ class PaymentPage extends HookWidget {
                         color: fydLogoBlue,
                         size: 25,
                       ))
-                    : FydText.h2custom(
+                    : const FydText.h3custom(
                         text: 'Place Order',
                         color: fydLogoBlue,
-                        weight: FontWeight.bold,
                       ),
                 onPressed: () {
                   if (state.isProcessing) return;
@@ -289,6 +299,8 @@ class PaymentPage extends HookWidget {
 } // PaymentPage
 
 //?-----------------------------------------------------------------------------
+//! order-summary-section
+
 class OrderSummarySection extends StatelessWidget {
   const OrderSummarySection({
     Key? key,
@@ -306,105 +318,106 @@ class OrderSummarySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
-      child: Column(
-        children: [
-          //!subtotal
-          Row(
+    return Column(
+      children: [
+        //!subtotal
+        Padding(
+          padding: EdgeInsets.only(bottom: 5.h, left: 10.w, right: 10.w),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: [
               FydText.b2custom(
-                text: 'sub Total ($totalItems items)',
-                color: fydPLgrey,
-                weight: FontWeight.bold,
+                text:
+                    'subTotal (${totalItems.toString().padLeft(2, '0')} items)',
+                color: fydTGrey,
+                weight: FontWeight.w700,
+                letterSpacing: .75,
               ),
-              Text(
-                '+  $subTotal',
-                style: GoogleFonts.exo2(
-                  fontWeight: FontWeight.w600,
-                  color: fydBlueGrey,
-                  fontSize: 22,
-                  letterSpacing: 1.5,
-                ),
-              ),
+              FydText.b1custom(
+                text: '+ $subTotal',
+                color: fydBlueGrey,
+                letterSpacing: .8,
+              )
             ],
           ),
-          //!shipping
-          Row(
+        ),
+        //!shipping
+        Padding(
+          padding: EdgeInsets.only(bottom: 5.h, left: 10.w, right: 10.w),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: [
-              FydText.b2custom(
+              const FydText.b2custom(
                 text: 'Shipping',
-                color: fydPLgrey,
-                weight: FontWeight.bold,
+                color: fydTGrey,
+                weight: FontWeight.w700,
+                letterSpacing: .75,
               ),
-              Text(
-                '+  $shipping',
-                style: GoogleFonts.exo2(
-                  fontWeight: FontWeight.w600,
-                  color: fydBlueGrey,
-                  fontSize: 22,
-                  letterSpacing: 1.5,
-                ),
+              FydText.b1custom(
+                text: '+ $shipping',
+                color: fydBlueGrey,
+                letterSpacing: .8,
               ),
             ],
           ),
-          //!Discount
-          (discount == null)
-              ? const SizedBox.shrink()
-              : Row(
+        ),
+        //!Discount
+        (discount == null)
+            ? const SizedBox.shrink()
+            : Padding(
+                padding: EdgeInsets.only(bottom: 5.h, left: 10.w, right: 10.w),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    FydText.b2custom(
+                    const FydText.b2custom(
                       text: 'Discount',
-                      color: fydPLgrey,
-                      weight: FontWeight.bold,
+                      color: fydTGrey,
+                      weight: FontWeight.w700,
+                      letterSpacing: .75,
                     ),
-                    Text(
-                      '-  $discount',
-                      style: GoogleFonts.exo2(
-                        fontWeight: FontWeight.w600,
-                        color: fydBlueGrey,
-                        fontSize: 22,
-                        letterSpacing: 1.5,
-                      ),
+                    FydText.b1custom(
+                      text: '-  $discount',
+                      color: fydBlueGrey,
+                      letterSpacing: .8,
                     ),
                   ],
                 ),
-          Divider(
-            height: 20.h,
-            color: fydPWhite,
+              ),
+        //! divider
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.h),
+          child: const FydDivider(
+            color: fydBlueGrey,
           ),
-          //!total
-          Row(
+        ),
+        //!total
+        Padding(
+          padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 5.h),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: [
-              FydText.b1custom(
+              const FydText.b1custom(
                 text: 'Total',
-                color: fydGreyWhite,
+                color: fydPWhite,
                 weight: FontWeight.bold,
               ),
-              Text(
-                '₹ $total',
-                style: GoogleFonts.exo2(
-                  fontWeight: FontWeight.w600,
-                  color: fydLogoBlue,
-                  fontSize: 22,
-                  letterSpacing: 2,
-                ),
+              FydText.h3custom(
+                text: '₹ $total',
+                color: fydLogoBlue,
+                letterSpacing: .9,
               ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
+
 //?-----------------------------------------------------------------------------
 //! Delivery-info-card
 
@@ -444,29 +457,35 @@ class DeliveryInfoCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FydText.b1custom(
+                  //! heading
+                  const FydText.b1custom(
                     text: 'Delivery Info',
-                    weight: FontWeight.bold,
                     color: fydLogoBlue,
                   ),
                   const Spacer(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      FydText.b3custom(
+                      //! name
+                      FydText.b4white(
                         text: name,
                         weight: FontWeight.w600,
-                        color: fydBlueGrey,
+                        color: fydPWhite,
+                        letterSpacing: .8,
                       ),
-                      FydText.b3custom(
+                      //! phone
+                      FydText.b4white(
                         text: phone,
                         weight: FontWeight.w600,
-                        color: fydBlueGrey,
+                        color: fydPWhite,
+                        letterSpacing: .8,
                       ),
-                      FydText.b3custom(
+                      //! email
+                      FydText.b4white(
                         text: address.email,
                         weight: FontWeight.w600,
-                        color: fydBlueGrey,
+                        color: fydPWhite,
+                        letterSpacing: .8,
                       ),
                     ],
                   ),
@@ -476,20 +495,22 @@ class DeliveryInfoCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // (al1 + al2)
-                  FydTextEllipsis(
-                    width: 260.w,
-                    fydText: FydText.b3white(
+                  //! (al1 + al2)
+                  FydEllipsisText(
+                    width: 270.w,
+                    fydText: FydText.b3custom(
                       text: "$line1, $line2",
                       weight: FontWeight.w600,
+                      color: fydBlueGrey,
                     ),
                   ),
-                  // (city + state + pincode)
-                  FydTextEllipsis(
-                    width: 260.w,
-                    fydText: FydText.b3white(
+                  //! (city + state + pincode)
+                  FydEllipsisText(
+                    width: 270.w,
+                    fydText: FydText.b3custom(
                       text: '$city, $addressState, ${address.pincode}',
                       weight: FontWeight.w600,
+                      color: fydBlueGrey,
                     ),
                   ),
                 ],
@@ -506,7 +527,7 @@ class DeliveryInfoCard extends StatelessWidget {
 //! Payment-tile
 
 class PaymentTile extends StatelessWidget {
-  final PaymentMode paymentMode;
+  final PaymentMode? paymentMode;
   final String title;
   final PaymentMode? selectedMode;
   final Function(PaymentMode) onSelect;
@@ -522,34 +543,50 @@ class PaymentTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FydBtn(
-      height: 70.h,
+      height: 60.h,
       color: fydPGrey,
-      onPressed: () => onSelect(paymentMode),
+      onPressed: () => (paymentMode == null) ? {} : onSelect(paymentMode!),
       widget: Row(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // title
-          FydText.h3custom(
-            text: title,
-            color: fydBlueGrey,
-            weight: FontWeight.bold,
+          //! title
+          Padding(
+            padding: EdgeInsets.only(left: 30.w),
+            child: FydText.h3custom(
+              text: title,
+              color: fydBlueGrey,
+              weight: FontWeight.bold,
+            ),
           ),
-          // radio-Btn
-          Radio(
-            value: paymentMode,
-            groupValue: selectedMode,
-            onChanged: (v) {
-              // onSelect(paymentMode);
-            },
-            toggleable: false,
-            fillColor: MaterialStateColor.resolveWith((states) {
-              if (states.contains(MaterialState.selected)) {
-                return fydLogoBlue;
-              }
-              return fydBlueGrey;
-            }),
-          ),
+          (paymentMode == null)
+              //! comming soon
+              ? Padding(
+                  padding: EdgeInsets.only(right: 0.w),
+                  child: Image.asset(
+                    'assets/logo/soon.png',
+                    width: 130.w,
+                    fit: BoxFit.fitWidth,
+                  ),
+                )
+              //! radio-Btn
+              : Padding(
+                  padding: EdgeInsets.only(right: 20.w),
+                  child: Radio<PaymentMode?>(
+                    value: paymentMode,
+                    groupValue: selectedMode,
+                    onChanged: (v) {
+                      onSelect(paymentMode!);
+                    },
+                    toggleable: false,
+                    fillColor: MaterialStateColor.resolveWith((states) {
+                      if (states.contains(MaterialState.selected)) {
+                        return fydLogoBlue;
+                      }
+                      return fydBlueGrey;
+                    }),
+                  ),
+                ),
         ],
       ),
     );
@@ -557,6 +594,5 @@ class PaymentTile extends StatelessWidget {
 }
 
 //?-----------------------------------------------------------------------------
-//! Summary-section
 
 //?-----------------------------------------------------------------------------

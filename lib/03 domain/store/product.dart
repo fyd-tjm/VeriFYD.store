@@ -14,6 +14,7 @@ abstract class Product with _$Product {
     required String type,
     required String company,
     required String description,
+    required String policy,
     required Map<String, int> sizeAvailability,
     required String sizeGuide,
     required double sellingPrice,

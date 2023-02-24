@@ -48,12 +48,14 @@ class FydEllipsisText extends StatelessWidget {
   final double width;
   final FydText fydText;
   final TextAlign textAlignmnet;
+  final int maxLines;
 
   const FydEllipsisText({
     Key? key,
     required this.width,
     this.textAlignmnet = TextAlign.start,
     required this.fydText,
+    this.maxLines = 1,
   }) : super(key: key);
 
   @override
@@ -68,7 +70,7 @@ class FydEllipsisText extends StatelessWidget {
           fontWeight: fydText.weight,
           fontSize: fydText.size,
         ),
-        maxLines: 1,
+        maxLines: maxLines,
         overflow: TextOverflow.ellipsis,
       ),
     );

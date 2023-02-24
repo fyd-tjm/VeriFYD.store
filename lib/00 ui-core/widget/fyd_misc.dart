@@ -53,6 +53,7 @@ class FydDivider extends StatelessWidget {
 Future<bool?> showOkDialog({
   required BuildContext context,
   String title = 'Title',
+  Color textColor = fydSCBlueGrey,
   required String message,
 }) {
   final dialog = Dialog(
@@ -84,7 +85,7 @@ Future<bool?> showOkDialog({
                 message,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.exo2(
-                  color: fydBlueGrey,
+                  color: textColor,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
@@ -123,7 +124,7 @@ Future<bool?> showOkDialog({
   return showModal<bool>(
     context: context,
     configuration: const FadeScaleTransitionConfiguration(
-      barrierDismissible: false,
+      barrierDismissible: true,
     ),
     useRootNavigator: false,
     builder: (context) => dialog,
@@ -167,7 +168,7 @@ Future<bool?> showPermissionDialog({
                 message,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.exo2(
-                  color: fydBlueGrey,
+                  color: fydSCBlueGrey,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
@@ -238,20 +239,26 @@ enum SnackBarPosition { top, bottom }
 
 enum SnackBarColor { dark, light }
 
-void showSnack(
-    {required BuildContext context,
-    String? message,
-    FydText? fydText,
-    EdgeInsetsGeometry? margin,
-    Color? backgroundColor,
-    double backgroundOpacity = .90,
-    int durationSeconds = 2,
-    SnackBarPosition snackPosition = SnackBarPosition.top,
-    SnackBarColor snackBarColor = SnackBarColor.dark}) {
+enum SnackBarViewType { withNav, withoutNav }
+
+void showSnack({
+  required BuildContext context,
+  String? message,
+  double textSize = 18,
+  FydText? fydText,
+  EdgeInsetsGeometry? margin,
+  Color? backgroundColor,
+  double backgroundOpacity = .90,
+  int durationSeconds = 2,
+  SnackBarPosition snackPosition = SnackBarPosition.top,
+  SnackBarColor snackBarColor = SnackBarColor.dark,
+  SnackBarViewType viewType = SnackBarViewType.withoutNav,
+}) {
   //------
   if (snackPosition == SnackBarPosition.top) {
+    final x = (viewType == SnackBarViewType.withNav) ? 65.5.h : 0;
     margin = EdgeInsets.only(
-      bottom: MediaQuery.of(context).size.height * .87,
+      bottom: MediaQuery.of(context).size.height * .87 - x,
       left: 10,
       right: 10,
     );
@@ -279,9 +286,10 @@ void showSnack(
         borderRadius: BorderRadius.circular(10),
       ),
       content: (fydText == null)
-          ? FydText.b1custom(
+          ? FydText.b2custom(
               text: message ?? '',
               weight: FontWeight.bold,
+              size: textSize,
               color: (snackBarColor == SnackBarColor.dark)
                   ? fydBlueGrey
                   : fydPGrey,
