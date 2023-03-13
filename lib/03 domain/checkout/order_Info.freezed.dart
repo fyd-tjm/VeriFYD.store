@@ -37,7 +37,8 @@ mixin _$OrderInfo {
 /// @nodoc
 abstract class $OrderInfoCopyWith<$Res> {
   factory $OrderInfoCopyWith(OrderInfo value, $Res Function(OrderInfo) then) =
-      _$OrderInfoCopyWithImpl<$Res>;
+      _$OrderInfoCopyWithImpl<$Res, OrderInfo>;
+  @useResult
   $Res call(
       {String storeId,
       String storeName,
@@ -49,49 +50,53 @@ abstract class $OrderInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$OrderInfoCopyWithImpl<$Res> implements $OrderInfoCopyWith<$Res> {
+class _$OrderInfoCopyWithImpl<$Res, $Val extends OrderInfo>
+    implements $OrderInfoCopyWith<$Res> {
   _$OrderInfoCopyWithImpl(this._value, this._then);
 
-  final OrderInfo _value;
   // ignore: unused_field
-  final $Res Function(OrderInfo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? storeName = freezed,
-    Object? orderItems = freezed,
-    Object? orderItemsDetail = freezed,
-    Object? orderSummary = freezed,
+    Object? storeId = null,
+    Object? storeName = null,
+    Object? orderItems = null,
+    Object? orderItemsDetail = null,
+    Object? orderSummary = null,
   }) {
     return _then(_value.copyWith(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as String,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      orderItems: orderItems == freezed
+      orderItems: null == orderItems
           ? _value.orderItems
           : orderItems // ignore: cast_nullable_to_non_nullable
               as Map<String, Map<String, int>>,
-      orderItemsDetail: orderItemsDetail == freezed
+      orderItemsDetail: null == orderItemsDetail
           ? _value.orderItemsDetail
           : orderItemsDetail // ignore: cast_nullable_to_non_nullable
               as Map<String, Product>,
-      orderSummary: orderSummary == freezed
+      orderSummary: null == orderSummary
           ? _value.orderSummary
           : orderSummary // ignore: cast_nullable_to_non_nullable
               as OrderSummary,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $OrderSummaryCopyWith<$Res> get orderSummary {
     return $OrderSummaryCopyWith<$Res>(_value.orderSummary, (value) {
-      return _then(_value.copyWith(orderSummary: value));
+      return _then(_value.copyWith(orderSummary: value) as $Val);
     });
   }
 }
@@ -102,6 +107,7 @@ abstract class _$$_OrderInfoCopyWith<$Res> implements $OrderInfoCopyWith<$Res> {
           _$_OrderInfo value, $Res Function(_$_OrderInfo) then) =
       __$$_OrderInfoCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String storeId,
       String storeName,
@@ -114,41 +120,40 @@ abstract class _$$_OrderInfoCopyWith<$Res> implements $OrderInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_OrderInfoCopyWithImpl<$Res> extends _$OrderInfoCopyWithImpl<$Res>
+class __$$_OrderInfoCopyWithImpl<$Res>
+    extends _$OrderInfoCopyWithImpl<$Res, _$_OrderInfo>
     implements _$$_OrderInfoCopyWith<$Res> {
   __$$_OrderInfoCopyWithImpl(
       _$_OrderInfo _value, $Res Function(_$_OrderInfo) _then)
-      : super(_value, (v) => _then(v as _$_OrderInfo));
+      : super(_value, _then);
 
-  @override
-  _$_OrderInfo get _value => super._value as _$_OrderInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? storeName = freezed,
-    Object? orderItems = freezed,
-    Object? orderItemsDetail = freezed,
-    Object? orderSummary = freezed,
+    Object? storeId = null,
+    Object? storeName = null,
+    Object? orderItems = null,
+    Object? orderItemsDetail = null,
+    Object? orderSummary = null,
   }) {
     return _then(_$_OrderInfo(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as String,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      orderItems: orderItems == freezed
+      orderItems: null == orderItems
           ? _value._orderItems
           : orderItems // ignore: cast_nullable_to_non_nullable
               as Map<String, Map<String, int>>,
-      orderItemsDetail: orderItemsDetail == freezed
+      orderItemsDetail: null == orderItemsDetail
           ? _value._orderItemsDetail
           : orderItemsDetail // ignore: cast_nullable_to_non_nullable
               as Map<String, Product>,
-      orderSummary: orderSummary == freezed
+      orderSummary: null == orderSummary
           ? _value.orderSummary
           : orderSummary // ignore: cast_nullable_to_non_nullable
               as OrderSummary,
@@ -203,28 +208,30 @@ class _$_OrderInfo implements _OrderInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OrderInfo &&
-            const DeepCollectionEquality().equals(other.storeId, storeId) &&
-            const DeepCollectionEquality().equals(other.storeName, storeName) &&
+            (identical(other.storeId, storeId) || other.storeId == storeId) &&
+            (identical(other.storeName, storeName) ||
+                other.storeName == storeName) &&
             const DeepCollectionEquality()
                 .equals(other._orderItems, _orderItems) &&
             const DeepCollectionEquality()
                 .equals(other._orderItemsDetail, _orderItemsDetail) &&
-            const DeepCollectionEquality()
-                .equals(other.orderSummary, orderSummary));
+            (identical(other.orderSummary, orderSummary) ||
+                other.orderSummary == orderSummary));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(storeId),
-      const DeepCollectionEquality().hash(storeName),
+      storeId,
+      storeName,
       const DeepCollectionEquality().hash(_orderItems),
       const DeepCollectionEquality().hash(_orderItemsDetail),
-      const DeepCollectionEquality().hash(orderSummary));
+      orderSummary);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_OrderInfoCopyWith<_$_OrderInfo> get copyWith =>
       __$$_OrderInfoCopyWithImpl<_$_OrderInfo>(this, _$identity);
 

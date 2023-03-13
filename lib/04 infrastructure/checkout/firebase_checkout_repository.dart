@@ -4,6 +4,8 @@ import 'package:verifyd_store/03%20domain/checkout/checkout_failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:verifyd_store/03%20domain/checkout/i_checkout_repository.dart';
 import 'package:verifyd_store/03%20domain/checkout/order.dart';
+import 'package:verifyd_store/03%20domain/store/coupon.dart';
+import 'package:verifyd_store/03%20domain/store/store.dart';
 import 'package:verifyd_store/04 infrastructure/core/firebase_helper.dart';
 
 @LazySingleton(as: ICheckoutRepository)
@@ -78,6 +80,27 @@ class FirebaseCheckoutRepository implements ICheckoutRepository {
       (success) => right(success),
     );
     //------
+  }
+
+//?-----------------------------------------------------------------------------
+//! Interface
+  @override
+  Future<Either<CheckoutFailure, Map<String, Coupon>>> getStoreCoupons(
+      {required String storeRef}) async {
+    final storeDoc = _firestore.doc(storeRef).withConverter<Store>(
+        fromFirestore: (snapshot, _) => Store.fromJson(snapshot.data()!),
+        toFirestore: (model, _) => model.toJson());
+
+    final result = await storeDoc
+        .get()
+        .then((snapShot) => right(snapShot.data()!.coupons))
+        .onError(
+            (error, stackTrace) => left(const CheckoutFailure.couponFailure()));
+
+    return result.fold(
+      (failure) => left(failure),
+      (success) => right(success),
+    );
   }
 //?-----------------------------------------------------------------------------
 }

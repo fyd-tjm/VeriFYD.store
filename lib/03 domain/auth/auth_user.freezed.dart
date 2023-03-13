@@ -27,33 +27,37 @@ mixin _$AuthUser {
 /// @nodoc
 abstract class $AuthUserCopyWith<$Res> {
   factory $AuthUserCopyWith(AuthUser value, $Res Function(AuthUser) then) =
-      _$AuthUserCopyWithImpl<$Res>;
+      _$AuthUserCopyWithImpl<$Res, AuthUser>;
+  @useResult
   $Res call({String userId, String userPhone});
 }
 
 /// @nodoc
-class _$AuthUserCopyWithImpl<$Res> implements $AuthUserCopyWith<$Res> {
+class _$AuthUserCopyWithImpl<$Res, $Val extends AuthUser>
+    implements $AuthUserCopyWith<$Res> {
   _$AuthUserCopyWithImpl(this._value, this._then);
 
-  final AuthUser _value;
   // ignore: unused_field
-  final $Res Function(AuthUser) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = freezed,
-    Object? userPhone = freezed,
+    Object? userId = null,
+    Object? userPhone = null,
   }) {
     return _then(_value.copyWith(
-      userId: userId == freezed
+      userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      userPhone: userPhone == freezed
+      userPhone: null == userPhone
           ? _value.userPhone
           : userPhone // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -63,30 +67,30 @@ abstract class _$$_AuthUserCopyWith<$Res> implements $AuthUserCopyWith<$Res> {
           _$_AuthUser value, $Res Function(_$_AuthUser) then) =
       __$$_AuthUserCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String userId, String userPhone});
 }
 
 /// @nodoc
-class __$$_AuthUserCopyWithImpl<$Res> extends _$AuthUserCopyWithImpl<$Res>
+class __$$_AuthUserCopyWithImpl<$Res>
+    extends _$AuthUserCopyWithImpl<$Res, _$_AuthUser>
     implements _$$_AuthUserCopyWith<$Res> {
   __$$_AuthUserCopyWithImpl(
       _$_AuthUser _value, $Res Function(_$_AuthUser) _then)
-      : super(_value, (v) => _then(v as _$_AuthUser));
+      : super(_value, _then);
 
-  @override
-  _$_AuthUser get _value => super._value as _$_AuthUser;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = freezed,
-    Object? userPhone = freezed,
+    Object? userId = null,
+    Object? userPhone = null,
   }) {
     return _then(_$_AuthUser(
-      userId: userId == freezed
+      userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      userPhone: userPhone == freezed
+      userPhone: null == userPhone
           ? _value.userPhone
           : userPhone // ignore: cast_nullable_to_non_nullable
               as String,
@@ -114,18 +118,17 @@ class _$_AuthUser implements _AuthUser {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AuthUser &&
-            const DeepCollectionEquality().equals(other.userId, userId) &&
-            const DeepCollectionEquality().equals(other.userPhone, userPhone));
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.userPhone, userPhone) ||
+                other.userPhone == userPhone));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(userId),
-      const DeepCollectionEquality().hash(userPhone));
+  int get hashCode => Object.hash(runtimeType, userId, userPhone);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AuthUserCopyWith<_$_AuthUser> get copyWith =>
       __$$_AuthUserCopyWithImpl<_$_AuthUser>(this, _$identity);
 }

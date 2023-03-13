@@ -21,9 +21,11 @@ class CheckoutEvent with _$CheckoutEvent {
   factory CheckoutEvent.addPaymentInfo({
     required double amount,
     required PaymentMode mode,
-    required double discount,
+    required Coupon? discountCpn,
     required double total,
   }) = AddPaymentInfo;
+
+//?-----------------------------------------------------------------------------
 
 //?-----------------------------------------------------------------------------
   //! MakePayment

@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -93,16 +92,16 @@ class StoresViewPage extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        //! search bar
         Builder(builder: (context) {
           final searchMap = context.select((SharedInfoCubit cubit) =>
               cubit.state.sharedInfo!.storeSearchMap);
           final recentMap = context
               .select((SharedInfoCubit cubit) => cubit.state.recentSearchMap);
+          //! search bar
           return Padding(
             padding: EdgeInsets.only(top: 20.h, left: 8.w, right: 8.w),
-            child: InkWell(
-              onTap: () async {
+            child: StoreSearchBar(
+              onPressed: () async {
                 HapticFeedback.mediumImpact();
                 await showCustomSearch(
                   context: context,
@@ -120,54 +119,6 @@ class StoresViewPage extends StatelessWidget {
                   ),
                 );
               },
-              child: SizedBox(
-                height: 60.h,
-                width: double.infinity,
-                child: Card(
-                  color: fydPDgrey,
-                  elevation: 15.0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.r)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      //! icon
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15.w),
-                        child: Icon(
-                          Icons.manage_search_sharp,
-                          size: 32.sp,
-                          color: fydBlueGrey,
-                        ),
-                      ),
-                      //! hint Text
-                      const Expanded(
-                        child: FydRichText(
-                          size: 16,
-                          color: fydBlueGrey,
-                          weight: FontWeight.w600,
-                          letterSpacing: .9,
-                          textList: [
-                            TextSpan(
-                              text: 'find store via ',
-                            ),
-                            TextSpan(
-                                text: '#',
-                                style: TextStyle(
-                                    color: fydLogoBlue, fontSize: 18)),
-                            TextSpan(
-                                text: 'store-id',
-                                style: TextStyle(
-                                    color: fydLogoBlue, fontSize: 18)),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
             ),
           );
         }),
@@ -184,6 +135,7 @@ class StoresViewPage extends StatelessWidget {
                 svgAsset: 'assets/icons/apparels.svg',
                 title: DbHelpers.getSharedInfoField(SharedInfo.apparel),
                 color: fydSBlue,
+                selectedTitle: state.selectedCategory,
                 onPressed: (category) {
                   context
                       .read<StoresBloc>()
@@ -195,6 +147,7 @@ class StoresViewPage extends StatelessWidget {
                 svgAsset: 'assets/icons/footwear.svg',
                 title: DbHelpers.getSharedInfoField(SharedInfo.footwear),
                 color: fydDustyPeach,
+                selectedTitle: state.selectedCategory,
                 onPressed: (category) {
                   context
                       .read<StoresBloc>()
@@ -206,6 +159,7 @@ class StoresViewPage extends StatelessWidget {
                 svgAsset: 'assets/icons/others.svg',
                 title: DbHelpers.getSharedInfoField(SharedInfo.other),
                 color: fydSPink,
+                selectedTitle: state.selectedCategory,
                 onPressed: (category) {
                   context
                       .read<StoresBloc>()
@@ -285,4 +239,61 @@ class StoresViewPage extends StatelessWidget {
   }
 
 //?-----------------------------------------------------------------------------
+}
+
+class StoreSearchBar extends StatelessWidget {
+  const StoreSearchBar({
+    Key? key,
+    required this.onPressed,
+  }) : super(key: key);
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return FydBtn(
+      height: 55.h,
+      width: double.infinity,
+      color: fydPDgrey,
+      onPressed: onPressed,
+      widget: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          //! icon
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: Icon(
+              Icons.manage_search_sharp,
+              size: 32.sp,
+              color: fydLogoBlue,
+            ),
+          ),
+          //! hint Text
+          const Expanded(
+            child: FydRichText(
+              size: 15,
+              color: fydBlueGrey,
+              weight: FontWeight.w600,
+              letterSpacing: .9,
+              textList: [
+                TextSpan(
+                  text: 'find store via ',
+                ),
+                TextSpan(
+                    text: '#',
+                    style: TextStyle(
+                        color: fydPWhite,
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal)),
+                TextSpan(
+                    text: 'store-id',
+                    style: TextStyle(color: fydBlueGrey, fontSize: 16)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

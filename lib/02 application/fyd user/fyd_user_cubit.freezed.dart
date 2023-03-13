@@ -34,7 +34,8 @@ mixin _$FydUserState {
 abstract class $FydUserStateCopyWith<$Res> {
   factory $FydUserStateCopyWith(
           FydUserState value, $Res Function(FydUserState) then) =
-      _$FydUserStateCopyWithImpl<$Res>;
+      _$FydUserStateCopyWithImpl<$Res, FydUserState>;
+  @useResult
   $Res call(
       {bool isFetching,
       bool loadingState,
@@ -48,63 +49,67 @@ abstract class $FydUserStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$FydUserStateCopyWithImpl<$Res> implements $FydUserStateCopyWith<$Res> {
+class _$FydUserStateCopyWithImpl<$Res, $Val extends FydUserState>
+    implements $FydUserStateCopyWith<$Res> {
   _$FydUserStateCopyWithImpl(this._value, this._then);
 
-  final FydUserState _value;
   // ignore: unused_field
-  final $Res Function(FydUserState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isFetching = freezed,
-    Object? loadingState = freezed,
-    Object? isAuthenticated = freezed,
+    Object? isFetching = null,
+    Object? loadingState = null,
+    Object? isAuthenticated = null,
     Object? fydUser = freezed,
     Object? fydOrders = freezed,
-    Object? failureOrSuccess = freezed,
-    Object? updating = freezed,
+    Object? failureOrSuccess = null,
+    Object? updating = null,
   }) {
     return _then(_value.copyWith(
-      isFetching: isFetching == freezed
+      isFetching: null == isFetching
           ? _value.isFetching
           : isFetching // ignore: cast_nullable_to_non_nullable
               as bool,
-      loadingState: loadingState == freezed
+      loadingState: null == loadingState
           ? _value.loadingState
           : loadingState // ignore: cast_nullable_to_non_nullable
               as bool,
-      isAuthenticated: isAuthenticated == freezed
+      isAuthenticated: null == isAuthenticated
           ? _value.isAuthenticated
           : isAuthenticated // ignore: cast_nullable_to_non_nullable
               as bool,
-      fydUser: fydUser == freezed
+      fydUser: freezed == fydUser
           ? _value.fydUser
           : fydUser // ignore: cast_nullable_to_non_nullable
               as FydUser?,
-      fydOrders: fydOrders == freezed
+      fydOrders: freezed == fydOrders
           ? _value.fydOrders
           : fydOrders // ignore: cast_nullable_to_non_nullable
               as List<FydOrder>?,
-      failureOrSuccess: failureOrSuccess == freezed
+      failureOrSuccess: null == failureOrSuccess
           ? _value.failureOrSuccess
           : failureOrSuccess // ignore: cast_nullable_to_non_nullable
               as Option<Either<UserFailure, Unit>>,
-      updating: updating == freezed
+      updating: null == updating
           ? _value.updating
           : updating // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $FydUserCopyWith<$Res>? get fydUser {
     if (_value.fydUser == null) {
       return null;
     }
 
     return $FydUserCopyWith<$Res>(_value.fydUser!, (value) {
-      return _then(_value.copyWith(fydUser: value));
+      return _then(_value.copyWith(fydUser: value) as $Val);
     });
   }
 }
@@ -116,6 +121,7 @@ abstract class _$$_FydUserStateCopyWith<$Res>
           _$_FydUserState value, $Res Function(_$_FydUserState) then) =
       __$$_FydUserStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {bool isFetching,
       bool loadingState,
@@ -131,51 +137,49 @@ abstract class _$$_FydUserStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_FydUserStateCopyWithImpl<$Res>
-    extends _$FydUserStateCopyWithImpl<$Res>
+    extends _$FydUserStateCopyWithImpl<$Res, _$_FydUserState>
     implements _$$_FydUserStateCopyWith<$Res> {
   __$$_FydUserStateCopyWithImpl(
       _$_FydUserState _value, $Res Function(_$_FydUserState) _then)
-      : super(_value, (v) => _then(v as _$_FydUserState));
+      : super(_value, _then);
 
-  @override
-  _$_FydUserState get _value => super._value as _$_FydUserState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isFetching = freezed,
-    Object? loadingState = freezed,
-    Object? isAuthenticated = freezed,
+    Object? isFetching = null,
+    Object? loadingState = null,
+    Object? isAuthenticated = null,
     Object? fydUser = freezed,
     Object? fydOrders = freezed,
-    Object? failureOrSuccess = freezed,
-    Object? updating = freezed,
+    Object? failureOrSuccess = null,
+    Object? updating = null,
   }) {
     return _then(_$_FydUserState(
-      isFetching: isFetching == freezed
+      isFetching: null == isFetching
           ? _value.isFetching
           : isFetching // ignore: cast_nullable_to_non_nullable
               as bool,
-      loadingState: loadingState == freezed
+      loadingState: null == loadingState
           ? _value.loadingState
           : loadingState // ignore: cast_nullable_to_non_nullable
               as bool,
-      isAuthenticated: isAuthenticated == freezed
+      isAuthenticated: null == isAuthenticated
           ? _value.isAuthenticated
           : isAuthenticated // ignore: cast_nullable_to_non_nullable
               as bool,
-      fydUser: fydUser == freezed
+      fydUser: freezed == fydUser
           ? _value.fydUser
           : fydUser // ignore: cast_nullable_to_non_nullable
               as FydUser?,
-      fydOrders: fydOrders == freezed
+      fydOrders: freezed == fydOrders
           ? _value._fydOrders
           : fydOrders // ignore: cast_nullable_to_non_nullable
               as List<FydOrder>?,
-      failureOrSuccess: failureOrSuccess == freezed
+      failureOrSuccess: null == failureOrSuccess
           ? _value.failureOrSuccess
           : failureOrSuccess // ignore: cast_nullable_to_non_nullable
               as Option<Either<UserFailure, Unit>>,
-      updating: updating == freezed
+      updating: null == updating
           ? _value.updating
           : updating // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -228,33 +232,35 @@ class _$_FydUserState implements _FydUserState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FydUserState &&
-            const DeepCollectionEquality()
-                .equals(other.isFetching, isFetching) &&
-            const DeepCollectionEquality()
-                .equals(other.loadingState, loadingState) &&
-            const DeepCollectionEquality()
-                .equals(other.isAuthenticated, isAuthenticated) &&
-            const DeepCollectionEquality().equals(other.fydUser, fydUser) &&
+            (identical(other.isFetching, isFetching) ||
+                other.isFetching == isFetching) &&
+            (identical(other.loadingState, loadingState) ||
+                other.loadingState == loadingState) &&
+            (identical(other.isAuthenticated, isAuthenticated) ||
+                other.isAuthenticated == isAuthenticated) &&
+            (identical(other.fydUser, fydUser) || other.fydUser == fydUser) &&
             const DeepCollectionEquality()
                 .equals(other._fydOrders, _fydOrders) &&
-            const DeepCollectionEquality()
-                .equals(other.failureOrSuccess, failureOrSuccess) &&
-            const DeepCollectionEquality().equals(other.updating, updating));
+            (identical(other.failureOrSuccess, failureOrSuccess) ||
+                other.failureOrSuccess == failureOrSuccess) &&
+            (identical(other.updating, updating) ||
+                other.updating == updating));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(isFetching),
-      const DeepCollectionEquality().hash(loadingState),
-      const DeepCollectionEquality().hash(isAuthenticated),
-      const DeepCollectionEquality().hash(fydUser),
+      isFetching,
+      loadingState,
+      isAuthenticated,
+      fydUser,
       const DeepCollectionEquality().hash(_fydOrders),
-      const DeepCollectionEquality().hash(failureOrSuccess),
-      const DeepCollectionEquality().hash(updating));
+      failureOrSuccess,
+      updating);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_FydUserStateCopyWith<_$_FydUserState> get copyWith =>
       __$$_FydUserStateCopyWithImpl<_$_FydUserState>(this, _$identity);
 }

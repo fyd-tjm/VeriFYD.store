@@ -34,7 +34,8 @@ mixin _$FydUser {
 /// @nodoc
 abstract class $FydUserCopyWith<$Res> {
   factory $FydUserCopyWith(FydUser value, $Res Function(FydUser) then) =
-      _$FydUserCopyWithImpl<$Res>;
+      _$FydUserCopyWithImpl<$Res, FydUser>;
+  @useResult
   $Res call(
       {String uId,
       String phone,
@@ -44,43 +45,46 @@ abstract class $FydUserCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$FydUserCopyWithImpl<$Res> implements $FydUserCopyWith<$Res> {
+class _$FydUserCopyWithImpl<$Res, $Val extends FydUser>
+    implements $FydUserCopyWith<$Res> {
   _$FydUserCopyWithImpl(this._value, this._then);
 
-  final FydUser _value;
   // ignore: unused_field
-  final $Res Function(FydUser) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uId = freezed,
-    Object? phone = freezed,
-    Object? name = freezed,
-    Object? email = freezed,
-    Object? addresses = freezed,
+    Object? uId = null,
+    Object? phone = null,
+    Object? name = null,
+    Object? email = null,
+    Object? addresses = null,
   }) {
     return _then(_value.copyWith(
-      uId: uId == freezed
+      uId: null == uId
           ? _value.uId
           : uId // ignore: cast_nullable_to_non_nullable
               as String,
-      phone: phone == freezed
+      phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      addresses: addresses == freezed
+      addresses: null == addresses
           ? _value.addresses
           : addresses // ignore: cast_nullable_to_non_nullable
               as Map<int, FydAddress>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -90,6 +94,7 @@ abstract class _$$_FydUserCopyWith<$Res> implements $FydUserCopyWith<$Res> {
           _$_FydUser value, $Res Function(_$_FydUser) then) =
       __$$_FydUserCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String uId,
       String phone,
@@ -99,40 +104,39 @@ abstract class _$$_FydUserCopyWith<$Res> implements $FydUserCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_FydUserCopyWithImpl<$Res> extends _$FydUserCopyWithImpl<$Res>
+class __$$_FydUserCopyWithImpl<$Res>
+    extends _$FydUserCopyWithImpl<$Res, _$_FydUser>
     implements _$$_FydUserCopyWith<$Res> {
   __$$_FydUserCopyWithImpl(_$_FydUser _value, $Res Function(_$_FydUser) _then)
-      : super(_value, (v) => _then(v as _$_FydUser));
+      : super(_value, _then);
 
-  @override
-  _$_FydUser get _value => super._value as _$_FydUser;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uId = freezed,
-    Object? phone = freezed,
-    Object? name = freezed,
-    Object? email = freezed,
-    Object? addresses = freezed,
+    Object? uId = null,
+    Object? phone = null,
+    Object? name = null,
+    Object? email = null,
+    Object? addresses = null,
   }) {
     return _then(_$_FydUser(
-      uId: uId == freezed
+      uId: null == uId
           ? _value.uId
           : uId // ignore: cast_nullable_to_non_nullable
               as String,
-      phone: phone == freezed
+      phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      addresses: addresses == freezed
+      addresses: null == addresses
           ? _value._addresses
           : addresses // ignore: cast_nullable_to_non_nullable
               as Map<int, FydAddress>,
@@ -180,26 +184,22 @@ class _$_FydUser implements _FydUser {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FydUser &&
-            const DeepCollectionEquality().equals(other.uId, uId) &&
-            const DeepCollectionEquality().equals(other.phone, phone) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
+            (identical(other.uId, uId) || other.uId == uId) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
             const DeepCollectionEquality()
                 .equals(other._addresses, _addresses));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(uId),
-      const DeepCollectionEquality().hash(phone),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(email),
+  int get hashCode => Object.hash(runtimeType, uId, phone, name, email,
       const DeepCollectionEquality().hash(_addresses));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_FydUserCopyWith<_$_FydUser> get copyWith =>
       __$$_FydUserCopyWithImpl<_$_FydUser>(this, _$identity);
 

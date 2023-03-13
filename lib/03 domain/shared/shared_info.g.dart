@@ -18,11 +18,15 @@ _$_SharedInfo _$$_SharedInfoFromJson(Map<String, dynamic> json) =>
       timmings: Map<String, String>.from(json['timmings'] as Map),
       images: Map<String, String>.from(json['images'] as Map),
       support: Map<String, String>.from(json['support'] as Map),
-      banners: (json['banners'] as Map<String, dynamic>).map(
-        (k, e) => MapEntry(int.parse(k), e as String),
+      banners: Map<String, String>.from(json['banners'] as Map),
+      offers: (json['offers'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, Coupon.fromJson(e as Map<String, dynamic>)),
       ),
-      offers: Map<String, String>.from(json['offers'] as Map),
       storeSearchMap: Map<String, String>.from(json['storeSearchMap'] as Map),
+      recentlyPurchased:
+          (json['recentlyPurchased'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, Product.fromJson(e as Map<String, dynamic>)),
+      ),
     );
 
 Map<String, dynamic> _$$_SharedInfoToJson(_$_SharedInfo instance) =>
@@ -35,7 +39,9 @@ Map<String, dynamic> _$$_SharedInfoToJson(_$_SharedInfo instance) =>
       'timmings': instance.timmings,
       'images': instance.images,
       'support': instance.support,
-      'banners': instance.banners.map((k, e) => MapEntry(k.toString(), e)),
-      'offers': instance.offers,
+      'banners': instance.banners,
+      'offers': instance.offers.map((k, e) => MapEntry(k, e.toJson())),
       'storeSearchMap': instance.storeSearchMap,
+      'recentlyPurchased':
+          instance.recentlyPurchased.map((k, e) => MapEntry(k, e.toJson())),
     };

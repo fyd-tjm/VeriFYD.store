@@ -29,7 +29,7 @@ class LandingPage extends StatelessWidget {
     return BlocListener<FydUserCubit, FydUserState>(
       listener: (context, state) async {
         if (state.isFetching == false) {
-          await Future.delayed(const Duration(milliseconds: 1000));
+          await Future.delayed(const Duration(milliseconds: 800));
           if (state.isAuthenticated == false) {
             // navigate to login
             context.router.replaceNamed(Rn.login);

@@ -28,11 +28,11 @@ mixin _$StoreEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String storeId)? getStoreRealtime,
-    TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
-    TResult Function(String type)? updateSelectedType,
-    TResult Function()? loadMoreProducts,
-    TResult Function()? toggleFailures,
+    TResult? Function(String storeId)? getStoreRealtime,
+    TResult? Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
+    TResult? Function(String type)? updateSelectedType,
+    TResult? Function()? loadMoreProducts,
+    TResult? Function()? toggleFailures,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,11 +56,11 @@ mixin _$StoreEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetStoreRealtime value)? getStoreRealtime,
-    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
-    TResult Function(UpdateSelectedType value)? updateSelectedType,
-    TResult Function(LoadMoreProducts value)? loadMoreProducts,
-    TResult Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(GetStoreRealtime value)? getStoreRealtime,
+    TResult? Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult? Function(UpdateSelectedType value)? updateSelectedType,
+    TResult? Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult? Function(ToggleFailures value)? toggleFailures,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -79,16 +79,18 @@ mixin _$StoreEvent {
 abstract class $StoreEventCopyWith<$Res> {
   factory $StoreEventCopyWith(
           StoreEvent value, $Res Function(StoreEvent) then) =
-      _$StoreEventCopyWithImpl<$Res>;
+      _$StoreEventCopyWithImpl<$Res, StoreEvent>;
 }
 
 /// @nodoc
-class _$StoreEventCopyWithImpl<$Res> implements $StoreEventCopyWith<$Res> {
+class _$StoreEventCopyWithImpl<$Res, $Val extends StoreEvent>
+    implements $StoreEventCopyWith<$Res> {
   _$StoreEventCopyWithImpl(this._value, this._then);
 
-  final StoreEvent _value;
   // ignore: unused_field
-  final $Res Function(StoreEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -96,26 +98,25 @@ abstract class _$$GetStoreRealtimeCopyWith<$Res> {
   factory _$$GetStoreRealtimeCopyWith(
           _$GetStoreRealtime value, $Res Function(_$GetStoreRealtime) then) =
       __$$GetStoreRealtimeCopyWithImpl<$Res>;
+  @useResult
   $Res call({String storeId});
 }
 
 /// @nodoc
 class __$$GetStoreRealtimeCopyWithImpl<$Res>
-    extends _$StoreEventCopyWithImpl<$Res>
+    extends _$StoreEventCopyWithImpl<$Res, _$GetStoreRealtime>
     implements _$$GetStoreRealtimeCopyWith<$Res> {
   __$$GetStoreRealtimeCopyWithImpl(
       _$GetStoreRealtime _value, $Res Function(_$GetStoreRealtime) _then)
-      : super(_value, (v) => _then(v as _$GetStoreRealtime));
+      : super(_value, _then);
 
-  @override
-  _$GetStoreRealtime get _value => super._value as _$GetStoreRealtime;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
+    Object? storeId = null,
   }) {
     return _then(_$GetStoreRealtime(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as String,
@@ -141,15 +142,15 @@ class _$GetStoreRealtime implements GetStoreRealtime {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GetStoreRealtime &&
-            const DeepCollectionEquality().equals(other.storeId, storeId));
+            (identical(other.storeId, storeId) || other.storeId == storeId));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(storeId));
+  int get hashCode => Object.hash(runtimeType, storeId);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$GetStoreRealtimeCopyWith<_$GetStoreRealtime> get copyWith =>
       __$$GetStoreRealtimeCopyWithImpl<_$GetStoreRealtime>(this, _$identity);
 
@@ -169,11 +170,11 @@ class _$GetStoreRealtime implements GetStoreRealtime {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String storeId)? getStoreRealtime,
-    TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
-    TResult Function(String type)? updateSelectedType,
-    TResult Function()? loadMoreProducts,
-    TResult Function()? toggleFailures,
+    TResult? Function(String storeId)? getStoreRealtime,
+    TResult? Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
+    TResult? Function(String type)? updateSelectedType,
+    TResult? Function()? loadMoreProducts,
+    TResult? Function()? toggleFailures,
   }) {
     return getStoreRealtime?.call(storeId);
   }
@@ -209,11 +210,11 @@ class _$GetStoreRealtime implements GetStoreRealtime {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetStoreRealtime value)? getStoreRealtime,
-    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
-    TResult Function(UpdateSelectedType value)? updateSelectedType,
-    TResult Function(LoadMoreProducts value)? loadMoreProducts,
-    TResult Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(GetStoreRealtime value)? getStoreRealtime,
+    TResult? Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult? Function(UpdateSelectedType value)? updateSelectedType,
+    TResult? Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult? Function(ToggleFailures value)? toggleFailures,
   }) {
     return getStoreRealtime?.call(this);
   }
@@ -250,26 +251,25 @@ abstract class _$$RecievedStreamEventCopyWith<$Res> {
   factory _$$RecievedStreamEventCopyWith(_$RecievedStreamEvent value,
           $Res Function(_$RecievedStreamEvent) then) =
       __$$RecievedStreamEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({Either<StoreFailure, Store> event});
 }
 
 /// @nodoc
 class __$$RecievedStreamEventCopyWithImpl<$Res>
-    extends _$StoreEventCopyWithImpl<$Res>
+    extends _$StoreEventCopyWithImpl<$Res, _$RecievedStreamEvent>
     implements _$$RecievedStreamEventCopyWith<$Res> {
   __$$RecievedStreamEventCopyWithImpl(
       _$RecievedStreamEvent _value, $Res Function(_$RecievedStreamEvent) _then)
-      : super(_value, (v) => _then(v as _$RecievedStreamEvent));
+      : super(_value, _then);
 
-  @override
-  _$RecievedStreamEvent get _value => super._value as _$RecievedStreamEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? event = freezed,
+    Object? event = null,
   }) {
     return _then(_$RecievedStreamEvent(
-      event: event == freezed
+      event: null == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as Either<StoreFailure, Store>,
@@ -295,15 +295,15 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RecievedStreamEvent &&
-            const DeepCollectionEquality().equals(other.event, event));
+            (identical(other.event, event) || other.event == event));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(event));
+  int get hashCode => Object.hash(runtimeType, event);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$RecievedStreamEventCopyWith<_$RecievedStreamEvent> get copyWith =>
       __$$RecievedStreamEventCopyWithImpl<_$RecievedStreamEvent>(
           this, _$identity);
@@ -324,11 +324,11 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String storeId)? getStoreRealtime,
-    TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
-    TResult Function(String type)? updateSelectedType,
-    TResult Function()? loadMoreProducts,
-    TResult Function()? toggleFailures,
+    TResult? Function(String storeId)? getStoreRealtime,
+    TResult? Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
+    TResult? Function(String type)? updateSelectedType,
+    TResult? Function()? loadMoreProducts,
+    TResult? Function()? toggleFailures,
   }) {
     return recievedStreamEvent?.call(event);
   }
@@ -364,11 +364,11 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetStoreRealtime value)? getStoreRealtime,
-    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
-    TResult Function(UpdateSelectedType value)? updateSelectedType,
-    TResult Function(LoadMoreProducts value)? loadMoreProducts,
-    TResult Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(GetStoreRealtime value)? getStoreRealtime,
+    TResult? Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult? Function(UpdateSelectedType value)? updateSelectedType,
+    TResult? Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult? Function(ToggleFailures value)? toggleFailures,
   }) {
     return recievedStreamEvent?.call(this);
   }
@@ -406,26 +406,25 @@ abstract class _$$UpdateSelectedTypeCopyWith<$Res> {
   factory _$$UpdateSelectedTypeCopyWith(_$UpdateSelectedType value,
           $Res Function(_$UpdateSelectedType) then) =
       __$$UpdateSelectedTypeCopyWithImpl<$Res>;
+  @useResult
   $Res call({String type});
 }
 
 /// @nodoc
 class __$$UpdateSelectedTypeCopyWithImpl<$Res>
-    extends _$StoreEventCopyWithImpl<$Res>
+    extends _$StoreEventCopyWithImpl<$Res, _$UpdateSelectedType>
     implements _$$UpdateSelectedTypeCopyWith<$Res> {
   __$$UpdateSelectedTypeCopyWithImpl(
       _$UpdateSelectedType _value, $Res Function(_$UpdateSelectedType) _then)
-      : super(_value, (v) => _then(v as _$UpdateSelectedType));
+      : super(_value, _then);
 
-  @override
-  _$UpdateSelectedType get _value => super._value as _$UpdateSelectedType;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? type = freezed,
+    Object? type = null,
   }) {
     return _then(_$UpdateSelectedType(
-      type: type == freezed
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
@@ -451,15 +450,15 @@ class _$UpdateSelectedType implements UpdateSelectedType {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UpdateSelectedType &&
-            const DeepCollectionEquality().equals(other.type, type));
+            (identical(other.type, type) || other.type == type));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(type));
+  int get hashCode => Object.hash(runtimeType, type);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$UpdateSelectedTypeCopyWith<_$UpdateSelectedType> get copyWith =>
       __$$UpdateSelectedTypeCopyWithImpl<_$UpdateSelectedType>(
           this, _$identity);
@@ -480,11 +479,11 @@ class _$UpdateSelectedType implements UpdateSelectedType {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String storeId)? getStoreRealtime,
-    TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
-    TResult Function(String type)? updateSelectedType,
-    TResult Function()? loadMoreProducts,
-    TResult Function()? toggleFailures,
+    TResult? Function(String storeId)? getStoreRealtime,
+    TResult? Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
+    TResult? Function(String type)? updateSelectedType,
+    TResult? Function()? loadMoreProducts,
+    TResult? Function()? toggleFailures,
   }) {
     return updateSelectedType?.call(type);
   }
@@ -520,11 +519,11 @@ class _$UpdateSelectedType implements UpdateSelectedType {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetStoreRealtime value)? getStoreRealtime,
-    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
-    TResult Function(UpdateSelectedType value)? updateSelectedType,
-    TResult Function(LoadMoreProducts value)? loadMoreProducts,
-    TResult Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(GetStoreRealtime value)? getStoreRealtime,
+    TResult? Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult? Function(UpdateSelectedType value)? updateSelectedType,
+    TResult? Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult? Function(ToggleFailures value)? toggleFailures,
   }) {
     return updateSelectedType?.call(this);
   }
@@ -565,14 +564,11 @@ abstract class _$$LoadMoreProductsCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadMoreProductsCopyWithImpl<$Res>
-    extends _$StoreEventCopyWithImpl<$Res>
+    extends _$StoreEventCopyWithImpl<$Res, _$LoadMoreProducts>
     implements _$$LoadMoreProductsCopyWith<$Res> {
   __$$LoadMoreProductsCopyWithImpl(
       _$LoadMoreProducts _value, $Res Function(_$LoadMoreProducts) _then)
-      : super(_value, (v) => _then(v as _$LoadMoreProducts));
-
-  @override
-  _$LoadMoreProducts get _value => super._value as _$LoadMoreProducts;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -610,11 +606,11 @@ class _$LoadMoreProducts implements LoadMoreProducts {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String storeId)? getStoreRealtime,
-    TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
-    TResult Function(String type)? updateSelectedType,
-    TResult Function()? loadMoreProducts,
-    TResult Function()? toggleFailures,
+    TResult? Function(String storeId)? getStoreRealtime,
+    TResult? Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
+    TResult? Function(String type)? updateSelectedType,
+    TResult? Function()? loadMoreProducts,
+    TResult? Function()? toggleFailures,
   }) {
     return loadMoreProducts?.call();
   }
@@ -650,11 +646,11 @@ class _$LoadMoreProducts implements LoadMoreProducts {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetStoreRealtime value)? getStoreRealtime,
-    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
-    TResult Function(UpdateSelectedType value)? updateSelectedType,
-    TResult Function(LoadMoreProducts value)? loadMoreProducts,
-    TResult Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(GetStoreRealtime value)? getStoreRealtime,
+    TResult? Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult? Function(UpdateSelectedType value)? updateSelectedType,
+    TResult? Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult? Function(ToggleFailures value)? toggleFailures,
   }) {
     return loadMoreProducts?.call(this);
   }
@@ -689,14 +685,11 @@ abstract class _$$ToggleFailuresCopyWith<$Res> {
 
 /// @nodoc
 class __$$ToggleFailuresCopyWithImpl<$Res>
-    extends _$StoreEventCopyWithImpl<$Res>
+    extends _$StoreEventCopyWithImpl<$Res, _$ToggleFailures>
     implements _$$ToggleFailuresCopyWith<$Res> {
   __$$ToggleFailuresCopyWithImpl(
       _$ToggleFailures _value, $Res Function(_$ToggleFailures) _then)
-      : super(_value, (v) => _then(v as _$ToggleFailures));
-
-  @override
-  _$ToggleFailures get _value => super._value as _$ToggleFailures;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -734,11 +727,11 @@ class _$ToggleFailures implements ToggleFailures {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String storeId)? getStoreRealtime,
-    TResult Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
-    TResult Function(String type)? updateSelectedType,
-    TResult Function()? loadMoreProducts,
-    TResult Function()? toggleFailures,
+    TResult? Function(String storeId)? getStoreRealtime,
+    TResult? Function(Either<StoreFailure, Store> event)? recievedStreamEvent,
+    TResult? Function(String type)? updateSelectedType,
+    TResult? Function()? loadMoreProducts,
+    TResult? Function()? toggleFailures,
   }) {
     return toggleFailures?.call();
   }
@@ -774,11 +767,11 @@ class _$ToggleFailures implements ToggleFailures {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetStoreRealtime value)? getStoreRealtime,
-    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
-    TResult Function(UpdateSelectedType value)? updateSelectedType,
-    TResult Function(LoadMoreProducts value)? loadMoreProducts,
-    TResult Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(GetStoreRealtime value)? getStoreRealtime,
+    TResult? Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult? Function(UpdateSelectedType value)? updateSelectedType,
+    TResult? Function(LoadMoreProducts value)? loadMoreProducts,
+    TResult? Function(ToggleFailures value)? toggleFailures,
   }) {
     return toggleFailures?.call(this);
   }
@@ -823,7 +816,8 @@ mixin _$StoreState {
 abstract class $StoreStateCopyWith<$Res> {
   factory $StoreStateCopyWith(
           StoreState value, $Res Function(StoreState) then) =
-      _$StoreStateCopyWithImpl<$Res>;
+      _$StoreStateCopyWithImpl<$Res, StoreState>;
+  @useResult
   $Res call(
       {bool isFetching,
       String? selectedType,
@@ -836,58 +830,62 @@ abstract class $StoreStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$StoreStateCopyWithImpl<$Res> implements $StoreStateCopyWith<$Res> {
+class _$StoreStateCopyWithImpl<$Res, $Val extends StoreState>
+    implements $StoreStateCopyWith<$Res> {
   _$StoreStateCopyWithImpl(this._value, this._then);
 
-  final StoreState _value;
   // ignore: unused_field
-  final $Res Function(StoreState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isFetching = freezed,
+    Object? isFetching = null,
     Object? selectedType = freezed,
     Object? storeRealtime = freezed,
-    Object? productList = freezed,
-    Object? notAvailable = freezed,
-    Object? failure = freezed,
+    Object? productList = null,
+    Object? notAvailable = null,
+    Object? failure = null,
   }) {
     return _then(_value.copyWith(
-      isFetching: isFetching == freezed
+      isFetching: null == isFetching
           ? _value.isFetching
           : isFetching // ignore: cast_nullable_to_non_nullable
               as bool,
-      selectedType: selectedType == freezed
+      selectedType: freezed == selectedType
           ? _value.selectedType
           : selectedType // ignore: cast_nullable_to_non_nullable
               as String?,
-      storeRealtime: storeRealtime == freezed
+      storeRealtime: freezed == storeRealtime
           ? _value.storeRealtime
           : storeRealtime // ignore: cast_nullable_to_non_nullable
               as Store?,
-      productList: productList == freezed
+      productList: null == productList
           ? _value.productList
           : productList // ignore: cast_nullable_to_non_nullable
               as List<Product>,
-      notAvailable: notAvailable == freezed
+      notAvailable: null == notAvailable
           ? _value.notAvailable
           : notAvailable // ignore: cast_nullable_to_non_nullable
               as bool,
-      failure: failure == freezed
+      failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<Either<StoreFailure, ProductFailure>>,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $StoreCopyWith<$Res>? get storeRealtime {
     if (_value.storeRealtime == null) {
       return null;
     }
 
     return $StoreCopyWith<$Res>(_value.storeRealtime!, (value) {
-      return _then(_value.copyWith(storeRealtime: value));
+      return _then(_value.copyWith(storeRealtime: value) as $Val);
     });
   }
 }
@@ -899,6 +897,7 @@ abstract class _$$_StoreStateCopyWith<$Res>
           _$_StoreState value, $Res Function(_$_StoreState) then) =
       __$$_StoreStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {bool isFetching,
       String? selectedType,
@@ -912,46 +911,45 @@ abstract class _$$_StoreStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_StoreStateCopyWithImpl<$Res> extends _$StoreStateCopyWithImpl<$Res>
+class __$$_StoreStateCopyWithImpl<$Res>
+    extends _$StoreStateCopyWithImpl<$Res, _$_StoreState>
     implements _$$_StoreStateCopyWith<$Res> {
   __$$_StoreStateCopyWithImpl(
       _$_StoreState _value, $Res Function(_$_StoreState) _then)
-      : super(_value, (v) => _then(v as _$_StoreState));
+      : super(_value, _then);
 
-  @override
-  _$_StoreState get _value => super._value as _$_StoreState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isFetching = freezed,
+    Object? isFetching = null,
     Object? selectedType = freezed,
     Object? storeRealtime = freezed,
-    Object? productList = freezed,
-    Object? notAvailable = freezed,
-    Object? failure = freezed,
+    Object? productList = null,
+    Object? notAvailable = null,
+    Object? failure = null,
   }) {
     return _then(_$_StoreState(
-      isFetching: isFetching == freezed
+      isFetching: null == isFetching
           ? _value.isFetching
           : isFetching // ignore: cast_nullable_to_non_nullable
               as bool,
-      selectedType: selectedType == freezed
+      selectedType: freezed == selectedType
           ? _value.selectedType
           : selectedType // ignore: cast_nullable_to_non_nullable
               as String?,
-      storeRealtime: storeRealtime == freezed
+      storeRealtime: freezed == storeRealtime
           ? _value.storeRealtime
           : storeRealtime // ignore: cast_nullable_to_non_nullable
               as Store?,
-      productList: productList == freezed
+      productList: null == productList
           ? _value._productList
           : productList // ignore: cast_nullable_to_non_nullable
               as List<Product>,
-      notAvailable: notAvailable == freezed
+      notAvailable: null == notAvailable
           ? _value.notAvailable
           : notAvailable // ignore: cast_nullable_to_non_nullable
               as bool,
-      failure: failure == freezed
+      failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<Either<StoreFailure, ProductFailure>>,
@@ -1000,31 +998,32 @@ class _$_StoreState extends _StoreState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_StoreState &&
-            const DeepCollectionEquality()
-                .equals(other.isFetching, isFetching) &&
-            const DeepCollectionEquality()
-                .equals(other.selectedType, selectedType) &&
-            const DeepCollectionEquality()
-                .equals(other.storeRealtime, storeRealtime) &&
+            (identical(other.isFetching, isFetching) ||
+                other.isFetching == isFetching) &&
+            (identical(other.selectedType, selectedType) ||
+                other.selectedType == selectedType) &&
+            (identical(other.storeRealtime, storeRealtime) ||
+                other.storeRealtime == storeRealtime) &&
             const DeepCollectionEquality()
                 .equals(other._productList, _productList) &&
-            const DeepCollectionEquality()
-                .equals(other.notAvailable, notAvailable) &&
-            const DeepCollectionEquality().equals(other.failure, failure));
+            (identical(other.notAvailable, notAvailable) ||
+                other.notAvailable == notAvailable) &&
+            (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(isFetching),
-      const DeepCollectionEquality().hash(selectedType),
-      const DeepCollectionEquality().hash(storeRealtime),
+      isFetching,
+      selectedType,
+      storeRealtime,
       const DeepCollectionEquality().hash(_productList),
-      const DeepCollectionEquality().hash(notAvailable),
-      const DeepCollectionEquality().hash(failure));
+      notAvailable,
+      failure);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_StoreStateCopyWith<_$_StoreState> get copyWith =>
       __$$_StoreStateCopyWithImpl<_$_StoreState>(this, _$identity);
 }

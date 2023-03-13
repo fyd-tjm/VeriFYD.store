@@ -34,7 +34,8 @@ mixin _$Cart {
 /// @nodoc
 abstract class $CartCopyWith<$Res> {
   factory $CartCopyWith(Cart value, $Res Function(Cart) then) =
-      _$CartCopyWithImpl<$Res>;
+      _$CartCopyWithImpl<$Res, Cart>;
+  @useResult
   $Res call(
       {String cartId,
       String storeName,
@@ -43,38 +44,41 @@ abstract class $CartCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CartCopyWithImpl<$Res> implements $CartCopyWith<$Res> {
+class _$CartCopyWithImpl<$Res, $Val extends Cart>
+    implements $CartCopyWith<$Res> {
   _$CartCopyWithImpl(this._value, this._then);
 
-  final Cart _value;
   // ignore: unused_field
-  final $Res Function(Cart) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? cartId = freezed,
-    Object? storeName = freezed,
-    Object? cartCount = freezed,
-    Object? cartItems = freezed,
+    Object? cartId = null,
+    Object? storeName = null,
+    Object? cartCount = null,
+    Object? cartItems = null,
   }) {
     return _then(_value.copyWith(
-      cartId: cartId == freezed
+      cartId: null == cartId
           ? _value.cartId
           : cartId // ignore: cast_nullable_to_non_nullable
               as String,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      cartCount: cartCount == freezed
+      cartCount: null == cartCount
           ? _value.cartCount
           : cartCount // ignore: cast_nullable_to_non_nullable
               as int,
-      cartItems: cartItems == freezed
+      cartItems: null == cartItems
           ? _value.cartItems
           : cartItems // ignore: cast_nullable_to_non_nullable
               as Map<String, Map<String, int>>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -83,6 +87,7 @@ abstract class _$$_CartCopyWith<$Res> implements $CartCopyWith<$Res> {
   factory _$$_CartCopyWith(_$_Cart value, $Res Function(_$_Cart) then) =
       __$$_CartCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String cartId,
       String storeName,
@@ -91,35 +96,33 @@ abstract class _$$_CartCopyWith<$Res> implements $CartCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_CartCopyWithImpl<$Res> extends _$CartCopyWithImpl<$Res>
+class __$$_CartCopyWithImpl<$Res> extends _$CartCopyWithImpl<$Res, _$_Cart>
     implements _$$_CartCopyWith<$Res> {
   __$$_CartCopyWithImpl(_$_Cart _value, $Res Function(_$_Cart) _then)
-      : super(_value, (v) => _then(v as _$_Cart));
+      : super(_value, _then);
 
-  @override
-  _$_Cart get _value => super._value as _$_Cart;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? cartId = freezed,
-    Object? storeName = freezed,
-    Object? cartCount = freezed,
-    Object? cartItems = freezed,
+    Object? cartId = null,
+    Object? storeName = null,
+    Object? cartCount = null,
+    Object? cartItems = null,
   }) {
     return _then(_$_Cart(
-      cartId: cartId == freezed
+      cartId: null == cartId
           ? _value.cartId
           : cartId // ignore: cast_nullable_to_non_nullable
               as String,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      cartCount: cartCount == freezed
+      cartCount: null == cartCount
           ? _value.cartCount
           : cartCount // ignore: cast_nullable_to_non_nullable
               as int,
-      cartItems: cartItems == freezed
+      cartItems: null == cartItems
           ? _value._cartItems
           : cartItems // ignore: cast_nullable_to_non_nullable
               as Map<String, Map<String, int>>,
@@ -163,24 +166,23 @@ class _$_Cart implements _Cart {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Cart &&
-            const DeepCollectionEquality().equals(other.cartId, cartId) &&
-            const DeepCollectionEquality().equals(other.storeName, storeName) &&
-            const DeepCollectionEquality().equals(other.cartCount, cartCount) &&
+            (identical(other.cartId, cartId) || other.cartId == cartId) &&
+            (identical(other.storeName, storeName) ||
+                other.storeName == storeName) &&
+            (identical(other.cartCount, cartCount) ||
+                other.cartCount == cartCount) &&
             const DeepCollectionEquality()
                 .equals(other._cartItems, _cartItems));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(cartId),
-      const DeepCollectionEquality().hash(storeName),
-      const DeepCollectionEquality().hash(cartCount),
+  int get hashCode => Object.hash(runtimeType, cartId, storeName, cartCount,
       const DeepCollectionEquality().hash(_cartItems));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CartCopyWith<_$_Cart> get copyWith =>
       __$$_CartCopyWithImpl<_$_Cart>(this, _$identity);
 
@@ -228,33 +230,37 @@ mixin _$CartSummary {
 abstract class $CartSummaryCopyWith<$Res> {
   factory $CartSummaryCopyWith(
           CartSummary value, $Res Function(CartSummary) then) =
-      _$CartSummaryCopyWithImpl<$Res>;
+      _$CartSummaryCopyWithImpl<$Res, CartSummary>;
+  @useResult
   $Res call({int totalItems, double subTotal});
 }
 
 /// @nodoc
-class _$CartSummaryCopyWithImpl<$Res> implements $CartSummaryCopyWith<$Res> {
+class _$CartSummaryCopyWithImpl<$Res, $Val extends CartSummary>
+    implements $CartSummaryCopyWith<$Res> {
   _$CartSummaryCopyWithImpl(this._value, this._then);
 
-  final CartSummary _value;
   // ignore: unused_field
-  final $Res Function(CartSummary) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? totalItems = freezed,
-    Object? subTotal = freezed,
+    Object? totalItems = null,
+    Object? subTotal = null,
   }) {
     return _then(_value.copyWith(
-      totalItems: totalItems == freezed
+      totalItems: null == totalItems
           ? _value.totalItems
           : totalItems // ignore: cast_nullable_to_non_nullable
               as int,
-      subTotal: subTotal == freezed
+      subTotal: null == subTotal
           ? _value.subTotal
           : subTotal // ignore: cast_nullable_to_non_nullable
               as double,
-    ));
+    ) as $Val);
   }
 }
 
@@ -265,30 +271,30 @@ abstract class _$$_CartSummaryCopyWith<$Res>
           _$_CartSummary value, $Res Function(_$_CartSummary) then) =
       __$$_CartSummaryCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int totalItems, double subTotal});
 }
 
 /// @nodoc
-class __$$_CartSummaryCopyWithImpl<$Res> extends _$CartSummaryCopyWithImpl<$Res>
+class __$$_CartSummaryCopyWithImpl<$Res>
+    extends _$CartSummaryCopyWithImpl<$Res, _$_CartSummary>
     implements _$$_CartSummaryCopyWith<$Res> {
   __$$_CartSummaryCopyWithImpl(
       _$_CartSummary _value, $Res Function(_$_CartSummary) _then)
-      : super(_value, (v) => _then(v as _$_CartSummary));
+      : super(_value, _then);
 
-  @override
-  _$_CartSummary get _value => super._value as _$_CartSummary;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? totalItems = freezed,
-    Object? subTotal = freezed,
+    Object? totalItems = null,
+    Object? subTotal = null,
   }) {
     return _then(_$_CartSummary(
-      totalItems: totalItems == freezed
+      totalItems: null == totalItems
           ? _value.totalItems
           : totalItems // ignore: cast_nullable_to_non_nullable
               as int,
-      subTotal: subTotal == freezed
+      subTotal: null == subTotal
           ? _value.subTotal
           : subTotal // ignore: cast_nullable_to_non_nullable
               as double,
@@ -317,19 +323,18 @@ class _$_CartSummary implements _CartSummary {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CartSummary &&
-            const DeepCollectionEquality()
-                .equals(other.totalItems, totalItems) &&
-            const DeepCollectionEquality().equals(other.subTotal, subTotal));
+            (identical(other.totalItems, totalItems) ||
+                other.totalItems == totalItems) &&
+            (identical(other.subTotal, subTotal) ||
+                other.subTotal == subTotal));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(totalItems),
-      const DeepCollectionEquality().hash(subTotal));
+  int get hashCode => Object.hash(runtimeType, totalItems, subTotal);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CartSummaryCopyWith<_$_CartSummary> get copyWith =>
       __$$_CartSummaryCopyWithImpl<_$_CartSummary>(this, _$identity);
 }

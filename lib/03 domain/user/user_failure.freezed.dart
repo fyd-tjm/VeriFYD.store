@@ -29,13 +29,13 @@ mixin _$UserFailure {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? aborted,
-    TResult Function()? invalidArgument,
-    TResult Function()? alreadyExists,
-    TResult Function()? notFound,
-    TResult Function()? permissionDenied,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? aborted,
+    TResult? Function()? invalidArgument,
+    TResult? Function()? alreadyExists,
+    TResult? Function()? notFound,
+    TResult? Function()? permissionDenied,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,13 +63,13 @@ mixin _$UserFailure {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Aborted value)? aborted,
-    TResult Function(InvalidArgument value)? invalidArgument,
-    TResult Function(AlreadyExists value)? alreadyExists,
-    TResult Function(NotFound value)? notFound,
-    TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(Aborted value)? aborted,
+    TResult? Function(InvalidArgument value)? invalidArgument,
+    TResult? Function(AlreadyExists value)? alreadyExists,
+    TResult? Function(NotFound value)? notFound,
+    TResult? Function(PermissionDenied value)? permissionDenied,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -90,16 +90,18 @@ mixin _$UserFailure {
 abstract class $UserFailureCopyWith<$Res> {
   factory $UserFailureCopyWith(
           UserFailure value, $Res Function(UserFailure) then) =
-      _$UserFailureCopyWithImpl<$Res>;
+      _$UserFailureCopyWithImpl<$Res, UserFailure>;
 }
 
 /// @nodoc
-class _$UserFailureCopyWithImpl<$Res> implements $UserFailureCopyWith<$Res> {
+class _$UserFailureCopyWithImpl<$Res, $Val extends UserFailure>
+    implements $UserFailureCopyWith<$Res> {
   _$UserFailureCopyWithImpl(this._value, this._then);
 
-  final UserFailure _value;
   // ignore: unused_field
-  final $Res Function(UserFailure) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -109,13 +111,11 @@ abstract class _$$AbortedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$AbortedCopyWithImpl<$Res> extends _$UserFailureCopyWithImpl<$Res>
+class __$$AbortedCopyWithImpl<$Res>
+    extends _$UserFailureCopyWithImpl<$Res, _$Aborted>
     implements _$$AbortedCopyWith<$Res> {
   __$$AbortedCopyWithImpl(_$Aborted _value, $Res Function(_$Aborted) _then)
-      : super(_value, (v) => _then(v as _$Aborted));
-
-  @override
-  _$Aborted get _value => super._value as _$Aborted;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -154,13 +154,13 @@ class _$Aborted implements Aborted {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? aborted,
-    TResult Function()? invalidArgument,
-    TResult Function()? alreadyExists,
-    TResult Function()? notFound,
-    TResult Function()? permissionDenied,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? aborted,
+    TResult? Function()? invalidArgument,
+    TResult? Function()? alreadyExists,
+    TResult? Function()? notFound,
+    TResult? Function()? permissionDenied,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) {
     return aborted?.call();
   }
@@ -200,13 +200,13 @@ class _$Aborted implements Aborted {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Aborted value)? aborted,
-    TResult Function(InvalidArgument value)? invalidArgument,
-    TResult Function(AlreadyExists value)? alreadyExists,
-    TResult Function(NotFound value)? notFound,
-    TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(Aborted value)? aborted,
+    TResult? Function(InvalidArgument value)? invalidArgument,
+    TResult? Function(AlreadyExists value)? alreadyExists,
+    TResult? Function(NotFound value)? notFound,
+    TResult? Function(PermissionDenied value)? permissionDenied,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) {
     return aborted?.call(this);
   }
@@ -243,14 +243,11 @@ abstract class _$$InvalidArgumentCopyWith<$Res> {
 
 /// @nodoc
 class __$$InvalidArgumentCopyWithImpl<$Res>
-    extends _$UserFailureCopyWithImpl<$Res>
+    extends _$UserFailureCopyWithImpl<$Res, _$InvalidArgument>
     implements _$$InvalidArgumentCopyWith<$Res> {
   __$$InvalidArgumentCopyWithImpl(
       _$InvalidArgument _value, $Res Function(_$InvalidArgument) _then)
-      : super(_value, (v) => _then(v as _$InvalidArgument));
-
-  @override
-  _$InvalidArgument get _value => super._value as _$InvalidArgument;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -289,13 +286,13 @@ class _$InvalidArgument implements InvalidArgument {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? aborted,
-    TResult Function()? invalidArgument,
-    TResult Function()? alreadyExists,
-    TResult Function()? notFound,
-    TResult Function()? permissionDenied,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? aborted,
+    TResult? Function()? invalidArgument,
+    TResult? Function()? alreadyExists,
+    TResult? Function()? notFound,
+    TResult? Function()? permissionDenied,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) {
     return invalidArgument?.call();
   }
@@ -335,13 +332,13 @@ class _$InvalidArgument implements InvalidArgument {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Aborted value)? aborted,
-    TResult Function(InvalidArgument value)? invalidArgument,
-    TResult Function(AlreadyExists value)? alreadyExists,
-    TResult Function(NotFound value)? notFound,
-    TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(Aborted value)? aborted,
+    TResult? Function(InvalidArgument value)? invalidArgument,
+    TResult? Function(AlreadyExists value)? alreadyExists,
+    TResult? Function(NotFound value)? notFound,
+    TResult? Function(PermissionDenied value)? permissionDenied,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) {
     return invalidArgument?.call(this);
   }
@@ -378,14 +375,11 @@ abstract class _$$AlreadyExistsCopyWith<$Res> {
 
 /// @nodoc
 class __$$AlreadyExistsCopyWithImpl<$Res>
-    extends _$UserFailureCopyWithImpl<$Res>
+    extends _$UserFailureCopyWithImpl<$Res, _$AlreadyExists>
     implements _$$AlreadyExistsCopyWith<$Res> {
   __$$AlreadyExistsCopyWithImpl(
       _$AlreadyExists _value, $Res Function(_$AlreadyExists) _then)
-      : super(_value, (v) => _then(v as _$AlreadyExists));
-
-  @override
-  _$AlreadyExists get _value => super._value as _$AlreadyExists;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -424,13 +418,13 @@ class _$AlreadyExists implements AlreadyExists {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? aborted,
-    TResult Function()? invalidArgument,
-    TResult Function()? alreadyExists,
-    TResult Function()? notFound,
-    TResult Function()? permissionDenied,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? aborted,
+    TResult? Function()? invalidArgument,
+    TResult? Function()? alreadyExists,
+    TResult? Function()? notFound,
+    TResult? Function()? permissionDenied,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) {
     return alreadyExists?.call();
   }
@@ -470,13 +464,13 @@ class _$AlreadyExists implements AlreadyExists {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Aborted value)? aborted,
-    TResult Function(InvalidArgument value)? invalidArgument,
-    TResult Function(AlreadyExists value)? alreadyExists,
-    TResult Function(NotFound value)? notFound,
-    TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(Aborted value)? aborted,
+    TResult? Function(InvalidArgument value)? invalidArgument,
+    TResult? Function(AlreadyExists value)? alreadyExists,
+    TResult? Function(NotFound value)? notFound,
+    TResult? Function(PermissionDenied value)? permissionDenied,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) {
     return alreadyExists?.call(this);
   }
@@ -512,13 +506,11 @@ abstract class _$$NotFoundCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$NotFoundCopyWithImpl<$Res> extends _$UserFailureCopyWithImpl<$Res>
+class __$$NotFoundCopyWithImpl<$Res>
+    extends _$UserFailureCopyWithImpl<$Res, _$NotFound>
     implements _$$NotFoundCopyWith<$Res> {
   __$$NotFoundCopyWithImpl(_$NotFound _value, $Res Function(_$NotFound) _then)
-      : super(_value, (v) => _then(v as _$NotFound));
-
-  @override
-  _$NotFound get _value => super._value as _$NotFound;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -557,13 +549,13 @@ class _$NotFound implements NotFound {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? aborted,
-    TResult Function()? invalidArgument,
-    TResult Function()? alreadyExists,
-    TResult Function()? notFound,
-    TResult Function()? permissionDenied,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? aborted,
+    TResult? Function()? invalidArgument,
+    TResult? Function()? alreadyExists,
+    TResult? Function()? notFound,
+    TResult? Function()? permissionDenied,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) {
     return notFound?.call();
   }
@@ -603,13 +595,13 @@ class _$NotFound implements NotFound {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Aborted value)? aborted,
-    TResult Function(InvalidArgument value)? invalidArgument,
-    TResult Function(AlreadyExists value)? alreadyExists,
-    TResult Function(NotFound value)? notFound,
-    TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(Aborted value)? aborted,
+    TResult? Function(InvalidArgument value)? invalidArgument,
+    TResult? Function(AlreadyExists value)? alreadyExists,
+    TResult? Function(NotFound value)? notFound,
+    TResult? Function(PermissionDenied value)? permissionDenied,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) {
     return notFound?.call(this);
   }
@@ -646,14 +638,11 @@ abstract class _$$PermissionDeniedCopyWith<$Res> {
 
 /// @nodoc
 class __$$PermissionDeniedCopyWithImpl<$Res>
-    extends _$UserFailureCopyWithImpl<$Res>
+    extends _$UserFailureCopyWithImpl<$Res, _$PermissionDenied>
     implements _$$PermissionDeniedCopyWith<$Res> {
   __$$PermissionDeniedCopyWithImpl(
       _$PermissionDenied _value, $Res Function(_$PermissionDenied) _then)
-      : super(_value, (v) => _then(v as _$PermissionDenied));
-
-  @override
-  _$PermissionDenied get _value => super._value as _$PermissionDenied;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -692,13 +681,13 @@ class _$PermissionDenied implements PermissionDenied {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? aborted,
-    TResult Function()? invalidArgument,
-    TResult Function()? alreadyExists,
-    TResult Function()? notFound,
-    TResult Function()? permissionDenied,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? aborted,
+    TResult? Function()? invalidArgument,
+    TResult? Function()? alreadyExists,
+    TResult? Function()? notFound,
+    TResult? Function()? permissionDenied,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) {
     return permissionDenied?.call();
   }
@@ -738,13 +727,13 @@ class _$PermissionDenied implements PermissionDenied {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Aborted value)? aborted,
-    TResult Function(InvalidArgument value)? invalidArgument,
-    TResult Function(AlreadyExists value)? alreadyExists,
-    TResult Function(NotFound value)? notFound,
-    TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(Aborted value)? aborted,
+    TResult? Function(InvalidArgument value)? invalidArgument,
+    TResult? Function(AlreadyExists value)? alreadyExists,
+    TResult? Function(NotFound value)? notFound,
+    TResult? Function(PermissionDenied value)? permissionDenied,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) {
     return permissionDenied?.call(this);
   }
@@ -780,14 +769,12 @@ abstract class _$$ServerErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ServerErrorCopyWithImpl<$Res> extends _$UserFailureCopyWithImpl<$Res>
+class __$$ServerErrorCopyWithImpl<$Res>
+    extends _$UserFailureCopyWithImpl<$Res, _$ServerError>
     implements _$$ServerErrorCopyWith<$Res> {
   __$$ServerErrorCopyWithImpl(
       _$ServerError _value, $Res Function(_$ServerError) _then)
-      : super(_value, (v) => _then(v as _$ServerError));
-
-  @override
-  _$ServerError get _value => super._value as _$ServerError;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -826,13 +813,13 @@ class _$ServerError implements ServerError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? aborted,
-    TResult Function()? invalidArgument,
-    TResult Function()? alreadyExists,
-    TResult Function()? notFound,
-    TResult Function()? permissionDenied,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? aborted,
+    TResult? Function()? invalidArgument,
+    TResult? Function()? alreadyExists,
+    TResult? Function()? notFound,
+    TResult? Function()? permissionDenied,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) {
     return serverError?.call();
   }
@@ -872,13 +859,13 @@ class _$ServerError implements ServerError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Aborted value)? aborted,
-    TResult Function(InvalidArgument value)? invalidArgument,
-    TResult Function(AlreadyExists value)? alreadyExists,
-    TResult Function(NotFound value)? notFound,
-    TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(Aborted value)? aborted,
+    TResult? Function(InvalidArgument value)? invalidArgument,
+    TResult? Function(AlreadyExists value)? alreadyExists,
+    TResult? Function(NotFound value)? notFound,
+    TResult? Function(PermissionDenied value)? permissionDenied,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) {
     return serverError?.call(this);
   }
@@ -914,14 +901,12 @@ abstract class _$$UnknownErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$UnknownErrorCopyWithImpl<$Res> extends _$UserFailureCopyWithImpl<$Res>
+class __$$UnknownErrorCopyWithImpl<$Res>
+    extends _$UserFailureCopyWithImpl<$Res, _$UnknownError>
     implements _$$UnknownErrorCopyWith<$Res> {
   __$$UnknownErrorCopyWithImpl(
       _$UnknownError _value, $Res Function(_$UnknownError) _then)
-      : super(_value, (v) => _then(v as _$UnknownError));
-
-  @override
-  _$UnknownError get _value => super._value as _$UnknownError;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -960,13 +945,13 @@ class _$UnknownError implements UnknownError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? aborted,
-    TResult Function()? invalidArgument,
-    TResult Function()? alreadyExists,
-    TResult Function()? notFound,
-    TResult Function()? permissionDenied,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? aborted,
+    TResult? Function()? invalidArgument,
+    TResult? Function()? alreadyExists,
+    TResult? Function()? notFound,
+    TResult? Function()? permissionDenied,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) {
     return unknownError?.call();
   }
@@ -1006,13 +991,13 @@ class _$UnknownError implements UnknownError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Aborted value)? aborted,
-    TResult Function(InvalidArgument value)? invalidArgument,
-    TResult Function(AlreadyExists value)? alreadyExists,
-    TResult Function(NotFound value)? notFound,
-    TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(Aborted value)? aborted,
+    TResult? Function(InvalidArgument value)? invalidArgument,
+    TResult? Function(AlreadyExists value)? alreadyExists,
+    TResult? Function(NotFound value)? notFound,
+    TResult? Function(PermissionDenied value)? permissionDenied,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) {
     return unknownError?.call(this);
   }

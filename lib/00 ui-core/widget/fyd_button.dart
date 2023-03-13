@@ -35,7 +35,8 @@ class FydBtn extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: (isFilled) ? color : fillColor, // background
-          onPrimary: splashColor, // foreground
+          onPrimary: splashColor,
+          // foreground
           elevation: 10.0,
           shape: RoundedRectangleBorder(
               side: (isFilled)

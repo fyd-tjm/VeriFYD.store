@@ -35,43 +35,47 @@ mixin _$CustomerInfo {
 abstract class $CustomerInfoCopyWith<$Res> {
   factory $CustomerInfoCopyWith(
           CustomerInfo value, $Res Function(CustomerInfo) then) =
-      _$CustomerInfoCopyWithImpl<$Res>;
+      _$CustomerInfoCopyWithImpl<$Res, CustomerInfo>;
+  @useResult
   $Res call({String customerId, String name, String phone, String email});
 }
 
 /// @nodoc
-class _$CustomerInfoCopyWithImpl<$Res> implements $CustomerInfoCopyWith<$Res> {
+class _$CustomerInfoCopyWithImpl<$Res, $Val extends CustomerInfo>
+    implements $CustomerInfoCopyWith<$Res> {
   _$CustomerInfoCopyWithImpl(this._value, this._then);
 
-  final CustomerInfo _value;
   // ignore: unused_field
-  final $Res Function(CustomerInfo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? customerId = freezed,
-    Object? name = freezed,
-    Object? phone = freezed,
-    Object? email = freezed,
+    Object? customerId = null,
+    Object? name = null,
+    Object? phone = null,
+    Object? email = null,
   }) {
     return _then(_value.copyWith(
-      customerId: customerId == freezed
+      customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      phone: phone == freezed
+      phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -82,41 +86,40 @@ abstract class _$$_CustomerInfoCopyWith<$Res>
           _$_CustomerInfo value, $Res Function(_$_CustomerInfo) then) =
       __$$_CustomerInfoCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String customerId, String name, String phone, String email});
 }
 
 /// @nodoc
 class __$$_CustomerInfoCopyWithImpl<$Res>
-    extends _$CustomerInfoCopyWithImpl<$Res>
+    extends _$CustomerInfoCopyWithImpl<$Res, _$_CustomerInfo>
     implements _$$_CustomerInfoCopyWith<$Res> {
   __$$_CustomerInfoCopyWithImpl(
       _$_CustomerInfo _value, $Res Function(_$_CustomerInfo) _then)
-      : super(_value, (v) => _then(v as _$_CustomerInfo));
+      : super(_value, _then);
 
-  @override
-  _$_CustomerInfo get _value => super._value as _$_CustomerInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? customerId = freezed,
-    Object? name = freezed,
-    Object? phone = freezed,
-    Object? email = freezed,
+    Object? customerId = null,
+    Object? name = null,
+    Object? phone = null,
+    Object? email = null,
   }) {
     return _then(_$_CustomerInfo(
-      customerId: customerId == freezed
+      customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      phone: phone == freezed
+      phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
@@ -155,24 +158,20 @@ class _$_CustomerInfo implements _CustomerInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CustomerInfo &&
-            const DeepCollectionEquality()
-                .equals(other.customerId, customerId) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.phone, phone) &&
-            const DeepCollectionEquality().equals(other.email, email));
+            (identical(other.customerId, customerId) ||
+                other.customerId == customerId) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(customerId),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(phone),
-      const DeepCollectionEquality().hash(email));
+  int get hashCode => Object.hash(runtimeType, customerId, name, phone, email);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CustomerInfoCopyWith<_$_CustomerInfo> get copyWith =>
       __$$_CustomerInfoCopyWithImpl<_$_CustomerInfo>(this, _$identity);
 

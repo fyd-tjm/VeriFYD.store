@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +12,7 @@ import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
 import 'package:verifyd_store/01%20presentation/05%20stores/store_info_view_page.dart';
 import 'package:verifyd_store/02%20application/product/product_bloc.dart';
+import 'package:verifyd_store/aa%20mock/static_ui.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 
 import 'widgets/export_widgets.dart';
@@ -473,7 +475,7 @@ class ProductPage extends HookWidget {
                       color: fydLogoBlue,
                       weight: FontWeight.w600,
                     ),
-              onPressed: () {
+              onPressed: () async {
                 if (state.addingToCart == true) {
                   return;
                 } else if (selectedSize.value.isEmpty) {

@@ -20,6 +20,7 @@ mixin _$CheckoutFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() cartAvailabilityFailure,
     required TResult Function() paymentFailure,
+    required TResult Function() couponFailure,
     required TResult Function(String orderNumber) orderIdFailure,
     required TResult Function(FydOrder fydOrder) createOrderFailure,
     required TResult Function(String? error) unexpectedFailure,
@@ -27,17 +28,19 @@ mixin _$CheckoutFailure {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? cartAvailabilityFailure,
-    TResult Function()? paymentFailure,
-    TResult Function(String orderNumber)? orderIdFailure,
-    TResult Function(FydOrder fydOrder)? createOrderFailure,
-    TResult Function(String? error)? unexpectedFailure,
+    TResult? Function()? cartAvailabilityFailure,
+    TResult? Function()? paymentFailure,
+    TResult? Function()? couponFailure,
+    TResult? Function(String orderNumber)? orderIdFailure,
+    TResult? Function(FydOrder fydOrder)? createOrderFailure,
+    TResult? Function(String? error)? unexpectedFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? cartAvailabilityFailure,
     TResult Function()? paymentFailure,
+    TResult Function()? couponFailure,
     TResult Function(String orderNumber)? orderIdFailure,
     TResult Function(FydOrder fydOrder)? createOrderFailure,
     TResult Function(String? error)? unexpectedFailure,
@@ -49,6 +52,7 @@ mixin _$CheckoutFailure {
     required TResult Function(CartAvailabilityFailure value)
         cartAvailabilityFailure,
     required TResult Function(PaymentFailure value) paymentFailure,
+    required TResult Function(CouponFailure value) couponFailure,
     required TResult Function(OrderIdFailure value) orderIdFailure,
     required TResult Function(CreateOrderFailure value) createOrderFailure,
     required TResult Function(UnexpectedFailure value) unexpectedFailure,
@@ -56,17 +60,19 @@ mixin _$CheckoutFailure {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
-    TResult Function(PaymentFailure value)? paymentFailure,
-    TResult Function(OrderIdFailure value)? orderIdFailure,
-    TResult Function(CreateOrderFailure value)? createOrderFailure,
-    TResult Function(UnexpectedFailure value)? unexpectedFailure,
+    TResult? Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
+    TResult? Function(PaymentFailure value)? paymentFailure,
+    TResult? Function(CouponFailure value)? couponFailure,
+    TResult? Function(OrderIdFailure value)? orderIdFailure,
+    TResult? Function(CreateOrderFailure value)? createOrderFailure,
+    TResult? Function(UnexpectedFailure value)? unexpectedFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
     TResult Function(PaymentFailure value)? paymentFailure,
+    TResult Function(CouponFailure value)? couponFailure,
     TResult Function(OrderIdFailure value)? orderIdFailure,
     TResult Function(CreateOrderFailure value)? createOrderFailure,
     TResult Function(UnexpectedFailure value)? unexpectedFailure,
@@ -79,17 +85,18 @@ mixin _$CheckoutFailure {
 abstract class $CheckoutFailureCopyWith<$Res> {
   factory $CheckoutFailureCopyWith(
           CheckoutFailure value, $Res Function(CheckoutFailure) then) =
-      _$CheckoutFailureCopyWithImpl<$Res>;
+      _$CheckoutFailureCopyWithImpl<$Res, CheckoutFailure>;
 }
 
 /// @nodoc
-class _$CheckoutFailureCopyWithImpl<$Res>
+class _$CheckoutFailureCopyWithImpl<$Res, $Val extends CheckoutFailure>
     implements $CheckoutFailureCopyWith<$Res> {
   _$CheckoutFailureCopyWithImpl(this._value, this._then);
 
-  final CheckoutFailure _value;
   // ignore: unused_field
-  final $Res Function(CheckoutFailure) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -101,15 +108,11 @@ abstract class _$$CartAvailabilityFailureCopyWith<$Res> {
 
 /// @nodoc
 class __$$CartAvailabilityFailureCopyWithImpl<$Res>
-    extends _$CheckoutFailureCopyWithImpl<$Res>
+    extends _$CheckoutFailureCopyWithImpl<$Res, _$CartAvailabilityFailure>
     implements _$$CartAvailabilityFailureCopyWith<$Res> {
   __$$CartAvailabilityFailureCopyWithImpl(_$CartAvailabilityFailure _value,
       $Res Function(_$CartAvailabilityFailure) _then)
-      : super(_value, (v) => _then(v as _$CartAvailabilityFailure));
-
-  @override
-  _$CartAvailabilityFailure get _value =>
-      super._value as _$CartAvailabilityFailure;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -137,6 +140,7 @@ class _$CartAvailabilityFailure implements CartAvailabilityFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() cartAvailabilityFailure,
     required TResult Function() paymentFailure,
+    required TResult Function() couponFailure,
     required TResult Function(String orderNumber) orderIdFailure,
     required TResult Function(FydOrder fydOrder) createOrderFailure,
     required TResult Function(String? error) unexpectedFailure,
@@ -147,11 +151,12 @@ class _$CartAvailabilityFailure implements CartAvailabilityFailure {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? cartAvailabilityFailure,
-    TResult Function()? paymentFailure,
-    TResult Function(String orderNumber)? orderIdFailure,
-    TResult Function(FydOrder fydOrder)? createOrderFailure,
-    TResult Function(String? error)? unexpectedFailure,
+    TResult? Function()? cartAvailabilityFailure,
+    TResult? Function()? paymentFailure,
+    TResult? Function()? couponFailure,
+    TResult? Function(String orderNumber)? orderIdFailure,
+    TResult? Function(FydOrder fydOrder)? createOrderFailure,
+    TResult? Function(String? error)? unexpectedFailure,
   }) {
     return cartAvailabilityFailure?.call();
   }
@@ -161,6 +166,7 @@ class _$CartAvailabilityFailure implements CartAvailabilityFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? cartAvailabilityFailure,
     TResult Function()? paymentFailure,
+    TResult Function()? couponFailure,
     TResult Function(String orderNumber)? orderIdFailure,
     TResult Function(FydOrder fydOrder)? createOrderFailure,
     TResult Function(String? error)? unexpectedFailure,
@@ -178,6 +184,7 @@ class _$CartAvailabilityFailure implements CartAvailabilityFailure {
     required TResult Function(CartAvailabilityFailure value)
         cartAvailabilityFailure,
     required TResult Function(PaymentFailure value) paymentFailure,
+    required TResult Function(CouponFailure value) couponFailure,
     required TResult Function(OrderIdFailure value) orderIdFailure,
     required TResult Function(CreateOrderFailure value) createOrderFailure,
     required TResult Function(UnexpectedFailure value) unexpectedFailure,
@@ -188,11 +195,12 @@ class _$CartAvailabilityFailure implements CartAvailabilityFailure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
-    TResult Function(PaymentFailure value)? paymentFailure,
-    TResult Function(OrderIdFailure value)? orderIdFailure,
-    TResult Function(CreateOrderFailure value)? createOrderFailure,
-    TResult Function(UnexpectedFailure value)? unexpectedFailure,
+    TResult? Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
+    TResult? Function(PaymentFailure value)? paymentFailure,
+    TResult? Function(CouponFailure value)? couponFailure,
+    TResult? Function(OrderIdFailure value)? orderIdFailure,
+    TResult? Function(CreateOrderFailure value)? createOrderFailure,
+    TResult? Function(UnexpectedFailure value)? unexpectedFailure,
   }) {
     return cartAvailabilityFailure?.call(this);
   }
@@ -202,6 +210,7 @@ class _$CartAvailabilityFailure implements CartAvailabilityFailure {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
     TResult Function(PaymentFailure value)? paymentFailure,
+    TResult Function(CouponFailure value)? couponFailure,
     TResult Function(OrderIdFailure value)? orderIdFailure,
     TResult Function(CreateOrderFailure value)? createOrderFailure,
     TResult Function(UnexpectedFailure value)? unexpectedFailure,
@@ -227,14 +236,11 @@ abstract class _$$PaymentFailureCopyWith<$Res> {
 
 /// @nodoc
 class __$$PaymentFailureCopyWithImpl<$Res>
-    extends _$CheckoutFailureCopyWithImpl<$Res>
+    extends _$CheckoutFailureCopyWithImpl<$Res, _$PaymentFailure>
     implements _$$PaymentFailureCopyWith<$Res> {
   __$$PaymentFailureCopyWithImpl(
       _$PaymentFailure _value, $Res Function(_$PaymentFailure) _then)
-      : super(_value, (v) => _then(v as _$PaymentFailure));
-
-  @override
-  _$PaymentFailure get _value => super._value as _$PaymentFailure;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -261,6 +267,7 @@ class _$PaymentFailure implements PaymentFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() cartAvailabilityFailure,
     required TResult Function() paymentFailure,
+    required TResult Function() couponFailure,
     required TResult Function(String orderNumber) orderIdFailure,
     required TResult Function(FydOrder fydOrder) createOrderFailure,
     required TResult Function(String? error) unexpectedFailure,
@@ -271,11 +278,12 @@ class _$PaymentFailure implements PaymentFailure {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? cartAvailabilityFailure,
-    TResult Function()? paymentFailure,
-    TResult Function(String orderNumber)? orderIdFailure,
-    TResult Function(FydOrder fydOrder)? createOrderFailure,
-    TResult Function(String? error)? unexpectedFailure,
+    TResult? Function()? cartAvailabilityFailure,
+    TResult? Function()? paymentFailure,
+    TResult? Function()? couponFailure,
+    TResult? Function(String orderNumber)? orderIdFailure,
+    TResult? Function(FydOrder fydOrder)? createOrderFailure,
+    TResult? Function(String? error)? unexpectedFailure,
   }) {
     return paymentFailure?.call();
   }
@@ -285,6 +293,7 @@ class _$PaymentFailure implements PaymentFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? cartAvailabilityFailure,
     TResult Function()? paymentFailure,
+    TResult Function()? couponFailure,
     TResult Function(String orderNumber)? orderIdFailure,
     TResult Function(FydOrder fydOrder)? createOrderFailure,
     TResult Function(String? error)? unexpectedFailure,
@@ -302,6 +311,7 @@ class _$PaymentFailure implements PaymentFailure {
     required TResult Function(CartAvailabilityFailure value)
         cartAvailabilityFailure,
     required TResult Function(PaymentFailure value) paymentFailure,
+    required TResult Function(CouponFailure value) couponFailure,
     required TResult Function(OrderIdFailure value) orderIdFailure,
     required TResult Function(CreateOrderFailure value) createOrderFailure,
     required TResult Function(UnexpectedFailure value) unexpectedFailure,
@@ -312,11 +322,12 @@ class _$PaymentFailure implements PaymentFailure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
-    TResult Function(PaymentFailure value)? paymentFailure,
-    TResult Function(OrderIdFailure value)? orderIdFailure,
-    TResult Function(CreateOrderFailure value)? createOrderFailure,
-    TResult Function(UnexpectedFailure value)? unexpectedFailure,
+    TResult? Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
+    TResult? Function(PaymentFailure value)? paymentFailure,
+    TResult? Function(CouponFailure value)? couponFailure,
+    TResult? Function(OrderIdFailure value)? orderIdFailure,
+    TResult? Function(CreateOrderFailure value)? createOrderFailure,
+    TResult? Function(UnexpectedFailure value)? unexpectedFailure,
   }) {
     return paymentFailure?.call(this);
   }
@@ -326,6 +337,7 @@ class _$PaymentFailure implements PaymentFailure {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
     TResult Function(PaymentFailure value)? paymentFailure,
+    TResult Function(CouponFailure value)? couponFailure,
     TResult Function(OrderIdFailure value)? orderIdFailure,
     TResult Function(CreateOrderFailure value)? createOrderFailure,
     TResult Function(UnexpectedFailure value)? unexpectedFailure,
@@ -343,30 +355,156 @@ abstract class PaymentFailure implements CheckoutFailure {
 }
 
 /// @nodoc
+abstract class _$$CouponFailureCopyWith<$Res> {
+  factory _$$CouponFailureCopyWith(
+          _$CouponFailure value, $Res Function(_$CouponFailure) then) =
+      __$$CouponFailureCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$CouponFailureCopyWithImpl<$Res>
+    extends _$CheckoutFailureCopyWithImpl<$Res, _$CouponFailure>
+    implements _$$CouponFailureCopyWith<$Res> {
+  __$$CouponFailureCopyWithImpl(
+      _$CouponFailure _value, $Res Function(_$CouponFailure) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$CouponFailure implements CouponFailure {
+  const _$CouponFailure();
+
+  @override
+  String toString() {
+    return 'CheckoutFailure.couponFailure()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$CouponFailure);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() cartAvailabilityFailure,
+    required TResult Function() paymentFailure,
+    required TResult Function() couponFailure,
+    required TResult Function(String orderNumber) orderIdFailure,
+    required TResult Function(FydOrder fydOrder) createOrderFailure,
+    required TResult Function(String? error) unexpectedFailure,
+  }) {
+    return couponFailure();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? cartAvailabilityFailure,
+    TResult? Function()? paymentFailure,
+    TResult? Function()? couponFailure,
+    TResult? Function(String orderNumber)? orderIdFailure,
+    TResult? Function(FydOrder fydOrder)? createOrderFailure,
+    TResult? Function(String? error)? unexpectedFailure,
+  }) {
+    return couponFailure?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? cartAvailabilityFailure,
+    TResult Function()? paymentFailure,
+    TResult Function()? couponFailure,
+    TResult Function(String orderNumber)? orderIdFailure,
+    TResult Function(FydOrder fydOrder)? createOrderFailure,
+    TResult Function(String? error)? unexpectedFailure,
+    required TResult orElse(),
+  }) {
+    if (couponFailure != null) {
+      return couponFailure();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CartAvailabilityFailure value)
+        cartAvailabilityFailure,
+    required TResult Function(PaymentFailure value) paymentFailure,
+    required TResult Function(CouponFailure value) couponFailure,
+    required TResult Function(OrderIdFailure value) orderIdFailure,
+    required TResult Function(CreateOrderFailure value) createOrderFailure,
+    required TResult Function(UnexpectedFailure value) unexpectedFailure,
+  }) {
+    return couponFailure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
+    TResult? Function(PaymentFailure value)? paymentFailure,
+    TResult? Function(CouponFailure value)? couponFailure,
+    TResult? Function(OrderIdFailure value)? orderIdFailure,
+    TResult? Function(CreateOrderFailure value)? createOrderFailure,
+    TResult? Function(UnexpectedFailure value)? unexpectedFailure,
+  }) {
+    return couponFailure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
+    TResult Function(PaymentFailure value)? paymentFailure,
+    TResult Function(CouponFailure value)? couponFailure,
+    TResult Function(OrderIdFailure value)? orderIdFailure,
+    TResult Function(CreateOrderFailure value)? createOrderFailure,
+    TResult Function(UnexpectedFailure value)? unexpectedFailure,
+    required TResult orElse(),
+  }) {
+    if (couponFailure != null) {
+      return couponFailure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CouponFailure implements CheckoutFailure {
+  const factory CouponFailure() = _$CouponFailure;
+}
+
+/// @nodoc
 abstract class _$$OrderIdFailureCopyWith<$Res> {
   factory _$$OrderIdFailureCopyWith(
           _$OrderIdFailure value, $Res Function(_$OrderIdFailure) then) =
       __$$OrderIdFailureCopyWithImpl<$Res>;
+  @useResult
   $Res call({String orderNumber});
 }
 
 /// @nodoc
 class __$$OrderIdFailureCopyWithImpl<$Res>
-    extends _$CheckoutFailureCopyWithImpl<$Res>
+    extends _$CheckoutFailureCopyWithImpl<$Res, _$OrderIdFailure>
     implements _$$OrderIdFailureCopyWith<$Res> {
   __$$OrderIdFailureCopyWithImpl(
       _$OrderIdFailure _value, $Res Function(_$OrderIdFailure) _then)
-      : super(_value, (v) => _then(v as _$OrderIdFailure));
+      : super(_value, _then);
 
-  @override
-  _$OrderIdFailure get _value => super._value as _$OrderIdFailure;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? orderNumber = freezed,
+    Object? orderNumber = null,
   }) {
     return _then(_$OrderIdFailure(
-      orderNumber: orderNumber == freezed
+      orderNumber: null == orderNumber
           ? _value.orderNumber
           : orderNumber // ignore: cast_nullable_to_non_nullable
               as String,
@@ -392,16 +530,16 @@ class _$OrderIdFailure implements OrderIdFailure {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OrderIdFailure &&
-            const DeepCollectionEquality()
-                .equals(other.orderNumber, orderNumber));
+            (identical(other.orderNumber, orderNumber) ||
+                other.orderNumber == orderNumber));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(orderNumber));
+  int get hashCode => Object.hash(runtimeType, orderNumber);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$OrderIdFailureCopyWith<_$OrderIdFailure> get copyWith =>
       __$$OrderIdFailureCopyWithImpl<_$OrderIdFailure>(this, _$identity);
 
@@ -410,6 +548,7 @@ class _$OrderIdFailure implements OrderIdFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() cartAvailabilityFailure,
     required TResult Function() paymentFailure,
+    required TResult Function() couponFailure,
     required TResult Function(String orderNumber) orderIdFailure,
     required TResult Function(FydOrder fydOrder) createOrderFailure,
     required TResult Function(String? error) unexpectedFailure,
@@ -420,11 +559,12 @@ class _$OrderIdFailure implements OrderIdFailure {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? cartAvailabilityFailure,
-    TResult Function()? paymentFailure,
-    TResult Function(String orderNumber)? orderIdFailure,
-    TResult Function(FydOrder fydOrder)? createOrderFailure,
-    TResult Function(String? error)? unexpectedFailure,
+    TResult? Function()? cartAvailabilityFailure,
+    TResult? Function()? paymentFailure,
+    TResult? Function()? couponFailure,
+    TResult? Function(String orderNumber)? orderIdFailure,
+    TResult? Function(FydOrder fydOrder)? createOrderFailure,
+    TResult? Function(String? error)? unexpectedFailure,
   }) {
     return orderIdFailure?.call(orderNumber);
   }
@@ -434,6 +574,7 @@ class _$OrderIdFailure implements OrderIdFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? cartAvailabilityFailure,
     TResult Function()? paymentFailure,
+    TResult Function()? couponFailure,
     TResult Function(String orderNumber)? orderIdFailure,
     TResult Function(FydOrder fydOrder)? createOrderFailure,
     TResult Function(String? error)? unexpectedFailure,
@@ -451,6 +592,7 @@ class _$OrderIdFailure implements OrderIdFailure {
     required TResult Function(CartAvailabilityFailure value)
         cartAvailabilityFailure,
     required TResult Function(PaymentFailure value) paymentFailure,
+    required TResult Function(CouponFailure value) couponFailure,
     required TResult Function(OrderIdFailure value) orderIdFailure,
     required TResult Function(CreateOrderFailure value) createOrderFailure,
     required TResult Function(UnexpectedFailure value) unexpectedFailure,
@@ -461,11 +603,12 @@ class _$OrderIdFailure implements OrderIdFailure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
-    TResult Function(PaymentFailure value)? paymentFailure,
-    TResult Function(OrderIdFailure value)? orderIdFailure,
-    TResult Function(CreateOrderFailure value)? createOrderFailure,
-    TResult Function(UnexpectedFailure value)? unexpectedFailure,
+    TResult? Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
+    TResult? Function(PaymentFailure value)? paymentFailure,
+    TResult? Function(CouponFailure value)? couponFailure,
+    TResult? Function(OrderIdFailure value)? orderIdFailure,
+    TResult? Function(CreateOrderFailure value)? createOrderFailure,
+    TResult? Function(UnexpectedFailure value)? unexpectedFailure,
   }) {
     return orderIdFailure?.call(this);
   }
@@ -475,6 +618,7 @@ class _$OrderIdFailure implements OrderIdFailure {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
     TResult Function(PaymentFailure value)? paymentFailure,
+    TResult Function(CouponFailure value)? couponFailure,
     TResult Function(OrderIdFailure value)? orderIdFailure,
     TResult Function(CreateOrderFailure value)? createOrderFailure,
     TResult Function(UnexpectedFailure value)? unexpectedFailure,
@@ -502,6 +646,7 @@ abstract class _$$CreateOrderFailureCopyWith<$Res> {
   factory _$$CreateOrderFailureCopyWith(_$CreateOrderFailure value,
           $Res Function(_$CreateOrderFailure) then) =
       __$$CreateOrderFailureCopyWithImpl<$Res>;
+  @useResult
   $Res call({FydOrder fydOrder});
 
   $FydOrderCopyWith<$Res> get fydOrder;
@@ -509,21 +654,19 @@ abstract class _$$CreateOrderFailureCopyWith<$Res> {
 
 /// @nodoc
 class __$$CreateOrderFailureCopyWithImpl<$Res>
-    extends _$CheckoutFailureCopyWithImpl<$Res>
+    extends _$CheckoutFailureCopyWithImpl<$Res, _$CreateOrderFailure>
     implements _$$CreateOrderFailureCopyWith<$Res> {
   __$$CreateOrderFailureCopyWithImpl(
       _$CreateOrderFailure _value, $Res Function(_$CreateOrderFailure) _then)
-      : super(_value, (v) => _then(v as _$CreateOrderFailure));
+      : super(_value, _then);
 
-  @override
-  _$CreateOrderFailure get _value => super._value as _$CreateOrderFailure;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? fydOrder = freezed,
+    Object? fydOrder = null,
   }) {
     return _then(_$CreateOrderFailure(
-      fydOrder: fydOrder == freezed
+      fydOrder: null == fydOrder
           ? _value.fydOrder
           : fydOrder // ignore: cast_nullable_to_non_nullable
               as FydOrder,
@@ -531,6 +674,7 @@ class __$$CreateOrderFailureCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $FydOrderCopyWith<$Res> get fydOrder {
     return $FydOrderCopyWith<$Res>(_value.fydOrder, (value) {
       return _then(_value.copyWith(fydOrder: value));
@@ -556,15 +700,16 @@ class _$CreateOrderFailure implements CreateOrderFailure {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CreateOrderFailure &&
-            const DeepCollectionEquality().equals(other.fydOrder, fydOrder));
+            (identical(other.fydOrder, fydOrder) ||
+                other.fydOrder == fydOrder));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(fydOrder));
+  int get hashCode => Object.hash(runtimeType, fydOrder);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$CreateOrderFailureCopyWith<_$CreateOrderFailure> get copyWith =>
       __$$CreateOrderFailureCopyWithImpl<_$CreateOrderFailure>(
           this, _$identity);
@@ -574,6 +719,7 @@ class _$CreateOrderFailure implements CreateOrderFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() cartAvailabilityFailure,
     required TResult Function() paymentFailure,
+    required TResult Function() couponFailure,
     required TResult Function(String orderNumber) orderIdFailure,
     required TResult Function(FydOrder fydOrder) createOrderFailure,
     required TResult Function(String? error) unexpectedFailure,
@@ -584,11 +730,12 @@ class _$CreateOrderFailure implements CreateOrderFailure {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? cartAvailabilityFailure,
-    TResult Function()? paymentFailure,
-    TResult Function(String orderNumber)? orderIdFailure,
-    TResult Function(FydOrder fydOrder)? createOrderFailure,
-    TResult Function(String? error)? unexpectedFailure,
+    TResult? Function()? cartAvailabilityFailure,
+    TResult? Function()? paymentFailure,
+    TResult? Function()? couponFailure,
+    TResult? Function(String orderNumber)? orderIdFailure,
+    TResult? Function(FydOrder fydOrder)? createOrderFailure,
+    TResult? Function(String? error)? unexpectedFailure,
   }) {
     return createOrderFailure?.call(fydOrder);
   }
@@ -598,6 +745,7 @@ class _$CreateOrderFailure implements CreateOrderFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? cartAvailabilityFailure,
     TResult Function()? paymentFailure,
+    TResult Function()? couponFailure,
     TResult Function(String orderNumber)? orderIdFailure,
     TResult Function(FydOrder fydOrder)? createOrderFailure,
     TResult Function(String? error)? unexpectedFailure,
@@ -615,6 +763,7 @@ class _$CreateOrderFailure implements CreateOrderFailure {
     required TResult Function(CartAvailabilityFailure value)
         cartAvailabilityFailure,
     required TResult Function(PaymentFailure value) paymentFailure,
+    required TResult Function(CouponFailure value) couponFailure,
     required TResult Function(OrderIdFailure value) orderIdFailure,
     required TResult Function(CreateOrderFailure value) createOrderFailure,
     required TResult Function(UnexpectedFailure value) unexpectedFailure,
@@ -625,11 +774,12 @@ class _$CreateOrderFailure implements CreateOrderFailure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
-    TResult Function(PaymentFailure value)? paymentFailure,
-    TResult Function(OrderIdFailure value)? orderIdFailure,
-    TResult Function(CreateOrderFailure value)? createOrderFailure,
-    TResult Function(UnexpectedFailure value)? unexpectedFailure,
+    TResult? Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
+    TResult? Function(PaymentFailure value)? paymentFailure,
+    TResult? Function(CouponFailure value)? couponFailure,
+    TResult? Function(OrderIdFailure value)? orderIdFailure,
+    TResult? Function(CreateOrderFailure value)? createOrderFailure,
+    TResult? Function(UnexpectedFailure value)? unexpectedFailure,
   }) {
     return createOrderFailure?.call(this);
   }
@@ -639,6 +789,7 @@ class _$CreateOrderFailure implements CreateOrderFailure {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
     TResult Function(PaymentFailure value)? paymentFailure,
+    TResult Function(CouponFailure value)? couponFailure,
     TResult Function(OrderIdFailure value)? orderIdFailure,
     TResult Function(CreateOrderFailure value)? createOrderFailure,
     TResult Function(UnexpectedFailure value)? unexpectedFailure,
@@ -666,26 +817,25 @@ abstract class _$$UnexpectedFailureCopyWith<$Res> {
   factory _$$UnexpectedFailureCopyWith(
           _$UnexpectedFailure value, $Res Function(_$UnexpectedFailure) then) =
       __$$UnexpectedFailureCopyWithImpl<$Res>;
+  @useResult
   $Res call({String? error});
 }
 
 /// @nodoc
 class __$$UnexpectedFailureCopyWithImpl<$Res>
-    extends _$CheckoutFailureCopyWithImpl<$Res>
+    extends _$CheckoutFailureCopyWithImpl<$Res, _$UnexpectedFailure>
     implements _$$UnexpectedFailureCopyWith<$Res> {
   __$$UnexpectedFailureCopyWithImpl(
       _$UnexpectedFailure _value, $Res Function(_$UnexpectedFailure) _then)
-      : super(_value, (v) => _then(v as _$UnexpectedFailure));
+      : super(_value, _then);
 
-  @override
-  _$UnexpectedFailure get _value => super._value as _$UnexpectedFailure;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? error = freezed,
   }) {
     return _then(_$UnexpectedFailure(
-      error == freezed
+      freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -711,15 +861,15 @@ class _$UnexpectedFailure implements UnexpectedFailure {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UnexpectedFailure &&
-            const DeepCollectionEquality().equals(other.error, error));
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(error));
+  int get hashCode => Object.hash(runtimeType, error);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$UnexpectedFailureCopyWith<_$UnexpectedFailure> get copyWith =>
       __$$UnexpectedFailureCopyWithImpl<_$UnexpectedFailure>(this, _$identity);
 
@@ -728,6 +878,7 @@ class _$UnexpectedFailure implements UnexpectedFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() cartAvailabilityFailure,
     required TResult Function() paymentFailure,
+    required TResult Function() couponFailure,
     required TResult Function(String orderNumber) orderIdFailure,
     required TResult Function(FydOrder fydOrder) createOrderFailure,
     required TResult Function(String? error) unexpectedFailure,
@@ -738,11 +889,12 @@ class _$UnexpectedFailure implements UnexpectedFailure {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? cartAvailabilityFailure,
-    TResult Function()? paymentFailure,
-    TResult Function(String orderNumber)? orderIdFailure,
-    TResult Function(FydOrder fydOrder)? createOrderFailure,
-    TResult Function(String? error)? unexpectedFailure,
+    TResult? Function()? cartAvailabilityFailure,
+    TResult? Function()? paymentFailure,
+    TResult? Function()? couponFailure,
+    TResult? Function(String orderNumber)? orderIdFailure,
+    TResult? Function(FydOrder fydOrder)? createOrderFailure,
+    TResult? Function(String? error)? unexpectedFailure,
   }) {
     return unexpectedFailure?.call(error);
   }
@@ -752,6 +904,7 @@ class _$UnexpectedFailure implements UnexpectedFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? cartAvailabilityFailure,
     TResult Function()? paymentFailure,
+    TResult Function()? couponFailure,
     TResult Function(String orderNumber)? orderIdFailure,
     TResult Function(FydOrder fydOrder)? createOrderFailure,
     TResult Function(String? error)? unexpectedFailure,
@@ -769,6 +922,7 @@ class _$UnexpectedFailure implements UnexpectedFailure {
     required TResult Function(CartAvailabilityFailure value)
         cartAvailabilityFailure,
     required TResult Function(PaymentFailure value) paymentFailure,
+    required TResult Function(CouponFailure value) couponFailure,
     required TResult Function(OrderIdFailure value) orderIdFailure,
     required TResult Function(CreateOrderFailure value) createOrderFailure,
     required TResult Function(UnexpectedFailure value) unexpectedFailure,
@@ -779,11 +933,12 @@ class _$UnexpectedFailure implements UnexpectedFailure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
-    TResult Function(PaymentFailure value)? paymentFailure,
-    TResult Function(OrderIdFailure value)? orderIdFailure,
-    TResult Function(CreateOrderFailure value)? createOrderFailure,
-    TResult Function(UnexpectedFailure value)? unexpectedFailure,
+    TResult? Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
+    TResult? Function(PaymentFailure value)? paymentFailure,
+    TResult? Function(CouponFailure value)? couponFailure,
+    TResult? Function(OrderIdFailure value)? orderIdFailure,
+    TResult? Function(CreateOrderFailure value)? createOrderFailure,
+    TResult? Function(UnexpectedFailure value)? unexpectedFailure,
   }) {
     return unexpectedFailure?.call(this);
   }
@@ -793,6 +948,7 @@ class _$UnexpectedFailure implements UnexpectedFailure {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CartAvailabilityFailure value)? cartAvailabilityFailure,
     TResult Function(PaymentFailure value)? paymentFailure,
+    TResult Function(CouponFailure value)? couponFailure,
     TResult Function(OrderIdFailure value)? orderIdFailure,
     TResult Function(CreateOrderFailure value)? createOrderFailure,
     TResult Function(UnexpectedFailure value)? unexpectedFailure,

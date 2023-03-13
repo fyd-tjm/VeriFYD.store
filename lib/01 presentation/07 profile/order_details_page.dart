@@ -9,7 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
-import 'package:verifyd_store/01%20presentation/08%20checkout/payment_page.dart';
+import 'package:verifyd_store/01%20presentation/08%20checkout/widgets/order_summary_section.dart';
 import 'package:verifyd_store/03%20domain/checkout/order.dart';
 import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
 import 'package:verifyd_store/03%20domain/store/product.dart';
@@ -285,7 +285,7 @@ class OrderDetailsPage extends StatelessWidget {
               totalItems: fydOrder.orderInfo.orderSummary.totalItems,
               subTotal: fydOrder.orderInfo.orderSummary.subTotal,
               shipping: fydOrder.orderInfo.orderSummary.shippingCost!,
-              discount: fydOrder.orderInfo.orderSummary.discount,
+              discountCoupon: fydOrder.orderInfo.orderSummary.discount,
               total: fydOrder.orderInfo.orderSummary.total!,
             ),
             //! divider

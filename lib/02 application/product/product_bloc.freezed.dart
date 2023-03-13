@@ -31,15 +31,15 @@ mixin _$ProductEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String productRef)? getProductRealtime,
-    TResult Function(Either<ProductFailure, Product> event)?
+    TResult? Function(String productRef)? getProductRealtime,
+    TResult? Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
-    TResult Function()? toggleStates,
-    TResult Function()? toggleFailures,
-    TResult Function(String size)? addToCart,
-    TResult Function(String size)? addNewCartWithProduct,
-    TResult Function(String skuId, String size)? addNewProduct,
-    TResult Function(String skuId, String size)? addSameProduct,
+    TResult? Function()? toggleStates,
+    TResult? Function()? toggleFailures,
+    TResult? Function(String size)? addToCart,
+    TResult? Function(String size)? addNewCartWithProduct,
+    TResult? Function(String skuId, String size)? addNewProduct,
+    TResult? Function(String skuId, String size)? addSameProduct,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -71,14 +71,14 @@ mixin _$ProductEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetProductRealtime value)? getProductRealtime,
-    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
-    TResult Function(ToggleStates value)? toggleStates,
-    TResult Function(ToggleFailures value)? toggleFailures,
-    TResult Function(AddToCart value)? addToCart,
-    TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
-    TResult Function(AddNewProduct value)? addNewProduct,
-    TResult Function(AddSameProduct value)? addSameProduct,
+    TResult? Function(GetProductRealtime value)? getProductRealtime,
+    TResult? Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult? Function(ToggleStates value)? toggleStates,
+    TResult? Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(AddToCart value)? addToCart,
+    TResult? Function(AddNewCartWithProduct value)? addNewCartWithProduct,
+    TResult? Function(AddNewProduct value)? addNewProduct,
+    TResult? Function(AddSameProduct value)? addSameProduct,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -100,16 +100,18 @@ mixin _$ProductEvent {
 abstract class $ProductEventCopyWith<$Res> {
   factory $ProductEventCopyWith(
           ProductEvent value, $Res Function(ProductEvent) then) =
-      _$ProductEventCopyWithImpl<$Res>;
+      _$ProductEventCopyWithImpl<$Res, ProductEvent>;
 }
 
 /// @nodoc
-class _$ProductEventCopyWithImpl<$Res> implements $ProductEventCopyWith<$Res> {
+class _$ProductEventCopyWithImpl<$Res, $Val extends ProductEvent>
+    implements $ProductEventCopyWith<$Res> {
   _$ProductEventCopyWithImpl(this._value, this._then);
 
-  final ProductEvent _value;
   // ignore: unused_field
-  final $Res Function(ProductEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -117,26 +119,25 @@ abstract class _$$GetProductRealtimeCopyWith<$Res> {
   factory _$$GetProductRealtimeCopyWith(_$GetProductRealtime value,
           $Res Function(_$GetProductRealtime) then) =
       __$$GetProductRealtimeCopyWithImpl<$Res>;
+  @useResult
   $Res call({String productRef});
 }
 
 /// @nodoc
 class __$$GetProductRealtimeCopyWithImpl<$Res>
-    extends _$ProductEventCopyWithImpl<$Res>
+    extends _$ProductEventCopyWithImpl<$Res, _$GetProductRealtime>
     implements _$$GetProductRealtimeCopyWith<$Res> {
   __$$GetProductRealtimeCopyWithImpl(
       _$GetProductRealtime _value, $Res Function(_$GetProductRealtime) _then)
-      : super(_value, (v) => _then(v as _$GetProductRealtime));
+      : super(_value, _then);
 
-  @override
-  _$GetProductRealtime get _value => super._value as _$GetProductRealtime;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? productRef = freezed,
+    Object? productRef = null,
   }) {
     return _then(_$GetProductRealtime(
-      productRef: productRef == freezed
+      productRef: null == productRef
           ? _value.productRef
           : productRef // ignore: cast_nullable_to_non_nullable
               as String,
@@ -162,16 +163,16 @@ class _$GetProductRealtime implements GetProductRealtime {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GetProductRealtime &&
-            const DeepCollectionEquality()
-                .equals(other.productRef, productRef));
+            (identical(other.productRef, productRef) ||
+                other.productRef == productRef));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(productRef));
+  int get hashCode => Object.hash(runtimeType, productRef);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$GetProductRealtimeCopyWith<_$GetProductRealtime> get copyWith =>
       __$$GetProductRealtimeCopyWithImpl<_$GetProductRealtime>(
           this, _$identity);
@@ -195,15 +196,15 @@ class _$GetProductRealtime implements GetProductRealtime {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String productRef)? getProductRealtime,
-    TResult Function(Either<ProductFailure, Product> event)?
+    TResult? Function(String productRef)? getProductRealtime,
+    TResult? Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
-    TResult Function()? toggleStates,
-    TResult Function()? toggleFailures,
-    TResult Function(String size)? addToCart,
-    TResult Function(String size)? addNewCartWithProduct,
-    TResult Function(String skuId, String size)? addNewProduct,
-    TResult Function(String skuId, String size)? addSameProduct,
+    TResult? Function()? toggleStates,
+    TResult? Function()? toggleFailures,
+    TResult? Function(String size)? addToCart,
+    TResult? Function(String size)? addNewCartWithProduct,
+    TResult? Function(String skuId, String size)? addNewProduct,
+    TResult? Function(String skuId, String size)? addSameProduct,
   }) {
     return getProductRealtime?.call(productRef);
   }
@@ -247,14 +248,14 @@ class _$GetProductRealtime implements GetProductRealtime {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetProductRealtime value)? getProductRealtime,
-    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
-    TResult Function(ToggleStates value)? toggleStates,
-    TResult Function(ToggleFailures value)? toggleFailures,
-    TResult Function(AddToCart value)? addToCart,
-    TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
-    TResult Function(AddNewProduct value)? addNewProduct,
-    TResult Function(AddSameProduct value)? addSameProduct,
+    TResult? Function(GetProductRealtime value)? getProductRealtime,
+    TResult? Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult? Function(ToggleStates value)? toggleStates,
+    TResult? Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(AddToCart value)? addToCart,
+    TResult? Function(AddNewCartWithProduct value)? addNewCartWithProduct,
+    TResult? Function(AddNewProduct value)? addNewProduct,
+    TResult? Function(AddSameProduct value)? addSameProduct,
   }) {
     return getProductRealtime?.call(this);
   }
@@ -294,26 +295,25 @@ abstract class _$$RecievedStreamEventCopyWith<$Res> {
   factory _$$RecievedStreamEventCopyWith(_$RecievedStreamEvent value,
           $Res Function(_$RecievedStreamEvent) then) =
       __$$RecievedStreamEventCopyWithImpl<$Res>;
+  @useResult
   $Res call({Either<ProductFailure, Product> event});
 }
 
 /// @nodoc
 class __$$RecievedStreamEventCopyWithImpl<$Res>
-    extends _$ProductEventCopyWithImpl<$Res>
+    extends _$ProductEventCopyWithImpl<$Res, _$RecievedStreamEvent>
     implements _$$RecievedStreamEventCopyWith<$Res> {
   __$$RecievedStreamEventCopyWithImpl(
       _$RecievedStreamEvent _value, $Res Function(_$RecievedStreamEvent) _then)
-      : super(_value, (v) => _then(v as _$RecievedStreamEvent));
+      : super(_value, _then);
 
-  @override
-  _$RecievedStreamEvent get _value => super._value as _$RecievedStreamEvent;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? event = freezed,
+    Object? event = null,
   }) {
     return _then(_$RecievedStreamEvent(
-      event: event == freezed
+      event: null == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as Either<ProductFailure, Product>,
@@ -339,15 +339,15 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RecievedStreamEvent &&
-            const DeepCollectionEquality().equals(other.event, event));
+            (identical(other.event, event) || other.event == event));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(event));
+  int get hashCode => Object.hash(runtimeType, event);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$RecievedStreamEventCopyWith<_$RecievedStreamEvent> get copyWith =>
       __$$RecievedStreamEventCopyWithImpl<_$RecievedStreamEvent>(
           this, _$identity);
@@ -371,15 +371,15 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String productRef)? getProductRealtime,
-    TResult Function(Either<ProductFailure, Product> event)?
+    TResult? Function(String productRef)? getProductRealtime,
+    TResult? Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
-    TResult Function()? toggleStates,
-    TResult Function()? toggleFailures,
-    TResult Function(String size)? addToCart,
-    TResult Function(String size)? addNewCartWithProduct,
-    TResult Function(String skuId, String size)? addNewProduct,
-    TResult Function(String skuId, String size)? addSameProduct,
+    TResult? Function()? toggleStates,
+    TResult? Function()? toggleFailures,
+    TResult? Function(String size)? addToCart,
+    TResult? Function(String size)? addNewCartWithProduct,
+    TResult? Function(String skuId, String size)? addNewProduct,
+    TResult? Function(String skuId, String size)? addSameProduct,
   }) {
     return recievedStreamEvent?.call(event);
   }
@@ -423,14 +423,14 @@ class _$RecievedStreamEvent implements RecievedStreamEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetProductRealtime value)? getProductRealtime,
-    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
-    TResult Function(ToggleStates value)? toggleStates,
-    TResult Function(ToggleFailures value)? toggleFailures,
-    TResult Function(AddToCart value)? addToCart,
-    TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
-    TResult Function(AddNewProduct value)? addNewProduct,
-    TResult Function(AddSameProduct value)? addSameProduct,
+    TResult? Function(GetProductRealtime value)? getProductRealtime,
+    TResult? Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult? Function(ToggleStates value)? toggleStates,
+    TResult? Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(AddToCart value)? addToCart,
+    TResult? Function(AddNewCartWithProduct value)? addNewCartWithProduct,
+    TResult? Function(AddNewProduct value)? addNewProduct,
+    TResult? Function(AddSameProduct value)? addSameProduct,
   }) {
     return recievedStreamEvent?.call(this);
   }
@@ -475,14 +475,11 @@ abstract class _$$ToggleStatesCopyWith<$Res> {
 
 /// @nodoc
 class __$$ToggleStatesCopyWithImpl<$Res>
-    extends _$ProductEventCopyWithImpl<$Res>
+    extends _$ProductEventCopyWithImpl<$Res, _$ToggleStates>
     implements _$$ToggleStatesCopyWith<$Res> {
   __$$ToggleStatesCopyWithImpl(
       _$ToggleStates _value, $Res Function(_$ToggleStates) _then)
-      : super(_value, (v) => _then(v as _$ToggleStates));
-
-  @override
-  _$ToggleStates get _value => super._value as _$ToggleStates;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -523,15 +520,15 @@ class _$ToggleStates implements ToggleStates {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String productRef)? getProductRealtime,
-    TResult Function(Either<ProductFailure, Product> event)?
+    TResult? Function(String productRef)? getProductRealtime,
+    TResult? Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
-    TResult Function()? toggleStates,
-    TResult Function()? toggleFailures,
-    TResult Function(String size)? addToCart,
-    TResult Function(String size)? addNewCartWithProduct,
-    TResult Function(String skuId, String size)? addNewProduct,
-    TResult Function(String skuId, String size)? addSameProduct,
+    TResult? Function()? toggleStates,
+    TResult? Function()? toggleFailures,
+    TResult? Function(String size)? addToCart,
+    TResult? Function(String size)? addNewCartWithProduct,
+    TResult? Function(String skuId, String size)? addNewProduct,
+    TResult? Function(String skuId, String size)? addSameProduct,
   }) {
     return toggleStates?.call();
   }
@@ -575,14 +572,14 @@ class _$ToggleStates implements ToggleStates {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetProductRealtime value)? getProductRealtime,
-    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
-    TResult Function(ToggleStates value)? toggleStates,
-    TResult Function(ToggleFailures value)? toggleFailures,
-    TResult Function(AddToCart value)? addToCart,
-    TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
-    TResult Function(AddNewProduct value)? addNewProduct,
-    TResult Function(AddSameProduct value)? addSameProduct,
+    TResult? Function(GetProductRealtime value)? getProductRealtime,
+    TResult? Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult? Function(ToggleStates value)? toggleStates,
+    TResult? Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(AddToCart value)? addToCart,
+    TResult? Function(AddNewCartWithProduct value)? addNewCartWithProduct,
+    TResult? Function(AddNewProduct value)? addNewProduct,
+    TResult? Function(AddSameProduct value)? addSameProduct,
   }) {
     return toggleStates?.call(this);
   }
@@ -620,14 +617,11 @@ abstract class _$$ToggleFailuresCopyWith<$Res> {
 
 /// @nodoc
 class __$$ToggleFailuresCopyWithImpl<$Res>
-    extends _$ProductEventCopyWithImpl<$Res>
+    extends _$ProductEventCopyWithImpl<$Res, _$ToggleFailures>
     implements _$$ToggleFailuresCopyWith<$Res> {
   __$$ToggleFailuresCopyWithImpl(
       _$ToggleFailures _value, $Res Function(_$ToggleFailures) _then)
-      : super(_value, (v) => _then(v as _$ToggleFailures));
-
-  @override
-  _$ToggleFailures get _value => super._value as _$ToggleFailures;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -668,15 +662,15 @@ class _$ToggleFailures implements ToggleFailures {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String productRef)? getProductRealtime,
-    TResult Function(Either<ProductFailure, Product> event)?
+    TResult? Function(String productRef)? getProductRealtime,
+    TResult? Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
-    TResult Function()? toggleStates,
-    TResult Function()? toggleFailures,
-    TResult Function(String size)? addToCart,
-    TResult Function(String size)? addNewCartWithProduct,
-    TResult Function(String skuId, String size)? addNewProduct,
-    TResult Function(String skuId, String size)? addSameProduct,
+    TResult? Function()? toggleStates,
+    TResult? Function()? toggleFailures,
+    TResult? Function(String size)? addToCart,
+    TResult? Function(String size)? addNewCartWithProduct,
+    TResult? Function(String skuId, String size)? addNewProduct,
+    TResult? Function(String skuId, String size)? addSameProduct,
   }) {
     return toggleFailures?.call();
   }
@@ -720,14 +714,14 @@ class _$ToggleFailures implements ToggleFailures {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetProductRealtime value)? getProductRealtime,
-    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
-    TResult Function(ToggleStates value)? toggleStates,
-    TResult Function(ToggleFailures value)? toggleFailures,
-    TResult Function(AddToCart value)? addToCart,
-    TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
-    TResult Function(AddNewProduct value)? addNewProduct,
-    TResult Function(AddSameProduct value)? addSameProduct,
+    TResult? Function(GetProductRealtime value)? getProductRealtime,
+    TResult? Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult? Function(ToggleStates value)? toggleStates,
+    TResult? Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(AddToCart value)? addToCart,
+    TResult? Function(AddNewCartWithProduct value)? addNewCartWithProduct,
+    TResult? Function(AddNewProduct value)? addNewProduct,
+    TResult? Function(AddSameProduct value)? addSameProduct,
   }) {
     return toggleFailures?.call(this);
   }
@@ -761,25 +755,25 @@ abstract class _$$AddToCartCopyWith<$Res> {
   factory _$$AddToCartCopyWith(
           _$AddToCart value, $Res Function(_$AddToCart) then) =
       __$$AddToCartCopyWithImpl<$Res>;
+  @useResult
   $Res call({String size});
 }
 
 /// @nodoc
-class __$$AddToCartCopyWithImpl<$Res> extends _$ProductEventCopyWithImpl<$Res>
+class __$$AddToCartCopyWithImpl<$Res>
+    extends _$ProductEventCopyWithImpl<$Res, _$AddToCart>
     implements _$$AddToCartCopyWith<$Res> {
   __$$AddToCartCopyWithImpl(
       _$AddToCart _value, $Res Function(_$AddToCart) _then)
-      : super(_value, (v) => _then(v as _$AddToCart));
+      : super(_value, _then);
 
-  @override
-  _$AddToCart get _value => super._value as _$AddToCart;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? size = freezed,
+    Object? size = null,
   }) {
     return _then(_$AddToCart(
-      size: size == freezed
+      size: null == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
               as String,
@@ -805,15 +799,15 @@ class _$AddToCart implements AddToCart {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddToCart &&
-            const DeepCollectionEquality().equals(other.size, size));
+            (identical(other.size, size) || other.size == size));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(size));
+  int get hashCode => Object.hash(runtimeType, size);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$AddToCartCopyWith<_$AddToCart> get copyWith =>
       __$$AddToCartCopyWithImpl<_$AddToCart>(this, _$identity);
 
@@ -836,15 +830,15 @@ class _$AddToCart implements AddToCart {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String productRef)? getProductRealtime,
-    TResult Function(Either<ProductFailure, Product> event)?
+    TResult? Function(String productRef)? getProductRealtime,
+    TResult? Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
-    TResult Function()? toggleStates,
-    TResult Function()? toggleFailures,
-    TResult Function(String size)? addToCart,
-    TResult Function(String size)? addNewCartWithProduct,
-    TResult Function(String skuId, String size)? addNewProduct,
-    TResult Function(String skuId, String size)? addSameProduct,
+    TResult? Function()? toggleStates,
+    TResult? Function()? toggleFailures,
+    TResult? Function(String size)? addToCart,
+    TResult? Function(String size)? addNewCartWithProduct,
+    TResult? Function(String skuId, String size)? addNewProduct,
+    TResult? Function(String skuId, String size)? addSameProduct,
   }) {
     return addToCart?.call(size);
   }
@@ -888,14 +882,14 @@ class _$AddToCart implements AddToCart {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetProductRealtime value)? getProductRealtime,
-    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
-    TResult Function(ToggleStates value)? toggleStates,
-    TResult Function(ToggleFailures value)? toggleFailures,
-    TResult Function(AddToCart value)? addToCart,
-    TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
-    TResult Function(AddNewProduct value)? addNewProduct,
-    TResult Function(AddSameProduct value)? addSameProduct,
+    TResult? Function(GetProductRealtime value)? getProductRealtime,
+    TResult? Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult? Function(ToggleStates value)? toggleStates,
+    TResult? Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(AddToCart value)? addToCart,
+    TResult? Function(AddNewCartWithProduct value)? addNewCartWithProduct,
+    TResult? Function(AddNewProduct value)? addNewProduct,
+    TResult? Function(AddSameProduct value)? addSameProduct,
   }) {
     return addToCart?.call(this);
   }
@@ -934,26 +928,25 @@ abstract class _$$AddNewCartWithProductCopyWith<$Res> {
   factory _$$AddNewCartWithProductCopyWith(_$AddNewCartWithProduct value,
           $Res Function(_$AddNewCartWithProduct) then) =
       __$$AddNewCartWithProductCopyWithImpl<$Res>;
+  @useResult
   $Res call({String size});
 }
 
 /// @nodoc
 class __$$AddNewCartWithProductCopyWithImpl<$Res>
-    extends _$ProductEventCopyWithImpl<$Res>
+    extends _$ProductEventCopyWithImpl<$Res, _$AddNewCartWithProduct>
     implements _$$AddNewCartWithProductCopyWith<$Res> {
   __$$AddNewCartWithProductCopyWithImpl(_$AddNewCartWithProduct _value,
       $Res Function(_$AddNewCartWithProduct) _then)
-      : super(_value, (v) => _then(v as _$AddNewCartWithProduct));
+      : super(_value, _then);
 
-  @override
-  _$AddNewCartWithProduct get _value => super._value as _$AddNewCartWithProduct;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? size = freezed,
+    Object? size = null,
   }) {
     return _then(_$AddNewCartWithProduct(
-      size: size == freezed
+      size: null == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
               as String,
@@ -979,15 +972,15 @@ class _$AddNewCartWithProduct implements AddNewCartWithProduct {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddNewCartWithProduct &&
-            const DeepCollectionEquality().equals(other.size, size));
+            (identical(other.size, size) || other.size == size));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(size));
+  int get hashCode => Object.hash(runtimeType, size);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$AddNewCartWithProductCopyWith<_$AddNewCartWithProduct> get copyWith =>
       __$$AddNewCartWithProductCopyWithImpl<_$AddNewCartWithProduct>(
           this, _$identity);
@@ -1011,15 +1004,15 @@ class _$AddNewCartWithProduct implements AddNewCartWithProduct {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String productRef)? getProductRealtime,
-    TResult Function(Either<ProductFailure, Product> event)?
+    TResult? Function(String productRef)? getProductRealtime,
+    TResult? Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
-    TResult Function()? toggleStates,
-    TResult Function()? toggleFailures,
-    TResult Function(String size)? addToCart,
-    TResult Function(String size)? addNewCartWithProduct,
-    TResult Function(String skuId, String size)? addNewProduct,
-    TResult Function(String skuId, String size)? addSameProduct,
+    TResult? Function()? toggleStates,
+    TResult? Function()? toggleFailures,
+    TResult? Function(String size)? addToCart,
+    TResult? Function(String size)? addNewCartWithProduct,
+    TResult? Function(String skuId, String size)? addNewProduct,
+    TResult? Function(String skuId, String size)? addSameProduct,
   }) {
     return addNewCartWithProduct?.call(size);
   }
@@ -1063,14 +1056,14 @@ class _$AddNewCartWithProduct implements AddNewCartWithProduct {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetProductRealtime value)? getProductRealtime,
-    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
-    TResult Function(ToggleStates value)? toggleStates,
-    TResult Function(ToggleFailures value)? toggleFailures,
-    TResult Function(AddToCart value)? addToCart,
-    TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
-    TResult Function(AddNewProduct value)? addNewProduct,
-    TResult Function(AddSameProduct value)? addSameProduct,
+    TResult? Function(GetProductRealtime value)? getProductRealtime,
+    TResult? Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult? Function(ToggleStates value)? toggleStates,
+    TResult? Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(AddToCart value)? addToCart,
+    TResult? Function(AddNewCartWithProduct value)? addNewCartWithProduct,
+    TResult? Function(AddNewProduct value)? addNewProduct,
+    TResult? Function(AddSameProduct value)? addSameProduct,
   }) {
     return addNewCartWithProduct?.call(this);
   }
@@ -1110,31 +1103,30 @@ abstract class _$$AddNewProductCopyWith<$Res> {
   factory _$$AddNewProductCopyWith(
           _$AddNewProduct value, $Res Function(_$AddNewProduct) then) =
       __$$AddNewProductCopyWithImpl<$Res>;
+  @useResult
   $Res call({String skuId, String size});
 }
 
 /// @nodoc
 class __$$AddNewProductCopyWithImpl<$Res>
-    extends _$ProductEventCopyWithImpl<$Res>
+    extends _$ProductEventCopyWithImpl<$Res, _$AddNewProduct>
     implements _$$AddNewProductCopyWith<$Res> {
   __$$AddNewProductCopyWithImpl(
       _$AddNewProduct _value, $Res Function(_$AddNewProduct) _then)
-      : super(_value, (v) => _then(v as _$AddNewProduct));
+      : super(_value, _then);
 
-  @override
-  _$AddNewProduct get _value => super._value as _$AddNewProduct;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? skuId = freezed,
-    Object? size = freezed,
+    Object? skuId = null,
+    Object? size = null,
   }) {
     return _then(_$AddNewProduct(
-      skuId: skuId == freezed
+      skuId: null == skuId
           ? _value.skuId
           : skuId // ignore: cast_nullable_to_non_nullable
               as String,
-      size: size == freezed
+      size: null == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
               as String,
@@ -1162,18 +1154,16 @@ class _$AddNewProduct implements AddNewProduct {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddNewProduct &&
-            const DeepCollectionEquality().equals(other.skuId, skuId) &&
-            const DeepCollectionEquality().equals(other.size, size));
+            (identical(other.skuId, skuId) || other.skuId == skuId) &&
+            (identical(other.size, size) || other.size == size));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(skuId),
-      const DeepCollectionEquality().hash(size));
+  int get hashCode => Object.hash(runtimeType, skuId, size);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$AddNewProductCopyWith<_$AddNewProduct> get copyWith =>
       __$$AddNewProductCopyWithImpl<_$AddNewProduct>(this, _$identity);
 
@@ -1196,15 +1186,15 @@ class _$AddNewProduct implements AddNewProduct {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String productRef)? getProductRealtime,
-    TResult Function(Either<ProductFailure, Product> event)?
+    TResult? Function(String productRef)? getProductRealtime,
+    TResult? Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
-    TResult Function()? toggleStates,
-    TResult Function()? toggleFailures,
-    TResult Function(String size)? addToCart,
-    TResult Function(String size)? addNewCartWithProduct,
-    TResult Function(String skuId, String size)? addNewProduct,
-    TResult Function(String skuId, String size)? addSameProduct,
+    TResult? Function()? toggleStates,
+    TResult? Function()? toggleFailures,
+    TResult? Function(String size)? addToCart,
+    TResult? Function(String size)? addNewCartWithProduct,
+    TResult? Function(String skuId, String size)? addNewProduct,
+    TResult? Function(String skuId, String size)? addSameProduct,
   }) {
     return addNewProduct?.call(skuId, size);
   }
@@ -1248,14 +1238,14 @@ class _$AddNewProduct implements AddNewProduct {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetProductRealtime value)? getProductRealtime,
-    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
-    TResult Function(ToggleStates value)? toggleStates,
-    TResult Function(ToggleFailures value)? toggleFailures,
-    TResult Function(AddToCart value)? addToCart,
-    TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
-    TResult Function(AddNewProduct value)? addNewProduct,
-    TResult Function(AddSameProduct value)? addSameProduct,
+    TResult? Function(GetProductRealtime value)? getProductRealtime,
+    TResult? Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult? Function(ToggleStates value)? toggleStates,
+    TResult? Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(AddToCart value)? addToCart,
+    TResult? Function(AddNewCartWithProduct value)? addNewCartWithProduct,
+    TResult? Function(AddNewProduct value)? addNewProduct,
+    TResult? Function(AddSameProduct value)? addSameProduct,
   }) {
     return addNewProduct?.call(this);
   }
@@ -1297,31 +1287,30 @@ abstract class _$$AddSameProductCopyWith<$Res> {
   factory _$$AddSameProductCopyWith(
           _$AddSameProduct value, $Res Function(_$AddSameProduct) then) =
       __$$AddSameProductCopyWithImpl<$Res>;
+  @useResult
   $Res call({String skuId, String size});
 }
 
 /// @nodoc
 class __$$AddSameProductCopyWithImpl<$Res>
-    extends _$ProductEventCopyWithImpl<$Res>
+    extends _$ProductEventCopyWithImpl<$Res, _$AddSameProduct>
     implements _$$AddSameProductCopyWith<$Res> {
   __$$AddSameProductCopyWithImpl(
       _$AddSameProduct _value, $Res Function(_$AddSameProduct) _then)
-      : super(_value, (v) => _then(v as _$AddSameProduct));
+      : super(_value, _then);
 
-  @override
-  _$AddSameProduct get _value => super._value as _$AddSameProduct;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? skuId = freezed,
-    Object? size = freezed,
+    Object? skuId = null,
+    Object? size = null,
   }) {
     return _then(_$AddSameProduct(
-      skuId: skuId == freezed
+      skuId: null == skuId
           ? _value.skuId
           : skuId // ignore: cast_nullable_to_non_nullable
               as String,
-      size: size == freezed
+      size: null == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
               as String,
@@ -1349,18 +1338,16 @@ class _$AddSameProduct implements AddSameProduct {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddSameProduct &&
-            const DeepCollectionEquality().equals(other.skuId, skuId) &&
-            const DeepCollectionEquality().equals(other.size, size));
+            (identical(other.skuId, skuId) || other.skuId == skuId) &&
+            (identical(other.size, size) || other.size == size));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(skuId),
-      const DeepCollectionEquality().hash(size));
+  int get hashCode => Object.hash(runtimeType, skuId, size);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$AddSameProductCopyWith<_$AddSameProduct> get copyWith =>
       __$$AddSameProductCopyWithImpl<_$AddSameProduct>(this, _$identity);
 
@@ -1383,15 +1370,15 @@ class _$AddSameProduct implements AddSameProduct {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String productRef)? getProductRealtime,
-    TResult Function(Either<ProductFailure, Product> event)?
+    TResult? Function(String productRef)? getProductRealtime,
+    TResult? Function(Either<ProductFailure, Product> event)?
         recievedStreamEvent,
-    TResult Function()? toggleStates,
-    TResult Function()? toggleFailures,
-    TResult Function(String size)? addToCart,
-    TResult Function(String size)? addNewCartWithProduct,
-    TResult Function(String skuId, String size)? addNewProduct,
-    TResult Function(String skuId, String size)? addSameProduct,
+    TResult? Function()? toggleStates,
+    TResult? Function()? toggleFailures,
+    TResult? Function(String size)? addToCart,
+    TResult? Function(String size)? addNewCartWithProduct,
+    TResult? Function(String skuId, String size)? addNewProduct,
+    TResult? Function(String skuId, String size)? addSameProduct,
   }) {
     return addSameProduct?.call(skuId, size);
   }
@@ -1435,14 +1422,14 @@ class _$AddSameProduct implements AddSameProduct {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GetProductRealtime value)? getProductRealtime,
-    TResult Function(RecievedStreamEvent value)? recievedStreamEvent,
-    TResult Function(ToggleStates value)? toggleStates,
-    TResult Function(ToggleFailures value)? toggleFailures,
-    TResult Function(AddToCart value)? addToCart,
-    TResult Function(AddNewCartWithProduct value)? addNewCartWithProduct,
-    TResult Function(AddNewProduct value)? addNewProduct,
-    TResult Function(AddSameProduct value)? addSameProduct,
+    TResult? Function(GetProductRealtime value)? getProductRealtime,
+    TResult? Function(RecievedStreamEvent value)? recievedStreamEvent,
+    TResult? Function(ToggleStates value)? toggleStates,
+    TResult? Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(AddToCart value)? addToCart,
+    TResult? Function(AddNewCartWithProduct value)? addNewCartWithProduct,
+    TResult? Function(AddNewProduct value)? addNewProduct,
+    TResult? Function(AddSameProduct value)? addSameProduct,
   }) {
     return addSameProduct?.call(this);
   }
@@ -1498,7 +1485,8 @@ mixin _$ProductState {
 abstract class $ProductStateCopyWith<$Res> {
   factory $ProductStateCopyWith(
           ProductState value, $Res Function(ProductState) then) =
-      _$ProductStateCopyWithImpl<$Res>;
+      _$ProductStateCopyWithImpl<$Res, ProductState>;
+  @useResult
   $Res call(
       {bool isFetching,
       Option<ProductFailure> failure,
@@ -1511,58 +1499,62 @@ abstract class $ProductStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ProductStateCopyWithImpl<$Res> implements $ProductStateCopyWith<$Res> {
+class _$ProductStateCopyWithImpl<$Res, $Val extends ProductState>
+    implements $ProductStateCopyWith<$Res> {
   _$ProductStateCopyWithImpl(this._value, this._then);
 
-  final ProductState _value;
   // ignore: unused_field
-  final $Res Function(ProductState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isFetching = freezed,
-    Object? failure = freezed,
+    Object? isFetching = null,
+    Object? failure = null,
     Object? productRealtime = freezed,
-    Object? addingToCart = freezed,
-    Object? newCartPermissionState = freezed,
-    Object? cartFailureOrSuccess = freezed,
+    Object? addingToCart = null,
+    Object? newCartPermissionState = null,
+    Object? cartFailureOrSuccess = null,
   }) {
     return _then(_value.copyWith(
-      isFetching: isFetching == freezed
+      isFetching: null == isFetching
           ? _value.isFetching
           : isFetching // ignore: cast_nullable_to_non_nullable
               as bool,
-      failure: failure == freezed
+      failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<ProductFailure>,
-      productRealtime: productRealtime == freezed
+      productRealtime: freezed == productRealtime
           ? _value.productRealtime
           : productRealtime // ignore: cast_nullable_to_non_nullable
               as Product?,
-      addingToCart: addingToCart == freezed
+      addingToCart: null == addingToCart
           ? _value.addingToCart
           : addingToCart // ignore: cast_nullable_to_non_nullable
               as bool,
-      newCartPermissionState: newCartPermissionState == freezed
+      newCartPermissionState: null == newCartPermissionState
           ? _value.newCartPermissionState
           : newCartPermissionState // ignore: cast_nullable_to_non_nullable
               as bool,
-      cartFailureOrSuccess: cartFailureOrSuccess == freezed
+      cartFailureOrSuccess: null == cartFailureOrSuccess
           ? _value.cartFailureOrSuccess
           : cartFailureOrSuccess // ignore: cast_nullable_to_non_nullable
               as Option<Either<CartFailure, Unit>>,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ProductCopyWith<$Res>? get productRealtime {
     if (_value.productRealtime == null) {
       return null;
     }
 
     return $ProductCopyWith<$Res>(_value.productRealtime!, (value) {
-      return _then(_value.copyWith(productRealtime: value));
+      return _then(_value.copyWith(productRealtime: value) as $Val);
     });
   }
 }
@@ -1574,6 +1566,7 @@ abstract class _$$_ProductStateCopyWith<$Res>
           _$_ProductState value, $Res Function(_$_ProductState) then) =
       __$$_ProductStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {bool isFetching,
       Option<ProductFailure> failure,
@@ -1588,46 +1581,44 @@ abstract class _$$_ProductStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_ProductStateCopyWithImpl<$Res>
-    extends _$ProductStateCopyWithImpl<$Res>
+    extends _$ProductStateCopyWithImpl<$Res, _$_ProductState>
     implements _$$_ProductStateCopyWith<$Res> {
   __$$_ProductStateCopyWithImpl(
       _$_ProductState _value, $Res Function(_$_ProductState) _then)
-      : super(_value, (v) => _then(v as _$_ProductState));
+      : super(_value, _then);
 
-  @override
-  _$_ProductState get _value => super._value as _$_ProductState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isFetching = freezed,
-    Object? failure = freezed,
+    Object? isFetching = null,
+    Object? failure = null,
     Object? productRealtime = freezed,
-    Object? addingToCart = freezed,
-    Object? newCartPermissionState = freezed,
-    Object? cartFailureOrSuccess = freezed,
+    Object? addingToCart = null,
+    Object? newCartPermissionState = null,
+    Object? cartFailureOrSuccess = null,
   }) {
     return _then(_$_ProductState(
-      isFetching: isFetching == freezed
+      isFetching: null == isFetching
           ? _value.isFetching
           : isFetching // ignore: cast_nullable_to_non_nullable
               as bool,
-      failure: failure == freezed
+      failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<ProductFailure>,
-      productRealtime: productRealtime == freezed
+      productRealtime: freezed == productRealtime
           ? _value.productRealtime
           : productRealtime // ignore: cast_nullable_to_non_nullable
               as Product?,
-      addingToCart: addingToCart == freezed
+      addingToCart: null == addingToCart
           ? _value.addingToCart
           : addingToCart // ignore: cast_nullable_to_non_nullable
               as bool,
-      newCartPermissionState: newCartPermissionState == freezed
+      newCartPermissionState: null == newCartPermissionState
           ? _value.newCartPermissionState
           : newCartPermissionState // ignore: cast_nullable_to_non_nullable
               as bool,
-      cartFailureOrSuccess: cartFailureOrSuccess == freezed
+      cartFailureOrSuccess: null == cartFailureOrSuccess
           ? _value.cartFailureOrSuccess
           : cartFailureOrSuccess // ignore: cast_nullable_to_non_nullable
               as Option<Either<CartFailure, Unit>>,
@@ -1670,31 +1661,32 @@ class _$_ProductState extends _ProductState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ProductState &&
-            const DeepCollectionEquality()
-                .equals(other.isFetching, isFetching) &&
-            const DeepCollectionEquality().equals(other.failure, failure) &&
-            const DeepCollectionEquality()
-                .equals(other.productRealtime, productRealtime) &&
-            const DeepCollectionEquality()
-                .equals(other.addingToCart, addingToCart) &&
-            const DeepCollectionEquality()
-                .equals(other.newCartPermissionState, newCartPermissionState) &&
-            const DeepCollectionEquality()
-                .equals(other.cartFailureOrSuccess, cartFailureOrSuccess));
+            (identical(other.isFetching, isFetching) ||
+                other.isFetching == isFetching) &&
+            (identical(other.failure, failure) || other.failure == failure) &&
+            (identical(other.productRealtime, productRealtime) ||
+                other.productRealtime == productRealtime) &&
+            (identical(other.addingToCart, addingToCart) ||
+                other.addingToCart == addingToCart) &&
+            (identical(other.newCartPermissionState, newCartPermissionState) ||
+                other.newCartPermissionState == newCartPermissionState) &&
+            (identical(other.cartFailureOrSuccess, cartFailureOrSuccess) ||
+                other.cartFailureOrSuccess == cartFailureOrSuccess));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(isFetching),
-      const DeepCollectionEquality().hash(failure),
-      const DeepCollectionEquality().hash(productRealtime),
-      const DeepCollectionEquality().hash(addingToCart),
-      const DeepCollectionEquality().hash(newCartPermissionState),
-      const DeepCollectionEquality().hash(cartFailureOrSuccess));
+      isFetching,
+      failure,
+      productRealtime,
+      addingToCart,
+      newCartPermissionState,
+      cartFailureOrSuccess);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ProductStateCopyWith<_$_ProductState> get copyWith =>
       __$$_ProductStateCopyWithImpl<_$_ProductState>(this, _$identity);
 }

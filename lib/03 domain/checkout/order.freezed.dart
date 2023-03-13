@@ -40,7 +40,8 @@ mixin _$FydOrder {
 /// @nodoc
 abstract class $FydOrderCopyWith<$Res> {
   factory $FydOrderCopyWith(FydOrder value, $Res Function(FydOrder) then) =
-      _$FydOrderCopyWithImpl<$Res>;
+      _$FydOrderCopyWithImpl<$Res, FydOrder>;
+  @useResult
   $Res call(
       {String orderId,
       OrderStatus orderStatus,
@@ -59,92 +60,100 @@ abstract class $FydOrderCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$FydOrderCopyWithImpl<$Res> implements $FydOrderCopyWith<$Res> {
+class _$FydOrderCopyWithImpl<$Res, $Val extends FydOrder>
+    implements $FydOrderCopyWith<$Res> {
   _$FydOrderCopyWithImpl(this._value, this._then);
 
-  final FydOrder _value;
   // ignore: unused_field
-  final $Res Function(FydOrder) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? orderId = freezed,
-    Object? orderStatus = freezed,
-    Object? orderInfo = freezed,
-    Object? shippingInfo = freezed,
-    Object? paymentInfo = freezed,
-    Object? customerInfo = freezed,
+    Object? orderId = null,
+    Object? orderStatus = null,
+    Object? orderInfo = null,
+    Object? shippingInfo = null,
+    Object? paymentInfo = null,
+    Object? customerInfo = null,
     Object? orderDate = freezed,
     Object? deliveryDate = freezed,
   }) {
     return _then(_value.copyWith(
-      orderId: orderId == freezed
+      orderId: null == orderId
           ? _value.orderId
           : orderId // ignore: cast_nullable_to_non_nullable
               as String,
-      orderStatus: orderStatus == freezed
+      orderStatus: null == orderStatus
           ? _value.orderStatus
           : orderStatus // ignore: cast_nullable_to_non_nullable
               as OrderStatus,
-      orderInfo: orderInfo == freezed
+      orderInfo: null == orderInfo
           ? _value.orderInfo
           : orderInfo // ignore: cast_nullable_to_non_nullable
               as OrderInfo,
-      shippingInfo: shippingInfo == freezed
+      shippingInfo: null == shippingInfo
           ? _value.shippingInfo
           : shippingInfo // ignore: cast_nullable_to_non_nullable
               as ShippingInfo,
-      paymentInfo: paymentInfo == freezed
+      paymentInfo: null == paymentInfo
           ? _value.paymentInfo
           : paymentInfo // ignore: cast_nullable_to_non_nullable
               as PaymentInfo,
-      customerInfo: customerInfo == freezed
+      customerInfo: null == customerInfo
           ? _value.customerInfo
           : customerInfo // ignore: cast_nullable_to_non_nullable
               as CustomerInfo,
-      orderDate: orderDate == freezed
+      orderDate: freezed == orderDate
           ? _value.orderDate
           : orderDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      deliveryDate: deliveryDate == freezed
+      deliveryDate: freezed == deliveryDate
           ? _value.deliveryDate
           : deliveryDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $OrderStatusCopyWith<$Res> get orderStatus {
     return $OrderStatusCopyWith<$Res>(_value.orderStatus, (value) {
-      return _then(_value.copyWith(orderStatus: value));
+      return _then(_value.copyWith(orderStatus: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $OrderInfoCopyWith<$Res> get orderInfo {
     return $OrderInfoCopyWith<$Res>(_value.orderInfo, (value) {
-      return _then(_value.copyWith(orderInfo: value));
+      return _then(_value.copyWith(orderInfo: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ShippingInfoCopyWith<$Res> get shippingInfo {
     return $ShippingInfoCopyWith<$Res>(_value.shippingInfo, (value) {
-      return _then(_value.copyWith(shippingInfo: value));
+      return _then(_value.copyWith(shippingInfo: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PaymentInfoCopyWith<$Res> get paymentInfo {
     return $PaymentInfoCopyWith<$Res>(_value.paymentInfo, (value) {
-      return _then(_value.copyWith(paymentInfo: value));
+      return _then(_value.copyWith(paymentInfo: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $CustomerInfoCopyWith<$Res> get customerInfo {
     return $CustomerInfoCopyWith<$Res>(_value.customerInfo, (value) {
-      return _then(_value.copyWith(customerInfo: value));
+      return _then(_value.copyWith(customerInfo: value) as $Val);
     });
   }
 }
@@ -155,6 +164,7 @@ abstract class _$$_FydOrderCopyWith<$Res> implements $FydOrderCopyWith<$Res> {
           _$_FydOrder value, $Res Function(_$_FydOrder) then) =
       __$$_FydOrderCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String orderId,
       OrderStatus orderStatus,
@@ -178,56 +188,55 @@ abstract class _$$_FydOrderCopyWith<$Res> implements $FydOrderCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_FydOrderCopyWithImpl<$Res> extends _$FydOrderCopyWithImpl<$Res>
+class __$$_FydOrderCopyWithImpl<$Res>
+    extends _$FydOrderCopyWithImpl<$Res, _$_FydOrder>
     implements _$$_FydOrderCopyWith<$Res> {
   __$$_FydOrderCopyWithImpl(
       _$_FydOrder _value, $Res Function(_$_FydOrder) _then)
-      : super(_value, (v) => _then(v as _$_FydOrder));
+      : super(_value, _then);
 
-  @override
-  _$_FydOrder get _value => super._value as _$_FydOrder;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? orderId = freezed,
-    Object? orderStatus = freezed,
-    Object? orderInfo = freezed,
-    Object? shippingInfo = freezed,
-    Object? paymentInfo = freezed,
-    Object? customerInfo = freezed,
+    Object? orderId = null,
+    Object? orderStatus = null,
+    Object? orderInfo = null,
+    Object? shippingInfo = null,
+    Object? paymentInfo = null,
+    Object? customerInfo = null,
     Object? orderDate = freezed,
     Object? deliveryDate = freezed,
   }) {
     return _then(_$_FydOrder(
-      orderId: orderId == freezed
+      orderId: null == orderId
           ? _value.orderId
           : orderId // ignore: cast_nullable_to_non_nullable
               as String,
-      orderStatus: orderStatus == freezed
+      orderStatus: null == orderStatus
           ? _value.orderStatus
           : orderStatus // ignore: cast_nullable_to_non_nullable
               as OrderStatus,
-      orderInfo: orderInfo == freezed
+      orderInfo: null == orderInfo
           ? _value.orderInfo
           : orderInfo // ignore: cast_nullable_to_non_nullable
               as OrderInfo,
-      shippingInfo: shippingInfo == freezed
+      shippingInfo: null == shippingInfo
           ? _value.shippingInfo
           : shippingInfo // ignore: cast_nullable_to_non_nullable
               as ShippingInfo,
-      paymentInfo: paymentInfo == freezed
+      paymentInfo: null == paymentInfo
           ? _value.paymentInfo
           : paymentInfo // ignore: cast_nullable_to_non_nullable
               as PaymentInfo,
-      customerInfo: customerInfo == freezed
+      customerInfo: null == customerInfo
           ? _value.customerInfo
           : customerInfo // ignore: cast_nullable_to_non_nullable
               as CustomerInfo,
-      orderDate: orderDate == freezed
+      orderDate: freezed == orderDate
           ? _value.orderDate
           : orderDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      deliveryDate: deliveryDate == freezed
+      deliveryDate: freezed == deliveryDate
           ? _value.deliveryDate
           : deliveryDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
@@ -281,36 +290,31 @@ class _$_FydOrder implements _FydOrder {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FydOrder &&
-            const DeepCollectionEquality().equals(other.orderId, orderId) &&
-            const DeepCollectionEquality()
-                .equals(other.orderStatus, orderStatus) &&
-            const DeepCollectionEquality().equals(other.orderInfo, orderInfo) &&
-            const DeepCollectionEquality()
-                .equals(other.shippingInfo, shippingInfo) &&
-            const DeepCollectionEquality()
-                .equals(other.paymentInfo, paymentInfo) &&
-            const DeepCollectionEquality()
-                .equals(other.customerInfo, customerInfo) &&
-            const DeepCollectionEquality().equals(other.orderDate, orderDate) &&
-            const DeepCollectionEquality()
-                .equals(other.deliveryDate, deliveryDate));
+            (identical(other.orderId, orderId) || other.orderId == orderId) &&
+            (identical(other.orderStatus, orderStatus) ||
+                other.orderStatus == orderStatus) &&
+            (identical(other.orderInfo, orderInfo) ||
+                other.orderInfo == orderInfo) &&
+            (identical(other.shippingInfo, shippingInfo) ||
+                other.shippingInfo == shippingInfo) &&
+            (identical(other.paymentInfo, paymentInfo) ||
+                other.paymentInfo == paymentInfo) &&
+            (identical(other.customerInfo, customerInfo) ||
+                other.customerInfo == customerInfo) &&
+            (identical(other.orderDate, orderDate) ||
+                other.orderDate == orderDate) &&
+            (identical(other.deliveryDate, deliveryDate) ||
+                other.deliveryDate == deliveryDate));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(orderId),
-      const DeepCollectionEquality().hash(orderStatus),
-      const DeepCollectionEquality().hash(orderInfo),
-      const DeepCollectionEquality().hash(shippingInfo),
-      const DeepCollectionEquality().hash(paymentInfo),
-      const DeepCollectionEquality().hash(customerInfo),
-      const DeepCollectionEquality().hash(orderDate),
-      const DeepCollectionEquality().hash(deliveryDate));
+  int get hashCode => Object.hash(runtimeType, orderId, orderStatus, orderInfo,
+      shippingInfo, paymentInfo, customerInfo, orderDate, deliveryDate);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_FydOrderCopyWith<_$_FydOrder> get copyWith =>
       __$$_FydOrderCopyWithImpl<_$_FydOrder>(this, _$identity);
 
@@ -402,14 +406,14 @@ mixin _$OrderStatus {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PaymentMode paymentMode)? failure,
-    TResult Function()? success,
-    TResult Function()? confirmed,
-    TResult Function()? declined,
-    TResult Function()? shipped,
-    TResult Function(String? deliveryDate)? delivered,
-    TResult Function()? fullFilled,
-    TResult Function(String? refundId)? refunded,
+    TResult? Function(PaymentMode paymentMode)? failure,
+    TResult? Function()? success,
+    TResult? Function()? confirmed,
+    TResult? Function()? declined,
+    TResult? Function()? shipped,
+    TResult? Function(String? deliveryDate)? delivered,
+    TResult? Function()? fullFilled,
+    TResult? Function(String? refundId)? refunded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -439,14 +443,14 @@ mixin _$OrderStatus {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Failure value)? failure,
-    TResult Function(Success value)? success,
-    TResult Function(Confirmed value)? confirmed,
-    TResult Function(Declined value)? declined,
-    TResult Function(Shipped value)? shipped,
-    TResult Function(Delivered value)? delivered,
-    TResult Function(FullFilled value)? fullFilled,
-    TResult Function(Refunded value)? refunded,
+    TResult? Function(Failure value)? failure,
+    TResult? Function(Success value)? success,
+    TResult? Function(Confirmed value)? confirmed,
+    TResult? Function(Declined value)? declined,
+    TResult? Function(Shipped value)? shipped,
+    TResult? Function(Delivered value)? delivered,
+    TResult? Function(FullFilled value)? fullFilled,
+    TResult? Function(Refunded value)? refunded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -469,42 +473,44 @@ mixin _$OrderStatus {
 abstract class $OrderStatusCopyWith<$Res> {
   factory $OrderStatusCopyWith(
           OrderStatus value, $Res Function(OrderStatus) then) =
-      _$OrderStatusCopyWithImpl<$Res>;
+      _$OrderStatusCopyWithImpl<$Res, OrderStatus>;
 }
 
 /// @nodoc
-class _$OrderStatusCopyWithImpl<$Res> implements $OrderStatusCopyWith<$Res> {
+class _$OrderStatusCopyWithImpl<$Res, $Val extends OrderStatus>
+    implements $OrderStatusCopyWith<$Res> {
   _$OrderStatusCopyWithImpl(this._value, this._then);
 
-  final OrderStatus _value;
   // ignore: unused_field
-  final $Res Function(OrderStatus) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
 abstract class _$$FailureCopyWith<$Res> {
   factory _$$FailureCopyWith(_$Failure value, $Res Function(_$Failure) then) =
       __$$FailureCopyWithImpl<$Res>;
+  @useResult
   $Res call({PaymentMode paymentMode});
 
   $PaymentModeCopyWith<$Res> get paymentMode;
 }
 
 /// @nodoc
-class __$$FailureCopyWithImpl<$Res> extends _$OrderStatusCopyWithImpl<$Res>
+class __$$FailureCopyWithImpl<$Res>
+    extends _$OrderStatusCopyWithImpl<$Res, _$Failure>
     implements _$$FailureCopyWith<$Res> {
   __$$FailureCopyWithImpl(_$Failure _value, $Res Function(_$Failure) _then)
-      : super(_value, (v) => _then(v as _$Failure));
+      : super(_value, _then);
 
-  @override
-  _$Failure get _value => super._value as _$Failure;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? paymentMode = freezed,
+    Object? paymentMode = null,
   }) {
     return _then(_$Failure(
-      paymentMode: paymentMode == freezed
+      paymentMode: null == paymentMode
           ? _value.paymentMode
           : paymentMode // ignore: cast_nullable_to_non_nullable
               as PaymentMode,
@@ -512,6 +518,7 @@ class __$$FailureCopyWithImpl<$Res> extends _$OrderStatusCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PaymentModeCopyWith<$Res> get paymentMode {
     return $PaymentModeCopyWith<$Res>(_value.paymentMode, (value) {
       return _then(_value.copyWith(paymentMode: value));
@@ -544,17 +551,17 @@ class _$Failure implements Failure {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Failure &&
-            const DeepCollectionEquality()
-                .equals(other.paymentMode, paymentMode));
+            (identical(other.paymentMode, paymentMode) ||
+                other.paymentMode == paymentMode));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(paymentMode));
+  int get hashCode => Object.hash(runtimeType, paymentMode);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$FailureCopyWith<_$Failure> get copyWith =>
       __$$FailureCopyWithImpl<_$Failure>(this, _$identity);
 
@@ -576,14 +583,14 @@ class _$Failure implements Failure {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PaymentMode paymentMode)? failure,
-    TResult Function()? success,
-    TResult Function()? confirmed,
-    TResult Function()? declined,
-    TResult Function()? shipped,
-    TResult Function(String? deliveryDate)? delivered,
-    TResult Function()? fullFilled,
-    TResult Function(String? refundId)? refunded,
+    TResult? Function(PaymentMode paymentMode)? failure,
+    TResult? Function()? success,
+    TResult? Function()? confirmed,
+    TResult? Function()? declined,
+    TResult? Function()? shipped,
+    TResult? Function(String? deliveryDate)? delivered,
+    TResult? Function()? fullFilled,
+    TResult? Function(String? refundId)? refunded,
   }) {
     return failure?.call(paymentMode);
   }
@@ -625,14 +632,14 @@ class _$Failure implements Failure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Failure value)? failure,
-    TResult Function(Success value)? success,
-    TResult Function(Confirmed value)? confirmed,
-    TResult Function(Declined value)? declined,
-    TResult Function(Shipped value)? shipped,
-    TResult Function(Delivered value)? delivered,
-    TResult Function(FullFilled value)? fullFilled,
-    TResult Function(Refunded value)? refunded,
+    TResult? Function(Failure value)? failure,
+    TResult? Function(Success value)? success,
+    TResult? Function(Confirmed value)? confirmed,
+    TResult? Function(Declined value)? declined,
+    TResult? Function(Shipped value)? shipped,
+    TResult? Function(Delivered value)? delivered,
+    TResult? Function(FullFilled value)? fullFilled,
+    TResult? Function(Refunded value)? refunded,
   }) {
     return failure?.call(this);
   }
@@ -682,13 +689,11 @@ abstract class _$$SuccessCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$SuccessCopyWithImpl<$Res> extends _$OrderStatusCopyWithImpl<$Res>
+class __$$SuccessCopyWithImpl<$Res>
+    extends _$OrderStatusCopyWithImpl<$Res, _$Success>
     implements _$$SuccessCopyWith<$Res> {
   __$$SuccessCopyWithImpl(_$Success _value, $Res Function(_$Success) _then)
-      : super(_value, (v) => _then(v as _$Success));
-
-  @override
-  _$Success get _value => super._value as _$Success;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -735,14 +740,14 @@ class _$Success implements Success {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PaymentMode paymentMode)? failure,
-    TResult Function()? success,
-    TResult Function()? confirmed,
-    TResult Function()? declined,
-    TResult Function()? shipped,
-    TResult Function(String? deliveryDate)? delivered,
-    TResult Function()? fullFilled,
-    TResult Function(String? refundId)? refunded,
+    TResult? Function(PaymentMode paymentMode)? failure,
+    TResult? Function()? success,
+    TResult? Function()? confirmed,
+    TResult? Function()? declined,
+    TResult? Function()? shipped,
+    TResult? Function(String? deliveryDate)? delivered,
+    TResult? Function()? fullFilled,
+    TResult? Function(String? refundId)? refunded,
   }) {
     return success?.call();
   }
@@ -784,14 +789,14 @@ class _$Success implements Success {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Failure value)? failure,
-    TResult Function(Success value)? success,
-    TResult Function(Confirmed value)? confirmed,
-    TResult Function(Declined value)? declined,
-    TResult Function(Shipped value)? shipped,
-    TResult Function(Delivered value)? delivered,
-    TResult Function(FullFilled value)? fullFilled,
-    TResult Function(Refunded value)? refunded,
+    TResult? Function(Failure value)? failure,
+    TResult? Function(Success value)? success,
+    TResult? Function(Confirmed value)? confirmed,
+    TResult? Function(Declined value)? declined,
+    TResult? Function(Shipped value)? shipped,
+    TResult? Function(Delivered value)? delivered,
+    TResult? Function(FullFilled value)? fullFilled,
+    TResult? Function(Refunded value)? refunded,
   }) {
     return success?.call(this);
   }
@@ -837,14 +842,12 @@ abstract class _$$ConfirmedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ConfirmedCopyWithImpl<$Res> extends _$OrderStatusCopyWithImpl<$Res>
+class __$$ConfirmedCopyWithImpl<$Res>
+    extends _$OrderStatusCopyWithImpl<$Res, _$Confirmed>
     implements _$$ConfirmedCopyWith<$Res> {
   __$$ConfirmedCopyWithImpl(
       _$Confirmed _value, $Res Function(_$Confirmed) _then)
-      : super(_value, (v) => _then(v as _$Confirmed));
-
-  @override
-  _$Confirmed get _value => super._value as _$Confirmed;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -891,14 +894,14 @@ class _$Confirmed implements Confirmed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PaymentMode paymentMode)? failure,
-    TResult Function()? success,
-    TResult Function()? confirmed,
-    TResult Function()? declined,
-    TResult Function()? shipped,
-    TResult Function(String? deliveryDate)? delivered,
-    TResult Function()? fullFilled,
-    TResult Function(String? refundId)? refunded,
+    TResult? Function(PaymentMode paymentMode)? failure,
+    TResult? Function()? success,
+    TResult? Function()? confirmed,
+    TResult? Function()? declined,
+    TResult? Function()? shipped,
+    TResult? Function(String? deliveryDate)? delivered,
+    TResult? Function()? fullFilled,
+    TResult? Function(String? refundId)? refunded,
   }) {
     return confirmed?.call();
   }
@@ -940,14 +943,14 @@ class _$Confirmed implements Confirmed {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Failure value)? failure,
-    TResult Function(Success value)? success,
-    TResult Function(Confirmed value)? confirmed,
-    TResult Function(Declined value)? declined,
-    TResult Function(Shipped value)? shipped,
-    TResult Function(Delivered value)? delivered,
-    TResult Function(FullFilled value)? fullFilled,
-    TResult Function(Refunded value)? refunded,
+    TResult? Function(Failure value)? failure,
+    TResult? Function(Success value)? success,
+    TResult? Function(Confirmed value)? confirmed,
+    TResult? Function(Declined value)? declined,
+    TResult? Function(Shipped value)? shipped,
+    TResult? Function(Delivered value)? delivered,
+    TResult? Function(FullFilled value)? fullFilled,
+    TResult? Function(Refunded value)? refunded,
   }) {
     return confirmed?.call(this);
   }
@@ -993,13 +996,11 @@ abstract class _$$DeclinedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$DeclinedCopyWithImpl<$Res> extends _$OrderStatusCopyWithImpl<$Res>
+class __$$DeclinedCopyWithImpl<$Res>
+    extends _$OrderStatusCopyWithImpl<$Res, _$Declined>
     implements _$$DeclinedCopyWith<$Res> {
   __$$DeclinedCopyWithImpl(_$Declined _value, $Res Function(_$Declined) _then)
-      : super(_value, (v) => _then(v as _$Declined));
-
-  @override
-  _$Declined get _value => super._value as _$Declined;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -1046,14 +1047,14 @@ class _$Declined implements Declined {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PaymentMode paymentMode)? failure,
-    TResult Function()? success,
-    TResult Function()? confirmed,
-    TResult Function()? declined,
-    TResult Function()? shipped,
-    TResult Function(String? deliveryDate)? delivered,
-    TResult Function()? fullFilled,
-    TResult Function(String? refundId)? refunded,
+    TResult? Function(PaymentMode paymentMode)? failure,
+    TResult? Function()? success,
+    TResult? Function()? confirmed,
+    TResult? Function()? declined,
+    TResult? Function()? shipped,
+    TResult? Function(String? deliveryDate)? delivered,
+    TResult? Function()? fullFilled,
+    TResult? Function(String? refundId)? refunded,
   }) {
     return declined?.call();
   }
@@ -1095,14 +1096,14 @@ class _$Declined implements Declined {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Failure value)? failure,
-    TResult Function(Success value)? success,
-    TResult Function(Confirmed value)? confirmed,
-    TResult Function(Declined value)? declined,
-    TResult Function(Shipped value)? shipped,
-    TResult Function(Delivered value)? delivered,
-    TResult Function(FullFilled value)? fullFilled,
-    TResult Function(Refunded value)? refunded,
+    TResult? Function(Failure value)? failure,
+    TResult? Function(Success value)? success,
+    TResult? Function(Confirmed value)? confirmed,
+    TResult? Function(Declined value)? declined,
+    TResult? Function(Shipped value)? shipped,
+    TResult? Function(Delivered value)? delivered,
+    TResult? Function(FullFilled value)? fullFilled,
+    TResult? Function(Refunded value)? refunded,
   }) {
     return declined?.call(this);
   }
@@ -1147,13 +1148,11 @@ abstract class _$$ShippedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ShippedCopyWithImpl<$Res> extends _$OrderStatusCopyWithImpl<$Res>
+class __$$ShippedCopyWithImpl<$Res>
+    extends _$OrderStatusCopyWithImpl<$Res, _$Shipped>
     implements _$$ShippedCopyWith<$Res> {
   __$$ShippedCopyWithImpl(_$Shipped _value, $Res Function(_$Shipped) _then)
-      : super(_value, (v) => _then(v as _$Shipped));
-
-  @override
-  _$Shipped get _value => super._value as _$Shipped;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -1200,14 +1199,14 @@ class _$Shipped implements Shipped {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PaymentMode paymentMode)? failure,
-    TResult Function()? success,
-    TResult Function()? confirmed,
-    TResult Function()? declined,
-    TResult Function()? shipped,
-    TResult Function(String? deliveryDate)? delivered,
-    TResult Function()? fullFilled,
-    TResult Function(String? refundId)? refunded,
+    TResult? Function(PaymentMode paymentMode)? failure,
+    TResult? Function()? success,
+    TResult? Function()? confirmed,
+    TResult? Function()? declined,
+    TResult? Function()? shipped,
+    TResult? Function(String? deliveryDate)? delivered,
+    TResult? Function()? fullFilled,
+    TResult? Function(String? refundId)? refunded,
   }) {
     return shipped?.call();
   }
@@ -1249,14 +1248,14 @@ class _$Shipped implements Shipped {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Failure value)? failure,
-    TResult Function(Success value)? success,
-    TResult Function(Confirmed value)? confirmed,
-    TResult Function(Declined value)? declined,
-    TResult Function(Shipped value)? shipped,
-    TResult Function(Delivered value)? delivered,
-    TResult Function(FullFilled value)? fullFilled,
-    TResult Function(Refunded value)? refunded,
+    TResult? Function(Failure value)? failure,
+    TResult? Function(Success value)? success,
+    TResult? Function(Confirmed value)? confirmed,
+    TResult? Function(Declined value)? declined,
+    TResult? Function(Shipped value)? shipped,
+    TResult? Function(Delivered value)? delivered,
+    TResult? Function(FullFilled value)? fullFilled,
+    TResult? Function(Refunded value)? refunded,
   }) {
     return shipped?.call(this);
   }
@@ -1299,25 +1298,25 @@ abstract class _$$DeliveredCopyWith<$Res> {
   factory _$$DeliveredCopyWith(
           _$Delivered value, $Res Function(_$Delivered) then) =
       __$$DeliveredCopyWithImpl<$Res>;
+  @useResult
   $Res call({String? deliveryDate});
 }
 
 /// @nodoc
-class __$$DeliveredCopyWithImpl<$Res> extends _$OrderStatusCopyWithImpl<$Res>
+class __$$DeliveredCopyWithImpl<$Res>
+    extends _$OrderStatusCopyWithImpl<$Res, _$Delivered>
     implements _$$DeliveredCopyWith<$Res> {
   __$$DeliveredCopyWithImpl(
       _$Delivered _value, $Res Function(_$Delivered) _then)
-      : super(_value, (v) => _then(v as _$Delivered));
+      : super(_value, _then);
 
-  @override
-  _$Delivered get _value => super._value as _$Delivered;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? deliveryDate = freezed,
   }) {
     return _then(_$Delivered(
-      deliveryDate: deliveryDate == freezed
+      deliveryDate: freezed == deliveryDate
           ? _value.deliveryDate
           : deliveryDate // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -1350,17 +1349,17 @@ class _$Delivered implements Delivered {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Delivered &&
-            const DeepCollectionEquality()
-                .equals(other.deliveryDate, deliveryDate));
+            (identical(other.deliveryDate, deliveryDate) ||
+                other.deliveryDate == deliveryDate));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(deliveryDate));
+  int get hashCode => Object.hash(runtimeType, deliveryDate);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$DeliveredCopyWith<_$Delivered> get copyWith =>
       __$$DeliveredCopyWithImpl<_$Delivered>(this, _$identity);
 
@@ -1382,14 +1381,14 @@ class _$Delivered implements Delivered {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PaymentMode paymentMode)? failure,
-    TResult Function()? success,
-    TResult Function()? confirmed,
-    TResult Function()? declined,
-    TResult Function()? shipped,
-    TResult Function(String? deliveryDate)? delivered,
-    TResult Function()? fullFilled,
-    TResult Function(String? refundId)? refunded,
+    TResult? Function(PaymentMode paymentMode)? failure,
+    TResult? Function()? success,
+    TResult? Function()? confirmed,
+    TResult? Function()? declined,
+    TResult? Function()? shipped,
+    TResult? Function(String? deliveryDate)? delivered,
+    TResult? Function()? fullFilled,
+    TResult? Function(String? refundId)? refunded,
   }) {
     return delivered?.call(deliveryDate);
   }
@@ -1431,14 +1430,14 @@ class _$Delivered implements Delivered {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Failure value)? failure,
-    TResult Function(Success value)? success,
-    TResult Function(Confirmed value)? confirmed,
-    TResult Function(Declined value)? declined,
-    TResult Function(Shipped value)? shipped,
-    TResult Function(Delivered value)? delivered,
-    TResult Function(FullFilled value)? fullFilled,
-    TResult Function(Refunded value)? refunded,
+    TResult? Function(Failure value)? failure,
+    TResult? Function(Success value)? success,
+    TResult? Function(Confirmed value)? confirmed,
+    TResult? Function(Declined value)? declined,
+    TResult? Function(Shipped value)? shipped,
+    TResult? Function(Delivered value)? delivered,
+    TResult? Function(FullFilled value)? fullFilled,
+    TResult? Function(Refunded value)? refunded,
   }) {
     return delivered?.call(this);
   }
@@ -1489,14 +1488,12 @@ abstract class _$$FullFilledCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$FullFilledCopyWithImpl<$Res> extends _$OrderStatusCopyWithImpl<$Res>
+class __$$FullFilledCopyWithImpl<$Res>
+    extends _$OrderStatusCopyWithImpl<$Res, _$FullFilled>
     implements _$$FullFilledCopyWith<$Res> {
   __$$FullFilledCopyWithImpl(
       _$FullFilled _value, $Res Function(_$FullFilled) _then)
-      : super(_value, (v) => _then(v as _$FullFilled));
-
-  @override
-  _$FullFilled get _value => super._value as _$FullFilled;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -1543,14 +1540,14 @@ class _$FullFilled implements FullFilled {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PaymentMode paymentMode)? failure,
-    TResult Function()? success,
-    TResult Function()? confirmed,
-    TResult Function()? declined,
-    TResult Function()? shipped,
-    TResult Function(String? deliveryDate)? delivered,
-    TResult Function()? fullFilled,
-    TResult Function(String? refundId)? refunded,
+    TResult? Function(PaymentMode paymentMode)? failure,
+    TResult? Function()? success,
+    TResult? Function()? confirmed,
+    TResult? Function()? declined,
+    TResult? Function()? shipped,
+    TResult? Function(String? deliveryDate)? delivered,
+    TResult? Function()? fullFilled,
+    TResult? Function(String? refundId)? refunded,
   }) {
     return fullFilled?.call();
   }
@@ -1592,14 +1589,14 @@ class _$FullFilled implements FullFilled {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Failure value)? failure,
-    TResult Function(Success value)? success,
-    TResult Function(Confirmed value)? confirmed,
-    TResult Function(Declined value)? declined,
-    TResult Function(Shipped value)? shipped,
-    TResult Function(Delivered value)? delivered,
-    TResult Function(FullFilled value)? fullFilled,
-    TResult Function(Refunded value)? refunded,
+    TResult? Function(Failure value)? failure,
+    TResult? Function(Success value)? success,
+    TResult? Function(Confirmed value)? confirmed,
+    TResult? Function(Declined value)? declined,
+    TResult? Function(Shipped value)? shipped,
+    TResult? Function(Delivered value)? delivered,
+    TResult? Function(FullFilled value)? fullFilled,
+    TResult? Function(Refunded value)? refunded,
   }) {
     return fullFilled?.call(this);
   }
@@ -1643,24 +1640,24 @@ abstract class _$$RefundedCopyWith<$Res> {
   factory _$$RefundedCopyWith(
           _$Refunded value, $Res Function(_$Refunded) then) =
       __$$RefundedCopyWithImpl<$Res>;
+  @useResult
   $Res call({String? refundId});
 }
 
 /// @nodoc
-class __$$RefundedCopyWithImpl<$Res> extends _$OrderStatusCopyWithImpl<$Res>
+class __$$RefundedCopyWithImpl<$Res>
+    extends _$OrderStatusCopyWithImpl<$Res, _$Refunded>
     implements _$$RefundedCopyWith<$Res> {
   __$$RefundedCopyWithImpl(_$Refunded _value, $Res Function(_$Refunded) _then)
-      : super(_value, (v) => _then(v as _$Refunded));
+      : super(_value, _then);
 
-  @override
-  _$Refunded get _value => super._value as _$Refunded;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? refundId = freezed,
   }) {
     return _then(_$Refunded(
-      refundId: refundId == freezed
+      refundId: freezed == refundId
           ? _value.refundId
           : refundId // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -1693,16 +1690,17 @@ class _$Refunded implements Refunded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Refunded &&
-            const DeepCollectionEquality().equals(other.refundId, refundId));
+            (identical(other.refundId, refundId) ||
+                other.refundId == refundId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(refundId));
+  int get hashCode => Object.hash(runtimeType, refundId);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$RefundedCopyWith<_$Refunded> get copyWith =>
       __$$RefundedCopyWithImpl<_$Refunded>(this, _$identity);
 
@@ -1724,14 +1722,14 @@ class _$Refunded implements Refunded {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PaymentMode paymentMode)? failure,
-    TResult Function()? success,
-    TResult Function()? confirmed,
-    TResult Function()? declined,
-    TResult Function()? shipped,
-    TResult Function(String? deliveryDate)? delivered,
-    TResult Function()? fullFilled,
-    TResult Function(String? refundId)? refunded,
+    TResult? Function(PaymentMode paymentMode)? failure,
+    TResult? Function()? success,
+    TResult? Function()? confirmed,
+    TResult? Function()? declined,
+    TResult? Function()? shipped,
+    TResult? Function(String? deliveryDate)? delivered,
+    TResult? Function()? fullFilled,
+    TResult? Function(String? refundId)? refunded,
   }) {
     return refunded?.call(refundId);
   }
@@ -1773,14 +1771,14 @@ class _$Refunded implements Refunded {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Failure value)? failure,
-    TResult Function(Success value)? success,
-    TResult Function(Confirmed value)? confirmed,
-    TResult Function(Declined value)? declined,
-    TResult Function(Shipped value)? shipped,
-    TResult Function(Delivered value)? delivered,
-    TResult Function(FullFilled value)? fullFilled,
-    TResult Function(Refunded value)? refunded,
+    TResult? Function(Failure value)? failure,
+    TResult? Function(Success value)? success,
+    TResult? Function(Confirmed value)? confirmed,
+    TResult? Function(Declined value)? declined,
+    TResult? Function(Shipped value)? shipped,
+    TResult? Function(Delivered value)? delivered,
+    TResult? Function(FullFilled value)? fullFilled,
+    TResult? Function(Refunded value)? refunded,
   }) {
     return refunded?.call(this);
   }

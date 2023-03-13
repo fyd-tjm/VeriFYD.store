@@ -1,8 +1,8 @@
 import 'dart:developer';
-
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
@@ -11,11 +11,15 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart' as flutterHooks;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/route_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
@@ -26,17 +30,24 @@ import 'package:verifyd_store/01%20presentation/05%20stores/widgets/store_offer_
 import 'package:verifyd_store/01%20presentation/07%20profile/widgets/profile_address_tile.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/delivery_address_page.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/payment_page.dart';
+import 'package:verifyd_store/01%20presentation/08%20checkout/widgets/coupon_search.dart';
+import 'package:verifyd_store/01%20presentation/test_widget.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/03%20domain/cart/cart.dart';
 import 'package:verifyd_store/03%20domain/checkout/order.dart';
 import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
 import 'package:verifyd_store/03%20domain/shared/shared_info.dart';
 import 'package:verifyd_store/03%20domain/store/00_export_store_domain.dart';
+import 'package:verifyd_store/03%20domain/store/coupon.dart';
+import 'package:verifyd_store/03%20domain/store/tester.dart';
 import 'package:verifyd_store/03%20domain/user/fyd_user.dart';
 import 'package:verifyd_store/aa%20mock/static_ui.dart';
-import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
+
+import '08 checkout/widgets/coupon_card.dart';
+import '08 checkout/widgets/order_summary_section.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 //?-----------------------------------------------------------------------------
 class TestWrapperPage extends StatelessWidget {
@@ -57,7 +68,11 @@ class TestPage extends flutterHooks.HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state1 = flutterHooks.useState(true);
+    final state1 = flutterHooks.useState<double>(0);
+    final size = flutterHooks.useState<double>(1);
+    final opacity = flutterHooks.useState<double>(1);
+    //------
+    final discount = flutterHooks.useState<Coupon?>(null);
     final pinController = flutterHooks.useTextEditingController();
     const borderColor = fydLogoBlue;
     const fillColor = fydPGrey;
@@ -72,113 +87,85 @@ class TestPage extends flutterHooks.HookWidget {
         border: Border.all(color: Colors.transparent),
       ),
     );
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: bColor,
-        // appBar: AppBar(
-        //   elevation: 0,
-        //   automaticallyImplyLeading: false,
-        //   backgroundColor: fydPDgrey,
-        //   leadingWidth: 0,
-        //   titleSpacing: 0,
-        //   title: Row(
-        //     mainAxisSize: MainAxisSize.max,
-        //     mainAxisAlignment: MainAxisAlignment.start,
-        //     children: [
-        //       IconButton(
-        //         onPressed: () {
-        //           HapticFeedbackType.heavyImpact;
-        //         },
-        //         icon: const FaIcon(
-        //           FontAwesomeIcons.arrowLeftLong,
-        //           color: fydBlueGrey,
-        //         ),
-        //         splashColor: fydPGrey,
-        //         padding: const EdgeInsets.symmetric(horizontal: 20),
-        //       ),
-        //       const Padding(
-        //         padding: EdgeInsets.only(left: 15),
-        //         child: FydText.d2custom(text: '#', color: fydLogoBlue),
-        //       ),
-        //       Padding(
-        //         padding: const EdgeInsets.only(left: 10),
-        //         child: FydPinField(pinController: pinController),
-        //       )
-        //     ],
-        //   ),
+        body: _topSheet(context, state1),
+
+        // FydView(
+        //   pageViewType: ViewType.with_Nav_Bar,
+        //   isScrollable: false,
+        //   topSheetHeight: 400.h,
+        //   topSheetColor: fydPDgrey,
+        //   topSheet: _topSheet(context, state1),
+        //   bottomSheet: _bottomSheet(context, state1, discount),
         // ),
-        body: FydView(
-          pageViewType: ViewType.with_Nav_Bar,
-          isScrollable: false,
-          topSheetHeight: 400.h,
-          topSheetColor: fydPDgrey,
-          topSheet: _topSheet(context, state1),
-          bottomSheet: _bottomSheet(context, state1),
-        ),
       ),
     );
   }
 
 //?-----------------------------------------------------------------------------
-  _topSheet(BuildContext context, ValueNotifier<bool> state1) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
+  _topSheet(
+    BuildContext context,
+    ValueNotifier<double> state1,
+  ) {
+    return Stack(
+      fit: StackFit.expand,
       children: [
-        DeliveryAddressTile(
-          addressIndex: 0,
-          address: MockUi.fydAddress,
-          selectedIndex: 0,
-          onSelect: (a) {},
-          onEditPresses: (a) {},
+        //! Logo-stack
+        Align(
+          alignment: Alignment.center,
+          child: Image.asset(
+            'assets/icons/main-logo.png',
+            width: 180,
+            fit: BoxFit.fitWidth,
+          ),
         ),
-        DeliveryInfoCard(address: MockUi.fydAddress),
-        PaymentTile(
-          onSelect: (v) {},
-          paymentMode: null,
-          title: 'pay on delivery',
-          selectedMode: null,
-        ),
+
+        //! Name-stack
+        Padding(
+          padding: EdgeInsets.only(bottom: 60.h),
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: SvgPicture.asset(
+              'assets/icons/main-logo-name.svg',
+              fit: BoxFit.fitWidth,
+              width: 160,
+            ),
+          ),
+        )
+            .animate(delay: 2000.ms)
+            .fadeIn(duration: 900.ms)
+            .move(
+                duration: 900.ms,
+                begin: const Offset(-20, 0),
+                curve: Curves.easeInOutBack)
+            .then(delay: 900.ms)
+            .shimmer(
+                duration: 2000.ms,
+                color: logoBlueARGB,
+                curve: Curves.fastOutSlowIn)
+            .then(delay: 1500.ms)
+            .fadeOut(duration: 1000.ms)
+            .move(
+                duration: 900.ms,
+                end: const Offset(100, 0),
+                curve: Curves.easeInBack)
       ],
     );
   }
 
 //?-----------------------------------------------------------------------------
-  _bottomSheet(BuildContext context, ValueNotifier<bool> state1) {
-    return Column(
-      children: [
-        const OrderSummarySection(
-          totalItems: 3,
-          subTotal: 3555,
-          shipping: 150,
-          discount: 50,
-          total: 3655,
-        ),
-        SizedBox(
-          height: 60.h,
-        ),
-        FydBtn(
-          onPressed: () async {
-            HapticFeedback.heavyImpact();
-          },
-          height: 60.h,
-          color: fydSCBlueGrey,
-          isFilled: false,
-          fillColor: fydPDgrey,
-          splashColor: fydSCBlueGrey,
-          fydText: const FydText.b1custom(
-            text: 'on-Press',
-            color: fydSCBlueGrey,
-            weight: FontWeight.bold,
-          ),
-        ),
-      ],
-    );
+  _bottomSheet(BuildContext context, ValueNotifier<bool> state1,
+      ValueNotifier<Coupon?> discount) {
+    return Column(children: []);
   }
 
 //?-----------------------------------------------------------------------------
 }
+//?-----------------------------------------------------------------------------
 
 //?-----------------------------------------------------------------------------
 //! bottom nav bar
@@ -353,10 +340,8 @@ void dbStores() async {
         1: '+914567523683',
       },
       isLive: true,
-      offers: {
-        'FIRST-3UY':
-            'Get Free Shipping on your first purchase with us. Available only for limited time'
-      },
+      offers: {},
+      coupons: {},
       storeAlerts: {
         0: 'Now you can get Cash on Delivery as a payment mode. Added another layer of Trust'
       },
@@ -420,7 +405,7 @@ void dbSharedInfo() async {
     'MAIL': 'fyd.technologies@gmail.com',
     'PHONE': '+919690590197',
     'WHATSAPP': '+919690590197'
-  }, banners: {}, offers: {}, storeSearchMap: {
+  }, banners: {}, offers: {}, recentlyPurchased: {}, storeSearchMap: {
     "#A108": "LOREM IPSUM A-108",
     "#B110": "LOREM IPSUM B-110",
     "#B111": "LOREM IPSUM B-111",
@@ -459,6 +444,7 @@ const store = Store(
   storeContact: {},
   isLive: true,
   offers: {},
+  coupons: {},
   storeAlerts: {},
   featuredIn: {},
 );

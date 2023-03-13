@@ -30,14 +30,14 @@ mixin _$CartFailure {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? itemNotAvailableAnymore,
-    TResult Function()? maxItemAvailability,
-    TResult Function()? maxCartLimit,
-    TResult Function()? availabilityCheckFailure,
-    TResult Function()? itemsDetailFailure,
-    TResult Function()? updateCartFailure,
-    TResult Function()? cartStreamFailure,
-    TResult Function(String? error)? unexpectedError,
+    TResult? Function()? itemNotAvailableAnymore,
+    TResult? Function()? maxItemAvailability,
+    TResult? Function()? maxCartLimit,
+    TResult? Function()? availabilityCheckFailure,
+    TResult? Function()? itemsDetailFailure,
+    TResult? Function()? updateCartFailure,
+    TResult? Function()? cartStreamFailure,
+    TResult? Function(String? error)? unexpectedError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -69,14 +69,14 @@ mixin _$CartFailure {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
-    TResult Function(maxItemAvailability value)? maxItemAvailability,
-    TResult Function(maxCartLimit value)? maxCartLimit,
-    TResult Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
-    TResult Function(ItemsDetailFailure value)? itemsDetailFailure,
-    TResult Function(UpdateCartFailure value)? updateCartFailure,
-    TResult Function(CartStreamFailure value)? cartStreamFailure,
-    TResult Function(UnexpectedError value)? unexpectedError,
+    TResult? Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
+    TResult? Function(maxItemAvailability value)? maxItemAvailability,
+    TResult? Function(maxCartLimit value)? maxCartLimit,
+    TResult? Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
+    TResult? Function(ItemsDetailFailure value)? itemsDetailFailure,
+    TResult? Function(UpdateCartFailure value)? updateCartFailure,
+    TResult? Function(CartStreamFailure value)? cartStreamFailure,
+    TResult? Function(UnexpectedError value)? unexpectedError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -98,16 +98,18 @@ mixin _$CartFailure {
 abstract class $CartFailureCopyWith<$Res> {
   factory $CartFailureCopyWith(
           CartFailure value, $Res Function(CartFailure) then) =
-      _$CartFailureCopyWithImpl<$Res>;
+      _$CartFailureCopyWithImpl<$Res, CartFailure>;
 }
 
 /// @nodoc
-class _$CartFailureCopyWithImpl<$Res> implements $CartFailureCopyWith<$Res> {
+class _$CartFailureCopyWithImpl<$Res, $Val extends CartFailure>
+    implements $CartFailureCopyWith<$Res> {
   _$CartFailureCopyWithImpl(this._value, this._then);
 
-  final CartFailure _value;
   // ignore: unused_field
-  final $Res Function(CartFailure) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -119,15 +121,11 @@ abstract class _$$ItemNotAvailableAnymoreCopyWith<$Res> {
 
 /// @nodoc
 class __$$ItemNotAvailableAnymoreCopyWithImpl<$Res>
-    extends _$CartFailureCopyWithImpl<$Res>
+    extends _$CartFailureCopyWithImpl<$Res, _$ItemNotAvailableAnymore>
     implements _$$ItemNotAvailableAnymoreCopyWith<$Res> {
   __$$ItemNotAvailableAnymoreCopyWithImpl(_$ItemNotAvailableAnymore _value,
       $Res Function(_$ItemNotAvailableAnymore) _then)
-      : super(_value, (v) => _then(v as _$ItemNotAvailableAnymore));
-
-  @override
-  _$ItemNotAvailableAnymore get _value =>
-      super._value as _$ItemNotAvailableAnymore;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -168,14 +166,14 @@ class _$ItemNotAvailableAnymore implements ItemNotAvailableAnymore {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? itemNotAvailableAnymore,
-    TResult Function()? maxItemAvailability,
-    TResult Function()? maxCartLimit,
-    TResult Function()? availabilityCheckFailure,
-    TResult Function()? itemsDetailFailure,
-    TResult Function()? updateCartFailure,
-    TResult Function()? cartStreamFailure,
-    TResult Function(String? error)? unexpectedError,
+    TResult? Function()? itemNotAvailableAnymore,
+    TResult? Function()? maxItemAvailability,
+    TResult? Function()? maxCartLimit,
+    TResult? Function()? availabilityCheckFailure,
+    TResult? Function()? itemsDetailFailure,
+    TResult? Function()? updateCartFailure,
+    TResult? Function()? cartStreamFailure,
+    TResult? Function(String? error)? unexpectedError,
   }) {
     return itemNotAvailableAnymore?.call();
   }
@@ -219,14 +217,14 @@ class _$ItemNotAvailableAnymore implements ItemNotAvailableAnymore {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
-    TResult Function(maxItemAvailability value)? maxItemAvailability,
-    TResult Function(maxCartLimit value)? maxCartLimit,
-    TResult Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
-    TResult Function(ItemsDetailFailure value)? itemsDetailFailure,
-    TResult Function(UpdateCartFailure value)? updateCartFailure,
-    TResult Function(CartStreamFailure value)? cartStreamFailure,
-    TResult Function(UnexpectedError value)? unexpectedError,
+    TResult? Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
+    TResult? Function(maxItemAvailability value)? maxItemAvailability,
+    TResult? Function(maxCartLimit value)? maxCartLimit,
+    TResult? Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
+    TResult? Function(ItemsDetailFailure value)? itemsDetailFailure,
+    TResult? Function(UpdateCartFailure value)? updateCartFailure,
+    TResult? Function(CartStreamFailure value)? cartStreamFailure,
+    TResult? Function(UnexpectedError value)? unexpectedError,
   }) {
     return itemNotAvailableAnymore?.call(this);
   }
@@ -264,14 +262,11 @@ abstract class _$$maxItemAvailabilityCopyWith<$Res> {
 
 /// @nodoc
 class __$$maxItemAvailabilityCopyWithImpl<$Res>
-    extends _$CartFailureCopyWithImpl<$Res>
+    extends _$CartFailureCopyWithImpl<$Res, _$maxItemAvailability>
     implements _$$maxItemAvailabilityCopyWith<$Res> {
   __$$maxItemAvailabilityCopyWithImpl(
       _$maxItemAvailability _value, $Res Function(_$maxItemAvailability) _then)
-      : super(_value, (v) => _then(v as _$maxItemAvailability));
-
-  @override
-  _$maxItemAvailability get _value => super._value as _$maxItemAvailability;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -311,14 +306,14 @@ class _$maxItemAvailability implements maxItemAvailability {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? itemNotAvailableAnymore,
-    TResult Function()? maxItemAvailability,
-    TResult Function()? maxCartLimit,
-    TResult Function()? availabilityCheckFailure,
-    TResult Function()? itemsDetailFailure,
-    TResult Function()? updateCartFailure,
-    TResult Function()? cartStreamFailure,
-    TResult Function(String? error)? unexpectedError,
+    TResult? Function()? itemNotAvailableAnymore,
+    TResult? Function()? maxItemAvailability,
+    TResult? Function()? maxCartLimit,
+    TResult? Function()? availabilityCheckFailure,
+    TResult? Function()? itemsDetailFailure,
+    TResult? Function()? updateCartFailure,
+    TResult? Function()? cartStreamFailure,
+    TResult? Function(String? error)? unexpectedError,
   }) {
     return maxItemAvailability?.call();
   }
@@ -362,14 +357,14 @@ class _$maxItemAvailability implements maxItemAvailability {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
-    TResult Function(maxItemAvailability value)? maxItemAvailability,
-    TResult Function(maxCartLimit value)? maxCartLimit,
-    TResult Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
-    TResult Function(ItemsDetailFailure value)? itemsDetailFailure,
-    TResult Function(UpdateCartFailure value)? updateCartFailure,
-    TResult Function(CartStreamFailure value)? cartStreamFailure,
-    TResult Function(UnexpectedError value)? unexpectedError,
+    TResult? Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
+    TResult? Function(maxItemAvailability value)? maxItemAvailability,
+    TResult? Function(maxCartLimit value)? maxCartLimit,
+    TResult? Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
+    TResult? Function(ItemsDetailFailure value)? itemsDetailFailure,
+    TResult? Function(UpdateCartFailure value)? updateCartFailure,
+    TResult? Function(CartStreamFailure value)? cartStreamFailure,
+    TResult? Function(UnexpectedError value)? unexpectedError,
   }) {
     return maxItemAvailability?.call(this);
   }
@@ -406,14 +401,12 @@ abstract class _$$maxCartLimitCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$maxCartLimitCopyWithImpl<$Res> extends _$CartFailureCopyWithImpl<$Res>
+class __$$maxCartLimitCopyWithImpl<$Res>
+    extends _$CartFailureCopyWithImpl<$Res, _$maxCartLimit>
     implements _$$maxCartLimitCopyWith<$Res> {
   __$$maxCartLimitCopyWithImpl(
       _$maxCartLimit _value, $Res Function(_$maxCartLimit) _then)
-      : super(_value, (v) => _then(v as _$maxCartLimit));
-
-  @override
-  _$maxCartLimit get _value => super._value as _$maxCartLimit;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -453,14 +446,14 @@ class _$maxCartLimit implements maxCartLimit {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? itemNotAvailableAnymore,
-    TResult Function()? maxItemAvailability,
-    TResult Function()? maxCartLimit,
-    TResult Function()? availabilityCheckFailure,
-    TResult Function()? itemsDetailFailure,
-    TResult Function()? updateCartFailure,
-    TResult Function()? cartStreamFailure,
-    TResult Function(String? error)? unexpectedError,
+    TResult? Function()? itemNotAvailableAnymore,
+    TResult? Function()? maxItemAvailability,
+    TResult? Function()? maxCartLimit,
+    TResult? Function()? availabilityCheckFailure,
+    TResult? Function()? itemsDetailFailure,
+    TResult? Function()? updateCartFailure,
+    TResult? Function()? cartStreamFailure,
+    TResult? Function(String? error)? unexpectedError,
   }) {
     return maxCartLimit?.call();
   }
@@ -504,14 +497,14 @@ class _$maxCartLimit implements maxCartLimit {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
-    TResult Function(maxItemAvailability value)? maxItemAvailability,
-    TResult Function(maxCartLimit value)? maxCartLimit,
-    TResult Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
-    TResult Function(ItemsDetailFailure value)? itemsDetailFailure,
-    TResult Function(UpdateCartFailure value)? updateCartFailure,
-    TResult Function(CartStreamFailure value)? cartStreamFailure,
-    TResult Function(UnexpectedError value)? unexpectedError,
+    TResult? Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
+    TResult? Function(maxItemAvailability value)? maxItemAvailability,
+    TResult? Function(maxCartLimit value)? maxCartLimit,
+    TResult? Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
+    TResult? Function(ItemsDetailFailure value)? itemsDetailFailure,
+    TResult? Function(UpdateCartFailure value)? updateCartFailure,
+    TResult? Function(CartStreamFailure value)? cartStreamFailure,
+    TResult? Function(UnexpectedError value)? unexpectedError,
   }) {
     return maxCartLimit?.call(this);
   }
@@ -549,15 +542,11 @@ abstract class _$$AvailabilityCheckFailureCopyWith<$Res> {
 
 /// @nodoc
 class __$$AvailabilityCheckFailureCopyWithImpl<$Res>
-    extends _$CartFailureCopyWithImpl<$Res>
+    extends _$CartFailureCopyWithImpl<$Res, _$AvailabilityCheckFailure>
     implements _$$AvailabilityCheckFailureCopyWith<$Res> {
   __$$AvailabilityCheckFailureCopyWithImpl(_$AvailabilityCheckFailure _value,
       $Res Function(_$AvailabilityCheckFailure) _then)
-      : super(_value, (v) => _then(v as _$AvailabilityCheckFailure));
-
-  @override
-  _$AvailabilityCheckFailure get _value =>
-      super._value as _$AvailabilityCheckFailure;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -598,14 +587,14 @@ class _$AvailabilityCheckFailure implements AvailabilityCheckFailure {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? itemNotAvailableAnymore,
-    TResult Function()? maxItemAvailability,
-    TResult Function()? maxCartLimit,
-    TResult Function()? availabilityCheckFailure,
-    TResult Function()? itemsDetailFailure,
-    TResult Function()? updateCartFailure,
-    TResult Function()? cartStreamFailure,
-    TResult Function(String? error)? unexpectedError,
+    TResult? Function()? itemNotAvailableAnymore,
+    TResult? Function()? maxItemAvailability,
+    TResult? Function()? maxCartLimit,
+    TResult? Function()? availabilityCheckFailure,
+    TResult? Function()? itemsDetailFailure,
+    TResult? Function()? updateCartFailure,
+    TResult? Function()? cartStreamFailure,
+    TResult? Function(String? error)? unexpectedError,
   }) {
     return availabilityCheckFailure?.call();
   }
@@ -649,14 +638,14 @@ class _$AvailabilityCheckFailure implements AvailabilityCheckFailure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
-    TResult Function(maxItemAvailability value)? maxItemAvailability,
-    TResult Function(maxCartLimit value)? maxCartLimit,
-    TResult Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
-    TResult Function(ItemsDetailFailure value)? itemsDetailFailure,
-    TResult Function(UpdateCartFailure value)? updateCartFailure,
-    TResult Function(CartStreamFailure value)? cartStreamFailure,
-    TResult Function(UnexpectedError value)? unexpectedError,
+    TResult? Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
+    TResult? Function(maxItemAvailability value)? maxItemAvailability,
+    TResult? Function(maxCartLimit value)? maxCartLimit,
+    TResult? Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
+    TResult? Function(ItemsDetailFailure value)? itemsDetailFailure,
+    TResult? Function(UpdateCartFailure value)? updateCartFailure,
+    TResult? Function(CartStreamFailure value)? cartStreamFailure,
+    TResult? Function(UnexpectedError value)? unexpectedError,
   }) {
     return availabilityCheckFailure?.call(this);
   }
@@ -694,14 +683,11 @@ abstract class _$$ItemsDetailFailureCopyWith<$Res> {
 
 /// @nodoc
 class __$$ItemsDetailFailureCopyWithImpl<$Res>
-    extends _$CartFailureCopyWithImpl<$Res>
+    extends _$CartFailureCopyWithImpl<$Res, _$ItemsDetailFailure>
     implements _$$ItemsDetailFailureCopyWith<$Res> {
   __$$ItemsDetailFailureCopyWithImpl(
       _$ItemsDetailFailure _value, $Res Function(_$ItemsDetailFailure) _then)
-      : super(_value, (v) => _then(v as _$ItemsDetailFailure));
-
-  @override
-  _$ItemsDetailFailure get _value => super._value as _$ItemsDetailFailure;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -741,14 +727,14 @@ class _$ItemsDetailFailure implements ItemsDetailFailure {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? itemNotAvailableAnymore,
-    TResult Function()? maxItemAvailability,
-    TResult Function()? maxCartLimit,
-    TResult Function()? availabilityCheckFailure,
-    TResult Function()? itemsDetailFailure,
-    TResult Function()? updateCartFailure,
-    TResult Function()? cartStreamFailure,
-    TResult Function(String? error)? unexpectedError,
+    TResult? Function()? itemNotAvailableAnymore,
+    TResult? Function()? maxItemAvailability,
+    TResult? Function()? maxCartLimit,
+    TResult? Function()? availabilityCheckFailure,
+    TResult? Function()? itemsDetailFailure,
+    TResult? Function()? updateCartFailure,
+    TResult? Function()? cartStreamFailure,
+    TResult? Function(String? error)? unexpectedError,
   }) {
     return itemsDetailFailure?.call();
   }
@@ -792,14 +778,14 @@ class _$ItemsDetailFailure implements ItemsDetailFailure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
-    TResult Function(maxItemAvailability value)? maxItemAvailability,
-    TResult Function(maxCartLimit value)? maxCartLimit,
-    TResult Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
-    TResult Function(ItemsDetailFailure value)? itemsDetailFailure,
-    TResult Function(UpdateCartFailure value)? updateCartFailure,
-    TResult Function(CartStreamFailure value)? cartStreamFailure,
-    TResult Function(UnexpectedError value)? unexpectedError,
+    TResult? Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
+    TResult? Function(maxItemAvailability value)? maxItemAvailability,
+    TResult? Function(maxCartLimit value)? maxCartLimit,
+    TResult? Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
+    TResult? Function(ItemsDetailFailure value)? itemsDetailFailure,
+    TResult? Function(UpdateCartFailure value)? updateCartFailure,
+    TResult? Function(CartStreamFailure value)? cartStreamFailure,
+    TResult? Function(UnexpectedError value)? unexpectedError,
   }) {
     return itemsDetailFailure?.call(this);
   }
@@ -837,14 +823,11 @@ abstract class _$$UpdateCartFailureCopyWith<$Res> {
 
 /// @nodoc
 class __$$UpdateCartFailureCopyWithImpl<$Res>
-    extends _$CartFailureCopyWithImpl<$Res>
+    extends _$CartFailureCopyWithImpl<$Res, _$UpdateCartFailure>
     implements _$$UpdateCartFailureCopyWith<$Res> {
   __$$UpdateCartFailureCopyWithImpl(
       _$UpdateCartFailure _value, $Res Function(_$UpdateCartFailure) _then)
-      : super(_value, (v) => _then(v as _$UpdateCartFailure));
-
-  @override
-  _$UpdateCartFailure get _value => super._value as _$UpdateCartFailure;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -884,14 +867,14 @@ class _$UpdateCartFailure implements UpdateCartFailure {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? itemNotAvailableAnymore,
-    TResult Function()? maxItemAvailability,
-    TResult Function()? maxCartLimit,
-    TResult Function()? availabilityCheckFailure,
-    TResult Function()? itemsDetailFailure,
-    TResult Function()? updateCartFailure,
-    TResult Function()? cartStreamFailure,
-    TResult Function(String? error)? unexpectedError,
+    TResult? Function()? itemNotAvailableAnymore,
+    TResult? Function()? maxItemAvailability,
+    TResult? Function()? maxCartLimit,
+    TResult? Function()? availabilityCheckFailure,
+    TResult? Function()? itemsDetailFailure,
+    TResult? Function()? updateCartFailure,
+    TResult? Function()? cartStreamFailure,
+    TResult? Function(String? error)? unexpectedError,
   }) {
     return updateCartFailure?.call();
   }
@@ -935,14 +918,14 @@ class _$UpdateCartFailure implements UpdateCartFailure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
-    TResult Function(maxItemAvailability value)? maxItemAvailability,
-    TResult Function(maxCartLimit value)? maxCartLimit,
-    TResult Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
-    TResult Function(ItemsDetailFailure value)? itemsDetailFailure,
-    TResult Function(UpdateCartFailure value)? updateCartFailure,
-    TResult Function(CartStreamFailure value)? cartStreamFailure,
-    TResult Function(UnexpectedError value)? unexpectedError,
+    TResult? Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
+    TResult? Function(maxItemAvailability value)? maxItemAvailability,
+    TResult? Function(maxCartLimit value)? maxCartLimit,
+    TResult? Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
+    TResult? Function(ItemsDetailFailure value)? itemsDetailFailure,
+    TResult? Function(UpdateCartFailure value)? updateCartFailure,
+    TResult? Function(CartStreamFailure value)? cartStreamFailure,
+    TResult? Function(UnexpectedError value)? unexpectedError,
   }) {
     return updateCartFailure?.call(this);
   }
@@ -980,14 +963,11 @@ abstract class _$$CartStreamFailureCopyWith<$Res> {
 
 /// @nodoc
 class __$$CartStreamFailureCopyWithImpl<$Res>
-    extends _$CartFailureCopyWithImpl<$Res>
+    extends _$CartFailureCopyWithImpl<$Res, _$CartStreamFailure>
     implements _$$CartStreamFailureCopyWith<$Res> {
   __$$CartStreamFailureCopyWithImpl(
       _$CartStreamFailure _value, $Res Function(_$CartStreamFailure) _then)
-      : super(_value, (v) => _then(v as _$CartStreamFailure));
-
-  @override
-  _$CartStreamFailure get _value => super._value as _$CartStreamFailure;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -1027,14 +1007,14 @@ class _$CartStreamFailure implements CartStreamFailure {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? itemNotAvailableAnymore,
-    TResult Function()? maxItemAvailability,
-    TResult Function()? maxCartLimit,
-    TResult Function()? availabilityCheckFailure,
-    TResult Function()? itemsDetailFailure,
-    TResult Function()? updateCartFailure,
-    TResult Function()? cartStreamFailure,
-    TResult Function(String? error)? unexpectedError,
+    TResult? Function()? itemNotAvailableAnymore,
+    TResult? Function()? maxItemAvailability,
+    TResult? Function()? maxCartLimit,
+    TResult? Function()? availabilityCheckFailure,
+    TResult? Function()? itemsDetailFailure,
+    TResult? Function()? updateCartFailure,
+    TResult? Function()? cartStreamFailure,
+    TResult? Function(String? error)? unexpectedError,
   }) {
     return cartStreamFailure?.call();
   }
@@ -1078,14 +1058,14 @@ class _$CartStreamFailure implements CartStreamFailure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
-    TResult Function(maxItemAvailability value)? maxItemAvailability,
-    TResult Function(maxCartLimit value)? maxCartLimit,
-    TResult Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
-    TResult Function(ItemsDetailFailure value)? itemsDetailFailure,
-    TResult Function(UpdateCartFailure value)? updateCartFailure,
-    TResult Function(CartStreamFailure value)? cartStreamFailure,
-    TResult Function(UnexpectedError value)? unexpectedError,
+    TResult? Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
+    TResult? Function(maxItemAvailability value)? maxItemAvailability,
+    TResult? Function(maxCartLimit value)? maxCartLimit,
+    TResult? Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
+    TResult? Function(ItemsDetailFailure value)? itemsDetailFailure,
+    TResult? Function(UpdateCartFailure value)? updateCartFailure,
+    TResult? Function(CartStreamFailure value)? cartStreamFailure,
+    TResult? Function(UnexpectedError value)? unexpectedError,
   }) {
     return cartStreamFailure?.call(this);
   }
@@ -1119,26 +1099,25 @@ abstract class _$$UnexpectedErrorCopyWith<$Res> {
   factory _$$UnexpectedErrorCopyWith(
           _$UnexpectedError value, $Res Function(_$UnexpectedError) then) =
       __$$UnexpectedErrorCopyWithImpl<$Res>;
+  @useResult
   $Res call({String? error});
 }
 
 /// @nodoc
 class __$$UnexpectedErrorCopyWithImpl<$Res>
-    extends _$CartFailureCopyWithImpl<$Res>
+    extends _$CartFailureCopyWithImpl<$Res, _$UnexpectedError>
     implements _$$UnexpectedErrorCopyWith<$Res> {
   __$$UnexpectedErrorCopyWithImpl(
       _$UnexpectedError _value, $Res Function(_$UnexpectedError) _then)
-      : super(_value, (v) => _then(v as _$UnexpectedError));
+      : super(_value, _then);
 
-  @override
-  _$UnexpectedError get _value => super._value as _$UnexpectedError;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? error = freezed,
   }) {
     return _then(_$UnexpectedError(
-      error == freezed
+      freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -1164,15 +1143,15 @@ class _$UnexpectedError implements UnexpectedError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UnexpectedError &&
-            const DeepCollectionEquality().equals(other.error, error));
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(error));
+  int get hashCode => Object.hash(runtimeType, error);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$UnexpectedErrorCopyWith<_$UnexpectedError> get copyWith =>
       __$$UnexpectedErrorCopyWithImpl<_$UnexpectedError>(this, _$identity);
 
@@ -1194,14 +1173,14 @@ class _$UnexpectedError implements UnexpectedError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? itemNotAvailableAnymore,
-    TResult Function()? maxItemAvailability,
-    TResult Function()? maxCartLimit,
-    TResult Function()? availabilityCheckFailure,
-    TResult Function()? itemsDetailFailure,
-    TResult Function()? updateCartFailure,
-    TResult Function()? cartStreamFailure,
-    TResult Function(String? error)? unexpectedError,
+    TResult? Function()? itemNotAvailableAnymore,
+    TResult? Function()? maxItemAvailability,
+    TResult? Function()? maxCartLimit,
+    TResult? Function()? availabilityCheckFailure,
+    TResult? Function()? itemsDetailFailure,
+    TResult? Function()? updateCartFailure,
+    TResult? Function()? cartStreamFailure,
+    TResult? Function(String? error)? unexpectedError,
   }) {
     return unexpectedError?.call(error);
   }
@@ -1245,14 +1224,14 @@ class _$UnexpectedError implements UnexpectedError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
-    TResult Function(maxItemAvailability value)? maxItemAvailability,
-    TResult Function(maxCartLimit value)? maxCartLimit,
-    TResult Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
-    TResult Function(ItemsDetailFailure value)? itemsDetailFailure,
-    TResult Function(UpdateCartFailure value)? updateCartFailure,
-    TResult Function(CartStreamFailure value)? cartStreamFailure,
-    TResult Function(UnexpectedError value)? unexpectedError,
+    TResult? Function(ItemNotAvailableAnymore value)? itemNotAvailableAnymore,
+    TResult? Function(maxItemAvailability value)? maxItemAvailability,
+    TResult? Function(maxCartLimit value)? maxCartLimit,
+    TResult? Function(AvailabilityCheckFailure value)? availabilityCheckFailure,
+    TResult? Function(ItemsDetailFailure value)? itemsDetailFailure,
+    TResult? Function(UpdateCartFailure value)? updateCartFailure,
+    TResult? Function(CartStreamFailure value)? cartStreamFailure,
+    TResult? Function(UnexpectedError value)? unexpectedError,
   }) {
     return unexpectedError?.call(this);
   }

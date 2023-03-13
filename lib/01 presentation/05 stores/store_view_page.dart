@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -58,7 +57,8 @@ class StoreViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(context.router.currentUrl);
+    // log(context.router.currentUrl);
+    // log(context.router.pageCount.toString());
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -159,8 +159,13 @@ class StoreViewPage extends StatelessWidget {
     //-------
     final messages = <dynamic, String>{
       ...state.storeRealtime!.storeAlerts,
-      ...state.storeRealtime!.offers
     };
+    state.storeRealtime!.coupons.forEach((key, value) {
+      if (value.validTill.isAfter(DateTime.now())) {
+        final message = '$key :: ${value.message}';
+        messages.addAll({messages.length: message});
+      }
+    });
     //-------
     return Column(
       mainAxisSize: MainAxisSize.max,
@@ -205,6 +210,7 @@ class StoreViewPage extends StatelessWidget {
                     useRootNavigator: false,
                     builder: (context) => FydCloseDialog(
                       message: message,
+                      color: fydPGrey.withOpacity(.7),
                       onClose: () => Navigator.of(context).pop(true),
                     ),
                   );
@@ -389,74 +395,76 @@ class StoreViewPage extends StatelessWidget {
                   state.storeRealtime!.types[state.selectedType!];
               return Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.w),
-                  child: StoreListView(
-                    // LoadMore Footer
-                    footer: (inStockByType == null)
-                        ? 'something went wrong'
-                        : (inStockByType > state.productList.length)
-                            ? 'load more..'
-                            : 'More Stores Launching Soon!',
-                    // LoadMore OnPressed
-                    onPressed: (inStockByType != null &&
-                            inStockByType > state.productList.length)
-                        ? () {
-                            context
-                                .read<StoreBloc>()
-                                .add(const LoadMoreProducts());
-                          }
-                        : () {},
-                    // gridView
-                    widgetList:
-                        List.generate(state.productList.length, (index) {
-                      //-----
-                      if (index.isEven) {
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Center(
+                    child: StoreListView(
+                      // LoadMore Footer
+                      footer: (inStockByType == null)
+                          ? 'something went wrong'
+                          : (inStockByType > state.productList.length)
+                              ? 'load more..'
+                              : 'More Stores Launching Soon!',
+                      // LoadMore OnPressed
+                      onPressed: (inStockByType != null &&
+                              inStockByType > state.productList.length)
+                          ? () {
+                              context
+                                  .read<StoreBloc>()
+                                  .add(const LoadMoreProducts());
+                            }
+                          : () {},
+                      // gridView
+                      widgetList:
+                          List.generate(state.productList.length, (index) {
                         //-----
-                        if (index != state.productList.length - 1) {
-                          return StoreGridRow(
-                            widgetOne: StoreProductCard(
-                              product: state.productList.elementAt(index),
-                              onProductTap: (product) {
-                                context.router.navigate(ProductWrapperRoute(
-                                  productRef: Helpers.getProductRef(
-                                      storeId: product.storeId,
-                                      skuId: product.skuId),
-                                ));
-                              },
-                            ),
-                            widgetTwo: StoreProductCard(
-                              product: state.productList.elementAt(index + 1),
-                              onProductTap: (product) {
-                                context.router.navigate(ProductWrapperRoute(
-                                  productRef: Helpers.getProductRef(
-                                      storeId: product.storeId,
-                                      skuId: product.skuId),
-                                ));
-                              },
-                            ),
-                          );
+                        if (index.isEven) {
+                          //-----
+                          if (index != state.productList.length - 1) {
+                            return StoreGridRow(
+                              widgetOne: StoreProductCard(
+                                product: state.productList.elementAt(index),
+                                onProductTap: (product) {
+                                  context.router.navigate(ProductWrapperRoute(
+                                    productRef: Helpers.getProductRef(
+                                        storeId: product.storeId,
+                                        skuId: product.skuId),
+                                  ));
+                                },
+                              ),
+                              widgetTwo: StoreProductCard(
+                                product: state.productList.elementAt(index + 1),
+                                onProductTap: (product) {
+                                  context.router.navigate(ProductWrapperRoute(
+                                    productRef: Helpers.getProductRef(
+                                        storeId: product.storeId,
+                                        skuId: product.skuId),
+                                  ));
+                                },
+                              ),
+                            );
+                          }
+                          //-----
+                          else {
+                            return StoreGridRow(
+                              widgetOne: StoreProductCard(
+                                product: state.productList.elementAt(index),
+                                onProductTap: (product) {
+                                  context.router.navigate(ProductWrapperRoute(
+                                    productRef: Helpers.getProductRef(
+                                        storeId: product.storeId,
+                                        skuId: product.skuId),
+                                  ));
+                                },
+                              ),
+                            );
+                          }
                         }
                         //-----
                         else {
-                          return StoreGridRow(
-                            widgetOne: StoreProductCard(
-                              product: state.productList.elementAt(index),
-                              onProductTap: (product) {
-                                context.router.navigate(ProductWrapperRoute(
-                                  productRef: Helpers.getProductRef(
-                                      storeId: product.storeId,
-                                      skuId: product.skuId),
-                                ));
-                              },
-                            ),
-                          );
+                          return const SizedBox.shrink();
                         }
-                      }
-                      //-----
-                      else {
-                        return const SizedBox.shrink();
-                      }
-                    }),
+                      }),
+                    ),
                   ),
                 ),
               );

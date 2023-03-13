@@ -29,13 +29,13 @@ mixin _$AuthFailure {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? invalidOtpEntered,
-    TResult Function()? sessionExpired,
-    TResult Function()? userDisabled,
-    TResult Function()? tooManyRequests,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? invalidPhoneNumber,
+    TResult? Function()? invalidOtpEntered,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? userDisabled,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,13 +63,13 @@ mixin _$AuthFailure {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(InvalidPhoneNumber value)? invalidPhoneNumber,
+    TResult? Function(InvalidOtpEntered value)? invalidOtpEntered,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -90,16 +90,18 @@ mixin _$AuthFailure {
 abstract class $AuthFailureCopyWith<$Res> {
   factory $AuthFailureCopyWith(
           AuthFailure value, $Res Function(AuthFailure) then) =
-      _$AuthFailureCopyWithImpl<$Res>;
+      _$AuthFailureCopyWithImpl<$Res, AuthFailure>;
 }
 
 /// @nodoc
-class _$AuthFailureCopyWithImpl<$Res> implements $AuthFailureCopyWith<$Res> {
+class _$AuthFailureCopyWithImpl<$Res, $Val extends AuthFailure>
+    implements $AuthFailureCopyWith<$Res> {
   _$AuthFailureCopyWithImpl(this._value, this._then);
 
-  final AuthFailure _value;
   // ignore: unused_field
-  final $Res Function(AuthFailure) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -111,14 +113,11 @@ abstract class _$$InvalidPhoneNumberCopyWith<$Res> {
 
 /// @nodoc
 class __$$InvalidPhoneNumberCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$InvalidPhoneNumber>
     implements _$$InvalidPhoneNumberCopyWith<$Res> {
   __$$InvalidPhoneNumberCopyWithImpl(
       _$InvalidPhoneNumber _value, $Res Function(_$InvalidPhoneNumber) _then)
-      : super(_value, (v) => _then(v as _$InvalidPhoneNumber));
-
-  @override
-  _$InvalidPhoneNumber get _value => super._value as _$InvalidPhoneNumber;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -157,13 +156,13 @@ class _$InvalidPhoneNumber implements InvalidPhoneNumber {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? invalidOtpEntered,
-    TResult Function()? sessionExpired,
-    TResult Function()? userDisabled,
-    TResult Function()? tooManyRequests,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? invalidPhoneNumber,
+    TResult? Function()? invalidOtpEntered,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? userDisabled,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) {
     return invalidPhoneNumber?.call();
   }
@@ -203,13 +202,13 @@ class _$InvalidPhoneNumber implements InvalidPhoneNumber {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(InvalidPhoneNumber value)? invalidPhoneNumber,
+    TResult? Function(InvalidOtpEntered value)? invalidOtpEntered,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) {
     return invalidPhoneNumber?.call(this);
   }
@@ -246,14 +245,11 @@ abstract class _$$InvalidOtpEnteredCopyWith<$Res> {
 
 /// @nodoc
 class __$$InvalidOtpEnteredCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$InvalidOtpEntered>
     implements _$$InvalidOtpEnteredCopyWith<$Res> {
   __$$InvalidOtpEnteredCopyWithImpl(
       _$InvalidOtpEntered _value, $Res Function(_$InvalidOtpEntered) _then)
-      : super(_value, (v) => _then(v as _$InvalidOtpEntered));
-
-  @override
-  _$InvalidOtpEntered get _value => super._value as _$InvalidOtpEntered;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -292,13 +288,13 @@ class _$InvalidOtpEntered implements InvalidOtpEntered {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? invalidOtpEntered,
-    TResult Function()? sessionExpired,
-    TResult Function()? userDisabled,
-    TResult Function()? tooManyRequests,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? invalidPhoneNumber,
+    TResult? Function()? invalidOtpEntered,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? userDisabled,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) {
     return invalidOtpEntered?.call();
   }
@@ -338,13 +334,13 @@ class _$InvalidOtpEntered implements InvalidOtpEntered {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(InvalidPhoneNumber value)? invalidPhoneNumber,
+    TResult? Function(InvalidOtpEntered value)? invalidOtpEntered,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) {
     return invalidOtpEntered?.call(this);
   }
@@ -381,14 +377,11 @@ abstract class _$$SessionExpiredCopyWith<$Res> {
 
 /// @nodoc
 class __$$SessionExpiredCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$SessionExpired>
     implements _$$SessionExpiredCopyWith<$Res> {
   __$$SessionExpiredCopyWithImpl(
       _$SessionExpired _value, $Res Function(_$SessionExpired) _then)
-      : super(_value, (v) => _then(v as _$SessionExpired));
-
-  @override
-  _$SessionExpired get _value => super._value as _$SessionExpired;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -427,13 +420,13 @@ class _$SessionExpired implements SessionExpired {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? invalidOtpEntered,
-    TResult Function()? sessionExpired,
-    TResult Function()? userDisabled,
-    TResult Function()? tooManyRequests,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? invalidPhoneNumber,
+    TResult? Function()? invalidOtpEntered,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? userDisabled,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) {
     return sessionExpired?.call();
   }
@@ -473,13 +466,13 @@ class _$SessionExpired implements SessionExpired {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(InvalidPhoneNumber value)? invalidPhoneNumber,
+    TResult? Function(InvalidOtpEntered value)? invalidOtpEntered,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) {
     return sessionExpired?.call(this);
   }
@@ -515,14 +508,12 @@ abstract class _$$UserDisabledCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$UserDisabledCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
+class __$$UserDisabledCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$UserDisabled>
     implements _$$UserDisabledCopyWith<$Res> {
   __$$UserDisabledCopyWithImpl(
       _$UserDisabled _value, $Res Function(_$UserDisabled) _then)
-      : super(_value, (v) => _then(v as _$UserDisabled));
-
-  @override
-  _$UserDisabled get _value => super._value as _$UserDisabled;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -561,13 +552,13 @@ class _$UserDisabled implements UserDisabled {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? invalidOtpEntered,
-    TResult Function()? sessionExpired,
-    TResult Function()? userDisabled,
-    TResult Function()? tooManyRequests,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? invalidPhoneNumber,
+    TResult? Function()? invalidOtpEntered,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? userDisabled,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) {
     return userDisabled?.call();
   }
@@ -607,13 +598,13 @@ class _$UserDisabled implements UserDisabled {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(InvalidPhoneNumber value)? invalidPhoneNumber,
+    TResult? Function(InvalidOtpEntered value)? invalidOtpEntered,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) {
     return userDisabled?.call(this);
   }
@@ -650,14 +641,11 @@ abstract class _$$TooManyRequestsCopyWith<$Res> {
 
 /// @nodoc
 class __$$TooManyRequestsCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$TooManyRequests>
     implements _$$TooManyRequestsCopyWith<$Res> {
   __$$TooManyRequestsCopyWithImpl(
       _$TooManyRequests _value, $Res Function(_$TooManyRequests) _then)
-      : super(_value, (v) => _then(v as _$TooManyRequests));
-
-  @override
-  _$TooManyRequests get _value => super._value as _$TooManyRequests;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -696,13 +684,13 @@ class _$TooManyRequests implements TooManyRequests {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? invalidOtpEntered,
-    TResult Function()? sessionExpired,
-    TResult Function()? userDisabled,
-    TResult Function()? tooManyRequests,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? invalidPhoneNumber,
+    TResult? Function()? invalidOtpEntered,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? userDisabled,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) {
     return tooManyRequests?.call();
   }
@@ -742,13 +730,13 @@ class _$TooManyRequests implements TooManyRequests {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(InvalidPhoneNumber value)? invalidPhoneNumber,
+    TResult? Function(InvalidOtpEntered value)? invalidOtpEntered,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) {
     return tooManyRequests?.call(this);
   }
@@ -784,14 +772,12 @@ abstract class _$$ServerErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ServerErrorCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
+class __$$ServerErrorCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$ServerError>
     implements _$$ServerErrorCopyWith<$Res> {
   __$$ServerErrorCopyWithImpl(
       _$ServerError _value, $Res Function(_$ServerError) _then)
-      : super(_value, (v) => _then(v as _$ServerError));
-
-  @override
-  _$ServerError get _value => super._value as _$ServerError;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -830,13 +816,13 @@ class _$ServerError implements ServerError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? invalidOtpEntered,
-    TResult Function()? sessionExpired,
-    TResult Function()? userDisabled,
-    TResult Function()? tooManyRequests,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? invalidPhoneNumber,
+    TResult? Function()? invalidOtpEntered,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? userDisabled,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) {
     return serverError?.call();
   }
@@ -876,13 +862,13 @@ class _$ServerError implements ServerError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(InvalidPhoneNumber value)? invalidPhoneNumber,
+    TResult? Function(InvalidOtpEntered value)? invalidOtpEntered,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) {
     return serverError?.call(this);
   }
@@ -918,14 +904,12 @@ abstract class _$$UnknownErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$UnknownErrorCopyWithImpl<$Res> extends _$AuthFailureCopyWithImpl<$Res>
+class __$$UnknownErrorCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$UnknownError>
     implements _$$UnknownErrorCopyWith<$Res> {
   __$$UnknownErrorCopyWithImpl(
       _$UnknownError _value, $Res Function(_$UnknownError) _then)
-      : super(_value, (v) => _then(v as _$UnknownError));
-
-  @override
-  _$UnknownError get _value => super._value as _$UnknownError;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -964,13 +948,13 @@ class _$UnknownError implements UnknownError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? invalidPhoneNumber,
-    TResult Function()? invalidOtpEntered,
-    TResult Function()? sessionExpired,
-    TResult Function()? userDisabled,
-    TResult Function()? tooManyRequests,
-    TResult Function()? serverError,
-    TResult Function()? unknownError,
+    TResult? Function()? invalidPhoneNumber,
+    TResult? Function()? invalidOtpEntered,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? userDisabled,
+    TResult? Function()? tooManyRequests,
+    TResult? Function()? serverError,
+    TResult? Function()? unknownError,
   }) {
     return unknownError?.call();
   }
@@ -1010,13 +994,13 @@ class _$UnknownError implements UnknownError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InvalidPhoneNumber value)? invalidPhoneNumber,
-    TResult Function(InvalidOtpEntered value)? invalidOtpEntered,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnknownError value)? unknownError,
+    TResult? Function(InvalidPhoneNumber value)? invalidPhoneNumber,
+    TResult? Function(InvalidOtpEntered value)? invalidOtpEntered,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnknownError value)? unknownError,
   }) {
     return unknownError?.call(this);
   }

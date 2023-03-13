@@ -80,7 +80,7 @@ class MyGlobalObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    print('onChange Bloc type-- ${bloc.runtimeType} -- ${change.runtimeType}');
+    print('onChange Bloc type-- ${bloc.runtimeType} ');
     // print('onChange Bloc CurrentState-- ${change.currentState}');
     // print('onChange Bloc NextState-- ${change.nextState}');
   }

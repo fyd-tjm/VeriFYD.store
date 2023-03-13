@@ -78,6 +78,14 @@ class DeliveryAddressPage extends HookWidget {
                     cartAvailabilityFailure: () =>
                         context.navigateNamedTo(Rn.cart),
                     //-------
+                    couponFailure: () {
+                      showSnack(
+                          context: context,
+                          viewType: SnackBarViewType.withNav,
+                          message: 'something went wrong!');
+                      //-------
+                      context.navigateNamedTo(Rn.cart);
+                    },
                     paymentFailure: () => null,
                     orderIdFailure: (id) => null,
                     createOrderFailure: (order) => null,

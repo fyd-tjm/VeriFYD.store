@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,13 +10,19 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/01%20presentation/08%20checkout/widgets/order_summary_section.dart';
 import 'package:verifyd_store/02%20application/checkout/checkout_bloc.dart';
+import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
 import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
+import 'package:verifyd_store/03%20domain/store/coupon.dart';
 import 'package:verifyd_store/03%20domain/user/address.dart';
+import 'package:verifyd_store/aa%20mock/static_ui.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 import 'package:verifyd_store/utils/router.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
+
+import 'widgets/coupon_search.dart';
 
 //?-----------------------------------------------------------------------------
 
@@ -28,6 +37,9 @@ class PaymentWrapperPage extends StatelessWidget {
       providers: [
         BlocProvider.value(
           value: getIt<CheckoutBloc>(),
+        ),
+        BlocProvider.value(
+          value: getIt<SharedInfoCubit>(),
         ),
       ],
       child: const PaymentPage(),
@@ -46,6 +58,7 @@ class PaymentPage extends HookWidget {
   Widget build(BuildContext context) {
     final selectedPaymentMode = useState<PaymentMode?>(
         (remoteCondition) ? const PaymentMode.online() : null);
+    final discountCpn = useState<Coupon?>(null);
     //-------
     return SafeArea(
       child: Scaffold(
@@ -68,6 +81,7 @@ class PaymentPage extends HookWidget {
                     cartAvailabilityFailure: () =>
                         context.navigateNamedTo(Rn.cart),
                     //-------
+                    couponFailure: () => null,
                     paymentFailure: () => null,
                     orderIdFailure: (id) => null,
                     createOrderFailure: (order) => null,
@@ -107,8 +121,8 @@ class PaymentPage extends HookWidget {
                     topSheetHeight: 380.h,
                     topSheet:
                         _topSheetView(context, selectedPaymentMode, state),
-                    bottomSheet:
-                        _bottomSheetView(context, selectedPaymentMode, state),
+                    bottomSheet: _bottomSheetView(
+                        context, selectedPaymentMode, discountCpn, state),
                   );
           },
         ),
@@ -184,16 +198,38 @@ class PaymentPage extends HookWidget {
   _bottomSheetView(
     BuildContext context,
     ValueNotifier<PaymentMode?> selectedPaymentMode,
+    ValueNotifier<Coupon?> discountCpn,
     CheckoutState state,
   ) {
+    //-------
+    final offers = context
+        .select((SharedInfoCubit cubit) => cubit.state.sharedInfo!.offers);
+    final storeCoupons = state.coupons!;
+    final allCoupons = {...offers, ...storeCoupons};
+    final availableCoupons = <String, Coupon>{};
+    //--------
+    allCoupons.removeWhere((key, value) => ((value.isActive == false) ||
+        value.validTill.isBefore(DateTime.now())));
+
+    allCoupons.values.forEach((cpn) {
+      if (!cpn.isHidden) {
+        availableCoupons.addAll({cpn.code: cpn});
+      }
+    });
+
     //-------
     final totalItems = state.orderInfo!.orderSummary.totalItems;
     final subTotal = state.orderInfo!.orderSummary.subTotal;
     final shippingCost = state.shippingInfo!.shippingCost;
-    const discount = 50.0;
+
     //-------
-    final total = (subTotal + shippingCost - (discount)).ceil().toDouble();
+    final total = (subTotal + shippingCost - (discountCpn.value?.value ?? 0))
+        .ceil()
+        .toDouble();
     //-------
+    log(allCoupons.keys.toString());
+    log(availableCoupons.keys.toString());
+
     return Padding(
       padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
       child: Column(
@@ -201,54 +237,75 @@ class PaymentPage extends HookWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(children: [
-              //TODO: Discount-Section
+              //! Coupon-Section
               Padding(
                 padding: EdgeInsets.only(bottom: 20.h, left: 10.w, right: 10.w),
-                child: SizedBox(
-                  height: 60.h,
-                  width: double.infinity,
-                  child: Card(
-                    color: fydPLgrey.withOpacity(.3),
-                    elevation: 25.0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        //! icon
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          child: Icon(
-                            Icons.discount_outlined,
-                            size: 25.sp,
-                            color: fydPWhite,
-                          ),
+                child: FydBtn(
+                  height: 50.h,
+                  color: fydPLgrey.withOpacity(.25),
+                  onPressed: () async {
+                    HapticFeedback.lightImpact();
+                    //-----------
+                    final cpn = await showSearch(
+                      context: context,
+                      delegate: CouponSearch(
+                        orderSubTotal: subTotal,
+                        context: context,
+                        searchableCoupons: allCoupons,
+                        availableCoupons: availableCoupons,
+                        onTap: (v) {},
+                      ),
+                    );
+                    if (cpn != null) {
+                      discountCpn.value = cpn;
+                    }
+                    //-----------
+                  },
+                  widget: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      //! icon
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        child: Icon(
+                          Icons.discount_outlined,
+                          size: 25.sp,
+                          color: (discountCpn.value != null)
+                              ? fydLogoBlue
+                              : fydPWhite,
                         ),
+                      ),
 
-                        //! hint Text
-                        const Expanded(
-                            child: FydText.b3white(
-                          text: 'apply codes and discounts!',
-                          weight: FontWeight.w600,
-                          color: fydPWhite,
-                        )),
-                      ],
-                    ),
+                      (discountCpn.value != null)
+                          ? Expanded(
+                              child: FydText.b3custom(
+                              text: ': ${discountCpn.value!.code}',
+                              weight: FontWeight.w600,
+                              color: fydLogoBlue,
+                              textAlign: TextAlign.end,
+                              letterSpacing: .8,
+                            ))
+                          //! hint Text
+                          : const Expanded(
+                              child: FydText.b3white(
+                              text: 'apply codes and coupons!',
+                              weight: FontWeight.w600,
+                              color: fydPWhite,
+                            )),
+                    ],
                   ),
                 ),
               ),
               //! Order-Summary
               Padding(
-                padding: EdgeInsets.only(
-                  top: 20.h,
-                ),
+                padding: EdgeInsets.only(top: 20.h),
                 child: OrderSummarySection(
                   totalItems: totalItems,
                   subTotal: subTotal,
                   shipping: shippingCost,
-                  discount: discount,
+                  discountCoupon: discountCpn.value,
                   total: total,
                 ),
               ),
@@ -284,7 +341,7 @@ class PaymentPage extends HookWidget {
                     context.read<CheckoutBloc>().add(AddPaymentInfo(
                           amount: total,
                           mode: selectedPaymentMode.value!,
-                          discount: discount,
+                          discountCpn: discountCpn.value,
                           total: total,
                         ));
                   }
@@ -300,123 +357,6 @@ class PaymentPage extends HookWidget {
 
 //?-----------------------------------------------------------------------------
 //! order-summary-section
-
-class OrderSummarySection extends StatelessWidget {
-  const OrderSummarySection({
-    Key? key,
-    required this.totalItems,
-    required this.subTotal,
-    required this.shipping,
-    required this.discount,
-    required this.total,
-  }) : super(key: key);
-  final int totalItems;
-  final double subTotal;
-  final double shipping;
-  final double? discount;
-  final double total;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        //!subtotal
-        Padding(
-          padding: EdgeInsets.only(bottom: 5.h, left: 10.w, right: 10.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              FydText.b2custom(
-                text:
-                    'subTotal (${totalItems.toString().padLeft(2, '0')} items)',
-                color: fydTGrey,
-                weight: FontWeight.w700,
-                letterSpacing: .75,
-              ),
-              FydText.b1custom(
-                text: '+ $subTotal',
-                color: fydBlueGrey,
-                letterSpacing: .8,
-              )
-            ],
-          ),
-        ),
-        //!shipping
-        Padding(
-          padding: EdgeInsets.only(bottom: 5.h, left: 10.w, right: 10.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              const FydText.b2custom(
-                text: 'Shipping',
-                color: fydTGrey,
-                weight: FontWeight.w700,
-                letterSpacing: .75,
-              ),
-              FydText.b1custom(
-                text: '+ $shipping',
-                color: fydBlueGrey,
-                letterSpacing: .8,
-              ),
-            ],
-          ),
-        ),
-        //!Discount
-        (discount == null)
-            ? const SizedBox.shrink()
-            : Padding(
-                padding: EdgeInsets.only(bottom: 5.h, left: 10.w, right: 10.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    const FydText.b2custom(
-                      text: 'Discount',
-                      color: fydTGrey,
-                      weight: FontWeight.w700,
-                      letterSpacing: .75,
-                    ),
-                    FydText.b1custom(
-                      text: '-  $discount',
-                      color: fydBlueGrey,
-                      letterSpacing: .8,
-                    ),
-                  ],
-                ),
-              ),
-        //! divider
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 10.h),
-          child: const FydDivider(
-            color: fydBlueGrey,
-          ),
-        ),
-        //!total
-        Padding(
-          padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 5.h),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              const FydText.b1custom(
-                text: 'Total',
-                color: fydPWhite,
-                weight: FontWeight.bold,
-              ),
-              FydText.h3custom(
-                text: '₹ $total',
-                color: fydLogoBlue,
-                letterSpacing: .9,
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 //?-----------------------------------------------------------------------------
 //! Delivery-info-card

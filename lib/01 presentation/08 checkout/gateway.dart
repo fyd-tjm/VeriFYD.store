@@ -69,6 +69,7 @@ class GatewayPage extends StatelessWidget {
                           cartAvailabilityFailure: () =>
                               context.navigateNamedTo(Rn.cart),
                           //-------
+                          couponFailure: () => null,
                           paymentFailure: () =>
                               null, //TODO: handle PaymentFailure
                           //-------
@@ -172,7 +173,7 @@ class GatewayPage extends StatelessWidget {
                       orderSummary: OrderSummary(
                           totalItems: 1,
                           subTotal: 1,
-                          discount: 1,
+                          discount: null,
                           shippingCost: 1,
                           total: 1)),
                   shippingInfo: ShippingInfo(

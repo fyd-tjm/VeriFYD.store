@@ -34,7 +34,8 @@ mixin _$ShippingInfo {
 abstract class $ShippingInfoCopyWith<$Res> {
   factory $ShippingInfoCopyWith(
           ShippingInfo value, $Res Function(ShippingInfo) then) =
-      _$ShippingInfoCopyWithImpl<$Res>;
+      _$ShippingInfoCopyWithImpl<$Res, ShippingInfo>;
+  @useResult
   $Res call(
       {FydAddress shippingAddress, double shippingCost, String trackingUrl});
 
@@ -42,39 +43,43 @@ abstract class $ShippingInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ShippingInfoCopyWithImpl<$Res> implements $ShippingInfoCopyWith<$Res> {
+class _$ShippingInfoCopyWithImpl<$Res, $Val extends ShippingInfo>
+    implements $ShippingInfoCopyWith<$Res> {
   _$ShippingInfoCopyWithImpl(this._value, this._then);
 
-  final ShippingInfo _value;
   // ignore: unused_field
-  final $Res Function(ShippingInfo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? shippingAddress = freezed,
-    Object? shippingCost = freezed,
-    Object? trackingUrl = freezed,
+    Object? shippingAddress = null,
+    Object? shippingCost = null,
+    Object? trackingUrl = null,
   }) {
     return _then(_value.copyWith(
-      shippingAddress: shippingAddress == freezed
+      shippingAddress: null == shippingAddress
           ? _value.shippingAddress
           : shippingAddress // ignore: cast_nullable_to_non_nullable
               as FydAddress,
-      shippingCost: shippingCost == freezed
+      shippingCost: null == shippingCost
           ? _value.shippingCost
           : shippingCost // ignore: cast_nullable_to_non_nullable
               as double,
-      trackingUrl: trackingUrl == freezed
+      trackingUrl: null == trackingUrl
           ? _value.trackingUrl
           : trackingUrl // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $FydAddressCopyWith<$Res> get shippingAddress {
     return $FydAddressCopyWith<$Res>(_value.shippingAddress, (value) {
-      return _then(_value.copyWith(shippingAddress: value));
+      return _then(_value.copyWith(shippingAddress: value) as $Val);
     });
   }
 }
@@ -86,6 +91,7 @@ abstract class _$$_ShippingInfoCopyWith<$Res>
           _$_ShippingInfo value, $Res Function(_$_ShippingInfo) then) =
       __$$_ShippingInfoCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {FydAddress shippingAddress, double shippingCost, String trackingUrl});
 
@@ -95,31 +101,29 @@ abstract class _$$_ShippingInfoCopyWith<$Res>
 
 /// @nodoc
 class __$$_ShippingInfoCopyWithImpl<$Res>
-    extends _$ShippingInfoCopyWithImpl<$Res>
+    extends _$ShippingInfoCopyWithImpl<$Res, _$_ShippingInfo>
     implements _$$_ShippingInfoCopyWith<$Res> {
   __$$_ShippingInfoCopyWithImpl(
       _$_ShippingInfo _value, $Res Function(_$_ShippingInfo) _then)
-      : super(_value, (v) => _then(v as _$_ShippingInfo));
+      : super(_value, _then);
 
-  @override
-  _$_ShippingInfo get _value => super._value as _$_ShippingInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? shippingAddress = freezed,
-    Object? shippingCost = freezed,
-    Object? trackingUrl = freezed,
+    Object? shippingAddress = null,
+    Object? shippingCost = null,
+    Object? trackingUrl = null,
   }) {
     return _then(_$_ShippingInfo(
-      shippingAddress: shippingAddress == freezed
+      shippingAddress: null == shippingAddress
           ? _value.shippingAddress
           : shippingAddress // ignore: cast_nullable_to_non_nullable
               as FydAddress,
-      shippingCost: shippingCost == freezed
+      shippingCost: null == shippingCost
           ? _value.shippingCost
           : shippingCost // ignore: cast_nullable_to_non_nullable
               as double,
-      trackingUrl: trackingUrl == freezed
+      trackingUrl: null == trackingUrl
           ? _value.trackingUrl
           : trackingUrl // ignore: cast_nullable_to_non_nullable
               as String,
@@ -156,24 +160,22 @@ class _$_ShippingInfo implements _ShippingInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ShippingInfo &&
-            const DeepCollectionEquality()
-                .equals(other.shippingAddress, shippingAddress) &&
-            const DeepCollectionEquality()
-                .equals(other.shippingCost, shippingCost) &&
-            const DeepCollectionEquality()
-                .equals(other.trackingUrl, trackingUrl));
+            (identical(other.shippingAddress, shippingAddress) ||
+                other.shippingAddress == shippingAddress) &&
+            (identical(other.shippingCost, shippingCost) ||
+                other.shippingCost == shippingCost) &&
+            (identical(other.trackingUrl, trackingUrl) ||
+                other.trackingUrl == trackingUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(shippingAddress),
-      const DeepCollectionEquality().hash(shippingCost),
-      const DeepCollectionEquality().hash(trackingUrl));
+  int get hashCode =>
+      Object.hash(runtimeType, shippingAddress, shippingCost, trackingUrl);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ShippingInfoCopyWith<_$_ShippingInfo> get copyWith =>
       __$$_ShippingInfoCopyWithImpl<_$_ShippingInfo>(this, _$identity);
 

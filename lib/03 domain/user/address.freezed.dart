@@ -40,7 +40,8 @@ mixin _$FydAddress {
 abstract class $FydAddressCopyWith<$Res> {
   factory $FydAddressCopyWith(
           FydAddress value, $Res Function(FydAddress) then) =
-      _$FydAddressCopyWithImpl<$Res>;
+      _$FydAddressCopyWithImpl<$Res, FydAddress>;
+  @useResult
   $Res call(
       {String name,
       String phone,
@@ -54,63 +55,66 @@ abstract class $FydAddressCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$FydAddressCopyWithImpl<$Res> implements $FydAddressCopyWith<$Res> {
+class _$FydAddressCopyWithImpl<$Res, $Val extends FydAddress>
+    implements $FydAddressCopyWith<$Res> {
   _$FydAddressCopyWithImpl(this._value, this._then);
 
-  final FydAddress _value;
   // ignore: unused_field
-  final $Res Function(FydAddress) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? phone = freezed,
-    Object? email = freezed,
-    Object? line1 = freezed,
-    Object? line2 = freezed,
-    Object? landmark = freezed,
-    Object? city = freezed,
-    Object? state = freezed,
-    Object? pincode = freezed,
+    Object? name = null,
+    Object? phone = null,
+    Object? email = null,
+    Object? line1 = null,
+    Object? line2 = null,
+    Object? landmark = null,
+    Object? city = null,
+    Object? state = null,
+    Object? pincode = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      phone: phone == freezed
+      phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      line1: line1 == freezed
+      line1: null == line1
           ? _value.line1
           : line1 // ignore: cast_nullable_to_non_nullable
               as String,
-      line2: line2 == freezed
+      line2: null == line2
           ? _value.line2
           : line2 // ignore: cast_nullable_to_non_nullable
               as String,
-      landmark: landmark == freezed
+      landmark: null == landmark
           ? _value.landmark
           : landmark // ignore: cast_nullable_to_non_nullable
               as String,
-      city: city == freezed
+      city: null == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
-      state: state == freezed
+      state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as String,
-      pincode: pincode == freezed
+      pincode: null == pincode
           ? _value.pincode
           : pincode // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -121,6 +125,7 @@ abstract class _$$_FydAddressCopyWith<$Res>
           _$_FydAddress value, $Res Function(_$_FydAddress) then) =
       __$$_FydAddressCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       String phone,
@@ -134,61 +139,60 @@ abstract class _$$_FydAddressCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_FydAddressCopyWithImpl<$Res> extends _$FydAddressCopyWithImpl<$Res>
+class __$$_FydAddressCopyWithImpl<$Res>
+    extends _$FydAddressCopyWithImpl<$Res, _$_FydAddress>
     implements _$$_FydAddressCopyWith<$Res> {
   __$$_FydAddressCopyWithImpl(
       _$_FydAddress _value, $Res Function(_$_FydAddress) _then)
-      : super(_value, (v) => _then(v as _$_FydAddress));
+      : super(_value, _then);
 
-  @override
-  _$_FydAddress get _value => super._value as _$_FydAddress;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? phone = freezed,
-    Object? email = freezed,
-    Object? line1 = freezed,
-    Object? line2 = freezed,
-    Object? landmark = freezed,
-    Object? city = freezed,
-    Object? state = freezed,
-    Object? pincode = freezed,
+    Object? name = null,
+    Object? phone = null,
+    Object? email = null,
+    Object? line1 = null,
+    Object? line2 = null,
+    Object? landmark = null,
+    Object? city = null,
+    Object? state = null,
+    Object? pincode = null,
   }) {
     return _then(_$_FydAddress(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      phone: phone == freezed
+      phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      line1: line1 == freezed
+      line1: null == line1
           ? _value.line1
           : line1 // ignore: cast_nullable_to_non_nullable
               as String,
-      line2: line2 == freezed
+      line2: null == line2
           ? _value.line2
           : line2 // ignore: cast_nullable_to_non_nullable
               as String,
-      landmark: landmark == freezed
+      landmark: null == landmark
           ? _value.landmark
           : landmark // ignore: cast_nullable_to_non_nullable
               as String,
-      city: city == freezed
+      city: null == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
-      state: state == freezed
+      state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as String,
-      pincode: pincode == freezed
+      pincode: null == pincode
           ? _value.pincode
           : pincode // ignore: cast_nullable_to_non_nullable
               as int,
@@ -238,33 +242,26 @@ class _$_FydAddress extends _FydAddress {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FydAddress &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.phone, phone) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.line1, line1) &&
-            const DeepCollectionEquality().equals(other.line2, line2) &&
-            const DeepCollectionEquality().equals(other.landmark, landmark) &&
-            const DeepCollectionEquality().equals(other.city, city) &&
-            const DeepCollectionEquality().equals(other.state, state) &&
-            const DeepCollectionEquality().equals(other.pincode, pincode));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.line1, line1) || other.line1 == line1) &&
+            (identical(other.line2, line2) || other.line2 == line2) &&
+            (identical(other.landmark, landmark) ||
+                other.landmark == landmark) &&
+            (identical(other.city, city) || other.city == city) &&
+            (identical(other.state, state) || other.state == state) &&
+            (identical(other.pincode, pincode) || other.pincode == pincode));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(phone),
-      const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(line1),
-      const DeepCollectionEquality().hash(line2),
-      const DeepCollectionEquality().hash(landmark),
-      const DeepCollectionEquality().hash(city),
-      const DeepCollectionEquality().hash(state),
-      const DeepCollectionEquality().hash(pincode));
+  int get hashCode => Object.hash(runtimeType, name, phone, email, line1, line2,
+      landmark, city, state, pincode);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_FydAddressCopyWith<_$_FydAddress> get copyWith =>
       __$$_FydAddressCopyWithImpl<_$_FydAddress>(this, _$identity);
 

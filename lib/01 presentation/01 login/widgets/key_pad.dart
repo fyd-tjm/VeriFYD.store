@@ -141,7 +141,7 @@ class NumBtn extends StatelessWidget {
             ? Center(
                 child: FydText.h1custom(
                   text: number,
-                  color: fydLogoGreen,
+                  color: fydLogoBlue,
                 ),
               )
             : Center(

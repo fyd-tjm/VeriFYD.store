@@ -33,6 +33,7 @@ mixin _$Store {
   Map<int, String> get storeContact => throw _privateConstructorUsedError;
   bool get isLive => throw _privateConstructorUsedError;
   Map<String, String> get offers => throw _privateConstructorUsedError;
+  Map<String, Coupon> get coupons => throw _privateConstructorUsedError;
   Map<int, String> get storeAlerts => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,7 +44,8 @@ mixin _$Store {
 /// @nodoc
 abstract class $StoreCopyWith<$Res> {
   factory $StoreCopyWith(Store value, $Res Function(Store) then) =
-      _$StoreCopyWithImpl<$Res>;
+      _$StoreCopyWithImpl<$Res, Store>;
+  @useResult
   $Res call(
       {String storeId,
       String name,
@@ -58,92 +60,101 @@ abstract class $StoreCopyWith<$Res> {
       Map<int, String> storeContact,
       bool isLive,
       Map<String, String> offers,
+      Map<String, Coupon> coupons,
       Map<int, String> storeAlerts});
 }
 
 /// @nodoc
-class _$StoreCopyWithImpl<$Res> implements $StoreCopyWith<$Res> {
+class _$StoreCopyWithImpl<$Res, $Val extends Store>
+    implements $StoreCopyWith<$Res> {
   _$StoreCopyWithImpl(this._value, this._then);
 
-  final Store _value;
   // ignore: unused_field
-  final $Res Function(Store) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? name = freezed,
-    Object? categories = freezed,
-    Object? types = freezed,
-    Object? socialPresence = freezed,
-    Object? featuredIn = freezed,
-    Object? rating = freezed,
-    Object? about = freezed,
-    Object? storeLogo = freezed,
-    Object? storeAddress = freezed,
-    Object? storeContact = freezed,
-    Object? isLive = freezed,
-    Object? offers = freezed,
-    Object? storeAlerts = freezed,
+    Object? storeId = null,
+    Object? name = null,
+    Object? categories = null,
+    Object? types = null,
+    Object? socialPresence = null,
+    Object? featuredIn = null,
+    Object? rating = null,
+    Object? about = null,
+    Object? storeLogo = null,
+    Object? storeAddress = null,
+    Object? storeContact = null,
+    Object? isLive = null,
+    Object? offers = null,
+    Object? coupons = null,
+    Object? storeAlerts = null,
   }) {
     return _then(_value.copyWith(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      categories: categories == freezed
+      categories: null == categories
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      types: types == freezed
+      types: null == types
           ? _value.types
           : types // ignore: cast_nullable_to_non_nullable
               as Map<String, int>,
-      socialPresence: socialPresence == freezed
+      socialPresence: null == socialPresence
           ? _value.socialPresence
           : socialPresence // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
-      featuredIn: featuredIn == freezed
+      featuredIn: null == featuredIn
           ? _value.featuredIn
           : featuredIn // ignore: cast_nullable_to_non_nullable
               as Map<int, String>,
-      rating: rating == freezed
+      rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
-      about: about == freezed
+      about: null == about
           ? _value.about
           : about // ignore: cast_nullable_to_non_nullable
               as String,
-      storeLogo: storeLogo == freezed
+      storeLogo: null == storeLogo
           ? _value.storeLogo
           : storeLogo // ignore: cast_nullable_to_non_nullable
               as String,
-      storeAddress: storeAddress == freezed
+      storeAddress: null == storeAddress
           ? _value.storeAddress
           : storeAddress // ignore: cast_nullable_to_non_nullable
               as Map<int, String>,
-      storeContact: storeContact == freezed
+      storeContact: null == storeContact
           ? _value.storeContact
           : storeContact // ignore: cast_nullable_to_non_nullable
               as Map<int, String>,
-      isLive: isLive == freezed
+      isLive: null == isLive
           ? _value.isLive
           : isLive // ignore: cast_nullable_to_non_nullable
               as bool,
-      offers: offers == freezed
+      offers: null == offers
           ? _value.offers
           : offers // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
-      storeAlerts: storeAlerts == freezed
+      coupons: null == coupons
+          ? _value.coupons
+          : coupons // ignore: cast_nullable_to_non_nullable
+              as Map<String, Coupon>,
+      storeAlerts: null == storeAlerts
           ? _value.storeAlerts
           : storeAlerts // ignore: cast_nullable_to_non_nullable
               as Map<int, String>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -152,6 +163,7 @@ abstract class _$$_StoreCopyWith<$Res> implements $StoreCopyWith<$Res> {
   factory _$$_StoreCopyWith(_$_Store value, $Res Function(_$_Store) then) =
       __$$_StoreCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String storeId,
       String name,
@@ -166,89 +178,93 @@ abstract class _$$_StoreCopyWith<$Res> implements $StoreCopyWith<$Res> {
       Map<int, String> storeContact,
       bool isLive,
       Map<String, String> offers,
+      Map<String, Coupon> coupons,
       Map<int, String> storeAlerts});
 }
 
 /// @nodoc
-class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
+class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res, _$_Store>
     implements _$$_StoreCopyWith<$Res> {
   __$$_StoreCopyWithImpl(_$_Store _value, $Res Function(_$_Store) _then)
-      : super(_value, (v) => _then(v as _$_Store));
+      : super(_value, _then);
 
-  @override
-  _$_Store get _value => super._value as _$_Store;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? storeId = freezed,
-    Object? name = freezed,
-    Object? categories = freezed,
-    Object? types = freezed,
-    Object? socialPresence = freezed,
-    Object? featuredIn = freezed,
-    Object? rating = freezed,
-    Object? about = freezed,
-    Object? storeLogo = freezed,
-    Object? storeAddress = freezed,
-    Object? storeContact = freezed,
-    Object? isLive = freezed,
-    Object? offers = freezed,
-    Object? storeAlerts = freezed,
+    Object? storeId = null,
+    Object? name = null,
+    Object? categories = null,
+    Object? types = null,
+    Object? socialPresence = null,
+    Object? featuredIn = null,
+    Object? rating = null,
+    Object? about = null,
+    Object? storeLogo = null,
+    Object? storeAddress = null,
+    Object? storeContact = null,
+    Object? isLive = null,
+    Object? offers = null,
+    Object? coupons = null,
+    Object? storeAlerts = null,
   }) {
     return _then(_$_Store(
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      categories: categories == freezed
+      categories: null == categories
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      types: types == freezed
+      types: null == types
           ? _value._types
           : types // ignore: cast_nullable_to_non_nullable
               as Map<String, int>,
-      socialPresence: socialPresence == freezed
+      socialPresence: null == socialPresence
           ? _value._socialPresence
           : socialPresence // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
-      featuredIn: featuredIn == freezed
+      featuredIn: null == featuredIn
           ? _value._featuredIn
           : featuredIn // ignore: cast_nullable_to_non_nullable
               as Map<int, String>,
-      rating: rating == freezed
+      rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
-      about: about == freezed
+      about: null == about
           ? _value.about
           : about // ignore: cast_nullable_to_non_nullable
               as String,
-      storeLogo: storeLogo == freezed
+      storeLogo: null == storeLogo
           ? _value.storeLogo
           : storeLogo // ignore: cast_nullable_to_non_nullable
               as String,
-      storeAddress: storeAddress == freezed
+      storeAddress: null == storeAddress
           ? _value._storeAddress
           : storeAddress // ignore: cast_nullable_to_non_nullable
               as Map<int, String>,
-      storeContact: storeContact == freezed
+      storeContact: null == storeContact
           ? _value._storeContact
           : storeContact // ignore: cast_nullable_to_non_nullable
               as Map<int, String>,
-      isLive: isLive == freezed
+      isLive: null == isLive
           ? _value.isLive
           : isLive // ignore: cast_nullable_to_non_nullable
               as bool,
-      offers: offers == freezed
+      offers: null == offers
           ? _value._offers
           : offers // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
-      storeAlerts: storeAlerts == freezed
+      coupons: null == coupons
+          ? _value._coupons
+          : coupons // ignore: cast_nullable_to_non_nullable
+              as Map<String, Coupon>,
+      storeAlerts: null == storeAlerts
           ? _value._storeAlerts
           : storeAlerts // ignore: cast_nullable_to_non_nullable
               as Map<int, String>,
@@ -257,7 +273,8 @@ class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$_Store implements _Store {
   const _$_Store(
       {required this.storeId,
@@ -273,6 +290,7 @@ class _$_Store implements _Store {
       required final Map<int, String> storeContact,
       required this.isLive,
       required final Map<String, String> offers,
+      required final Map<String, Coupon> coupons,
       required final Map<int, String> storeAlerts})
       : _categories = categories,
         _types = types,
@@ -281,6 +299,7 @@ class _$_Store implements _Store {
         _storeAddress = storeAddress,
         _storeContact = storeContact,
         _offers = offers,
+        _coupons = coupons,
         _storeAlerts = storeAlerts;
 
   factory _$_Store.fromJson(Map<String, dynamic> json) =>
@@ -347,6 +366,13 @@ class _$_Store implements _Store {
     return EqualUnmodifiableMapView(_offers);
   }
 
+  final Map<String, Coupon> _coupons;
+  @override
+  Map<String, Coupon> get coupons {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_coupons);
+  }
+
   final Map<int, String> _storeAlerts;
   @override
   Map<int, String> get storeAlerts {
@@ -356,7 +382,7 @@ class _$_Store implements _Store {
 
   @override
   String toString() {
-    return 'Store(storeId: $storeId, name: $name, categories: $categories, types: $types, socialPresence: $socialPresence, featuredIn: $featuredIn, rating: $rating, about: $about, storeLogo: $storeLogo, storeAddress: $storeAddress, storeContact: $storeContact, isLive: $isLive, offers: $offers, storeAlerts: $storeAlerts)';
+    return 'Store(storeId: $storeId, name: $name, categories: $categories, types: $types, socialPresence: $socialPresence, featuredIn: $featuredIn, rating: $rating, about: $about, storeLogo: $storeLogo, storeAddress: $storeAddress, storeContact: $storeContact, isLive: $isLive, offers: $offers, coupons: $coupons, storeAlerts: $storeAlerts)';
   }
 
   @override
@@ -364,8 +390,8 @@ class _$_Store implements _Store {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Store &&
-            const DeepCollectionEquality().equals(other.storeId, storeId) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
+            (identical(other.storeId, storeId) || other.storeId == storeId) &&
+            (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
             const DeepCollectionEquality().equals(other._types, _types) &&
@@ -373,15 +399,17 @@ class _$_Store implements _Store {
                 .equals(other._socialPresence, _socialPresence) &&
             const DeepCollectionEquality()
                 .equals(other._featuredIn, _featuredIn) &&
-            const DeepCollectionEquality().equals(other.rating, rating) &&
-            const DeepCollectionEquality().equals(other.about, about) &&
-            const DeepCollectionEquality().equals(other.storeLogo, storeLogo) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.about, about) || other.about == about) &&
+            (identical(other.storeLogo, storeLogo) ||
+                other.storeLogo == storeLogo) &&
             const DeepCollectionEquality()
                 .equals(other._storeAddress, _storeAddress) &&
             const DeepCollectionEquality()
                 .equals(other._storeContact, _storeContact) &&
-            const DeepCollectionEquality().equals(other.isLive, isLive) &&
+            (identical(other.isLive, isLive) || other.isLive == isLive) &&
             const DeepCollectionEquality().equals(other._offers, _offers) &&
+            const DeepCollectionEquality().equals(other._coupons, _coupons) &&
             const DeepCollectionEquality()
                 .equals(other._storeAlerts, _storeAlerts));
   }
@@ -390,23 +418,25 @@ class _$_Store implements _Store {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(storeId),
-      const DeepCollectionEquality().hash(name),
+      storeId,
+      name,
       const DeepCollectionEquality().hash(_categories),
       const DeepCollectionEquality().hash(_types),
       const DeepCollectionEquality().hash(_socialPresence),
       const DeepCollectionEquality().hash(_featuredIn),
-      const DeepCollectionEquality().hash(rating),
-      const DeepCollectionEquality().hash(about),
-      const DeepCollectionEquality().hash(storeLogo),
+      rating,
+      about,
+      storeLogo,
       const DeepCollectionEquality().hash(_storeAddress),
       const DeepCollectionEquality().hash(_storeContact),
-      const DeepCollectionEquality().hash(isLive),
+      isLive,
       const DeepCollectionEquality().hash(_offers),
+      const DeepCollectionEquality().hash(_coupons),
       const DeepCollectionEquality().hash(_storeAlerts));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_StoreCopyWith<_$_Store> get copyWith =>
       __$$_StoreCopyWithImpl<_$_Store>(this, _$identity);
 
@@ -433,6 +463,7 @@ abstract class _Store implements Store {
       required final Map<int, String> storeContact,
       required final bool isLive,
       required final Map<String, String> offers,
+      required final Map<String, Coupon> coupons,
       required final Map<int, String> storeAlerts}) = _$_Store;
 
   factory _Store.fromJson(Map<String, dynamic> json) = _$_Store.fromJson;
@@ -463,6 +494,8 @@ abstract class _Store implements Store {
   bool get isLive;
   @override
   Map<String, String> get offers;
+  @override
+  Map<String, Coupon> get coupons;
   @override
   Map<int, String> get storeAlerts;
   @override

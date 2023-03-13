@@ -14,7 +14,10 @@ import 'package:verifyd_store/03%20domain/checkout/order_Info.dart';
 import 'package:verifyd_store/03%20domain/checkout/order_summary.dart';
 import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
 import 'package:verifyd_store/03%20domain/checkout/shipping_info.dart';
+import 'package:verifyd_store/03%20domain/store/coupon.dart';
 import 'package:verifyd_store/03%20domain/user/address.dart';
+import 'package:verifyd_store/utils/helpers/db_helpers.dart';
+import 'package:verifyd_store/utils/helpers/helpers.dart';
 
 part 'checkout_event.dart';
 part 'checkout_state.dart';
@@ -97,15 +100,17 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     });
 
 //?-----------------------------------------------------------------------------
-    //! Add-Shipping-Info
-    on<AddShippingInfo>((event, emit) {
+    //! Add-Shipping-Info via [confirm-Address Btn]
+    on<AddShippingInfo>((event, emit) async {
       //--------
       emit(state.copyWith(
         isProcessing: true,
         failureOrSuccess: none(),
         shippingInfo: null,
       ));
+
       //--------
+
       final shippingCost = _sharedInfoCubit.state.sharedInfo?.shippingCost;
       //--------
       if (shippingCost != null) {
@@ -115,6 +120,30 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
           shippingCost: shippingCost,
           trackingUrl: '',
         );
+        //--------
+        if (state.coupons == null) {
+          final storeRef =
+              Helpers.getStoreRef(storeId: state.orderInfo!.storeId);
+          final coupons =
+              await _checkoutRepo.getStoreCoupons(storeRef: storeRef);
+          coupons.fold(
+            (failure) {
+              emit(
+                state.copyWith(
+                    isProcessing: false,
+                    shippingInfo: shippingInfo,
+                    failureOrSuccess: some(left(failure))),
+              );
+              add(const ToggleFailureOrSuccess());
+            },
+            (success) => emit(state.copyWith(
+                isProcessing: false,
+                shippingInfo: shippingInfo,
+                coupons: success,
+                failureOrSuccess: some(right(unit)))),
+          );
+          return;
+        }
         //--------
         emit(state.copyWith(
             isProcessing: false,
@@ -150,13 +179,13 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
           orderSummary: OrderSummary(
             totalItems: state.orderInfo!.orderSummary.totalItems,
             subTotal: state.orderInfo!.orderSummary.subTotal,
-            discount: event.discount,
+            discount: event.discountCpn,
             shippingCost: state.shippingInfo!.shippingCost,
             total: event.total,
           ));
       //-------
       final paymentInfo =
-          PaymentInfo(paymentAmount: event.amount, paymentMode: event.mode);
+          PaymentInfo(paymentAmount: event.total, paymentMode: event.mode);
       //-------
       await _cartCubit.cartAvailabilityCheck().then((cartAvailability) async {
         if (cartAvailability == true) {

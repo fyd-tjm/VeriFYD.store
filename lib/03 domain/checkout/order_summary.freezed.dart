@@ -23,7 +23,7 @@ mixin _$OrderSummary {
   int get totalItems => throw _privateConstructorUsedError;
   double get subTotal => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: null)
-  double? get discount => throw _privateConstructorUsedError;
+  Coupon? get discount => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: null)
   double? get shippingCost => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: null)
@@ -39,53 +39,71 @@ mixin _$OrderSummary {
 abstract class $OrderSummaryCopyWith<$Res> {
   factory $OrderSummaryCopyWith(
           OrderSummary value, $Res Function(OrderSummary) then) =
-      _$OrderSummaryCopyWithImpl<$Res>;
+      _$OrderSummaryCopyWithImpl<$Res, OrderSummary>;
+  @useResult
   $Res call(
       {int totalItems,
       double subTotal,
-      @JsonKey(defaultValue: null) double? discount,
+      @JsonKey(defaultValue: null) Coupon? discount,
       @JsonKey(defaultValue: null) double? shippingCost,
       @JsonKey(defaultValue: null) double? total});
+
+  $CouponCopyWith<$Res>? get discount;
 }
 
 /// @nodoc
-class _$OrderSummaryCopyWithImpl<$Res> implements $OrderSummaryCopyWith<$Res> {
+class _$OrderSummaryCopyWithImpl<$Res, $Val extends OrderSummary>
+    implements $OrderSummaryCopyWith<$Res> {
   _$OrderSummaryCopyWithImpl(this._value, this._then);
 
-  final OrderSummary _value;
   // ignore: unused_field
-  final $Res Function(OrderSummary) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? totalItems = freezed,
-    Object? subTotal = freezed,
+    Object? totalItems = null,
+    Object? subTotal = null,
     Object? discount = freezed,
     Object? shippingCost = freezed,
     Object? total = freezed,
   }) {
     return _then(_value.copyWith(
-      totalItems: totalItems == freezed
+      totalItems: null == totalItems
           ? _value.totalItems
           : totalItems // ignore: cast_nullable_to_non_nullable
               as int,
-      subTotal: subTotal == freezed
+      subTotal: null == subTotal
           ? _value.subTotal
           : subTotal // ignore: cast_nullable_to_non_nullable
               as double,
-      discount: discount == freezed
+      discount: freezed == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as double?,
-      shippingCost: shippingCost == freezed
+              as Coupon?,
+      shippingCost: freezed == shippingCost
           ? _value.shippingCost
           : shippingCost // ignore: cast_nullable_to_non_nullable
               as double?,
-      total: total == freezed
+      total: freezed == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as double?,
-    ));
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CouponCopyWith<$Res>? get discount {
+    if (_value.discount == null) {
+      return null;
+    }
+
+    return $CouponCopyWith<$Res>(_value.discount!, (value) {
+      return _then(_value.copyWith(discount: value) as $Val);
+    });
   }
 }
 
@@ -96,51 +114,53 @@ abstract class _$$_OrderSummaryCopyWith<$Res>
           _$_OrderSummary value, $Res Function(_$_OrderSummary) then) =
       __$$_OrderSummaryCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int totalItems,
       double subTotal,
-      @JsonKey(defaultValue: null) double? discount,
+      @JsonKey(defaultValue: null) Coupon? discount,
       @JsonKey(defaultValue: null) double? shippingCost,
       @JsonKey(defaultValue: null) double? total});
+
+  @override
+  $CouponCopyWith<$Res>? get discount;
 }
 
 /// @nodoc
 class __$$_OrderSummaryCopyWithImpl<$Res>
-    extends _$OrderSummaryCopyWithImpl<$Res>
+    extends _$OrderSummaryCopyWithImpl<$Res, _$_OrderSummary>
     implements _$$_OrderSummaryCopyWith<$Res> {
   __$$_OrderSummaryCopyWithImpl(
       _$_OrderSummary _value, $Res Function(_$_OrderSummary) _then)
-      : super(_value, (v) => _then(v as _$_OrderSummary));
+      : super(_value, _then);
 
-  @override
-  _$_OrderSummary get _value => super._value as _$_OrderSummary;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? totalItems = freezed,
-    Object? subTotal = freezed,
+    Object? totalItems = null,
+    Object? subTotal = null,
     Object? discount = freezed,
     Object? shippingCost = freezed,
     Object? total = freezed,
   }) {
     return _then(_$_OrderSummary(
-      totalItems: totalItems == freezed
+      totalItems: null == totalItems
           ? _value.totalItems
           : totalItems // ignore: cast_nullable_to_non_nullable
               as int,
-      subTotal: subTotal == freezed
+      subTotal: null == subTotal
           ? _value.subTotal
           : subTotal // ignore: cast_nullable_to_non_nullable
               as double,
-      discount: discount == freezed
+      discount: freezed == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
-              as double?,
-      shippingCost: shippingCost == freezed
+              as Coupon?,
+      shippingCost: freezed == shippingCost
           ? _value.shippingCost
           : shippingCost // ignore: cast_nullable_to_non_nullable
               as double?,
-      total: total == freezed
+      total: freezed == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as double?,
@@ -149,7 +169,8 @@ class __$$_OrderSummaryCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$_OrderSummary implements _OrderSummary {
   const _$_OrderSummary(
       {required this.totalItems,
@@ -167,7 +188,7 @@ class _$_OrderSummary implements _OrderSummary {
   final double subTotal;
   @override
   @JsonKey(defaultValue: null)
-  final double? discount;
+  final Coupon? discount;
   @override
   @JsonKey(defaultValue: null)
   final double? shippingCost;
@@ -185,27 +206,25 @@ class _$_OrderSummary implements _OrderSummary {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OrderSummary &&
-            const DeepCollectionEquality()
-                .equals(other.totalItems, totalItems) &&
-            const DeepCollectionEquality().equals(other.subTotal, subTotal) &&
-            const DeepCollectionEquality().equals(other.discount, discount) &&
-            const DeepCollectionEquality()
-                .equals(other.shippingCost, shippingCost) &&
-            const DeepCollectionEquality().equals(other.total, total));
+            (identical(other.totalItems, totalItems) ||
+                other.totalItems == totalItems) &&
+            (identical(other.subTotal, subTotal) ||
+                other.subTotal == subTotal) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount) &&
+            (identical(other.shippingCost, shippingCost) ||
+                other.shippingCost == shippingCost) &&
+            (identical(other.total, total) || other.total == total));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(totalItems),
-      const DeepCollectionEquality().hash(subTotal),
-      const DeepCollectionEquality().hash(discount),
-      const DeepCollectionEquality().hash(shippingCost),
-      const DeepCollectionEquality().hash(total));
+      runtimeType, totalItems, subTotal, discount, shippingCost, total);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_OrderSummaryCopyWith<_$_OrderSummary> get copyWith =>
       __$$_OrderSummaryCopyWithImpl<_$_OrderSummary>(this, _$identity);
 
@@ -221,7 +240,7 @@ abstract class _OrderSummary implements OrderSummary {
   const factory _OrderSummary(
           {required final int totalItems,
           required final double subTotal,
-          @JsonKey(defaultValue: null) required final double? discount,
+          @JsonKey(defaultValue: null) required final Coupon? discount,
           @JsonKey(defaultValue: null) required final double? shippingCost,
           @JsonKey(defaultValue: null) required final double? total}) =
       _$_OrderSummary;
@@ -235,7 +254,7 @@ abstract class _OrderSummary implements OrderSummary {
   double get subTotal;
   @override
   @JsonKey(defaultValue: null)
-  double? get discount;
+  Coupon? get discount;
   @override
   @JsonKey(defaultValue: null)
   double? get shippingCost;

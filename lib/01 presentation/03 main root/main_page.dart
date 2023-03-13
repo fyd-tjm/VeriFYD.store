@@ -76,6 +76,8 @@ Widget buildBottomNavigationBar({
   required int currentIndex,
   required Function(int) onTap,
 }) {
+  final isNullState =
+      context.select((SharedInfoCubit c) => c.state.sharedInfo == null);
   return PreferredSize(
     preferredSize: Size(double.infinity, 65.5.h),
     child: Column(
@@ -140,7 +142,7 @@ Widget buildBottomNavigationBar({
           currentIndex: currentIndex,
           onTap: (index) {
             HapticFeedback.mediumImpact();
-            onTap(index);
+            isNullState ? null : onTap(index);
           },
         ),
       ],

@@ -22,7 +22,7 @@ mixin _$CheckoutEvent {
     required TResult Function() checkoutInitialization,
     required TResult Function(FydAddress shippingAddress) addShippingInfo,
     required TResult Function(
-            double amount, PaymentMode mode, double discount, double total)
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)
         addPaymentInfo,
     required TResult Function() makePayment,
     required TResult Function(PaymentInfo paymentInfo) onCheckoutSuccess,
@@ -31,15 +31,15 @@ mixin _$CheckoutEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? toggleFailureOrSuccess,
-    TResult Function()? checkoutInitialization,
-    TResult Function(FydAddress shippingAddress)? addShippingInfo,
-    TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+    TResult? Function()? toggleFailureOrSuccess,
+    TResult? Function()? checkoutInitialization,
+    TResult? Function(FydAddress shippingAddress)? addShippingInfo,
+    TResult? Function(
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
-    TResult Function()? makePayment,
-    TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
-    TResult Function()? onCheckoutFailure,
+    TResult? Function()? makePayment,
+    TResult? Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
+    TResult? Function()? onCheckoutFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -48,7 +48,7 @@ mixin _$CheckoutEvent {
     TResult Function()? checkoutInitialization,
     TResult Function(FydAddress shippingAddress)? addShippingInfo,
     TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
     TResult Function()? makePayment,
     TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
@@ -71,13 +71,13 @@ mixin _$CheckoutEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
-    TResult Function(CheckoutInitialization value)? checkoutInitialization,
-    TResult Function(AddShippingInfo value)? addShippingInfo,
-    TResult Function(AddPaymentInfo value)? addPaymentInfo,
-    TResult Function(MakePayment value)? makePayment,
-    TResult Function(OnCheckoutSuccess value)? onCheckoutSuccess,
-    TResult Function(OnCheckoutFailure value)? onCheckoutFailure,
+    TResult? Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
+    TResult? Function(CheckoutInitialization value)? checkoutInitialization,
+    TResult? Function(AddShippingInfo value)? addShippingInfo,
+    TResult? Function(AddPaymentInfo value)? addPaymentInfo,
+    TResult? Function(MakePayment value)? makePayment,
+    TResult? Function(OnCheckoutSuccess value)? onCheckoutSuccess,
+    TResult? Function(OnCheckoutFailure value)? onCheckoutFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -98,17 +98,18 @@ mixin _$CheckoutEvent {
 abstract class $CheckoutEventCopyWith<$Res> {
   factory $CheckoutEventCopyWith(
           CheckoutEvent value, $Res Function(CheckoutEvent) then) =
-      _$CheckoutEventCopyWithImpl<$Res>;
+      _$CheckoutEventCopyWithImpl<$Res, CheckoutEvent>;
 }
 
 /// @nodoc
-class _$CheckoutEventCopyWithImpl<$Res>
+class _$CheckoutEventCopyWithImpl<$Res, $Val extends CheckoutEvent>
     implements $CheckoutEventCopyWith<$Res> {
   _$CheckoutEventCopyWithImpl(this._value, this._then);
 
-  final CheckoutEvent _value;
   // ignore: unused_field
-  final $Res Function(CheckoutEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -120,15 +121,11 @@ abstract class _$$ToggleFailureOrSuccessCopyWith<$Res> {
 
 /// @nodoc
 class __$$ToggleFailureOrSuccessCopyWithImpl<$Res>
-    extends _$CheckoutEventCopyWithImpl<$Res>
+    extends _$CheckoutEventCopyWithImpl<$Res, _$ToggleFailureOrSuccess>
     implements _$$ToggleFailureOrSuccessCopyWith<$Res> {
   __$$ToggleFailureOrSuccessCopyWithImpl(_$ToggleFailureOrSuccess _value,
       $Res Function(_$ToggleFailureOrSuccess) _then)
-      : super(_value, (v) => _then(v as _$ToggleFailureOrSuccess));
-
-  @override
-  _$ToggleFailureOrSuccess get _value =>
-      super._value as _$ToggleFailureOrSuccess;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -157,7 +154,7 @@ class _$ToggleFailureOrSuccess implements ToggleFailureOrSuccess {
     required TResult Function() checkoutInitialization,
     required TResult Function(FydAddress shippingAddress) addShippingInfo,
     required TResult Function(
-            double amount, PaymentMode mode, double discount, double total)
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)
         addPaymentInfo,
     required TResult Function() makePayment,
     required TResult Function(PaymentInfo paymentInfo) onCheckoutSuccess,
@@ -169,15 +166,15 @@ class _$ToggleFailureOrSuccess implements ToggleFailureOrSuccess {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? toggleFailureOrSuccess,
-    TResult Function()? checkoutInitialization,
-    TResult Function(FydAddress shippingAddress)? addShippingInfo,
-    TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+    TResult? Function()? toggleFailureOrSuccess,
+    TResult? Function()? checkoutInitialization,
+    TResult? Function(FydAddress shippingAddress)? addShippingInfo,
+    TResult? Function(
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
-    TResult Function()? makePayment,
-    TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
-    TResult Function()? onCheckoutFailure,
+    TResult? Function()? makePayment,
+    TResult? Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
+    TResult? Function()? onCheckoutFailure,
   }) {
     return toggleFailureOrSuccess?.call();
   }
@@ -189,7 +186,7 @@ class _$ToggleFailureOrSuccess implements ToggleFailureOrSuccess {
     TResult Function()? checkoutInitialization,
     TResult Function(FydAddress shippingAddress)? addShippingInfo,
     TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
     TResult Function()? makePayment,
     TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
@@ -221,13 +218,13 @@ class _$ToggleFailureOrSuccess implements ToggleFailureOrSuccess {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
-    TResult Function(CheckoutInitialization value)? checkoutInitialization,
-    TResult Function(AddShippingInfo value)? addShippingInfo,
-    TResult Function(AddPaymentInfo value)? addPaymentInfo,
-    TResult Function(MakePayment value)? makePayment,
-    TResult Function(OnCheckoutSuccess value)? onCheckoutSuccess,
-    TResult Function(OnCheckoutFailure value)? onCheckoutFailure,
+    TResult? Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
+    TResult? Function(CheckoutInitialization value)? checkoutInitialization,
+    TResult? Function(AddShippingInfo value)? addShippingInfo,
+    TResult? Function(AddPaymentInfo value)? addPaymentInfo,
+    TResult? Function(MakePayment value)? makePayment,
+    TResult? Function(OnCheckoutSuccess value)? onCheckoutSuccess,
+    TResult? Function(OnCheckoutFailure value)? onCheckoutFailure,
   }) {
     return toggleFailureOrSuccess?.call(this);
   }
@@ -264,15 +261,11 @@ abstract class _$$CheckoutInitializationCopyWith<$Res> {
 
 /// @nodoc
 class __$$CheckoutInitializationCopyWithImpl<$Res>
-    extends _$CheckoutEventCopyWithImpl<$Res>
+    extends _$CheckoutEventCopyWithImpl<$Res, _$CheckoutInitialization>
     implements _$$CheckoutInitializationCopyWith<$Res> {
   __$$CheckoutInitializationCopyWithImpl(_$CheckoutInitialization _value,
       $Res Function(_$CheckoutInitialization) _then)
-      : super(_value, (v) => _then(v as _$CheckoutInitialization));
-
-  @override
-  _$CheckoutInitialization get _value =>
-      super._value as _$CheckoutInitialization;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -301,7 +294,7 @@ class _$CheckoutInitialization implements CheckoutInitialization {
     required TResult Function() checkoutInitialization,
     required TResult Function(FydAddress shippingAddress) addShippingInfo,
     required TResult Function(
-            double amount, PaymentMode mode, double discount, double total)
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)
         addPaymentInfo,
     required TResult Function() makePayment,
     required TResult Function(PaymentInfo paymentInfo) onCheckoutSuccess,
@@ -313,15 +306,15 @@ class _$CheckoutInitialization implements CheckoutInitialization {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? toggleFailureOrSuccess,
-    TResult Function()? checkoutInitialization,
-    TResult Function(FydAddress shippingAddress)? addShippingInfo,
-    TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+    TResult? Function()? toggleFailureOrSuccess,
+    TResult? Function()? checkoutInitialization,
+    TResult? Function(FydAddress shippingAddress)? addShippingInfo,
+    TResult? Function(
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
-    TResult Function()? makePayment,
-    TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
-    TResult Function()? onCheckoutFailure,
+    TResult? Function()? makePayment,
+    TResult? Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
+    TResult? Function()? onCheckoutFailure,
   }) {
     return checkoutInitialization?.call();
   }
@@ -333,7 +326,7 @@ class _$CheckoutInitialization implements CheckoutInitialization {
     TResult Function()? checkoutInitialization,
     TResult Function(FydAddress shippingAddress)? addShippingInfo,
     TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
     TResult Function()? makePayment,
     TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
@@ -365,13 +358,13 @@ class _$CheckoutInitialization implements CheckoutInitialization {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
-    TResult Function(CheckoutInitialization value)? checkoutInitialization,
-    TResult Function(AddShippingInfo value)? addShippingInfo,
-    TResult Function(AddPaymentInfo value)? addPaymentInfo,
-    TResult Function(MakePayment value)? makePayment,
-    TResult Function(OnCheckoutSuccess value)? onCheckoutSuccess,
-    TResult Function(OnCheckoutFailure value)? onCheckoutFailure,
+    TResult? Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
+    TResult? Function(CheckoutInitialization value)? checkoutInitialization,
+    TResult? Function(AddShippingInfo value)? addShippingInfo,
+    TResult? Function(AddPaymentInfo value)? addPaymentInfo,
+    TResult? Function(MakePayment value)? makePayment,
+    TResult? Function(OnCheckoutSuccess value)? onCheckoutSuccess,
+    TResult? Function(OnCheckoutFailure value)? onCheckoutFailure,
   }) {
     return checkoutInitialization?.call(this);
   }
@@ -404,6 +397,7 @@ abstract class _$$AddShippingInfoCopyWith<$Res> {
   factory _$$AddShippingInfoCopyWith(
           _$AddShippingInfo value, $Res Function(_$AddShippingInfo) then) =
       __$$AddShippingInfoCopyWithImpl<$Res>;
+  @useResult
   $Res call({FydAddress shippingAddress});
 
   $FydAddressCopyWith<$Res> get shippingAddress;
@@ -411,21 +405,19 @@ abstract class _$$AddShippingInfoCopyWith<$Res> {
 
 /// @nodoc
 class __$$AddShippingInfoCopyWithImpl<$Res>
-    extends _$CheckoutEventCopyWithImpl<$Res>
+    extends _$CheckoutEventCopyWithImpl<$Res, _$AddShippingInfo>
     implements _$$AddShippingInfoCopyWith<$Res> {
   __$$AddShippingInfoCopyWithImpl(
       _$AddShippingInfo _value, $Res Function(_$AddShippingInfo) _then)
-      : super(_value, (v) => _then(v as _$AddShippingInfo));
+      : super(_value, _then);
 
-  @override
-  _$AddShippingInfo get _value => super._value as _$AddShippingInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? shippingAddress = freezed,
+    Object? shippingAddress = null,
   }) {
     return _then(_$AddShippingInfo(
-      shippingAddress: shippingAddress == freezed
+      shippingAddress: null == shippingAddress
           ? _value.shippingAddress
           : shippingAddress // ignore: cast_nullable_to_non_nullable
               as FydAddress,
@@ -433,6 +425,7 @@ class __$$AddShippingInfoCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $FydAddressCopyWith<$Res> get shippingAddress {
     return $FydAddressCopyWith<$Res>(_value.shippingAddress, (value) {
       return _then(_value.copyWith(shippingAddress: value));
@@ -458,16 +451,16 @@ class _$AddShippingInfo implements AddShippingInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddShippingInfo &&
-            const DeepCollectionEquality()
-                .equals(other.shippingAddress, shippingAddress));
+            (identical(other.shippingAddress, shippingAddress) ||
+                other.shippingAddress == shippingAddress));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(shippingAddress));
+  int get hashCode => Object.hash(runtimeType, shippingAddress);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$AddShippingInfoCopyWith<_$AddShippingInfo> get copyWith =>
       __$$AddShippingInfoCopyWithImpl<_$AddShippingInfo>(this, _$identity);
 
@@ -478,7 +471,7 @@ class _$AddShippingInfo implements AddShippingInfo {
     required TResult Function() checkoutInitialization,
     required TResult Function(FydAddress shippingAddress) addShippingInfo,
     required TResult Function(
-            double amount, PaymentMode mode, double discount, double total)
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)
         addPaymentInfo,
     required TResult Function() makePayment,
     required TResult Function(PaymentInfo paymentInfo) onCheckoutSuccess,
@@ -490,15 +483,15 @@ class _$AddShippingInfo implements AddShippingInfo {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? toggleFailureOrSuccess,
-    TResult Function()? checkoutInitialization,
-    TResult Function(FydAddress shippingAddress)? addShippingInfo,
-    TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+    TResult? Function()? toggleFailureOrSuccess,
+    TResult? Function()? checkoutInitialization,
+    TResult? Function(FydAddress shippingAddress)? addShippingInfo,
+    TResult? Function(
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
-    TResult Function()? makePayment,
-    TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
-    TResult Function()? onCheckoutFailure,
+    TResult? Function()? makePayment,
+    TResult? Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
+    TResult? Function()? onCheckoutFailure,
   }) {
     return addShippingInfo?.call(shippingAddress);
   }
@@ -510,7 +503,7 @@ class _$AddShippingInfo implements AddShippingInfo {
     TResult Function()? checkoutInitialization,
     TResult Function(FydAddress shippingAddress)? addShippingInfo,
     TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
     TResult Function()? makePayment,
     TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
@@ -542,13 +535,13 @@ class _$AddShippingInfo implements AddShippingInfo {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
-    TResult Function(CheckoutInitialization value)? checkoutInitialization,
-    TResult Function(AddShippingInfo value)? addShippingInfo,
-    TResult Function(AddPaymentInfo value)? addPaymentInfo,
-    TResult Function(MakePayment value)? makePayment,
-    TResult Function(OnCheckoutSuccess value)? onCheckoutSuccess,
-    TResult Function(OnCheckoutFailure value)? onCheckoutFailure,
+    TResult? Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
+    TResult? Function(CheckoutInitialization value)? checkoutInitialization,
+    TResult? Function(AddShippingInfo value)? addShippingInfo,
+    TResult? Function(AddPaymentInfo value)? addPaymentInfo,
+    TResult? Function(MakePayment value)? makePayment,
+    TResult? Function(OnCheckoutSuccess value)? onCheckoutSuccess,
+    TResult? Function(OnCheckoutFailure value)? onCheckoutFailure,
   }) {
     return addShippingInfo?.call(this);
   }
@@ -587,43 +580,44 @@ abstract class _$$AddPaymentInfoCopyWith<$Res> {
   factory _$$AddPaymentInfoCopyWith(
           _$AddPaymentInfo value, $Res Function(_$AddPaymentInfo) then) =
       __$$AddPaymentInfoCopyWithImpl<$Res>;
-  $Res call({double amount, PaymentMode mode, double discount, double total});
+  @useResult
+  $Res call(
+      {double amount, PaymentMode mode, Coupon? discountCpn, double total});
 
   $PaymentModeCopyWith<$Res> get mode;
+  $CouponCopyWith<$Res>? get discountCpn;
 }
 
 /// @nodoc
 class __$$AddPaymentInfoCopyWithImpl<$Res>
-    extends _$CheckoutEventCopyWithImpl<$Res>
+    extends _$CheckoutEventCopyWithImpl<$Res, _$AddPaymentInfo>
     implements _$$AddPaymentInfoCopyWith<$Res> {
   __$$AddPaymentInfoCopyWithImpl(
       _$AddPaymentInfo _value, $Res Function(_$AddPaymentInfo) _then)
-      : super(_value, (v) => _then(v as _$AddPaymentInfo));
+      : super(_value, _then);
 
-  @override
-  _$AddPaymentInfo get _value => super._value as _$AddPaymentInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? amount = freezed,
-    Object? mode = freezed,
-    Object? discount = freezed,
-    Object? total = freezed,
+    Object? amount = null,
+    Object? mode = null,
+    Object? discountCpn = freezed,
+    Object? total = null,
   }) {
     return _then(_$AddPaymentInfo(
-      amount: amount == freezed
+      amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as double,
-      mode: mode == freezed
+      mode: null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as PaymentMode,
-      discount: discount == freezed
-          ? _value.discount
-          : discount // ignore: cast_nullable_to_non_nullable
-              as double,
-      total: total == freezed
+      discountCpn: freezed == discountCpn
+          ? _value.discountCpn
+          : discountCpn // ignore: cast_nullable_to_non_nullable
+              as Coupon?,
+      total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as double,
@@ -631,9 +625,22 @@ class __$$AddPaymentInfoCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PaymentModeCopyWith<$Res> get mode {
     return $PaymentModeCopyWith<$Res>(_value.mode, (value) {
       return _then(_value.copyWith(mode: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CouponCopyWith<$Res>? get discountCpn {
+    if (_value.discountCpn == null) {
+      return null;
+    }
+
+    return $CouponCopyWith<$Res>(_value.discountCpn!, (value) {
+      return _then(_value.copyWith(discountCpn: value));
     });
   }
 }
@@ -644,7 +651,7 @@ class _$AddPaymentInfo implements AddPaymentInfo {
   _$AddPaymentInfo(
       {required this.amount,
       required this.mode,
-      required this.discount,
+      required this.discountCpn,
       required this.total});
 
   @override
@@ -652,13 +659,13 @@ class _$AddPaymentInfo implements AddPaymentInfo {
   @override
   final PaymentMode mode;
   @override
-  final double discount;
+  final Coupon? discountCpn;
   @override
   final double total;
 
   @override
   String toString() {
-    return 'CheckoutEvent.addPaymentInfo(amount: $amount, mode: $mode, discount: $discount, total: $total)';
+    return 'CheckoutEvent.addPaymentInfo(amount: $amount, mode: $mode, discountCpn: $discountCpn, total: $total)';
   }
 
   @override
@@ -666,22 +673,20 @@ class _$AddPaymentInfo implements AddPaymentInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddPaymentInfo &&
-            const DeepCollectionEquality().equals(other.amount, amount) &&
-            const DeepCollectionEquality().equals(other.mode, mode) &&
-            const DeepCollectionEquality().equals(other.discount, discount) &&
-            const DeepCollectionEquality().equals(other.total, total));
+            (identical(other.amount, amount) || other.amount == amount) &&
+            (identical(other.mode, mode) || other.mode == mode) &&
+            (identical(other.discountCpn, discountCpn) ||
+                other.discountCpn == discountCpn) &&
+            (identical(other.total, total) || other.total == total));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(amount),
-      const DeepCollectionEquality().hash(mode),
-      const DeepCollectionEquality().hash(discount),
-      const DeepCollectionEquality().hash(total));
+  int get hashCode =>
+      Object.hash(runtimeType, amount, mode, discountCpn, total);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$AddPaymentInfoCopyWith<_$AddPaymentInfo> get copyWith =>
       __$$AddPaymentInfoCopyWithImpl<_$AddPaymentInfo>(this, _$identity);
 
@@ -692,29 +697,29 @@ class _$AddPaymentInfo implements AddPaymentInfo {
     required TResult Function() checkoutInitialization,
     required TResult Function(FydAddress shippingAddress) addShippingInfo,
     required TResult Function(
-            double amount, PaymentMode mode, double discount, double total)
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)
         addPaymentInfo,
     required TResult Function() makePayment,
     required TResult Function(PaymentInfo paymentInfo) onCheckoutSuccess,
     required TResult Function() onCheckoutFailure,
   }) {
-    return addPaymentInfo(amount, mode, discount, total);
+    return addPaymentInfo(amount, mode, discountCpn, total);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? toggleFailureOrSuccess,
-    TResult Function()? checkoutInitialization,
-    TResult Function(FydAddress shippingAddress)? addShippingInfo,
-    TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+    TResult? Function()? toggleFailureOrSuccess,
+    TResult? Function()? checkoutInitialization,
+    TResult? Function(FydAddress shippingAddress)? addShippingInfo,
+    TResult? Function(
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
-    TResult Function()? makePayment,
-    TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
-    TResult Function()? onCheckoutFailure,
+    TResult? Function()? makePayment,
+    TResult? Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
+    TResult? Function()? onCheckoutFailure,
   }) {
-    return addPaymentInfo?.call(amount, mode, discount, total);
+    return addPaymentInfo?.call(amount, mode, discountCpn, total);
   }
 
   @override
@@ -724,7 +729,7 @@ class _$AddPaymentInfo implements AddPaymentInfo {
     TResult Function()? checkoutInitialization,
     TResult Function(FydAddress shippingAddress)? addShippingInfo,
     TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
     TResult Function()? makePayment,
     TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
@@ -732,7 +737,7 @@ class _$AddPaymentInfo implements AddPaymentInfo {
     required TResult orElse(),
   }) {
     if (addPaymentInfo != null) {
-      return addPaymentInfo(amount, mode, discount, total);
+      return addPaymentInfo(amount, mode, discountCpn, total);
     }
     return orElse();
   }
@@ -756,13 +761,13 @@ class _$AddPaymentInfo implements AddPaymentInfo {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
-    TResult Function(CheckoutInitialization value)? checkoutInitialization,
-    TResult Function(AddShippingInfo value)? addShippingInfo,
-    TResult Function(AddPaymentInfo value)? addPaymentInfo,
-    TResult Function(MakePayment value)? makePayment,
-    TResult Function(OnCheckoutSuccess value)? onCheckoutSuccess,
-    TResult Function(OnCheckoutFailure value)? onCheckoutFailure,
+    TResult? Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
+    TResult? Function(CheckoutInitialization value)? checkoutInitialization,
+    TResult? Function(AddShippingInfo value)? addShippingInfo,
+    TResult? Function(AddPaymentInfo value)? addPaymentInfo,
+    TResult? Function(MakePayment value)? makePayment,
+    TResult? Function(OnCheckoutSuccess value)? onCheckoutSuccess,
+    TResult? Function(OnCheckoutFailure value)? onCheckoutFailure,
   }) {
     return addPaymentInfo?.call(this);
   }
@@ -790,12 +795,12 @@ abstract class AddPaymentInfo implements CheckoutEvent {
   factory AddPaymentInfo(
       {required final double amount,
       required final PaymentMode mode,
-      required final double discount,
+      required final Coupon? discountCpn,
       required final double total}) = _$AddPaymentInfo;
 
   double get amount;
   PaymentMode get mode;
-  double get discount;
+  Coupon? get discountCpn;
   double get total;
   @JsonKey(ignore: true)
   _$$AddPaymentInfoCopyWith<_$AddPaymentInfo> get copyWith =>
@@ -811,14 +816,11 @@ abstract class _$$MakePaymentCopyWith<$Res> {
 
 /// @nodoc
 class __$$MakePaymentCopyWithImpl<$Res>
-    extends _$CheckoutEventCopyWithImpl<$Res>
+    extends _$CheckoutEventCopyWithImpl<$Res, _$MakePayment>
     implements _$$MakePaymentCopyWith<$Res> {
   __$$MakePaymentCopyWithImpl(
       _$MakePayment _value, $Res Function(_$MakePayment) _then)
-      : super(_value, (v) => _then(v as _$MakePayment));
-
-  @override
-  _$MakePayment get _value => super._value as _$MakePayment;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -847,7 +849,7 @@ class _$MakePayment implements MakePayment {
     required TResult Function() checkoutInitialization,
     required TResult Function(FydAddress shippingAddress) addShippingInfo,
     required TResult Function(
-            double amount, PaymentMode mode, double discount, double total)
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)
         addPaymentInfo,
     required TResult Function() makePayment,
     required TResult Function(PaymentInfo paymentInfo) onCheckoutSuccess,
@@ -859,15 +861,15 @@ class _$MakePayment implements MakePayment {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? toggleFailureOrSuccess,
-    TResult Function()? checkoutInitialization,
-    TResult Function(FydAddress shippingAddress)? addShippingInfo,
-    TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+    TResult? Function()? toggleFailureOrSuccess,
+    TResult? Function()? checkoutInitialization,
+    TResult? Function(FydAddress shippingAddress)? addShippingInfo,
+    TResult? Function(
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
-    TResult Function()? makePayment,
-    TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
-    TResult Function()? onCheckoutFailure,
+    TResult? Function()? makePayment,
+    TResult? Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
+    TResult? Function()? onCheckoutFailure,
   }) {
     return makePayment?.call();
   }
@@ -879,7 +881,7 @@ class _$MakePayment implements MakePayment {
     TResult Function()? checkoutInitialization,
     TResult Function(FydAddress shippingAddress)? addShippingInfo,
     TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
     TResult Function()? makePayment,
     TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
@@ -911,13 +913,13 @@ class _$MakePayment implements MakePayment {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
-    TResult Function(CheckoutInitialization value)? checkoutInitialization,
-    TResult Function(AddShippingInfo value)? addShippingInfo,
-    TResult Function(AddPaymentInfo value)? addPaymentInfo,
-    TResult Function(MakePayment value)? makePayment,
-    TResult Function(OnCheckoutSuccess value)? onCheckoutSuccess,
-    TResult Function(OnCheckoutFailure value)? onCheckoutFailure,
+    TResult? Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
+    TResult? Function(CheckoutInitialization value)? checkoutInitialization,
+    TResult? Function(AddShippingInfo value)? addShippingInfo,
+    TResult? Function(AddPaymentInfo value)? addPaymentInfo,
+    TResult? Function(MakePayment value)? makePayment,
+    TResult? Function(OnCheckoutSuccess value)? onCheckoutSuccess,
+    TResult? Function(OnCheckoutFailure value)? onCheckoutFailure,
   }) {
     return makePayment?.call(this);
   }
@@ -950,6 +952,7 @@ abstract class _$$OnCheckoutSuccessCopyWith<$Res> {
   factory _$$OnCheckoutSuccessCopyWith(
           _$OnCheckoutSuccess value, $Res Function(_$OnCheckoutSuccess) then) =
       __$$OnCheckoutSuccessCopyWithImpl<$Res>;
+  @useResult
   $Res call({PaymentInfo paymentInfo});
 
   $PaymentInfoCopyWith<$Res> get paymentInfo;
@@ -957,21 +960,19 @@ abstract class _$$OnCheckoutSuccessCopyWith<$Res> {
 
 /// @nodoc
 class __$$OnCheckoutSuccessCopyWithImpl<$Res>
-    extends _$CheckoutEventCopyWithImpl<$Res>
+    extends _$CheckoutEventCopyWithImpl<$Res, _$OnCheckoutSuccess>
     implements _$$OnCheckoutSuccessCopyWith<$Res> {
   __$$OnCheckoutSuccessCopyWithImpl(
       _$OnCheckoutSuccess _value, $Res Function(_$OnCheckoutSuccess) _then)
-      : super(_value, (v) => _then(v as _$OnCheckoutSuccess));
+      : super(_value, _then);
 
-  @override
-  _$OnCheckoutSuccess get _value => super._value as _$OnCheckoutSuccess;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? paymentInfo = freezed,
+    Object? paymentInfo = null,
   }) {
     return _then(_$OnCheckoutSuccess(
-      paymentInfo: paymentInfo == freezed
+      paymentInfo: null == paymentInfo
           ? _value.paymentInfo
           : paymentInfo // ignore: cast_nullable_to_non_nullable
               as PaymentInfo,
@@ -979,6 +980,7 @@ class __$$OnCheckoutSuccessCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PaymentInfoCopyWith<$Res> get paymentInfo {
     return $PaymentInfoCopyWith<$Res>(_value.paymentInfo, (value) {
       return _then(_value.copyWith(paymentInfo: value));
@@ -1004,16 +1006,16 @@ class _$OnCheckoutSuccess implements OnCheckoutSuccess {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OnCheckoutSuccess &&
-            const DeepCollectionEquality()
-                .equals(other.paymentInfo, paymentInfo));
+            (identical(other.paymentInfo, paymentInfo) ||
+                other.paymentInfo == paymentInfo));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(paymentInfo));
+  int get hashCode => Object.hash(runtimeType, paymentInfo);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$OnCheckoutSuccessCopyWith<_$OnCheckoutSuccess> get copyWith =>
       __$$OnCheckoutSuccessCopyWithImpl<_$OnCheckoutSuccess>(this, _$identity);
 
@@ -1024,7 +1026,7 @@ class _$OnCheckoutSuccess implements OnCheckoutSuccess {
     required TResult Function() checkoutInitialization,
     required TResult Function(FydAddress shippingAddress) addShippingInfo,
     required TResult Function(
-            double amount, PaymentMode mode, double discount, double total)
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)
         addPaymentInfo,
     required TResult Function() makePayment,
     required TResult Function(PaymentInfo paymentInfo) onCheckoutSuccess,
@@ -1036,15 +1038,15 @@ class _$OnCheckoutSuccess implements OnCheckoutSuccess {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? toggleFailureOrSuccess,
-    TResult Function()? checkoutInitialization,
-    TResult Function(FydAddress shippingAddress)? addShippingInfo,
-    TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+    TResult? Function()? toggleFailureOrSuccess,
+    TResult? Function()? checkoutInitialization,
+    TResult? Function(FydAddress shippingAddress)? addShippingInfo,
+    TResult? Function(
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
-    TResult Function()? makePayment,
-    TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
-    TResult Function()? onCheckoutFailure,
+    TResult? Function()? makePayment,
+    TResult? Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
+    TResult? Function()? onCheckoutFailure,
   }) {
     return onCheckoutSuccess?.call(paymentInfo);
   }
@@ -1056,7 +1058,7 @@ class _$OnCheckoutSuccess implements OnCheckoutSuccess {
     TResult Function()? checkoutInitialization,
     TResult Function(FydAddress shippingAddress)? addShippingInfo,
     TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
     TResult Function()? makePayment,
     TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
@@ -1088,13 +1090,13 @@ class _$OnCheckoutSuccess implements OnCheckoutSuccess {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
-    TResult Function(CheckoutInitialization value)? checkoutInitialization,
-    TResult Function(AddShippingInfo value)? addShippingInfo,
-    TResult Function(AddPaymentInfo value)? addPaymentInfo,
-    TResult Function(MakePayment value)? makePayment,
-    TResult Function(OnCheckoutSuccess value)? onCheckoutSuccess,
-    TResult Function(OnCheckoutFailure value)? onCheckoutFailure,
+    TResult? Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
+    TResult? Function(CheckoutInitialization value)? checkoutInitialization,
+    TResult? Function(AddShippingInfo value)? addShippingInfo,
+    TResult? Function(AddPaymentInfo value)? addPaymentInfo,
+    TResult? Function(MakePayment value)? makePayment,
+    TResult? Function(OnCheckoutSuccess value)? onCheckoutSuccess,
+    TResult? Function(OnCheckoutFailure value)? onCheckoutFailure,
   }) {
     return onCheckoutSuccess?.call(this);
   }
@@ -1137,14 +1139,11 @@ abstract class _$$OnCheckoutFailureCopyWith<$Res> {
 
 /// @nodoc
 class __$$OnCheckoutFailureCopyWithImpl<$Res>
-    extends _$CheckoutEventCopyWithImpl<$Res>
+    extends _$CheckoutEventCopyWithImpl<$Res, _$OnCheckoutFailure>
     implements _$$OnCheckoutFailureCopyWith<$Res> {
   __$$OnCheckoutFailureCopyWithImpl(
       _$OnCheckoutFailure _value, $Res Function(_$OnCheckoutFailure) _then)
-      : super(_value, (v) => _then(v as _$OnCheckoutFailure));
-
-  @override
-  _$OnCheckoutFailure get _value => super._value as _$OnCheckoutFailure;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -1173,7 +1172,7 @@ class _$OnCheckoutFailure implements OnCheckoutFailure {
     required TResult Function() checkoutInitialization,
     required TResult Function(FydAddress shippingAddress) addShippingInfo,
     required TResult Function(
-            double amount, PaymentMode mode, double discount, double total)
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)
         addPaymentInfo,
     required TResult Function() makePayment,
     required TResult Function(PaymentInfo paymentInfo) onCheckoutSuccess,
@@ -1185,15 +1184,15 @@ class _$OnCheckoutFailure implements OnCheckoutFailure {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? toggleFailureOrSuccess,
-    TResult Function()? checkoutInitialization,
-    TResult Function(FydAddress shippingAddress)? addShippingInfo,
-    TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+    TResult? Function()? toggleFailureOrSuccess,
+    TResult? Function()? checkoutInitialization,
+    TResult? Function(FydAddress shippingAddress)? addShippingInfo,
+    TResult? Function(
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
-    TResult Function()? makePayment,
-    TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
-    TResult Function()? onCheckoutFailure,
+    TResult? Function()? makePayment,
+    TResult? Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
+    TResult? Function()? onCheckoutFailure,
   }) {
     return onCheckoutFailure?.call();
   }
@@ -1205,7 +1204,7 @@ class _$OnCheckoutFailure implements OnCheckoutFailure {
     TResult Function()? checkoutInitialization,
     TResult Function(FydAddress shippingAddress)? addShippingInfo,
     TResult Function(
-            double amount, PaymentMode mode, double discount, double total)?
+            double amount, PaymentMode mode, Coupon? discountCpn, double total)?
         addPaymentInfo,
     TResult Function()? makePayment,
     TResult Function(PaymentInfo paymentInfo)? onCheckoutSuccess,
@@ -1237,13 +1236,13 @@ class _$OnCheckoutFailure implements OnCheckoutFailure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
-    TResult Function(CheckoutInitialization value)? checkoutInitialization,
-    TResult Function(AddShippingInfo value)? addShippingInfo,
-    TResult Function(AddPaymentInfo value)? addPaymentInfo,
-    TResult Function(MakePayment value)? makePayment,
-    TResult Function(OnCheckoutSuccess value)? onCheckoutSuccess,
-    TResult Function(OnCheckoutFailure value)? onCheckoutFailure,
+    TResult? Function(ToggleFailureOrSuccess value)? toggleFailureOrSuccess,
+    TResult? Function(CheckoutInitialization value)? checkoutInitialization,
+    TResult? Function(AddShippingInfo value)? addShippingInfo,
+    TResult? Function(AddPaymentInfo value)? addPaymentInfo,
+    TResult? Function(MakePayment value)? makePayment,
+    TResult? Function(OnCheckoutSuccess value)? onCheckoutSuccess,
+    TResult? Function(OnCheckoutFailure value)? onCheckoutFailure,
   }) {
     return onCheckoutFailure?.call(this);
   }
@@ -1280,6 +1279,7 @@ mixin _$CheckoutState {
   ShippingInfo? get shippingInfo => throw _privateConstructorUsedError;
   PaymentInfo? get paymentInfo => throw _privateConstructorUsedError;
   bool get isProcessing => throw _privateConstructorUsedError;
+  Map<String, Coupon>? get coupons => throw _privateConstructorUsedError;
   Option<Either<CheckoutFailure, Unit>> get failureOrSuccess =>
       throw _privateConstructorUsedError;
 
@@ -1292,7 +1292,8 @@ mixin _$CheckoutState {
 abstract class $CheckoutStateCopyWith<$Res> {
   factory $CheckoutStateCopyWith(
           CheckoutState value, $Res Function(CheckoutState) then) =
-      _$CheckoutStateCopyWithImpl<$Res>;
+      _$CheckoutStateCopyWithImpl<$Res, CheckoutState>;
+  @useResult
   $Res call(
       {String? orderId,
       OrderStatus? orderStatus,
@@ -1301,6 +1302,7 @@ abstract class $CheckoutStateCopyWith<$Res> {
       ShippingInfo? shippingInfo,
       PaymentInfo? paymentInfo,
       bool isProcessing,
+      Map<String, Coupon>? coupons,
       Option<Either<CheckoutFailure, Unit>> failureOrSuccess});
 
   $OrderStatusCopyWith<$Res>? get orderStatus;
@@ -1311,14 +1313,16 @@ abstract class $CheckoutStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CheckoutStateCopyWithImpl<$Res>
+class _$CheckoutStateCopyWithImpl<$Res, $Val extends CheckoutState>
     implements $CheckoutStateCopyWith<$Res> {
   _$CheckoutStateCopyWithImpl(this._value, this._then);
 
-  final CheckoutState _value;
   // ignore: unused_field
-  final $Res Function(CheckoutState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? orderId = freezed,
@@ -1327,97 +1331,107 @@ class _$CheckoutStateCopyWithImpl<$Res>
     Object? customerInfo = freezed,
     Object? shippingInfo = freezed,
     Object? paymentInfo = freezed,
-    Object? isProcessing = freezed,
-    Object? failureOrSuccess = freezed,
+    Object? isProcessing = null,
+    Object? coupons = freezed,
+    Object? failureOrSuccess = null,
   }) {
     return _then(_value.copyWith(
-      orderId: orderId == freezed
+      orderId: freezed == orderId
           ? _value.orderId
           : orderId // ignore: cast_nullable_to_non_nullable
               as String?,
-      orderStatus: orderStatus == freezed
+      orderStatus: freezed == orderStatus
           ? _value.orderStatus
           : orderStatus // ignore: cast_nullable_to_non_nullable
               as OrderStatus?,
-      orderInfo: orderInfo == freezed
+      orderInfo: freezed == orderInfo
           ? _value.orderInfo
           : orderInfo // ignore: cast_nullable_to_non_nullable
               as OrderInfo?,
-      customerInfo: customerInfo == freezed
+      customerInfo: freezed == customerInfo
           ? _value.customerInfo
           : customerInfo // ignore: cast_nullable_to_non_nullable
               as CustomerInfo?,
-      shippingInfo: shippingInfo == freezed
+      shippingInfo: freezed == shippingInfo
           ? _value.shippingInfo
           : shippingInfo // ignore: cast_nullable_to_non_nullable
               as ShippingInfo?,
-      paymentInfo: paymentInfo == freezed
+      paymentInfo: freezed == paymentInfo
           ? _value.paymentInfo
           : paymentInfo // ignore: cast_nullable_to_non_nullable
               as PaymentInfo?,
-      isProcessing: isProcessing == freezed
+      isProcessing: null == isProcessing
           ? _value.isProcessing
           : isProcessing // ignore: cast_nullable_to_non_nullable
               as bool,
-      failureOrSuccess: failureOrSuccess == freezed
+      coupons: freezed == coupons
+          ? _value.coupons
+          : coupons // ignore: cast_nullable_to_non_nullable
+              as Map<String, Coupon>?,
+      failureOrSuccess: null == failureOrSuccess
           ? _value.failureOrSuccess
           : failureOrSuccess // ignore: cast_nullable_to_non_nullable
               as Option<Either<CheckoutFailure, Unit>>,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $OrderStatusCopyWith<$Res>? get orderStatus {
     if (_value.orderStatus == null) {
       return null;
     }
 
     return $OrderStatusCopyWith<$Res>(_value.orderStatus!, (value) {
-      return _then(_value.copyWith(orderStatus: value));
+      return _then(_value.copyWith(orderStatus: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $OrderInfoCopyWith<$Res>? get orderInfo {
     if (_value.orderInfo == null) {
       return null;
     }
 
     return $OrderInfoCopyWith<$Res>(_value.orderInfo!, (value) {
-      return _then(_value.copyWith(orderInfo: value));
+      return _then(_value.copyWith(orderInfo: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $CustomerInfoCopyWith<$Res>? get customerInfo {
     if (_value.customerInfo == null) {
       return null;
     }
 
     return $CustomerInfoCopyWith<$Res>(_value.customerInfo!, (value) {
-      return _then(_value.copyWith(customerInfo: value));
+      return _then(_value.copyWith(customerInfo: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ShippingInfoCopyWith<$Res>? get shippingInfo {
     if (_value.shippingInfo == null) {
       return null;
     }
 
     return $ShippingInfoCopyWith<$Res>(_value.shippingInfo!, (value) {
-      return _then(_value.copyWith(shippingInfo: value));
+      return _then(_value.copyWith(shippingInfo: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PaymentInfoCopyWith<$Res>? get paymentInfo {
     if (_value.paymentInfo == null) {
       return null;
     }
 
     return $PaymentInfoCopyWith<$Res>(_value.paymentInfo!, (value) {
-      return _then(_value.copyWith(paymentInfo: value));
+      return _then(_value.copyWith(paymentInfo: value) as $Val);
     });
   }
 }
@@ -1429,6 +1443,7 @@ abstract class _$$_CheckoutStateCopyWith<$Res>
           _$_CheckoutState value, $Res Function(_$_CheckoutState) then) =
       __$$_CheckoutStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String? orderId,
       OrderStatus? orderStatus,
@@ -1437,6 +1452,7 @@ abstract class _$$_CheckoutStateCopyWith<$Res>
       ShippingInfo? shippingInfo,
       PaymentInfo? paymentInfo,
       bool isProcessing,
+      Map<String, Coupon>? coupons,
       Option<Either<CheckoutFailure, Unit>> failureOrSuccess});
 
   @override
@@ -1453,15 +1469,13 @@ abstract class _$$_CheckoutStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_CheckoutStateCopyWithImpl<$Res>
-    extends _$CheckoutStateCopyWithImpl<$Res>
+    extends _$CheckoutStateCopyWithImpl<$Res, _$_CheckoutState>
     implements _$$_CheckoutStateCopyWith<$Res> {
   __$$_CheckoutStateCopyWithImpl(
       _$_CheckoutState _value, $Res Function(_$_CheckoutState) _then)
-      : super(_value, (v) => _then(v as _$_CheckoutState));
+      : super(_value, _then);
 
-  @override
-  _$_CheckoutState get _value => super._value as _$_CheckoutState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? orderId = freezed,
@@ -1470,39 +1484,44 @@ class __$$_CheckoutStateCopyWithImpl<$Res>
     Object? customerInfo = freezed,
     Object? shippingInfo = freezed,
     Object? paymentInfo = freezed,
-    Object? isProcessing = freezed,
-    Object? failureOrSuccess = freezed,
+    Object? isProcessing = null,
+    Object? coupons = freezed,
+    Object? failureOrSuccess = null,
   }) {
     return _then(_$_CheckoutState(
-      orderId: orderId == freezed
+      orderId: freezed == orderId
           ? _value.orderId
           : orderId // ignore: cast_nullable_to_non_nullable
               as String?,
-      orderStatus: orderStatus == freezed
+      orderStatus: freezed == orderStatus
           ? _value.orderStatus
           : orderStatus // ignore: cast_nullable_to_non_nullable
               as OrderStatus?,
-      orderInfo: orderInfo == freezed
+      orderInfo: freezed == orderInfo
           ? _value.orderInfo
           : orderInfo // ignore: cast_nullable_to_non_nullable
               as OrderInfo?,
-      customerInfo: customerInfo == freezed
+      customerInfo: freezed == customerInfo
           ? _value.customerInfo
           : customerInfo // ignore: cast_nullable_to_non_nullable
               as CustomerInfo?,
-      shippingInfo: shippingInfo == freezed
+      shippingInfo: freezed == shippingInfo
           ? _value.shippingInfo
           : shippingInfo // ignore: cast_nullable_to_non_nullable
               as ShippingInfo?,
-      paymentInfo: paymentInfo == freezed
+      paymentInfo: freezed == paymentInfo
           ? _value.paymentInfo
           : paymentInfo // ignore: cast_nullable_to_non_nullable
               as PaymentInfo?,
-      isProcessing: isProcessing == freezed
+      isProcessing: null == isProcessing
           ? _value.isProcessing
           : isProcessing // ignore: cast_nullable_to_non_nullable
               as bool,
-      failureOrSuccess: failureOrSuccess == freezed
+      coupons: freezed == coupons
+          ? _value._coupons
+          : coupons // ignore: cast_nullable_to_non_nullable
+              as Map<String, Coupon>?,
+      failureOrSuccess: null == failureOrSuccess
           ? _value.failureOrSuccess
           : failureOrSuccess // ignore: cast_nullable_to_non_nullable
               as Option<Either<CheckoutFailure, Unit>>,
@@ -1521,7 +1540,9 @@ class _$_CheckoutState implements _CheckoutState {
       required this.shippingInfo,
       required this.paymentInfo,
       required this.isProcessing,
-      required this.failureOrSuccess});
+      required final Map<String, Coupon>? coupons,
+      required this.failureOrSuccess})
+      : _coupons = coupons;
 
   @override
   final String? orderId;
@@ -1537,12 +1558,21 @@ class _$_CheckoutState implements _CheckoutState {
   final PaymentInfo? paymentInfo;
   @override
   final bool isProcessing;
+  final Map<String, Coupon>? _coupons;
+  @override
+  Map<String, Coupon>? get coupons {
+    final value = _coupons;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
   @override
   final Option<Either<CheckoutFailure, Unit>> failureOrSuccess;
 
   @override
   String toString() {
-    return 'CheckoutState(orderId: $orderId, orderStatus: $orderStatus, orderInfo: $orderInfo, customerInfo: $customerInfo, shippingInfo: $shippingInfo, paymentInfo: $paymentInfo, isProcessing: $isProcessing, failureOrSuccess: $failureOrSuccess)';
+    return 'CheckoutState(orderId: $orderId, orderStatus: $orderStatus, orderInfo: $orderInfo, customerInfo: $customerInfo, shippingInfo: $shippingInfo, paymentInfo: $paymentInfo, isProcessing: $isProcessing, coupons: $coupons, failureOrSuccess: $failureOrSuccess)';
   }
 
   @override
@@ -1550,36 +1580,40 @@ class _$_CheckoutState implements _CheckoutState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CheckoutState &&
-            const DeepCollectionEquality().equals(other.orderId, orderId) &&
-            const DeepCollectionEquality()
-                .equals(other.orderStatus, orderStatus) &&
-            const DeepCollectionEquality().equals(other.orderInfo, orderInfo) &&
-            const DeepCollectionEquality()
-                .equals(other.customerInfo, customerInfo) &&
-            const DeepCollectionEquality()
-                .equals(other.shippingInfo, shippingInfo) &&
-            const DeepCollectionEquality()
-                .equals(other.paymentInfo, paymentInfo) &&
-            const DeepCollectionEquality()
-                .equals(other.isProcessing, isProcessing) &&
-            const DeepCollectionEquality()
-                .equals(other.failureOrSuccess, failureOrSuccess));
+            (identical(other.orderId, orderId) || other.orderId == orderId) &&
+            (identical(other.orderStatus, orderStatus) ||
+                other.orderStatus == orderStatus) &&
+            (identical(other.orderInfo, orderInfo) ||
+                other.orderInfo == orderInfo) &&
+            (identical(other.customerInfo, customerInfo) ||
+                other.customerInfo == customerInfo) &&
+            (identical(other.shippingInfo, shippingInfo) ||
+                other.shippingInfo == shippingInfo) &&
+            (identical(other.paymentInfo, paymentInfo) ||
+                other.paymentInfo == paymentInfo) &&
+            (identical(other.isProcessing, isProcessing) ||
+                other.isProcessing == isProcessing) &&
+            const DeepCollectionEquality().equals(other._coupons, _coupons) &&
+            (identical(other.failureOrSuccess, failureOrSuccess) ||
+                other.failureOrSuccess == failureOrSuccess));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(orderId),
-      const DeepCollectionEquality().hash(orderStatus),
-      const DeepCollectionEquality().hash(orderInfo),
-      const DeepCollectionEquality().hash(customerInfo),
-      const DeepCollectionEquality().hash(shippingInfo),
-      const DeepCollectionEquality().hash(paymentInfo),
-      const DeepCollectionEquality().hash(isProcessing),
-      const DeepCollectionEquality().hash(failureOrSuccess));
+      orderId,
+      orderStatus,
+      orderInfo,
+      customerInfo,
+      shippingInfo,
+      paymentInfo,
+      isProcessing,
+      const DeepCollectionEquality().hash(_coupons),
+      failureOrSuccess);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CheckoutStateCopyWith<_$_CheckoutState> get copyWith =>
       __$$_CheckoutStateCopyWithImpl<_$_CheckoutState>(this, _$identity);
 }
@@ -1593,6 +1627,7 @@ abstract class _CheckoutState implements CheckoutState {
       required final ShippingInfo? shippingInfo,
       required final PaymentInfo? paymentInfo,
       required final bool isProcessing,
+      required final Map<String, Coupon>? coupons,
       required final Option<Either<CheckoutFailure, Unit>>
           failureOrSuccess}) = _$_CheckoutState;
 
@@ -1610,6 +1645,8 @@ abstract class _CheckoutState implements CheckoutState {
   PaymentInfo? get paymentInfo;
   @override
   bool get isProcessing;
+  @override
+  Map<String, Coupon>? get coupons;
   @override
   Option<Either<CheckoutFailure, Unit>> get failureOrSuccess;
   @override

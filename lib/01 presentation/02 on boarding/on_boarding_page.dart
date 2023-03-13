@@ -31,25 +31,55 @@ class OnBoardingWrapperPage extends StatelessWidget {
 class OnBoardingPage extends HookWidget {
   OnBoardingPage({Key? key}) : super(key: key);
   final _formKey1 = GlobalKey<FormState>();
-//?-----------------------------------------------------------------------------
-//? Referenced Size (890, 400) // usable H 838.6
-//? TopSheet H =>
+
 //?-----------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
+    //--------
     log(context.router.currentUrl);
     final nameController = useTextEditingController();
     final emailController = useTextEditingController();
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: FydView(
-          pageViewType: ViewType.without_Nav_Bar,
-          isScrollable: false,
-          topSheetHeight: 380.h,
-          topSheet: _topSheetView(context, nameController, emailController),
-          bottomSheet: _bottomSheet(context, nameController, emailController),
+    //---------
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: BlocConsumer<OnBoardingCubit, OnBoardingState>(
+          listener: (context, state) {
+            if (state.authFailureOrSuccessOption.isSome()) {
+              state.authFailureOrSuccessOption.fold(
+                  () => null,
+                  (failureOrSuccess) => failureOrSuccess.fold(
+                        (failure) => showSnack(
+                            context: context,
+                            message: failure.whenOrNull(
+                              aborted: () => 'something went wrong! try again',
+                              invalidArgument: null,
+                              alreadyExists: null,
+                              notFound: null,
+                              permissionDenied: () => 'permission Denied.',
+                              serverError: () => 'server error! try again',
+                              unknownError: () =>
+                                  'something went wrong! try again',
+                            )),
+                        (success) {
+                          FocusScope.of(context).unfocus();
+                          context.router.replaceAll([const MainWrapperRoute()]);
+                        },
+                      ));
+            }
+          },
+          builder: (context, state) {
+            return FydView(
+              pageViewType: ViewType.without_Nav_Bar,
+              isScrollable: false,
+              topSheetHeight: 380.h,
+              topSheetColor: fydPDgrey,
+              topSheet: _topSheetView(context, nameController, emailController),
+              bottomSheet:
+                  _bottomSheet(context, nameController, emailController, state),
+            );
+          },
         ),
       ),
     );
@@ -61,160 +91,136 @@ class OnBoardingPage extends HookWidget {
     TextEditingController nameController,
     TextEditingController emailController,
   ) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        //! Heading
-        Padding(
-          padding: EdgeInsets.only(top: 60.h, bottom: 10.h, left: 15.w),
-          child: const FydText.d1black(
-            text: 'Welcome!',
-            letterSpacing: 1.3,
-            weight: FontWeight.w600,
-          ),
+    return Container(
+      decoration: const BoxDecoration(
+        // background Image
+        image: DecorationImage(
+          image: AssetImage('assets/logo/bg.png'),
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.topRight,
+          opacity: .5,
+          filterQuality: FilterQuality.high,
         ),
-        //! Sub-Heading
-        Padding(
-          padding: EdgeInsets.only(left: 15.w, right: 15.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              FydText.b2black(
-                text: 'we see you\'re a new user,',
-                weight: FontWeight.w600,
-                color: fydLogoBlue,
-              ),
-              FydText.b2black(
-                text: 'just create an account and start ordering.',
-                weight: FontWeight.w600,
-                color: fydLogoBlue,
-              ),
-            ],
-          ),
-        ),
-        //! Input-Fields
-        Expanded(
-          child: Form(
-            key: _formKey1,
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: 15.w,
-                right: 15.w,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  //! name
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5.h),
-                    child: FydTextFormField(
-                      controller: nameController,
-                      autoFocus: true,
-                      textCapitalization: TextCapitalization.words,
-                      labelText: 'name:',
-                      floatColor: fydTGrey,
-                      maxLength: 35,
-                      keyboardType: TextInputType.visiblePassword,
-                      onScrollPadding: false,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'name cannot be empty.';
-                        } else {
-                          return null;
-                        }
-                      },
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          //! Input-Fields
+          Expanded(
+            child: Form(
+              key: _formKey1,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 0.h, left: 20.w, right: 20.w),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    //! nameField
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.h),
+                      child: FydTextFormField(
+                        controller: nameController,
+                        color: TextFieldColor.light,
+                        autoFocus: true,
+                        textCapitalization: TextCapitalization.words,
+                        labelText: 'name:',
+                        floatColor: fydLogoBlue,
+                        labelColor: fydLogoBlue,
+                        textAlign: TextAlign.start,
+                        maxLength: 35,
+                        letterSpacing: 1.5,
+                        labelSize: 16,
+                        keyboardType: TextInputType.visiblePassword,
+                        onScrollPadding: false,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'name cannot be empty.';
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
                     ),
-                  ),
-                  //! email
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5.h),
-                    child: FydTextFormField(
-                      controller: emailController,
-                      labelText: 'em@il:',
-                      floatColor: fydTGrey,
-                      keyboardType: TextInputType.emailAddress,
-                      maxLength: 35,
-                      onScrollPadding: false,
-                      validator: (value) {
-                        if (value!.isNotEmpty &&
-                            Helpers.isValidEmail(value) == false) {
-                          return 'enter a valid email.';
-                        } else if (value.isEmpty) {
-                          return 'email cannot be empty.';
-                        } else {
-                          return null;
-                        }
-                      },
+                    //! email
+                    Padding(
+                      padding: EdgeInsets.only(top: 10.h),
+                      child: FydTextFormField(
+                        controller: emailController,
+                        color: TextFieldColor.light,
+                        labelText: 'em@il:',
+                        floatColor: fydLogoBlue,
+                        labelColor: fydLogoBlue,
+                        keyboardType: TextInputType.emailAddress,
+                        maxLength: 35,
+                        letterSpacing: 1.5,
+                        labelSize: 16,
+                        onScrollPadding: false,
+                        validator: (value) {
+                          if (value!.isNotEmpty &&
+                              Helpers.isValidEmail(value) == false) {
+                            return 'enter a valid email.';
+                          } else if (value.isEmpty) {
+                            return 'email cannot be empty.';
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
 //?-----------------------------------------------------------------------------
-  _bottomSheet(
-    BuildContext context,
-    TextEditingController nameController,
-    TextEditingController emailController,
-  ) {
-    return BlocConsumer<OnBoardingCubit, OnBoardingState>(
-      listener: (context, state) {
-        if (state.authFailureOrSuccessOption.isSome()) {
-          state.authFailureOrSuccessOption.fold(
-              () => null,
-              (failureOrSuccess) => failureOrSuccess.fold(
-                    (failure) => showSnack(
-                        context: context,
-                        message: failure.whenOrNull(
-                          aborted: () => 'something went wrong! try again',
-                          invalidArgument: null,
-                          alreadyExists: null,
-                          notFound: null,
-                          permissionDenied: () => 'Permission Denied',
-                          serverError: () => 'server Error',
-                          unknownError: () => 'something went wrong! try again',
-                        )),
-                    (success) {
-                      context.router.replaceAll([const MainWrapperRoute()]);
-                    },
-                  ));
-        }
-      },
-      builder: (context, state) {
-        return Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            //! create-Account btn
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 30.h),
-              child: FydBtn(
-                color: fydPGrey,
-                height: 60.h,
-                widget: (state.isSubmitting == true)
-                    ? const SpinKitWave(color: fydLogoBlue, size: 20.0)
-                    : const FydText.h2custom(
-                        text: 'create account  ➢', color: fydLogoBlue),
-                onPressed: () async {
-                  HapticFeedback.mediumImpact();
-                  if (_formKey1.currentState!.validate()) {
-                    FocusScope.of(context).unfocus();
-                    context.read<OnBoardingCubit>().addUserName(
-                        name: nameController.text, email: emailController.text);
-                  }
-                },
-              ),
-            ),
-          ],
-        );
-      },
+  _bottomSheet(BuildContext context, TextEditingController nameController,
+      TextEditingController emailController, OnBoardingState state) {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        //! [Get-Started] btn
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.h),
+          child: FydBtn(
+            color: fydPGrey,
+            height: 60.h,
+            widget: (state.isSubmitting == true)
+                ? const SpinKitWave(color: fydLogoBlue, size: 20.0)
+                : FydText.h3custom(
+                    text: 'Get Started',
+                    weight: FontWeight.w600,
+                    color: (nameController.text.isEmpty &&
+                            emailController.text.isEmpty)
+                        ? fydTGrey
+                        : fydLogoBlue,
+                  ),
+            onPressed: () async {
+              HapticFeedback.mediumImpact();
+              // validate fields
+              if (_formKey1.currentState!.validate()) {
+                context.read<OnBoardingCubit>().addUserName(
+                    name: nameController.text, email: emailController.text);
+              }
+            },
+          ),
+        ),
+        //! company-name
+        Padding(
+          padding: EdgeInsets.only(bottom: 30.h),
+          child: Image.asset(
+            'assets/logo/fyd-tech.png',
+            width: 200.w,
+            filterQuality: FilterQuality.high,
+          ),
+        ),
+      ],
     );
   }
 

@@ -26,10 +26,10 @@ mixin _$SharedInfoFailure {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? permissionDenied,
-    TResult Function()? notFound,
-    TResult Function()? serverError,
-    TResult Function()? unexpectedError,
+    TResult? Function()? permissionDenied,
+    TResult? Function()? notFound,
+    TResult? Function()? serverError,
+    TResult? Function()? unexpectedError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,10 +51,10 @@ mixin _$SharedInfoFailure {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(NotFound value)? notFound,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnexpectedError value)? unexpectedError,
+    TResult? Function(PermissionDenied value)? permissionDenied,
+    TResult? Function(NotFound value)? notFound,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnexpectedError value)? unexpectedError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,17 +72,18 @@ mixin _$SharedInfoFailure {
 abstract class $SharedInfoFailureCopyWith<$Res> {
   factory $SharedInfoFailureCopyWith(
           SharedInfoFailure value, $Res Function(SharedInfoFailure) then) =
-      _$SharedInfoFailureCopyWithImpl<$Res>;
+      _$SharedInfoFailureCopyWithImpl<$Res, SharedInfoFailure>;
 }
 
 /// @nodoc
-class _$SharedInfoFailureCopyWithImpl<$Res>
+class _$SharedInfoFailureCopyWithImpl<$Res, $Val extends SharedInfoFailure>
     implements $SharedInfoFailureCopyWith<$Res> {
   _$SharedInfoFailureCopyWithImpl(this._value, this._then);
 
-  final SharedInfoFailure _value;
   // ignore: unused_field
-  final $Res Function(SharedInfoFailure) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -94,14 +95,11 @@ abstract class _$$PermissionDeniedCopyWith<$Res> {
 
 /// @nodoc
 class __$$PermissionDeniedCopyWithImpl<$Res>
-    extends _$SharedInfoFailureCopyWithImpl<$Res>
+    extends _$SharedInfoFailureCopyWithImpl<$Res, _$PermissionDenied>
     implements _$$PermissionDeniedCopyWith<$Res> {
   __$$PermissionDeniedCopyWithImpl(
       _$PermissionDenied _value, $Res Function(_$PermissionDenied) _then)
-      : super(_value, (v) => _then(v as _$PermissionDenied));
-
-  @override
-  _$PermissionDenied get _value => super._value as _$PermissionDenied;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -137,10 +135,10 @@ class _$PermissionDenied implements PermissionDenied {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? permissionDenied,
-    TResult Function()? notFound,
-    TResult Function()? serverError,
-    TResult Function()? unexpectedError,
+    TResult? Function()? permissionDenied,
+    TResult? Function()? notFound,
+    TResult? Function()? serverError,
+    TResult? Function()? unexpectedError,
   }) {
     return permissionDenied?.call();
   }
@@ -174,10 +172,10 @@ class _$PermissionDenied implements PermissionDenied {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(NotFound value)? notFound,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnexpectedError value)? unexpectedError,
+    TResult? Function(PermissionDenied value)? permissionDenied,
+    TResult? Function(NotFound value)? notFound,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnexpectedError value)? unexpectedError,
   }) {
     return permissionDenied?.call(this);
   }
@@ -211,13 +209,10 @@ abstract class _$$NotFoundCopyWith<$Res> {
 
 /// @nodoc
 class __$$NotFoundCopyWithImpl<$Res>
-    extends _$SharedInfoFailureCopyWithImpl<$Res>
+    extends _$SharedInfoFailureCopyWithImpl<$Res, _$NotFound>
     implements _$$NotFoundCopyWith<$Res> {
   __$$NotFoundCopyWithImpl(_$NotFound _value, $Res Function(_$NotFound) _then)
-      : super(_value, (v) => _then(v as _$NotFound));
-
-  @override
-  _$NotFound get _value => super._value as _$NotFound;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -253,10 +248,10 @@ class _$NotFound implements NotFound {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? permissionDenied,
-    TResult Function()? notFound,
-    TResult Function()? serverError,
-    TResult Function()? unexpectedError,
+    TResult? Function()? permissionDenied,
+    TResult? Function()? notFound,
+    TResult? Function()? serverError,
+    TResult? Function()? unexpectedError,
   }) {
     return notFound?.call();
   }
@@ -290,10 +285,10 @@ class _$NotFound implements NotFound {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(NotFound value)? notFound,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnexpectedError value)? unexpectedError,
+    TResult? Function(PermissionDenied value)? permissionDenied,
+    TResult? Function(NotFound value)? notFound,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnexpectedError value)? unexpectedError,
   }) {
     return notFound?.call(this);
   }
@@ -327,14 +322,11 @@ abstract class _$$ServerErrorCopyWith<$Res> {
 
 /// @nodoc
 class __$$ServerErrorCopyWithImpl<$Res>
-    extends _$SharedInfoFailureCopyWithImpl<$Res>
+    extends _$SharedInfoFailureCopyWithImpl<$Res, _$ServerError>
     implements _$$ServerErrorCopyWith<$Res> {
   __$$ServerErrorCopyWithImpl(
       _$ServerError _value, $Res Function(_$ServerError) _then)
-      : super(_value, (v) => _then(v as _$ServerError));
-
-  @override
-  _$ServerError get _value => super._value as _$ServerError;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -370,10 +362,10 @@ class _$ServerError implements ServerError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? permissionDenied,
-    TResult Function()? notFound,
-    TResult Function()? serverError,
-    TResult Function()? unexpectedError,
+    TResult? Function()? permissionDenied,
+    TResult? Function()? notFound,
+    TResult? Function()? serverError,
+    TResult? Function()? unexpectedError,
   }) {
     return serverError?.call();
   }
@@ -407,10 +399,10 @@ class _$ServerError implements ServerError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(NotFound value)? notFound,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnexpectedError value)? unexpectedError,
+    TResult? Function(PermissionDenied value)? permissionDenied,
+    TResult? Function(NotFound value)? notFound,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnexpectedError value)? unexpectedError,
   }) {
     return serverError?.call(this);
   }
@@ -444,14 +436,11 @@ abstract class _$$UnexpectedErrorCopyWith<$Res> {
 
 /// @nodoc
 class __$$UnexpectedErrorCopyWithImpl<$Res>
-    extends _$SharedInfoFailureCopyWithImpl<$Res>
+    extends _$SharedInfoFailureCopyWithImpl<$Res, _$UnexpectedError>
     implements _$$UnexpectedErrorCopyWith<$Res> {
   __$$UnexpectedErrorCopyWithImpl(
       _$UnexpectedError _value, $Res Function(_$UnexpectedError) _then)
-      : super(_value, (v) => _then(v as _$UnexpectedError));
-
-  @override
-  _$UnexpectedError get _value => super._value as _$UnexpectedError;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -487,10 +476,10 @@ class _$UnexpectedError implements UnexpectedError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? permissionDenied,
-    TResult Function()? notFound,
-    TResult Function()? serverError,
-    TResult Function()? unexpectedError,
+    TResult? Function()? permissionDenied,
+    TResult? Function()? notFound,
+    TResult? Function()? serverError,
+    TResult? Function()? unexpectedError,
   }) {
     return unexpectedError?.call();
   }
@@ -524,10 +513,10 @@ class _$UnexpectedError implements UnexpectedError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PermissionDenied value)? permissionDenied,
-    TResult Function(NotFound value)? notFound,
-    TResult Function(ServerError value)? serverError,
-    TResult Function(UnexpectedError value)? unexpectedError,
+    TResult? Function(PermissionDenied value)? permissionDenied,
+    TResult? Function(NotFound value)? notFound,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(UnexpectedError value)? unexpectedError,
   }) {
     return unexpectedError?.call(this);
   }

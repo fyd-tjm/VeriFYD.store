@@ -15,10 +15,8 @@ class OnBoardingCubit extends Cubit<OnBoardingState> {
   Future<void> addUserName(
       {required String name, required String email}) async {
     if (state.isSubmitting) return;
-    emit(state.copyWith(
-      isSubmitting: true,
-      authFailureOrSuccessOption: none(),
-    ));
+    emit(
+        state.copyWith(isSubmitting: true, authFailureOrSuccessOption: none()));
     await Future.delayed(const Duration(milliseconds: 1000));
     // calling createUser via userRepo to db
     await _iUserRepo

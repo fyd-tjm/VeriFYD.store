@@ -28,7 +28,7 @@ class StoresBloc extends Bloc<StoresEvent, StoresState> {
 //?-----------------------------------------------------------------------------
 
     on<UpdateSelectedCategory>((event, emit) async {
-      if (state.isFetching) return;
+      if (state.isFetching || state.selectedCategory == event.category) return;
 
       emit(state.copyWith(
         isFetching: true,

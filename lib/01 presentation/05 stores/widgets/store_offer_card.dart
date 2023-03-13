@@ -55,7 +55,7 @@ class StoreOfferCard extends StatelessWidget {
                   width: 10.w,
                   fydText: FydText.b4custom(
                     text: message,
-                    color: fydTGrey,
+                    color: fydPGrey.withOpacity(.7),
                   ),
                   maxLines: 2,
                 ),

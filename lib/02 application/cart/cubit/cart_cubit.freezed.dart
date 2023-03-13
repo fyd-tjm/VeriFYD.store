@@ -31,7 +31,8 @@ mixin _$CartState {
 /// @nodoc
 abstract class $CartStateCopyWith<$Res> {
   factory $CartStateCopyWith(CartState value, $Res Function(CartState) then) =
-      _$CartStateCopyWithImpl<$Res>;
+      _$CartStateCopyWithImpl<$Res, CartState>;
+  @useResult
   $Res call(
       {Cart? cartRealtime,
       List<Tuple3>? cartItemsInTuple3,
@@ -43,53 +44,57 @@ abstract class $CartStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CartStateCopyWithImpl<$Res> implements $CartStateCopyWith<$Res> {
+class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
+    implements $CartStateCopyWith<$Res> {
   _$CartStateCopyWithImpl(this._value, this._then);
 
-  final CartState _value;
   // ignore: unused_field
-  final $Res Function(CartState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? cartRealtime = freezed,
     Object? cartItemsInTuple3 = freezed,
     Object? cartItemsDetail = freezed,
-    Object? updating = freezed,
-    Object? failure = freezed,
+    Object? updating = null,
+    Object? failure = null,
   }) {
     return _then(_value.copyWith(
-      cartRealtime: cartRealtime == freezed
+      cartRealtime: freezed == cartRealtime
           ? _value.cartRealtime
           : cartRealtime // ignore: cast_nullable_to_non_nullable
               as Cart?,
-      cartItemsInTuple3: cartItemsInTuple3 == freezed
+      cartItemsInTuple3: freezed == cartItemsInTuple3
           ? _value.cartItemsInTuple3
           : cartItemsInTuple3 // ignore: cast_nullable_to_non_nullable
               as List<Tuple3>?,
-      cartItemsDetail: cartItemsDetail == freezed
+      cartItemsDetail: freezed == cartItemsDetail
           ? _value.cartItemsDetail
           : cartItemsDetail // ignore: cast_nullable_to_non_nullable
               as Map<String, Product>?,
-      updating: updating == freezed
+      updating: null == updating
           ? _value.updating
           : updating // ignore: cast_nullable_to_non_nullable
               as bool,
-      failure: failure == freezed
+      failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<CartFailure>,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $CartCopyWith<$Res>? get cartRealtime {
     if (_value.cartRealtime == null) {
       return null;
     }
 
     return $CartCopyWith<$Res>(_value.cartRealtime!, (value) {
-      return _then(_value.copyWith(cartRealtime: value));
+      return _then(_value.copyWith(cartRealtime: value) as $Val);
     });
   }
 }
@@ -100,6 +105,7 @@ abstract class _$$_CartStateCopyWith<$Res> implements $CartStateCopyWith<$Res> {
           _$_CartState value, $Res Function(_$_CartState) then) =
       __$$_CartStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {Cart? cartRealtime,
       List<Tuple3>? cartItemsInTuple3,
@@ -112,41 +118,40 @@ abstract class _$$_CartStateCopyWith<$Res> implements $CartStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_CartStateCopyWithImpl<$Res> extends _$CartStateCopyWithImpl<$Res>
+class __$$_CartStateCopyWithImpl<$Res>
+    extends _$CartStateCopyWithImpl<$Res, _$_CartState>
     implements _$$_CartStateCopyWith<$Res> {
   __$$_CartStateCopyWithImpl(
       _$_CartState _value, $Res Function(_$_CartState) _then)
-      : super(_value, (v) => _then(v as _$_CartState));
+      : super(_value, _then);
 
-  @override
-  _$_CartState get _value => super._value as _$_CartState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? cartRealtime = freezed,
     Object? cartItemsInTuple3 = freezed,
     Object? cartItemsDetail = freezed,
-    Object? updating = freezed,
-    Object? failure = freezed,
+    Object? updating = null,
+    Object? failure = null,
   }) {
     return _then(_$_CartState(
-      cartRealtime: cartRealtime == freezed
+      cartRealtime: freezed == cartRealtime
           ? _value.cartRealtime
           : cartRealtime // ignore: cast_nullable_to_non_nullable
               as Cart?,
-      cartItemsInTuple3: cartItemsInTuple3 == freezed
+      cartItemsInTuple3: freezed == cartItemsInTuple3
           ? _value._cartItemsInTuple3
           : cartItemsInTuple3 // ignore: cast_nullable_to_non_nullable
               as List<Tuple3>?,
-      cartItemsDetail: cartItemsDetail == freezed
+      cartItemsDetail: freezed == cartItemsDetail
           ? _value._cartItemsDetail
           : cartItemsDetail // ignore: cast_nullable_to_non_nullable
               as Map<String, Product>?,
-      updating: updating == freezed
+      updating: null == updating
           ? _value.updating
           : updating // ignore: cast_nullable_to_non_nullable
               as bool,
-      failure: failure == freezed
+      failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<CartFailure>,
@@ -202,27 +207,29 @@ class _$_CartState extends _CartState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CartState &&
-            const DeepCollectionEquality()
-                .equals(other.cartRealtime, cartRealtime) &&
+            (identical(other.cartRealtime, cartRealtime) ||
+                other.cartRealtime == cartRealtime) &&
             const DeepCollectionEquality()
                 .equals(other._cartItemsInTuple3, _cartItemsInTuple3) &&
             const DeepCollectionEquality()
                 .equals(other._cartItemsDetail, _cartItemsDetail) &&
-            const DeepCollectionEquality().equals(other.updating, updating) &&
-            const DeepCollectionEquality().equals(other.failure, failure));
+            (identical(other.updating, updating) ||
+                other.updating == updating) &&
+            (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(cartRealtime),
+      cartRealtime,
       const DeepCollectionEquality().hash(_cartItemsInTuple3),
       const DeepCollectionEquality().hash(_cartItemsDetail),
-      const DeepCollectionEquality().hash(updating),
-      const DeepCollectionEquality().hash(failure));
+      updating,
+      failure);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CartStateCopyWith<_$_CartState> get copyWith =>
       __$$_CartStateCopyWithImpl<_$_CartState>(this, _$identity);
 }

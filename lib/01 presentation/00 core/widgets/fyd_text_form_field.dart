@@ -27,6 +27,9 @@ class FydTextFormField extends StatelessWidget {
     this.labelColor = fydTGrey,
     this.floatColor = fydBlueGrey,
     this.inputStyle,
+    this.labelSize = 22,
+    this.letterSpacing = 1,
+    this.keyboardAction = TextInputAction.next,
   }) : super(key: key);
 
   final TextFieldColor color;
@@ -46,7 +49,10 @@ class FydTextFormField extends StatelessWidget {
   final bool isDigitOnly;
   final Color labelColor;
   final Color floatColor;
+  final double labelSize;
   final TextStyle? inputStyle;
+  final double letterSpacing;
+  final TextInputAction keyboardAction;
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +68,16 @@ class FydTextFormField extends StatelessWidget {
       // text Styling
       style: inputStyle ??
           TextStyle(
-            color: (color == TextFieldColor.dark) ? fydTBlack : fydTWhite,
+            color: (color == TextFieldColor.dark) ? fydTBlack : fydTGrey,
             fontWeight: FontWeight.w500,
-            letterSpacing: 1,
+            letterSpacing: letterSpacing,
             fontSize: 22,
             decoration: TextDecoration.none,
           ),
       textAlign: textAlign,
       showCursor: true,
       maxLength: maxLength,
-      textInputAction: TextInputAction.next,
+      textInputAction: keyboardAction,
       cursorColor: (color == TextFieldColor.dark) ? fydPGrey : fydTGrey,
       cursorWidth: 2,
       cursorHeight: 30,
@@ -86,7 +92,9 @@ class FydTextFormField extends StatelessWidget {
         // focusColor: fydPDgrey,
         labelText: labelText,
         labelStyle: TextStyle(
-            color: labelColor, fontSize: 22, fontWeight: FontWeight.w600),
+            color: labelColor,
+            fontSize: labelSize,
+            fontWeight: FontWeight.w600),
         contentPadding:
             EdgeInsets.symmetric(vertical: vPadding, horizontal: hPadding),
         // to hide max length counter
@@ -99,7 +107,7 @@ class FydTextFormField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-              color: (color == TextFieldColor.dark) ? fydPDgrey : fydGreyWhite,
+              color: (color == TextFieldColor.dark) ? fydPDgrey : fydTGrey,
               style: BorderStyle.solid,
               width: 2.0),
         ),
@@ -107,7 +115,7 @@ class FydTextFormField extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-              color: (color == TextFieldColor.dark) ? fydPGrey : fydPLgrey,
+              color: (color == TextFieldColor.dark) ? fydPGrey : fydTGrey,
               style: BorderStyle.solid,
               width: 2.0),
         ),

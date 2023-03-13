@@ -27,10 +27,10 @@ mixin _$StoresEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String category)? updateSelectedCategory,
-    TResult Function()? loadMoreStores,
-    TResult Function(String category, String? fetchAfterSid)? fetchStores,
-    TResult Function()? toggleFailures,
+    TResult? Function(String category)? updateSelectedCategory,
+    TResult? Function()? loadMoreStores,
+    TResult? Function(String category, String? fetchAfterSid)? fetchStores,
+    TResult? Function()? toggleFailures,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -53,10 +53,10 @@ mixin _$StoresEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(UpdateSelectedCategory value)? updateSelectedCategory,
-    TResult Function(LoadMoreStores value)? loadMoreStores,
-    TResult Function(FetchStores value)? fetchStores,
-    TResult Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(UpdateSelectedCategory value)? updateSelectedCategory,
+    TResult? Function(LoadMoreStores value)? loadMoreStores,
+    TResult? Function(FetchStores value)? fetchStores,
+    TResult? Function(ToggleFailures value)? toggleFailures,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -74,16 +74,18 @@ mixin _$StoresEvent {
 abstract class $StoresEventCopyWith<$Res> {
   factory $StoresEventCopyWith(
           StoresEvent value, $Res Function(StoresEvent) then) =
-      _$StoresEventCopyWithImpl<$Res>;
+      _$StoresEventCopyWithImpl<$Res, StoresEvent>;
 }
 
 /// @nodoc
-class _$StoresEventCopyWithImpl<$Res> implements $StoresEventCopyWith<$Res> {
+class _$StoresEventCopyWithImpl<$Res, $Val extends StoresEvent>
+    implements $StoresEventCopyWith<$Res> {
   _$StoresEventCopyWithImpl(this._value, this._then);
 
-  final StoresEvent _value;
   // ignore: unused_field
-  final $Res Function(StoresEvent) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -91,27 +93,25 @@ abstract class _$$UpdateSelectedCategoryCopyWith<$Res> {
   factory _$$UpdateSelectedCategoryCopyWith(_$UpdateSelectedCategory value,
           $Res Function(_$UpdateSelectedCategory) then) =
       __$$UpdateSelectedCategoryCopyWithImpl<$Res>;
+  @useResult
   $Res call({String category});
 }
 
 /// @nodoc
 class __$$UpdateSelectedCategoryCopyWithImpl<$Res>
-    extends _$StoresEventCopyWithImpl<$Res>
+    extends _$StoresEventCopyWithImpl<$Res, _$UpdateSelectedCategory>
     implements _$$UpdateSelectedCategoryCopyWith<$Res> {
   __$$UpdateSelectedCategoryCopyWithImpl(_$UpdateSelectedCategory _value,
       $Res Function(_$UpdateSelectedCategory) _then)
-      : super(_value, (v) => _then(v as _$UpdateSelectedCategory));
+      : super(_value, _then);
 
-  @override
-  _$UpdateSelectedCategory get _value =>
-      super._value as _$UpdateSelectedCategory;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? category = freezed,
+    Object? category = null,
   }) {
     return _then(_$UpdateSelectedCategory(
-      category: category == freezed
+      category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
@@ -147,15 +147,16 @@ class _$UpdateSelectedCategory
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UpdateSelectedCategory &&
-            const DeepCollectionEquality().equals(other.category, category));
+            (identical(other.category, category) ||
+                other.category == category));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(category));
+  int get hashCode => Object.hash(runtimeType, category);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$UpdateSelectedCategoryCopyWith<_$UpdateSelectedCategory> get copyWith =>
       __$$UpdateSelectedCategoryCopyWithImpl<_$UpdateSelectedCategory>(
           this, _$identity);
@@ -175,10 +176,10 @@ class _$UpdateSelectedCategory
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String category)? updateSelectedCategory,
-    TResult Function()? loadMoreStores,
-    TResult Function(String category, String? fetchAfterSid)? fetchStores,
-    TResult Function()? toggleFailures,
+    TResult? Function(String category)? updateSelectedCategory,
+    TResult? Function()? loadMoreStores,
+    TResult? Function(String category, String? fetchAfterSid)? fetchStores,
+    TResult? Function()? toggleFailures,
   }) {
     return updateSelectedCategory?.call(category);
   }
@@ -213,10 +214,10 @@ class _$UpdateSelectedCategory
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(UpdateSelectedCategory value)? updateSelectedCategory,
-    TResult Function(LoadMoreStores value)? loadMoreStores,
-    TResult Function(FetchStores value)? fetchStores,
-    TResult Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(UpdateSelectedCategory value)? updateSelectedCategory,
+    TResult? Function(LoadMoreStores value)? loadMoreStores,
+    TResult? Function(FetchStores value)? fetchStores,
+    TResult? Function(ToggleFailures value)? toggleFailures,
   }) {
     return updateSelectedCategory?.call(this);
   }
@@ -256,14 +257,11 @@ abstract class _$$LoadMoreStoresCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadMoreStoresCopyWithImpl<$Res>
-    extends _$StoresEventCopyWithImpl<$Res>
+    extends _$StoresEventCopyWithImpl<$Res, _$LoadMoreStores>
     implements _$$LoadMoreStoresCopyWith<$Res> {
   __$$LoadMoreStoresCopyWithImpl(
       _$LoadMoreStores _value, $Res Function(_$LoadMoreStores) _then)
-      : super(_value, (v) => _then(v as _$LoadMoreStores));
-
-  @override
-  _$LoadMoreStores get _value => super._value as _$LoadMoreStores;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -306,10 +304,10 @@ class _$LoadMoreStores with DiagnosticableTreeMixin implements LoadMoreStores {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String category)? updateSelectedCategory,
-    TResult Function()? loadMoreStores,
-    TResult Function(String category, String? fetchAfterSid)? fetchStores,
-    TResult Function()? toggleFailures,
+    TResult? Function(String category)? updateSelectedCategory,
+    TResult? Function()? loadMoreStores,
+    TResult? Function(String category, String? fetchAfterSid)? fetchStores,
+    TResult? Function()? toggleFailures,
   }) {
     return loadMoreStores?.call();
   }
@@ -344,10 +342,10 @@ class _$LoadMoreStores with DiagnosticableTreeMixin implements LoadMoreStores {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(UpdateSelectedCategory value)? updateSelectedCategory,
-    TResult Function(LoadMoreStores value)? loadMoreStores,
-    TResult Function(FetchStores value)? fetchStores,
-    TResult Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(UpdateSelectedCategory value)? updateSelectedCategory,
+    TResult? Function(LoadMoreStores value)? loadMoreStores,
+    TResult? Function(FetchStores value)? fetchStores,
+    TResult? Function(ToggleFailures value)? toggleFailures,
   }) {
     return loadMoreStores?.call(this);
   }
@@ -377,30 +375,30 @@ abstract class _$$FetchStoresCopyWith<$Res> {
   factory _$$FetchStoresCopyWith(
           _$FetchStores value, $Res Function(_$FetchStores) then) =
       __$$FetchStoresCopyWithImpl<$Res>;
+  @useResult
   $Res call({String category, String? fetchAfterSid});
 }
 
 /// @nodoc
-class __$$FetchStoresCopyWithImpl<$Res> extends _$StoresEventCopyWithImpl<$Res>
+class __$$FetchStoresCopyWithImpl<$Res>
+    extends _$StoresEventCopyWithImpl<$Res, _$FetchStores>
     implements _$$FetchStoresCopyWith<$Res> {
   __$$FetchStoresCopyWithImpl(
       _$FetchStores _value, $Res Function(_$FetchStores) _then)
-      : super(_value, (v) => _then(v as _$FetchStores));
+      : super(_value, _then);
 
-  @override
-  _$FetchStores get _value => super._value as _$FetchStores;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? category = freezed,
+    Object? category = null,
     Object? fetchAfterSid = freezed,
   }) {
     return _then(_$FetchStores(
-      category: category == freezed
+      category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
-      fetchAfterSid: fetchAfterSid == freezed
+      fetchAfterSid: freezed == fetchAfterSid
           ? _value.fetchAfterSid
           : fetchAfterSid // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -437,19 +435,18 @@ class _$FetchStores with DiagnosticableTreeMixin implements FetchStores {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FetchStores &&
-            const DeepCollectionEquality().equals(other.category, category) &&
-            const DeepCollectionEquality()
-                .equals(other.fetchAfterSid, fetchAfterSid));
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.fetchAfterSid, fetchAfterSid) ||
+                other.fetchAfterSid == fetchAfterSid));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(category),
-      const DeepCollectionEquality().hash(fetchAfterSid));
+  int get hashCode => Object.hash(runtimeType, category, fetchAfterSid);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$FetchStoresCopyWith<_$FetchStores> get copyWith =>
       __$$FetchStoresCopyWithImpl<_$FetchStores>(this, _$identity);
 
@@ -468,10 +465,10 @@ class _$FetchStores with DiagnosticableTreeMixin implements FetchStores {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String category)? updateSelectedCategory,
-    TResult Function()? loadMoreStores,
-    TResult Function(String category, String? fetchAfterSid)? fetchStores,
-    TResult Function()? toggleFailures,
+    TResult? Function(String category)? updateSelectedCategory,
+    TResult? Function()? loadMoreStores,
+    TResult? Function(String category, String? fetchAfterSid)? fetchStores,
+    TResult? Function()? toggleFailures,
   }) {
     return fetchStores?.call(category, fetchAfterSid);
   }
@@ -506,10 +503,10 @@ class _$FetchStores with DiagnosticableTreeMixin implements FetchStores {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(UpdateSelectedCategory value)? updateSelectedCategory,
-    TResult Function(LoadMoreStores value)? loadMoreStores,
-    TResult Function(FetchStores value)? fetchStores,
-    TResult Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(UpdateSelectedCategory value)? updateSelectedCategory,
+    TResult? Function(LoadMoreStores value)? loadMoreStores,
+    TResult? Function(FetchStores value)? fetchStores,
+    TResult? Function(ToggleFailures value)? toggleFailures,
   }) {
     return fetchStores?.call(this);
   }
@@ -551,14 +548,11 @@ abstract class _$$ToggleFailuresCopyWith<$Res> {
 
 /// @nodoc
 class __$$ToggleFailuresCopyWithImpl<$Res>
-    extends _$StoresEventCopyWithImpl<$Res>
+    extends _$StoresEventCopyWithImpl<$Res, _$ToggleFailures>
     implements _$$ToggleFailuresCopyWith<$Res> {
   __$$ToggleFailuresCopyWithImpl(
       _$ToggleFailures _value, $Res Function(_$ToggleFailures) _then)
-      : super(_value, (v) => _then(v as _$ToggleFailures));
-
-  @override
-  _$ToggleFailures get _value => super._value as _$ToggleFailures;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -601,10 +595,10 @@ class _$ToggleFailures with DiagnosticableTreeMixin implements ToggleFailures {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String category)? updateSelectedCategory,
-    TResult Function()? loadMoreStores,
-    TResult Function(String category, String? fetchAfterSid)? fetchStores,
-    TResult Function()? toggleFailures,
+    TResult? Function(String category)? updateSelectedCategory,
+    TResult? Function()? loadMoreStores,
+    TResult? Function(String category, String? fetchAfterSid)? fetchStores,
+    TResult? Function()? toggleFailures,
   }) {
     return toggleFailures?.call();
   }
@@ -639,10 +633,10 @@ class _$ToggleFailures with DiagnosticableTreeMixin implements ToggleFailures {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(UpdateSelectedCategory value)? updateSelectedCategory,
-    TResult Function(LoadMoreStores value)? loadMoreStores,
-    TResult Function(FetchStores value)? fetchStores,
-    TResult Function(ToggleFailures value)? toggleFailures,
+    TResult? Function(UpdateSelectedCategory value)? updateSelectedCategory,
+    TResult? Function(LoadMoreStores value)? loadMoreStores,
+    TResult? Function(FetchStores value)? fetchStores,
+    TResult? Function(ToggleFailures value)? toggleFailures,
   }) {
     return toggleFailures?.call(this);
   }
@@ -685,7 +679,8 @@ mixin _$StoresState {
 abstract class $StoresStateCopyWith<$Res> {
   factory $StoresStateCopyWith(
           StoresState value, $Res Function(StoresState) then) =
-      _$StoresStateCopyWithImpl<$Res>;
+      _$StoresStateCopyWithImpl<$Res, StoresState>;
+  @useResult
   $Res call(
       {bool isFetching,
       String? selectedCategory,
@@ -696,48 +691,51 @@ abstract class $StoresStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$StoresStateCopyWithImpl<$Res> implements $StoresStateCopyWith<$Res> {
+class _$StoresStateCopyWithImpl<$Res, $Val extends StoresState>
+    implements $StoresStateCopyWith<$Res> {
   _$StoresStateCopyWithImpl(this._value, this._then);
 
-  final StoresState _value;
   // ignore: unused_field
-  final $Res Function(StoresState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isFetching = freezed,
+    Object? isFetching = null,
     Object? selectedCategory = freezed,
-    Object? storeList = freezed,
-    Object? notAvailable = freezed,
-    Object? failure = freezed,
-    Object? loadingMore = freezed,
+    Object? storeList = null,
+    Object? notAvailable = null,
+    Object? failure = null,
+    Object? loadingMore = null,
   }) {
     return _then(_value.copyWith(
-      isFetching: isFetching == freezed
+      isFetching: null == isFetching
           ? _value.isFetching
           : isFetching // ignore: cast_nullable_to_non_nullable
               as bool,
-      selectedCategory: selectedCategory == freezed
+      selectedCategory: freezed == selectedCategory
           ? _value.selectedCategory
           : selectedCategory // ignore: cast_nullable_to_non_nullable
               as String?,
-      storeList: storeList == freezed
+      storeList: null == storeList
           ? _value.storeList
           : storeList // ignore: cast_nullable_to_non_nullable
               as List<Store>,
-      notAvailable: notAvailable == freezed
+      notAvailable: null == notAvailable
           ? _value.notAvailable
           : notAvailable // ignore: cast_nullable_to_non_nullable
               as bool,
-      failure: failure == freezed
+      failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<StoreFailure>,
-      loadingMore: loadingMore == freezed
+      loadingMore: null == loadingMore
           ? _value.loadingMore
           : loadingMore // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 }
 
@@ -748,6 +746,7 @@ abstract class _$$_StoresStateCopyWith<$Res>
           _$_StoresState value, $Res Function(_$_StoresState) then) =
       __$$_StoresStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {bool isFetching,
       String? selectedCategory,
@@ -758,46 +757,45 @@ abstract class _$$_StoresStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_StoresStateCopyWithImpl<$Res> extends _$StoresStateCopyWithImpl<$Res>
+class __$$_StoresStateCopyWithImpl<$Res>
+    extends _$StoresStateCopyWithImpl<$Res, _$_StoresState>
     implements _$$_StoresStateCopyWith<$Res> {
   __$$_StoresStateCopyWithImpl(
       _$_StoresState _value, $Res Function(_$_StoresState) _then)
-      : super(_value, (v) => _then(v as _$_StoresState));
+      : super(_value, _then);
 
-  @override
-  _$_StoresState get _value => super._value as _$_StoresState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isFetching = freezed,
+    Object? isFetching = null,
     Object? selectedCategory = freezed,
-    Object? storeList = freezed,
-    Object? notAvailable = freezed,
-    Object? failure = freezed,
-    Object? loadingMore = freezed,
+    Object? storeList = null,
+    Object? notAvailable = null,
+    Object? failure = null,
+    Object? loadingMore = null,
   }) {
     return _then(_$_StoresState(
-      isFetching: isFetching == freezed
+      isFetching: null == isFetching
           ? _value.isFetching
           : isFetching // ignore: cast_nullable_to_non_nullable
               as bool,
-      selectedCategory: selectedCategory == freezed
+      selectedCategory: freezed == selectedCategory
           ? _value.selectedCategory
           : selectedCategory // ignore: cast_nullable_to_non_nullable
               as String?,
-      storeList: storeList == freezed
+      storeList: null == storeList
           ? _value._storeList
           : storeList // ignore: cast_nullable_to_non_nullable
               as List<Store>,
-      notAvailable: notAvailable == freezed
+      notAvailable: null == notAvailable
           ? _value.notAvailable
           : notAvailable // ignore: cast_nullable_to_non_nullable
               as bool,
-      failure: failure == freezed
+      failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<StoreFailure>,
-      loadingMore: loadingMore == freezed
+      loadingMore: null == loadingMore
           ? _value.loadingMore
           : loadingMore // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -859,31 +857,32 @@ class _$_StoresState extends _StoresState with DiagnosticableTreeMixin {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_StoresState &&
-            const DeepCollectionEquality()
-                .equals(other.isFetching, isFetching) &&
-            const DeepCollectionEquality()
-                .equals(other.selectedCategory, selectedCategory) &&
+            (identical(other.isFetching, isFetching) ||
+                other.isFetching == isFetching) &&
+            (identical(other.selectedCategory, selectedCategory) ||
+                other.selectedCategory == selectedCategory) &&
             const DeepCollectionEquality()
                 .equals(other._storeList, _storeList) &&
-            const DeepCollectionEquality()
-                .equals(other.notAvailable, notAvailable) &&
-            const DeepCollectionEquality().equals(other.failure, failure) &&
-            const DeepCollectionEquality()
-                .equals(other.loadingMore, loadingMore));
+            (identical(other.notAvailable, notAvailable) ||
+                other.notAvailable == notAvailable) &&
+            (identical(other.failure, failure) || other.failure == failure) &&
+            (identical(other.loadingMore, loadingMore) ||
+                other.loadingMore == loadingMore));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(isFetching),
-      const DeepCollectionEquality().hash(selectedCategory),
+      isFetching,
+      selectedCategory,
       const DeepCollectionEquality().hash(_storeList),
-      const DeepCollectionEquality().hash(notAvailable),
-      const DeepCollectionEquality().hash(failure),
-      const DeepCollectionEquality().hash(loadingMore));
+      notAvailable,
+      failure,
+      loadingMore);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_StoresStateCopyWith<_$_StoresState> get copyWith =>
       __$$_StoresStateCopyWithImpl<_$_StoresState>(this, _$identity);
 }

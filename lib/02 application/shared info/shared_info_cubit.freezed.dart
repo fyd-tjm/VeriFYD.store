@@ -30,7 +30,8 @@ mixin _$SharedInfoState {
 abstract class $SharedInfoStateCopyWith<$Res> {
   factory $SharedInfoStateCopyWith(
           SharedInfoState value, $Res Function(SharedInfoState) then) =
-      _$SharedInfoStateCopyWithImpl<$Res>;
+      _$SharedInfoStateCopyWithImpl<$Res, SharedInfoState>;
+  @useResult
   $Res call(
       {bool isFetching,
       SharedInfo? sharedInfo,
@@ -41,49 +42,52 @@ abstract class $SharedInfoStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SharedInfoStateCopyWithImpl<$Res>
+class _$SharedInfoStateCopyWithImpl<$Res, $Val extends SharedInfoState>
     implements $SharedInfoStateCopyWith<$Res> {
   _$SharedInfoStateCopyWithImpl(this._value, this._then);
 
-  final SharedInfoState _value;
   // ignore: unused_field
-  final $Res Function(SharedInfoState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isFetching = freezed,
+    Object? isFetching = null,
     Object? sharedInfo = freezed,
-    Object? recentSearchMap = freezed,
-    Object? failure = freezed,
+    Object? recentSearchMap = null,
+    Object? failure = null,
   }) {
     return _then(_value.copyWith(
-      isFetching: isFetching == freezed
+      isFetching: null == isFetching
           ? _value.isFetching
           : isFetching // ignore: cast_nullable_to_non_nullable
               as bool,
-      sharedInfo: sharedInfo == freezed
+      sharedInfo: freezed == sharedInfo
           ? _value.sharedInfo
           : sharedInfo // ignore: cast_nullable_to_non_nullable
               as SharedInfo?,
-      recentSearchMap: recentSearchMap == freezed
+      recentSearchMap: null == recentSearchMap
           ? _value.recentSearchMap
           : recentSearchMap // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
-      failure: failure == freezed
+      failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<SharedInfoFailure>,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $SharedInfoCopyWith<$Res>? get sharedInfo {
     if (_value.sharedInfo == null) {
       return null;
     }
 
     return $SharedInfoCopyWith<$Res>(_value.sharedInfo!, (value) {
-      return _then(_value.copyWith(sharedInfo: value));
+      return _then(_value.copyWith(sharedInfo: value) as $Val);
     });
   }
 }
@@ -95,6 +99,7 @@ abstract class _$$_SharedInfoStateCopyWith<$Res>
           _$_SharedInfoState value, $Res Function(_$_SharedInfoState) then) =
       __$$_SharedInfoStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {bool isFetching,
       SharedInfo? sharedInfo,
@@ -107,36 +112,34 @@ abstract class _$$_SharedInfoStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_SharedInfoStateCopyWithImpl<$Res>
-    extends _$SharedInfoStateCopyWithImpl<$Res>
+    extends _$SharedInfoStateCopyWithImpl<$Res, _$_SharedInfoState>
     implements _$$_SharedInfoStateCopyWith<$Res> {
   __$$_SharedInfoStateCopyWithImpl(
       _$_SharedInfoState _value, $Res Function(_$_SharedInfoState) _then)
-      : super(_value, (v) => _then(v as _$_SharedInfoState));
+      : super(_value, _then);
 
-  @override
-  _$_SharedInfoState get _value => super._value as _$_SharedInfoState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isFetching = freezed,
+    Object? isFetching = null,
     Object? sharedInfo = freezed,
-    Object? recentSearchMap = freezed,
-    Object? failure = freezed,
+    Object? recentSearchMap = null,
+    Object? failure = null,
   }) {
     return _then(_$_SharedInfoState(
-      isFetching: isFetching == freezed
+      isFetching: null == isFetching
           ? _value.isFetching
           : isFetching // ignore: cast_nullable_to_non_nullable
               as bool,
-      sharedInfo: sharedInfo == freezed
+      sharedInfo: freezed == sharedInfo
           ? _value.sharedInfo
           : sharedInfo // ignore: cast_nullable_to_non_nullable
               as SharedInfo?,
-      recentSearchMap: recentSearchMap == freezed
+      recentSearchMap: null == recentSearchMap
           ? _value._recentSearchMap
           : recentSearchMap // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
-      failure: failure == freezed
+      failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<SharedInfoFailure>,
@@ -179,25 +182,22 @@ class _$_SharedInfoState extends _SharedInfoState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SharedInfoState &&
-            const DeepCollectionEquality()
-                .equals(other.isFetching, isFetching) &&
-            const DeepCollectionEquality()
-                .equals(other.sharedInfo, sharedInfo) &&
+            (identical(other.isFetching, isFetching) ||
+                other.isFetching == isFetching) &&
+            (identical(other.sharedInfo, sharedInfo) ||
+                other.sharedInfo == sharedInfo) &&
             const DeepCollectionEquality()
                 .equals(other._recentSearchMap, _recentSearchMap) &&
-            const DeepCollectionEquality().equals(other.failure, failure));
+            (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(isFetching),
-      const DeepCollectionEquality().hash(sharedInfo),
-      const DeepCollectionEquality().hash(_recentSearchMap),
-      const DeepCollectionEquality().hash(failure));
+  int get hashCode => Object.hash(runtimeType, isFetching, sharedInfo,
+      const DeepCollectionEquality().hash(_recentSearchMap), failure);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SharedInfoStateCopyWith<_$_SharedInfoState> get copyWith =>
       __$$_SharedInfoStateCopyWithImpl<_$_SharedInfoState>(this, _$identity);
 }

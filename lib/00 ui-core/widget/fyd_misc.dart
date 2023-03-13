@@ -279,7 +279,7 @@ void showSnack({
     SnackBar(
       duration: Duration(seconds: durationSeconds),
       behavior: SnackBarBehavior.floating,
-      elevation: 5.0,
+      elevation: 25.0,
       margin: margin,
       backgroundColor: backgroundColor,
       shape: RoundedRectangleBorder(

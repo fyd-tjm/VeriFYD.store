@@ -4,18 +4,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
-import 'package:get/get.dart';
 import 'package:verifyd_store/03%20domain/store/00_export_store_domain.dart';
-
-import '../../../presentation/core/widgets/fyd_text_ellipsis.dart';
 
 class StoreProductCard extends StatelessWidget {
   final Product product;
   final Function(Product) onProductTap;
+  final bool isPriceHidden;
   const StoreProductCard({
     Key? key,
     required this.product,
     required this.onProductTap,
+    this.isPriceHidden = false,
   }) : super(key: key);
 
   @override
@@ -29,31 +28,28 @@ class StoreProductCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 190.h,
-            width: 170.w,
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(5.0),
-                //! Product Image
-                child: (product.thumbnailImage.isNotEmpty)
-                    ? CachedNetworkImage(
-                        imageUrl: product.thumbnailImage,
-                        fit: BoxFit.cover,
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) =>
-                                const SpinKitWave(
-                          size: 20,
-                          color: fydLogoBlue,
-                        ),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      )
-                    : const Center(
-                        child: FydText.b4custom(
-                          text: 'Image Not Available',
-                          color: fydBlueGrey,
-                        ),
-                      )),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(5.0),
+            child: Container(
+              height: 180.w,
+              width: 160.w,
+              decoration: const BoxDecoration(boxShadow: [
+                BoxShadow(color: fydPGrey, blurStyle: BlurStyle.inner)
+              ]),
+              child: CachedNetworkImage(
+                imageUrl: product.thumbnailImage,
+                fit: BoxFit.cover,
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    const SpinKitWave(
+                  size: 20,
+                  color: fydLogoBlue,
+                ),
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.image_not_supported_outlined,
+                  size: 30,
+                ),
+              ),
+            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +59,7 @@ class StoreProductCard extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 4.h),
                 child: FydEllipsisText(
-                  width: 175.w,
+                  width: 170.w,
                   fydText: FydText.b4custom(
                     text: product.name,
                     color: fydTGrey,
@@ -71,11 +67,13 @@ class StoreProductCard extends StatelessWidget {
                   ),
                 ),
               ),
-              //! Product-price
-              FydText.b3white(
-                text: '₹ ${product.sellingPrice}',
-                weight: FontWeight.bold,
-              ),
+              (isPriceHidden)
+                  ? const SizedBox.shrink()
+                  //! Product-price
+                  : FydText.b3white(
+                      text: '₹ ${product.sellingPrice}',
+                      weight: FontWeight.bold,
+                    ),
             ],
           )
         ],

@@ -12,20 +12,24 @@ class FydCategoryCard extends StatelessWidget {
     required this.svgAsset,
     required this.title,
     required this.color,
+    required this.selectedTitle,
     required this.onPressed,
   }) : super(key: key);
 
   final String svgAsset;
   final String title;
   final Color color;
+  final String? selectedTitle;
   final Function(String) onPressed;
 
   @override
   Widget build(BuildContext context) {
+    final isEnabled =
+        (selectedTitle == null) ? false : (selectedTitle == title);
     return SizedBox(
       height: 90.h,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
             onTap: () {
@@ -38,7 +42,8 @@ class FydCategoryCard extends StatelessWidget {
               child: Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.r)),
-                elevation: 10.0,
+                elevation: 15.0,
+                shadowColor: isEnabled ? fydLogoBlue : null,
                 color: fydPDgrey,
                 child: Padding(
                   padding: EdgeInsets.all(10.r),
@@ -52,7 +57,8 @@ class FydCategoryCard extends StatelessWidget {
           ),
           FydText.b4black(
             text: title,
-            weight: FontWeight.w600,
+            size: isEnabled ? 14 : 13,
+            weight: FontWeight.w700,
           )
         ],
       ),

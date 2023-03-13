@@ -8,14 +8,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
 import 'package:verifyd_store/02%20application/phone%20login/phone_login_bloc.dart';
 import 'package:verifyd_store/03%20domain/auth/value_objects.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/router.dart';
 import '../../00 ui-core/ui_exports.dart';
 
-import 'widgets/key_pad.dart';
-
+//?-----------------------------------------------------------------------------
 class PhoneLoginWrapperPage extends StatelessWidget {
   const PhoneLoginWrapperPage({Key? key}) : super(key: key);
 
@@ -28,183 +28,207 @@ class PhoneLoginWrapperPage extends StatelessWidget {
   }
 }
 
+//?-----------------------------------------------------------------------------
 class PhoneLoginPage extends HookWidget {
-  const PhoneLoginPage({
-    Key? key,
-  }) : super(key: key);
-//?-----------------------------------------------------------------------------
+  const PhoneLoginPage({Key? key}) : super(key: key);
 
-//? Referenced Size (890, 400) // usable H 838.6
-//? TopSheet H => 468
-//? KeyPad H => 370
-
-//?-----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     log(context.router.currentUrl);
+    //--------
     final phoneText = useState('');
+    final phoneController = useTextEditingController();
+    final update = useValueListenable(phoneController);
+    useEffect(() {
+      phoneText.value = update.text;
+      return;
+    }, [update]);
+    //---------
     return SafeArea(
       child: Scaffold(
-        backgroundColor: fydPWhite,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            topView(phoneText, context),
-            FydNumPad(
-              screenType: Screen.PhoneScreen,
-              text: phoneText,
-              onPhoneLengthValidation: () {
-                showSnack(context: context, message: '10 digit long only');
-              },
-              onOtpLengthValidation: () {},
-            )
-          ],
+        resizeToAvoidBottomInset: false,
+        backgroundColor: fydPDgrey,
+        body: BlocConsumer<PhoneLoginBloc, PhoneLoginState>(
+          listenWhen: (previous, current) {
+            if (context.router.currentUrl == '/login') {
+              return true;
+            }
+            return false;
+          },
+          listener: (context, state) {
+            if (state.failureOrSuccess.isSome()) {
+              state.failureOrSuccess.fold(
+                  () => null,
+                  (failureOrSuccess) => failureOrSuccess.fold(
+                        (failure) => showSnack(
+                            context: context,
+                            message: failure.whenOrNull(
+                              invalidPhoneNumber: () => 'invalid Phone Number',
+                              invalidOtpEntered: () => 'invalid Otp Entered',
+                              sessionExpired: () =>
+                                  'session Expired: try again',
+                              userDisabled: () => 'user is disabled',
+                              tooManyRequests: () =>
+                                  'too Many Requests: try again',
+                              serverError: () => 'server Error',
+                              unknownError: () => 'something went wrong',
+                            )),
+                        (success) =>
+                            showSnack(context: context, message: 'success!'),
+                      ));
+            }
+            if (state.isCodeSent) {
+              context.router.pushNamed(Rn.otp);
+            }
+          },
+          builder: (context, state) {
+            return FydView(
+              pageViewType: ViewType.without_Nav_Bar,
+              isScrollable: false,
+              topSheetHeight: 380.h,
+              topSheet: topSheetView(context, phoneController),
+              bottomSheet: bottomSheetView(context, state, phoneText),
+            );
+          },
         ),
       ),
     );
   }
 
-  Widget topView(
-    ValueNotifier<String> phoneText,
+//?-----------------------------------------------------------------------------
+  topSheetView(
     BuildContext context,
+    TextEditingController phoneController,
   ) {
-    return BlocConsumer<PhoneLoginBloc, PhoneLoginState>(
-      listenWhen: (previous, current) {
-        if (context.router.currentUrl == '/login') {
-          return true;
-        }
-        return false;
-      },
-      listener: (context, state) {
-        if (state.failureOrSuccess.isSome()) {
-          state.failureOrSuccess.fold(
-              () => null,
-              (failureOrSuccess) => failureOrSuccess.fold(
-                    (failure) => showSnack(
-                        context: context,
-                        message: failure.whenOrNull(
-                          invalidPhoneNumber: () => 'invalid Phone Number',
-                          invalidOtpEntered: () => 'invalid Otp Entered',
-                          sessionExpired: () => 'session Expired: try again',
-                          userDisabled: () => 'user is disabled',
-                          tooManyRequests: () => 'too Many Requests: try again',
-                          serverError: () => 'server Error',
-                          unknownError: () => 'something went wrong',
-                        )),
-                    (success) =>
-                        showSnack(context: context, message: 'success!'),
-                  ));
-        }
-        if (state.isCodeSent) {
-          context.router.pushNamed(Rn.otp);
-        }
-      },
-      buildWhen: (previous, current) {
-        if (context.router.currentUrl == '/login') {
-          return true;
-        }
-        return false;
-      },
-      builder: (context, state) {
-        return SizedBox(
-            height: 468.h,
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: 40.h, left: 15.w, right: 15.w, bottom: 10.h),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  //! text view section
-                  Column(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Info text ui
-                          const FydText.d1black(
-                            text: 'Enter',
-                            weight: FontWeight.w600,
-                          ),
-                          const FydText.d1black(
-                            text: 'mobile number',
-                            weight: FontWeight.w600,
-                          ),
-                          const FydText.h2custom(
-                            text: 'TRANSPARENT',
-                            color: Colors.transparent,
-                          ),
-                          const FydText.h2custom(
-                            text: 'TRANSPARENT',
-                            color: Colors.transparent,
-                          ),
-                          const FydText.h2custom(
-                            text: 'TRANSPARENT',
-                            color: Colors.transparent,
-                          ),
-                          const FydText.b3black(
-                            text: 'we will send you a confirmation code',
-                            weight: FontWeight.w500,
-                          ),
-                          // PhoneNumber text ui
-                          Padding(
-                            padding: EdgeInsets.only(top: 20.h),
-                            child: Row(
-                              children: [
-                                const FydText.h1custom(
-                                  text: '+91  ',
-                                  weight: FontWeight.w400,
-                                  letterSpacing: 1.1,
-                                  color: fydTGrey,
-                                ),
-                                (phoneText.value.isNotEmpty)
-                                    ? FydText.h1black(
-                                        text: phoneText.value,
-                                        letterSpacing: 3,
-                                      )
-                                    : const FydText.h1custom(
-                                        text: 'XXXX-XXX-XXX',
-                                        color: fydTGrey,
-                                        letterSpacing: 2,
-                                      ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  //! send Otp Btn
-                  FydBtn(
-                    height: 60.h,
-                    widget: (state.isSubmitting == true)
-                        ? const SpinKitWave(color: fydPWhite, size: 20.0)
-                        : FydText.h2custom(
-                            text: 'Send Otp',
-                            color: (phoneText.value.length != 10)
-                                ? fydTGrey
-                                : fydTWhite,
-                          ),
-                    onPressed: () async {
-                      HapticFeedback.mediumImpact();
-                      if (phoneText.value.length != 10) {
-                        showSnack(
-                            context: context, message: 'enter 10 digit number');
-                      } else {
-                        //? sendOtpEvent
-                        context
-                            .read<PhoneLoginBloc>()
-                            .add(PhoneLoginEvent.sendOtp(
-                              phoneNumber: PhoneNumber(phoneText.value),
-                            ));
-                      }
-                    },
-                  ),
-                ],
+    return Container(
+        decoration: const BoxDecoration(
+          // background Image
+          image: DecorationImage(
+            image: AssetImage('assets/logo/bg.png'),
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.topRight,
+            opacity: .5,
+            filterQuality: FilterQuality.high,
+          ),
+        ),
+        // height: 460.h,
+        child: Padding(
+          padding:
+              EdgeInsets.only(top: 0.h, left: 20.w, right: 20.w, bottom: 0.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              //! Heading
+              Padding(
+                padding: EdgeInsets.only(top: 100.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FydText.d1black(
+                      text: 'Enter',
+                      size: 40,
+                      weight: FontWeight.w600,
+                      color: fydPGrey.withOpacity(.8),
+                    ),
+                    FydText.d1black(
+                      text: 'mobile number',
+                      weight: FontWeight.w600,
+                      color: fydPGrey.withOpacity(.8),
+                    ),
+                  ],
+                ),
               ),
-            ));
-      },
+
+              //! subHeading: PhoneField
+              Padding(
+                padding: EdgeInsets.only(bottom: 20.h),
+                child: Column(
+                  children: [
+                    //! subHeading
+                    const Center(
+                      child: FydText.b4black(
+                        text: 'we will send you a confirmation code',
+                        weight: FontWeight.w600,
+                      ),
+                    ),
+                    //! Phonenumber-Field
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: 10.h, left: 15.w, right: 15.w, bottom: 0.h),
+                      child: FydTextFormField(
+                        controller: phoneController,
+                        labelText: '(+91)',
+                        autoFocus: true,
+                        isDigitOnly: true,
+                        floatColor: fydLogoBlue,
+                        labelColor: fydLogoBlue,
+                        maxLength: 10,
+                        letterSpacing: 4,
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        keyboardAction: TextInputAction.none,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ));
+  }
+
+//?-----------------------------------------------------------------------------
+  bottomSheetView(
+    BuildContext context,
+    PhoneLoginState state,
+    ValueNotifier<String> phoneText,
+  ) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        //! Send-OTP Btn
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+          child: FydBtn(
+            color: fydPGrey,
+            height: 60.h,
+            widget: (state.isSubmitting)
+                ? const SpinKitWave(color: fydLogoBlue, size: 20.0)
+                : FydText.h3custom(
+                    text: 'Send Otp',
+                    weight: FontWeight.w600,
+                    color:
+                        (phoneText.value.length != 10) ? fydTGrey : fydLogoBlue,
+                  ),
+            onPressed: () async {
+              HapticFeedback.mediumImpact();
+              // number validation
+              if (phoneText.value.length != 10) {
+                showSnack(context: context, message: 'enter 10 digit number');
+              }
+              // sendOtpEvent
+              else {
+                context.read<PhoneLoginBloc>().add(PhoneLoginEvent.sendOtp(
+                      phoneNumber: PhoneNumber(phoneText.value),
+                    ));
+              }
+            },
+          ),
+        ),
+        //! company-name
+        Padding(
+          padding: EdgeInsets.only(bottom: 30.h),
+          child: Image.asset(
+            'assets/logo/fyd-tech.png',
+            width: 200.w,
+            filterQuality: FilterQuality.high,
+          ),
+        ),
+      ],
     );
   }
+//?-----------------------------------------------------------------------------
 }

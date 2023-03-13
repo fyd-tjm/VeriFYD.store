@@ -28,9 +28,11 @@ mixin _$SharedInfo {
   Map<String, String> get timmings => throw _privateConstructorUsedError;
   Map<String, String> get images => throw _privateConstructorUsedError;
   Map<String, String> get support => throw _privateConstructorUsedError;
-  Map<int, String> get banners => throw _privateConstructorUsedError;
-  Map<String, String> get offers => throw _privateConstructorUsedError;
+  Map<String, String> get banners => throw _privateConstructorUsedError;
+  Map<String, Coupon> get offers => throw _privateConstructorUsedError;
   Map<String, String> get storeSearchMap => throw _privateConstructorUsedError;
+  Map<String, Product> get recentlyPurchased =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +44,8 @@ mixin _$SharedInfo {
 abstract class $SharedInfoCopyWith<$Res> {
   factory $SharedInfoCopyWith(
           SharedInfo value, $Res Function(SharedInfo) then) =
-      _$SharedInfoCopyWithImpl<$Res>;
+      _$SharedInfoCopyWithImpl<$Res, SharedInfo>;
+  @useResult
   $Res call(
       {double shippingCost,
       int totalOrders,
@@ -52,79 +55,88 @@ abstract class $SharedInfoCopyWith<$Res> {
       Map<String, String> timmings,
       Map<String, String> images,
       Map<String, String> support,
-      Map<int, String> banners,
-      Map<String, String> offers,
-      Map<String, String> storeSearchMap});
+      Map<String, String> banners,
+      Map<String, Coupon> offers,
+      Map<String, String> storeSearchMap,
+      Map<String, Product> recentlyPurchased});
 }
 
 /// @nodoc
-class _$SharedInfoCopyWithImpl<$Res> implements $SharedInfoCopyWith<$Res> {
+class _$SharedInfoCopyWithImpl<$Res, $Val extends SharedInfo>
+    implements $SharedInfoCopyWith<$Res> {
   _$SharedInfoCopyWithImpl(this._value, this._then);
 
-  final SharedInfo _value;
   // ignore: unused_field
-  final $Res Function(SharedInfo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? shippingCost = freezed,
-    Object? totalOrders = freezed,
-    Object? cartLimit = freezed,
-    Object? deliveryStates = freezed,
-    Object? liveStores = freezed,
-    Object? timmings = freezed,
-    Object? images = freezed,
-    Object? support = freezed,
-    Object? banners = freezed,
-    Object? offers = freezed,
-    Object? storeSearchMap = freezed,
+    Object? shippingCost = null,
+    Object? totalOrders = null,
+    Object? cartLimit = null,
+    Object? deliveryStates = null,
+    Object? liveStores = null,
+    Object? timmings = null,
+    Object? images = null,
+    Object? support = null,
+    Object? banners = null,
+    Object? offers = null,
+    Object? storeSearchMap = null,
+    Object? recentlyPurchased = null,
   }) {
     return _then(_value.copyWith(
-      shippingCost: shippingCost == freezed
+      shippingCost: null == shippingCost
           ? _value.shippingCost
           : shippingCost // ignore: cast_nullable_to_non_nullable
               as double,
-      totalOrders: totalOrders == freezed
+      totalOrders: null == totalOrders
           ? _value.totalOrders
           : totalOrders // ignore: cast_nullable_to_non_nullable
               as int,
-      cartLimit: cartLimit == freezed
+      cartLimit: null == cartLimit
           ? _value.cartLimit
           : cartLimit // ignore: cast_nullable_to_non_nullable
               as int,
-      deliveryStates: deliveryStates == freezed
+      deliveryStates: null == deliveryStates
           ? _value.deliveryStates
           : deliveryStates // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      liveStores: liveStores == freezed
+      liveStores: null == liveStores
           ? _value.liveStores
           : liveStores // ignore: cast_nullable_to_non_nullable
               as Map<String, int>,
-      timmings: timmings == freezed
+      timmings: null == timmings
           ? _value.timmings
           : timmings // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
-      images: images == freezed
+      images: null == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
-      support: support == freezed
+      support: null == support
           ? _value.support
           : support // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
-      banners: banners == freezed
+      banners: null == banners
           ? _value.banners
           : banners // ignore: cast_nullable_to_non_nullable
-              as Map<int, String>,
-      offers: offers == freezed
+              as Map<String, String>,
+      offers: null == offers
           ? _value.offers
           : offers // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
-      storeSearchMap: storeSearchMap == freezed
+              as Map<String, Coupon>,
+      storeSearchMap: null == storeSearchMap
           ? _value.storeSearchMap
           : storeSearchMap // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
-    ));
+      recentlyPurchased: null == recentlyPurchased
+          ? _value.recentlyPurchased
+          : recentlyPurchased // ignore: cast_nullable_to_non_nullable
+              as Map<String, Product>,
+    ) as $Val);
   }
 }
 
@@ -135,6 +147,7 @@ abstract class _$$_SharedInfoCopyWith<$Res>
           _$_SharedInfo value, $Res Function(_$_SharedInfo) then) =
       __$$_SharedInfoCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {double shippingCost,
       int totalOrders,
@@ -144,80 +157,85 @@ abstract class _$$_SharedInfoCopyWith<$Res>
       Map<String, String> timmings,
       Map<String, String> images,
       Map<String, String> support,
-      Map<int, String> banners,
-      Map<String, String> offers,
-      Map<String, String> storeSearchMap});
+      Map<String, String> banners,
+      Map<String, Coupon> offers,
+      Map<String, String> storeSearchMap,
+      Map<String, Product> recentlyPurchased});
 }
 
 /// @nodoc
-class __$$_SharedInfoCopyWithImpl<$Res> extends _$SharedInfoCopyWithImpl<$Res>
+class __$$_SharedInfoCopyWithImpl<$Res>
+    extends _$SharedInfoCopyWithImpl<$Res, _$_SharedInfo>
     implements _$$_SharedInfoCopyWith<$Res> {
   __$$_SharedInfoCopyWithImpl(
       _$_SharedInfo _value, $Res Function(_$_SharedInfo) _then)
-      : super(_value, (v) => _then(v as _$_SharedInfo));
+      : super(_value, _then);
 
-  @override
-  _$_SharedInfo get _value => super._value as _$_SharedInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? shippingCost = freezed,
-    Object? totalOrders = freezed,
-    Object? cartLimit = freezed,
-    Object? deliveryStates = freezed,
-    Object? liveStores = freezed,
-    Object? timmings = freezed,
-    Object? images = freezed,
-    Object? support = freezed,
-    Object? banners = freezed,
-    Object? offers = freezed,
-    Object? storeSearchMap = freezed,
+    Object? shippingCost = null,
+    Object? totalOrders = null,
+    Object? cartLimit = null,
+    Object? deliveryStates = null,
+    Object? liveStores = null,
+    Object? timmings = null,
+    Object? images = null,
+    Object? support = null,
+    Object? banners = null,
+    Object? offers = null,
+    Object? storeSearchMap = null,
+    Object? recentlyPurchased = null,
   }) {
     return _then(_$_SharedInfo(
-      shippingCost: shippingCost == freezed
+      shippingCost: null == shippingCost
           ? _value.shippingCost
           : shippingCost // ignore: cast_nullable_to_non_nullable
               as double,
-      totalOrders: totalOrders == freezed
+      totalOrders: null == totalOrders
           ? _value.totalOrders
           : totalOrders // ignore: cast_nullable_to_non_nullable
               as int,
-      cartLimit: cartLimit == freezed
+      cartLimit: null == cartLimit
           ? _value.cartLimit
           : cartLimit // ignore: cast_nullable_to_non_nullable
               as int,
-      deliveryStates: deliveryStates == freezed
+      deliveryStates: null == deliveryStates
           ? _value._deliveryStates
           : deliveryStates // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      liveStores: liveStores == freezed
+      liveStores: null == liveStores
           ? _value._liveStores
           : liveStores // ignore: cast_nullable_to_non_nullable
               as Map<String, int>,
-      timmings: timmings == freezed
+      timmings: null == timmings
           ? _value._timmings
           : timmings // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
-      images: images == freezed
+      images: null == images
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
-      support: support == freezed
+      support: null == support
           ? _value._support
           : support // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
-      banners: banners == freezed
+      banners: null == banners
           ? _value._banners
           : banners // ignore: cast_nullable_to_non_nullable
-              as Map<int, String>,
-      offers: offers == freezed
+              as Map<String, String>,
+      offers: null == offers
           ? _value._offers
           : offers // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
-      storeSearchMap: storeSearchMap == freezed
+              as Map<String, Coupon>,
+      storeSearchMap: null == storeSearchMap
           ? _value._storeSearchMap
           : storeSearchMap // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
+      recentlyPurchased: null == recentlyPurchased
+          ? _value._recentlyPurchased
+          : recentlyPurchased // ignore: cast_nullable_to_non_nullable
+              as Map<String, Product>,
     ));
   }
 }
@@ -235,9 +253,10 @@ class _$_SharedInfo implements _SharedInfo {
       required final Map<String, String> timmings,
       required final Map<String, String> images,
       required final Map<String, String> support,
-      required final Map<int, String> banners,
-      required final Map<String, String> offers,
-      required final Map<String, String> storeSearchMap})
+      required final Map<String, String> banners,
+      required final Map<String, Coupon> offers,
+      required final Map<String, String> storeSearchMap,
+      required final Map<String, Product> recentlyPurchased})
       : _deliveryStates = deliveryStates,
         _liveStores = liveStores,
         _timmings = timmings,
@@ -245,7 +264,8 @@ class _$_SharedInfo implements _SharedInfo {
         _support = support,
         _banners = banners,
         _offers = offers,
-        _storeSearchMap = storeSearchMap;
+        _storeSearchMap = storeSearchMap,
+        _recentlyPurchased = recentlyPurchased;
 
   factory _$_SharedInfo.fromJson(Map<String, dynamic> json) =>
       _$$_SharedInfoFromJson(json);
@@ -291,16 +311,16 @@ class _$_SharedInfo implements _SharedInfo {
     return EqualUnmodifiableMapView(_support);
   }
 
-  final Map<int, String> _banners;
+  final Map<String, String> _banners;
   @override
-  Map<int, String> get banners {
+  Map<String, String> get banners {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_banners);
   }
 
-  final Map<String, String> _offers;
+  final Map<String, Coupon> _offers;
   @override
-  Map<String, String> get offers {
+  Map<String, Coupon> get offers {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_offers);
   }
@@ -312,9 +332,16 @@ class _$_SharedInfo implements _SharedInfo {
     return EqualUnmodifiableMapView(_storeSearchMap);
   }
 
+  final Map<String, Product> _recentlyPurchased;
+  @override
+  Map<String, Product> get recentlyPurchased {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_recentlyPurchased);
+  }
+
   @override
   String toString() {
-    return 'SharedInfo(shippingCost: $shippingCost, totalOrders: $totalOrders, cartLimit: $cartLimit, deliveryStates: $deliveryStates, liveStores: $liveStores, timmings: $timmings, images: $images, support: $support, banners: $banners, offers: $offers, storeSearchMap: $storeSearchMap)';
+    return 'SharedInfo(shippingCost: $shippingCost, totalOrders: $totalOrders, cartLimit: $cartLimit, deliveryStates: $deliveryStates, liveStores: $liveStores, timmings: $timmings, images: $images, support: $support, banners: $banners, offers: $offers, storeSearchMap: $storeSearchMap, recentlyPurchased: $recentlyPurchased)';
   }
 
   @override
@@ -322,11 +349,12 @@ class _$_SharedInfo implements _SharedInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SharedInfo &&
-            const DeepCollectionEquality()
-                .equals(other.shippingCost, shippingCost) &&
-            const DeepCollectionEquality()
-                .equals(other.totalOrders, totalOrders) &&
-            const DeepCollectionEquality().equals(other.cartLimit, cartLimit) &&
+            (identical(other.shippingCost, shippingCost) ||
+                other.shippingCost == shippingCost) &&
+            (identical(other.totalOrders, totalOrders) ||
+                other.totalOrders == totalOrders) &&
+            (identical(other.cartLimit, cartLimit) ||
+                other.cartLimit == cartLimit) &&
             const DeepCollectionEquality()
                 .equals(other._deliveryStates, _deliveryStates) &&
             const DeepCollectionEquality()
@@ -337,16 +365,18 @@ class _$_SharedInfo implements _SharedInfo {
             const DeepCollectionEquality().equals(other._banners, _banners) &&
             const DeepCollectionEquality().equals(other._offers, _offers) &&
             const DeepCollectionEquality()
-                .equals(other._storeSearchMap, _storeSearchMap));
+                .equals(other._storeSearchMap, _storeSearchMap) &&
+            const DeepCollectionEquality()
+                .equals(other._recentlyPurchased, _recentlyPurchased));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(shippingCost),
-      const DeepCollectionEquality().hash(totalOrders),
-      const DeepCollectionEquality().hash(cartLimit),
+      shippingCost,
+      totalOrders,
+      cartLimit,
       const DeepCollectionEquality().hash(_deliveryStates),
       const DeepCollectionEquality().hash(_liveStores),
       const DeepCollectionEquality().hash(_timmings),
@@ -354,10 +384,12 @@ class _$_SharedInfo implements _SharedInfo {
       const DeepCollectionEquality().hash(_support),
       const DeepCollectionEquality().hash(_banners),
       const DeepCollectionEquality().hash(_offers),
-      const DeepCollectionEquality().hash(_storeSearchMap));
+      const DeepCollectionEquality().hash(_storeSearchMap),
+      const DeepCollectionEquality().hash(_recentlyPurchased));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SharedInfoCopyWith<_$_SharedInfo> get copyWith =>
       __$$_SharedInfoCopyWithImpl<_$_SharedInfo>(this, _$identity);
 
@@ -379,9 +411,10 @@ abstract class _SharedInfo implements SharedInfo {
       required final Map<String, String> timmings,
       required final Map<String, String> images,
       required final Map<String, String> support,
-      required final Map<int, String> banners,
-      required final Map<String, String> offers,
-      required final Map<String, String> storeSearchMap}) = _$_SharedInfo;
+      required final Map<String, String> banners,
+      required final Map<String, Coupon> offers,
+      required final Map<String, String> storeSearchMap,
+      required final Map<String, Product> recentlyPurchased}) = _$_SharedInfo;
 
   factory _SharedInfo.fromJson(Map<String, dynamic> json) =
       _$_SharedInfo.fromJson;
@@ -403,11 +436,13 @@ abstract class _SharedInfo implements SharedInfo {
   @override
   Map<String, String> get support;
   @override
-  Map<int, String> get banners;
+  Map<String, String> get banners;
   @override
-  Map<String, String> get offers;
+  Map<String, Coupon> get offers;
   @override
   Map<String, String> get storeSearchMap;
+  @override
+  Map<String, Product> get recentlyPurchased;
   @override
   @JsonKey(ignore: true)
   _$$_SharedInfoCopyWith<_$_SharedInfo> get copyWith =>

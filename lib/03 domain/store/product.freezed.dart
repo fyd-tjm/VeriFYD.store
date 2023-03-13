@@ -46,7 +46,8 @@ mixin _$Product {
 /// @nodoc
 abstract class $ProductCopyWith<$Res> {
   factory $ProductCopyWith(Product value, $Res Function(Product) then) =
-      _$ProductCopyWithImpl<$Res>;
+      _$ProductCopyWithImpl<$Res, Product>;
+  @useResult
   $Res call(
       {String skuId,
       String name,
@@ -68,103 +69,106 @@ abstract class $ProductCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
+class _$ProductCopyWithImpl<$Res, $Val extends Product>
+    implements $ProductCopyWith<$Res> {
   _$ProductCopyWithImpl(this._value, this._then);
 
-  final Product _value;
   // ignore: unused_field
-  final $Res Function(Product) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? skuId = freezed,
-    Object? name = freezed,
-    Object? storeId = freezed,
-    Object? storeName = freezed,
-    Object? category = freezed,
-    Object? type = freezed,
-    Object? company = freezed,
-    Object? description = freezed,
-    Object? policy = freezed,
-    Object? sizeAvailability = freezed,
-    Object? sizeGuide = freezed,
-    Object? sellingPrice = freezed,
-    Object? mrp = freezed,
-    Object? productImages = freezed,
-    Object? thumbnailImage = freezed,
-    Object? inStock = freezed,
-    Object? popularity = freezed,
+    Object? skuId = null,
+    Object? name = null,
+    Object? storeId = null,
+    Object? storeName = null,
+    Object? category = null,
+    Object? type = null,
+    Object? company = null,
+    Object? description = null,
+    Object? policy = null,
+    Object? sizeAvailability = null,
+    Object? sizeGuide = null,
+    Object? sellingPrice = null,
+    Object? mrp = null,
+    Object? productImages = null,
+    Object? thumbnailImage = null,
+    Object? inStock = null,
+    Object? popularity = null,
   }) {
     return _then(_value.copyWith(
-      skuId: skuId == freezed
+      skuId: null == skuId
           ? _value.skuId
           : skuId // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as String,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      category: category == freezed
+      category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
-      type: type == freezed
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      company: company == freezed
+      company: null == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      policy: policy == freezed
+      policy: null == policy
           ? _value.policy
           : policy // ignore: cast_nullable_to_non_nullable
               as String,
-      sizeAvailability: sizeAvailability == freezed
+      sizeAvailability: null == sizeAvailability
           ? _value.sizeAvailability
           : sizeAvailability // ignore: cast_nullable_to_non_nullable
               as Map<String, int>,
-      sizeGuide: sizeGuide == freezed
+      sizeGuide: null == sizeGuide
           ? _value.sizeGuide
           : sizeGuide // ignore: cast_nullable_to_non_nullable
               as String,
-      sellingPrice: sellingPrice == freezed
+      sellingPrice: null == sellingPrice
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
               as double,
-      mrp: mrp == freezed
+      mrp: null == mrp
           ? _value.mrp
           : mrp // ignore: cast_nullable_to_non_nullable
               as double,
-      productImages: productImages == freezed
+      productImages: null == productImages
           ? _value.productImages
           : productImages // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      thumbnailImage: thumbnailImage == freezed
+      thumbnailImage: null == thumbnailImage
           ? _value.thumbnailImage
           : thumbnailImage // ignore: cast_nullable_to_non_nullable
               as String,
-      inStock: inStock == freezed
+      inStock: null == inStock
           ? _value.inStock
           : inStock // ignore: cast_nullable_to_non_nullable
               as bool,
-      popularity: popularity == freezed
+      popularity: null == popularity
           ? _value.popularity
           : popularity // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -174,6 +178,7 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
           _$_Product value, $Res Function(_$_Product) then) =
       __$$_ProductCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String skuId,
       String name,
@@ -195,100 +200,99 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
+class __$$_ProductCopyWithImpl<$Res>
+    extends _$ProductCopyWithImpl<$Res, _$_Product>
     implements _$$_ProductCopyWith<$Res> {
   __$$_ProductCopyWithImpl(_$_Product _value, $Res Function(_$_Product) _then)
-      : super(_value, (v) => _then(v as _$_Product));
+      : super(_value, _then);
 
-  @override
-  _$_Product get _value => super._value as _$_Product;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? skuId = freezed,
-    Object? name = freezed,
-    Object? storeId = freezed,
-    Object? storeName = freezed,
-    Object? category = freezed,
-    Object? type = freezed,
-    Object? company = freezed,
-    Object? description = freezed,
-    Object? policy = freezed,
-    Object? sizeAvailability = freezed,
-    Object? sizeGuide = freezed,
-    Object? sellingPrice = freezed,
-    Object? mrp = freezed,
-    Object? productImages = freezed,
-    Object? thumbnailImage = freezed,
-    Object? inStock = freezed,
-    Object? popularity = freezed,
+    Object? skuId = null,
+    Object? name = null,
+    Object? storeId = null,
+    Object? storeName = null,
+    Object? category = null,
+    Object? type = null,
+    Object? company = null,
+    Object? description = null,
+    Object? policy = null,
+    Object? sizeAvailability = null,
+    Object? sizeGuide = null,
+    Object? sellingPrice = null,
+    Object? mrp = null,
+    Object? productImages = null,
+    Object? thumbnailImage = null,
+    Object? inStock = null,
+    Object? popularity = null,
   }) {
     return _then(_$_Product(
-      skuId: skuId == freezed
+      skuId: null == skuId
           ? _value.skuId
           : skuId // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      storeId: storeId == freezed
+      storeId: null == storeId
           ? _value.storeId
           : storeId // ignore: cast_nullable_to_non_nullable
               as String,
-      storeName: storeName == freezed
+      storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
               as String,
-      category: category == freezed
+      category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
-      type: type == freezed
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      company: company == freezed
+      company: null == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      policy: policy == freezed
+      policy: null == policy
           ? _value.policy
           : policy // ignore: cast_nullable_to_non_nullable
               as String,
-      sizeAvailability: sizeAvailability == freezed
+      sizeAvailability: null == sizeAvailability
           ? _value._sizeAvailability
           : sizeAvailability // ignore: cast_nullable_to_non_nullable
               as Map<String, int>,
-      sizeGuide: sizeGuide == freezed
+      sizeGuide: null == sizeGuide
           ? _value.sizeGuide
           : sizeGuide // ignore: cast_nullable_to_non_nullable
               as String,
-      sellingPrice: sellingPrice == freezed
+      sellingPrice: null == sellingPrice
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
               as double,
-      mrp: mrp == freezed
+      mrp: null == mrp
           ? _value.mrp
           : mrp // ignore: cast_nullable_to_non_nullable
               as double,
-      productImages: productImages == freezed
+      productImages: null == productImages
           ? _value._productImages
           : productImages // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      thumbnailImage: thumbnailImage == freezed
+      thumbnailImage: null == thumbnailImage
           ? _value.thumbnailImage
           : thumbnailImage // ignore: cast_nullable_to_non_nullable
               as String,
-      inStock: inStock == freezed
+      inStock: null == inStock
           ? _value.inStock
           : inStock // ignore: cast_nullable_to_non_nullable
               as bool,
-      popularity: popularity == freezed
+      popularity: null == popularity
           ? _value.popularity
           : popularity // ignore: cast_nullable_to_non_nullable
               as int,
@@ -378,55 +382,59 @@ class _$_Product implements _Product {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Product &&
-            const DeepCollectionEquality().equals(other.skuId, skuId) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.storeId, storeId) &&
-            const DeepCollectionEquality().equals(other.storeName, storeName) &&
-            const DeepCollectionEquality().equals(other.category, category) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.company, company) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.policy, policy) &&
+            (identical(other.skuId, skuId) || other.skuId == skuId) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.storeId, storeId) || other.storeId == storeId) &&
+            (identical(other.storeName, storeName) ||
+                other.storeName == storeName) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.company, company) || other.company == company) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.policy, policy) || other.policy == policy) &&
             const DeepCollectionEquality()
                 .equals(other._sizeAvailability, _sizeAvailability) &&
-            const DeepCollectionEquality().equals(other.sizeGuide, sizeGuide) &&
-            const DeepCollectionEquality()
-                .equals(other.sellingPrice, sellingPrice) &&
-            const DeepCollectionEquality().equals(other.mrp, mrp) &&
+            (identical(other.sizeGuide, sizeGuide) ||
+                other.sizeGuide == sizeGuide) &&
+            (identical(other.sellingPrice, sellingPrice) ||
+                other.sellingPrice == sellingPrice) &&
+            (identical(other.mrp, mrp) || other.mrp == mrp) &&
             const DeepCollectionEquality()
                 .equals(other._productImages, _productImages) &&
-            const DeepCollectionEquality()
-                .equals(other.thumbnailImage, thumbnailImage) &&
-            const DeepCollectionEquality().equals(other.inStock, inStock) &&
-            const DeepCollectionEquality()
-                .equals(other.popularity, popularity));
+            (identical(other.thumbnailImage, thumbnailImage) ||
+                other.thumbnailImage == thumbnailImage) &&
+            (identical(other.inStock, inStock) || other.inStock == inStock) &&
+            (identical(other.popularity, popularity) ||
+                other.popularity == popularity));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(skuId),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(storeId),
-      const DeepCollectionEquality().hash(storeName),
-      const DeepCollectionEquality().hash(category),
-      const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(company),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(policy),
+      skuId,
+      name,
+      storeId,
+      storeName,
+      category,
+      type,
+      company,
+      description,
+      policy,
       const DeepCollectionEquality().hash(_sizeAvailability),
-      const DeepCollectionEquality().hash(sizeGuide),
-      const DeepCollectionEquality().hash(sellingPrice),
-      const DeepCollectionEquality().hash(mrp),
+      sizeGuide,
+      sellingPrice,
+      mrp,
       const DeepCollectionEquality().hash(_productImages),
-      const DeepCollectionEquality().hash(thumbnailImage),
-      const DeepCollectionEquality().hash(inStock),
-      const DeepCollectionEquality().hash(popularity));
+      thumbnailImage,
+      inStock,
+      popularity);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ProductCopyWith<_$_Product> get copyWith =>
       __$$_ProductCopyWithImpl<_$_Product>(this, _$identity);
 

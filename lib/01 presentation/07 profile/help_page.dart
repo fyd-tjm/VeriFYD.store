@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
@@ -153,7 +154,7 @@ class HelpPage extends StatelessWidget {
           //! whatsApp
           HelpTile(
             icon: const Icon(
-              Icons.whatsapp_sharp,
+              FontAwesomeIcons.whatsapp,
               size: 40,
               color: fydLogoBlue,
             ),

@@ -33,41 +33,46 @@ mixin _$PaymentInfo {
 abstract class $PaymentInfoCopyWith<$Res> {
   factory $PaymentInfoCopyWith(
           PaymentInfo value, $Res Function(PaymentInfo) then) =
-      _$PaymentInfoCopyWithImpl<$Res>;
+      _$PaymentInfoCopyWithImpl<$Res, PaymentInfo>;
+  @useResult
   $Res call({double paymentAmount, PaymentMode paymentMode});
 
   $PaymentModeCopyWith<$Res> get paymentMode;
 }
 
 /// @nodoc
-class _$PaymentInfoCopyWithImpl<$Res> implements $PaymentInfoCopyWith<$Res> {
+class _$PaymentInfoCopyWithImpl<$Res, $Val extends PaymentInfo>
+    implements $PaymentInfoCopyWith<$Res> {
   _$PaymentInfoCopyWithImpl(this._value, this._then);
 
-  final PaymentInfo _value;
   // ignore: unused_field
-  final $Res Function(PaymentInfo) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? paymentAmount = freezed,
-    Object? paymentMode = freezed,
+    Object? paymentAmount = null,
+    Object? paymentMode = null,
   }) {
     return _then(_value.copyWith(
-      paymentAmount: paymentAmount == freezed
+      paymentAmount: null == paymentAmount
           ? _value.paymentAmount
           : paymentAmount // ignore: cast_nullable_to_non_nullable
               as double,
-      paymentMode: paymentMode == freezed
+      paymentMode: null == paymentMode
           ? _value.paymentMode
           : paymentMode // ignore: cast_nullable_to_non_nullable
               as PaymentMode,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PaymentModeCopyWith<$Res> get paymentMode {
     return $PaymentModeCopyWith<$Res>(_value.paymentMode, (value) {
-      return _then(_value.copyWith(paymentMode: value));
+      return _then(_value.copyWith(paymentMode: value) as $Val);
     });
   }
 }
@@ -79,6 +84,7 @@ abstract class _$$_PaymentInfoCopyWith<$Res>
           _$_PaymentInfo value, $Res Function(_$_PaymentInfo) then) =
       __$$_PaymentInfoCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({double paymentAmount, PaymentMode paymentMode});
 
   @override
@@ -86,26 +92,25 @@ abstract class _$$_PaymentInfoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PaymentInfoCopyWithImpl<$Res> extends _$PaymentInfoCopyWithImpl<$Res>
+class __$$_PaymentInfoCopyWithImpl<$Res>
+    extends _$PaymentInfoCopyWithImpl<$Res, _$_PaymentInfo>
     implements _$$_PaymentInfoCopyWith<$Res> {
   __$$_PaymentInfoCopyWithImpl(
       _$_PaymentInfo _value, $Res Function(_$_PaymentInfo) _then)
-      : super(_value, (v) => _then(v as _$_PaymentInfo));
+      : super(_value, _then);
 
-  @override
-  _$_PaymentInfo get _value => super._value as _$_PaymentInfo;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? paymentAmount = freezed,
-    Object? paymentMode = freezed,
+    Object? paymentAmount = null,
+    Object? paymentMode = null,
   }) {
     return _then(_$_PaymentInfo(
-      paymentAmount: paymentAmount == freezed
+      paymentAmount: null == paymentAmount
           ? _value.paymentAmount
           : paymentAmount // ignore: cast_nullable_to_non_nullable
               as double,
-      paymentMode: paymentMode == freezed
+      paymentMode: null == paymentMode
           ? _value.paymentMode
           : paymentMode // ignore: cast_nullable_to_non_nullable
               as PaymentMode,
@@ -138,21 +143,19 @@ class _$_PaymentInfo implements _PaymentInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PaymentInfo &&
-            const DeepCollectionEquality()
-                .equals(other.paymentAmount, paymentAmount) &&
-            const DeepCollectionEquality()
-                .equals(other.paymentMode, paymentMode));
+            (identical(other.paymentAmount, paymentAmount) ||
+                other.paymentAmount == paymentAmount) &&
+            (identical(other.paymentMode, paymentMode) ||
+                other.paymentMode == paymentMode));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(paymentAmount),
-      const DeepCollectionEquality().hash(paymentMode));
+  int get hashCode => Object.hash(runtimeType, paymentAmount, paymentMode);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PaymentInfoCopyWith<_$_PaymentInfo> get copyWith =>
       __$$_PaymentInfoCopyWithImpl<_$_PaymentInfo>(this, _$identity);
 
@@ -205,8 +208,8 @@ mixin _$PaymentMode {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String? paymentId)? online,
-    TResult Function()? payOnDelivery,
+    TResult? Function(String? paymentId)? online,
+    TResult? Function()? payOnDelivery,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -224,8 +227,8 @@ mixin _$PaymentMode {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Online value)? online,
-    TResult Function(PayOnDelivery value)? payOnDelivery,
+    TResult? Function(Online value)? online,
+    TResult? Function(PayOnDelivery value)? payOnDelivery,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -242,40 +245,42 @@ mixin _$PaymentMode {
 abstract class $PaymentModeCopyWith<$Res> {
   factory $PaymentModeCopyWith(
           PaymentMode value, $Res Function(PaymentMode) then) =
-      _$PaymentModeCopyWithImpl<$Res>;
+      _$PaymentModeCopyWithImpl<$Res, PaymentMode>;
 }
 
 /// @nodoc
-class _$PaymentModeCopyWithImpl<$Res> implements $PaymentModeCopyWith<$Res> {
+class _$PaymentModeCopyWithImpl<$Res, $Val extends PaymentMode>
+    implements $PaymentModeCopyWith<$Res> {
   _$PaymentModeCopyWithImpl(this._value, this._then);
 
-  final PaymentMode _value;
   // ignore: unused_field
-  final $Res Function(PaymentMode) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
 abstract class _$$OnlineCopyWith<$Res> {
   factory _$$OnlineCopyWith(_$Online value, $Res Function(_$Online) then) =
       __$$OnlineCopyWithImpl<$Res>;
+  @useResult
   $Res call({String? paymentId});
 }
 
 /// @nodoc
-class __$$OnlineCopyWithImpl<$Res> extends _$PaymentModeCopyWithImpl<$Res>
+class __$$OnlineCopyWithImpl<$Res>
+    extends _$PaymentModeCopyWithImpl<$Res, _$Online>
     implements _$$OnlineCopyWith<$Res> {
   __$$OnlineCopyWithImpl(_$Online _value, $Res Function(_$Online) _then)
-      : super(_value, (v) => _then(v as _$Online));
+      : super(_value, _then);
 
-  @override
-  _$Online get _value => super._value as _$Online;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? paymentId = freezed,
   }) {
     return _then(_$Online(
-      paymentId: paymentId == freezed
+      paymentId: freezed == paymentId
           ? _value.paymentId
           : paymentId // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -308,16 +313,17 @@ class _$Online implements Online {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Online &&
-            const DeepCollectionEquality().equals(other.paymentId, paymentId));
+            (identical(other.paymentId, paymentId) ||
+                other.paymentId == paymentId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(paymentId));
+  int get hashCode => Object.hash(runtimeType, paymentId);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$OnlineCopyWith<_$Online> get copyWith =>
       __$$OnlineCopyWithImpl<_$Online>(this, _$identity);
 
@@ -333,8 +339,8 @@ class _$Online implements Online {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String? paymentId)? online,
-    TResult Function()? payOnDelivery,
+    TResult? Function(String? paymentId)? online,
+    TResult? Function()? payOnDelivery,
   }) {
     return online?.call(paymentId);
   }
@@ -364,8 +370,8 @@ class _$Online implements Online {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Online value)? online,
-    TResult Function(PayOnDelivery value)? payOnDelivery,
+    TResult? Function(Online value)? online,
+    TResult? Function(PayOnDelivery value)? payOnDelivery,
   }) {
     return online?.call(this);
   }
@@ -411,14 +417,11 @@ abstract class _$$PayOnDeliveryCopyWith<$Res> {
 
 /// @nodoc
 class __$$PayOnDeliveryCopyWithImpl<$Res>
-    extends _$PaymentModeCopyWithImpl<$Res>
+    extends _$PaymentModeCopyWithImpl<$Res, _$PayOnDelivery>
     implements _$$PayOnDeliveryCopyWith<$Res> {
   __$$PayOnDeliveryCopyWithImpl(
       _$PayOnDelivery _value, $Res Function(_$PayOnDelivery) _then)
-      : super(_value, (v) => _then(v as _$PayOnDelivery));
-
-  @override
-  _$PayOnDelivery get _value => super._value as _$PayOnDelivery;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -460,8 +463,8 @@ class _$PayOnDelivery implements PayOnDelivery {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String? paymentId)? online,
-    TResult Function()? payOnDelivery,
+    TResult? Function(String? paymentId)? online,
+    TResult? Function()? payOnDelivery,
   }) {
     return payOnDelivery?.call();
   }
@@ -491,8 +494,8 @@ class _$PayOnDelivery implements PayOnDelivery {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Online value)? online,
-    TResult Function(PayOnDelivery value)? payOnDelivery,
+    TResult? Function(Online value)? online,
+    TResult? Function(PayOnDelivery value)? payOnDelivery,
   }) {
     return payOnDelivery?.call(this);
   }

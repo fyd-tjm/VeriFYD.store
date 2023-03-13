@@ -28,6 +28,9 @@ _$_Store _$$_StoreFromJson(Map<String, dynamic> json) => _$_Store(
       ),
       isLive: json['isLive'] as bool,
       offers: Map<String, String>.from(json['offers'] as Map),
+      coupons: (json['coupons'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, Coupon.fromJson(e as Map<String, dynamic>)),
+      ),
       storeAlerts: (json['storeAlerts'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(int.parse(k), e as String),
       ),
@@ -50,6 +53,7 @@ Map<String, dynamic> _$$_StoreToJson(_$_Store instance) => <String, dynamic>{
           instance.storeContact.map((k, e) => MapEntry(k.toString(), e)),
       'isLive': instance.isLive,
       'offers': instance.offers,
+      'coupons': instance.coupons.map((k, e) => MapEntry(k, e.toJson())),
       'storeAlerts':
           instance.storeAlerts.map((k, e) => MapEntry(k.toString(), e)),
     };

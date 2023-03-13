@@ -10,6 +10,7 @@ class CheckoutState with _$CheckoutState {
     required ShippingInfo? shippingInfo,
     required PaymentInfo? paymentInfo,
     required bool isProcessing,
+    required Map<String, Coupon>? coupons,
     required Option<Either<CheckoutFailure, Unit>> failureOrSuccess,
   }) = _CheckoutState;
 
@@ -21,6 +22,7 @@ class CheckoutState with _$CheckoutState {
         shippingInfo: null,
         paymentInfo: null,
         isProcessing: false,
+        coupons: null,
         failureOrSuccess: none(),
       );
   factory CheckoutState.initial() => CheckoutState(
@@ -31,6 +33,7 @@ class CheckoutState with _$CheckoutState {
         shippingInfo: null,
         paymentInfo: null,
         isProcessing: true,
+        coupons: null,
         failureOrSuccess: none(),
       );
 }

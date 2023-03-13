@@ -9,6 +9,7 @@ abstract class CheckoutFailure with _$CheckoutFailure {
   const factory CheckoutFailure.cartAvailabilityFailure() =
       CartAvailabilityFailure;
   const factory CheckoutFailure.paymentFailure() = PaymentFailure;
+  const factory CheckoutFailure.couponFailure() = CouponFailure;
   const factory CheckoutFailure.orderIdFailure({required String orderNumber}) =
       OrderIdFailure;
   const factory CheckoutFailure.createOrderFailure(

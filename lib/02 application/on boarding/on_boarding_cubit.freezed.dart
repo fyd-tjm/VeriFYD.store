@@ -29,36 +29,39 @@ mixin _$OnBoardingState {
 abstract class $OnBoardingStateCopyWith<$Res> {
   factory $OnBoardingStateCopyWith(
           OnBoardingState value, $Res Function(OnBoardingState) then) =
-      _$OnBoardingStateCopyWithImpl<$Res>;
+      _$OnBoardingStateCopyWithImpl<$Res, OnBoardingState>;
+  @useResult
   $Res call(
       {bool isSubmitting,
       Option<Either<UserFailure, Unit>> authFailureOrSuccessOption});
 }
 
 /// @nodoc
-class _$OnBoardingStateCopyWithImpl<$Res>
+class _$OnBoardingStateCopyWithImpl<$Res, $Val extends OnBoardingState>
     implements $OnBoardingStateCopyWith<$Res> {
   _$OnBoardingStateCopyWithImpl(this._value, this._then);
 
-  final OnBoardingState _value;
   // ignore: unused_field
-  final $Res Function(OnBoardingState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isSubmitting = freezed,
-    Object? authFailureOrSuccessOption = freezed,
+    Object? isSubmitting = null,
+    Object? authFailureOrSuccessOption = null,
   }) {
     return _then(_value.copyWith(
-      isSubmitting: isSubmitting == freezed
+      isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
               as bool,
-      authFailureOrSuccessOption: authFailureOrSuccessOption == freezed
+      authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<UserFailure, Unit>>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -69,6 +72,7 @@ abstract class _$$_OnBoardingStateCopyWith<$Res>
           _$_OnBoardingState value, $Res Function(_$_OnBoardingState) then) =
       __$$_OnBoardingStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {bool isSubmitting,
       Option<Either<UserFailure, Unit>> authFailureOrSuccessOption});
@@ -76,26 +80,24 @@ abstract class _$$_OnBoardingStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_OnBoardingStateCopyWithImpl<$Res>
-    extends _$OnBoardingStateCopyWithImpl<$Res>
+    extends _$OnBoardingStateCopyWithImpl<$Res, _$_OnBoardingState>
     implements _$$_OnBoardingStateCopyWith<$Res> {
   __$$_OnBoardingStateCopyWithImpl(
       _$_OnBoardingState _value, $Res Function(_$_OnBoardingState) _then)
-      : super(_value, (v) => _then(v as _$_OnBoardingState));
+      : super(_value, _then);
 
-  @override
-  _$_OnBoardingState get _value => super._value as _$_OnBoardingState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isSubmitting = freezed,
-    Object? authFailureOrSuccessOption = freezed,
+    Object? isSubmitting = null,
+    Object? authFailureOrSuccessOption = null,
   }) {
     return _then(_$_OnBoardingState(
-      isSubmitting: isSubmitting == freezed
+      isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
               as bool,
-      authFailureOrSuccessOption: authFailureOrSuccessOption == freezed
+      authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<UserFailure, Unit>>,
@@ -125,20 +127,21 @@ class _$_OnBoardingState extends _OnBoardingState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OnBoardingState &&
-            const DeepCollectionEquality()
-                .equals(other.isSubmitting, isSubmitting) &&
-            const DeepCollectionEquality().equals(
-                other.authFailureOrSuccessOption, authFailureOrSuccessOption));
+            (identical(other.isSubmitting, isSubmitting) ||
+                other.isSubmitting == isSubmitting) &&
+            (identical(other.authFailureOrSuccessOption,
+                    authFailureOrSuccessOption) ||
+                other.authFailureOrSuccessOption ==
+                    authFailureOrSuccessOption));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(isSubmitting),
-      const DeepCollectionEquality().hash(authFailureOrSuccessOption));
+  int get hashCode =>
+      Object.hash(runtimeType, isSubmitting, authFailureOrSuccessOption);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_OnBoardingStateCopyWith<_$_OnBoardingState> get copyWith =>
       __$$_OnBoardingStateCopyWithImpl<_$_OnBoardingState>(this, _$identity);
 }

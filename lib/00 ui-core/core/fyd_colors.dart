@@ -11,7 +11,7 @@ const Color fydTGrey = Color.fromARGB(255, 125, 124, 124);
 const Color fydPDgrey = Colors.black;
 const Color fydPGrey = Color.fromARGB(255, 21, 21, 21);
 const Color fydPLgrey = Color.fromARGB(255, 179, 179, 179);
-const Color fydPWhite = Color.fromARGB(255, 215, 215, 215);
+const Color fydPWhite = Color.fromARGB(255, 228, 228, 228);
 
 // Extra color
 const Color fydParrotGreen = Color(0xffD7FF66);
@@ -35,7 +35,8 @@ const Color fydSCYellow = Color.fromARGB(255, 173, 165, 101);
 
 // Ascent-Logo Scope   code:Logo
 
-const Color fydLogoBlue = Color(0xff5E65FF);
+const Color fydLogoBlue = Color(0xff05FF00);
+// const Color fydLogoBlue = Color(0xff4e57fa);
 const Color fydLogoYellow = Color(0xffFFF000);
 const Color fydLogoPurple = Color(0xffDC89FF);
 const Color fydLogoGreen = Color(0xff05FF00);
@@ -45,3 +46,6 @@ const Color fydLogoGreen = Color(0xff05FF00);
 const Color fydNotifGreen = Color(0xff1FAA59);
 const Color fydNotifRed = Color(0xffE21717);
 const Color fydNotifOrange = Color(0xffE07C24);
+
+//---
+const Color logoBlueARGB = Color.fromARGB(255, 78, 87, 250);

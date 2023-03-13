@@ -7,6 +7,7 @@ import 'package:verifyd_store/03%20domain/checkout/order_Info.dart';
 import 'package:verifyd_store/03%20domain/checkout/order_summary.dart';
 import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
 import 'package:verifyd_store/03%20domain/checkout/shipping_info.dart';
+import 'package:verifyd_store/03%20domain/store/coupon.dart';
 import 'package:verifyd_store/03%20domain/user/address.dart';
 import '../../00 ui-core/ui_exports.dart';
 import 'package:get/get_utils/get_utils.dart';
@@ -15,6 +16,19 @@ import 'package:google_fonts/google_fonts.dart';
 import '../03 domain/store/00_export_store_domain.dart';
 
 class MockUi {
+//?-----------------------------------------------------------------------------
+  //! coupon
+  static final coupon = Coupon(
+    code: 'FLATX50',
+    value: 50,
+    message: 'CHRISTMAS FLAT 50',
+    termsAndCondition:
+        'on all orders above 500 excluding shipping, on your second purchase till Dec 2023. on all orders above 500 excluding shipping, on your second purchase till Dec 2023.',
+    isActive: true,
+    isHidden: false,
+    validTill: DateTime.now().add(const Duration(days: 1)),
+    onOrderValue: 1000,
+  );
 //?-----------------------------------------------------------------------------
   //! fyd Order
   static FydOrder fydOrder = FydOrder(
@@ -27,7 +41,7 @@ class MockUi {
       orderSummary: OrderSummary(
           totalItems: 03,
           subTotal: 430,
-          discount: 60,
+          discount: null,
           shippingCost: 100,
           total: 470),
       storeName: '',
@@ -89,14 +103,15 @@ class MockUi {
     },
     storeContact: {0: '5652683626', 1: '9597215684'}, offers: {},
     storeAlerts: {}, featuredIn: {},
+    coupons: {},
     // products: {},
   );
 
   //! database product doc
   static Product product = Product(
-    skuId: '#W2356',
+    skuId: '#w123',
     name: 'Product Name #',
-    storeId: '#R53',
+    storeId: '#A108',
     storeName: 'storename-long one as well',
     category: 'APPAREL',
     type: 'SHIRT',
@@ -115,7 +130,8 @@ class MockUi {
     productImages: productImages,
     popularity: 1,
     inStock: true,
-    thumbnailImage: '',
+    thumbnailImage:
+        'http://www.levi.in/on/demandware.static/-/Sites-LeviMaster-Catalog/en_IN/dwdfa6883f/images/hi-res/746370083/746370083_01_Front.jpg',
   );
 
   //! orders ui

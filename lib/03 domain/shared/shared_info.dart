@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:verifyd_store/03%20domain/store/coupon.dart';
+import 'package:verifyd_store/03%20domain/store/product.dart';
 part 'shared_info.freezed.dart';
 part 'shared_info.g.dart';
 
@@ -15,9 +17,10 @@ abstract class SharedInfo with _$SharedInfo {
     required Map<String, String> timmings,
     required Map<String, String> images,
     required Map<String, String> support,
-    required Map<int, String> banners,
-    required Map<String, String> offers,
+    required Map<String, String> banners,
+    required Map<String, Coupon> offers,
     required Map<String, String> storeSearchMap,
+    required Map<String, Product> recentlyPurchased,
   }) = _SharedInfo;
 
   factory SharedInfo.fromJson(Map<String, dynamic> json) =>
