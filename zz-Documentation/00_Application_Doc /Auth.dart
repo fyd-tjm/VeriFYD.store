@@ -2,8 +2,10 @@
 
 //! Authentication Doc
 
+
 //? Screens(3): PhoneLogin, OtpLogin, OnBoarding
 //? Routers: LoginRouter('/login')
+//? tag: uic-Auth
 
 
 //! PhoneLogin
@@ -70,18 +72,19 @@
 
 //! OnBoarding
 //?-----------------------------------------------------------------------------
-        // topsheet Height:
+        // routing: /boarding
+        // topsheet Height: 380.h
         // AppBar: Text()--Icon()
-        // Btn: height()--padding()
-        // widgets: 
-        // assets:
+        // Btn: height(60.h)--padding(20.w, 40.h)
+        // widgets: fydTextFormField()
+        // assets: verifydStore_bg.png, verifyStore_logoWithName
 //?-----------------------------------------------------------------------------
-        // blocs: 
+        // blocs: onboarding-Cubit + NetworkCubit
         // listenWhen:
         // Listener: ErrorHandling()
         // buildWhen:
         // builder: Loading(): null(): view
 //?-----------------------------------------------------------------------------
-        // todos:
-        // tag: 
+        // todos: ui Designing
+        // tag: uic-onBoarding
 //?-----------------------------------------------------------------------------

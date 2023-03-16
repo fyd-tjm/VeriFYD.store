@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,9 +9,12 @@ import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/router.dart';
 
+import 'widgets/fyd_network_dialog.dart';
+
 //?-----------------------------------------------------------------------------
 class LandingWrapperPage extends StatelessWidget {
-  const LandingWrapperPage({Key? key}) : super(key: key);
+  LandingWrapperPage({Key? key}) : super(key: key);
+  final FydNetworkDialog _networkDialog = getIt<FydNetworkDialog>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +23,16 @@ class LandingWrapperPage extends StatelessWidget {
         BlocProvider.value(
           value: getIt<FydUserCubit>()..getUserStatus(),
         ),
+        BlocProvider.value(
+          value: getIt<NetworkCubit>(),
+        ),
       ],
       child: BlocListener<NetworkCubit, NetworkState>(
         listener: (context, state) {
-          if (!state.isNetworkAvailable) {
-            showOkDialog(context: context, message: 'network not Available!');
+          if (state.isNetworkAvailable == false) {
+            _networkDialog.show(context);
+          } else {
+            _networkDialog.hide();
           }
         },
         child: const LandingPage(),

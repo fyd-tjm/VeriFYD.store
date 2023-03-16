@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,15 +12,35 @@ import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 
+import '../../02 application/core/network/network_cubit.dart';
+import '../../utils/helpers/asset_helper.dart';
+import '../00 core/widgets/fyd_network_dialog.dart';
+
 //?-----------------------------------------------------------------------------
 class OnBoardingWrapperPage extends StatelessWidget {
-  const OnBoardingWrapperPage({Key? key}) : super(key: key);
-
+  OnBoardingWrapperPage({Key? key}) : super(key: key);
+  final FydNetworkDialog _networkDialog = getIt<FydNetworkDialog>();
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<OnBoardingCubit>(),
-      child: OnBoardingPage(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => getIt<OnBoardingCubit>(),
+        ),
+        BlocProvider.value(
+          value: getIt<NetworkCubit>(),
+        ),
+      ],
+      child: BlocListener<NetworkCubit, NetworkState>(
+        listener: (context, state) {
+          if (state.isNetworkAvailable == false) {
+            _networkDialog.show(context);
+          } else {
+            _networkDialog.hide();
+          }
+        },
+        child: OnBoardingPage(),
+      ),
     );
   }
 }
@@ -30,21 +48,19 @@ class OnBoardingWrapperPage extends StatelessWidget {
 //?-----------------------------------------------------------------------------
 class OnBoardingPage extends HookWidget {
   OnBoardingPage({Key? key}) : super(key: key);
-  final _formKey1 = GlobalKey<FormState>();
 
-//?-----------------------------------------------------------------------------
+  final _formKey1 = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     //--------
-    log(context.router.currentUrl);
     final nameController = useTextEditingController();
     final emailController = useTextEditingController();
     //---------
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: BlocConsumer<OnBoardingCubit, OnBoardingState>(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: BlocConsumer<OnBoardingCubit, OnBoardingState>(
           listener: (context, state) {
             if (state.authFailureOrSuccessOption.isSome()) {
               state.authFailureOrSuccessOption.fold(
@@ -64,7 +80,7 @@ class OnBoardingPage extends HookWidget {
                             )),
                         (success) {
                           FocusScope.of(context).unfocus();
-                          context.router.replaceAll([MainWrapperRoute()]);
+                          context.router.replaceAll([LandingWrapperRoute()]);
                         },
                       ));
             }
@@ -73,29 +89,47 @@ class OnBoardingPage extends HookWidget {
             return FydView(
               pageViewType: ViewType.without_Nav_Bar,
               isScrollable: false,
-              topSheetHeight: 380.h,
               topSheetColor: fydPblack,
-              topSheet: _topSheetView(context, nameController, emailController),
-              bottomSheet:
-                  _bottomSheet(context, nameController, emailController, state),
+              topSheetHeight: 380.h,
+              topSheet: _TopSheet(
+                  formKey1: _formKey1,
+                  nameController: nameController,
+                  emailController: emailController),
+              bottomSheet: _BottomSheet(
+                  formKey1: _formKey1,
+                  nameController: nameController,
+                  emailController: emailController,
+                  state: state),
             );
           },
         ),
       ),
     );
   }
-
+}
 //?-----------------------------------------------------------------------------
-  _topSheetView(
-    BuildContext context,
-    TextEditingController nameController,
-    TextEditingController emailController,
-  ) {
+
+class _TopSheet extends StatelessWidget {
+  final TextEditingController nameController;
+  final TextEditingController emailController;
+  const _TopSheet({
+    super.key,
+    required GlobalKey<FormState> formKey1,
+    required this.nameController,
+    required this.emailController,
+  }) : _formKey1 = formKey1;
+
+  final GlobalKey<FormState> _formKey1;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         // background Image
         image: DecorationImage(
-          image: AssetImage('assets/logo/bg.png'),
+          image: AssetImage(
+            AssetHelper.verifydStore_bg,
+          ),
           fit: BoxFit.scaleDown,
           alignment: Alignment.topRight,
           opacity: .5,
@@ -177,10 +211,25 @@ class OnBoardingPage extends HookWidget {
       ),
     );
   }
-
+}
 //?-----------------------------------------------------------------------------
-  _bottomSheet(BuildContext context, TextEditingController nameController,
-      TextEditingController emailController, OnBoardingState state) {
+
+class _BottomSheet extends StatelessWidget {
+  final TextEditingController nameController;
+  final TextEditingController emailController;
+  final OnBoardingState state;
+  const _BottomSheet({
+    super.key,
+    required GlobalKey<FormState> formKey1,
+    required this.nameController,
+    required this.emailController,
+    required this.state,
+  }) : _formKey1 = formKey1;
+
+  final GlobalKey<FormState> _formKey1;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -215,16 +264,12 @@ class OnBoardingPage extends HookWidget {
         Padding(
           padding: EdgeInsets.only(bottom: 30.h),
           child: Image.asset(
-            'assets/logo/fyd-tech.png',
-            width: 200.w,
+            AssetHelper.verifydStore_logoWithName,
+            width: 180.w,
             filterQuality: FilterQuality.high,
           ),
         ),
       ],
     );
   }
-
-//?-----------------------------------------------------------------------------
 }
-
-//?-----------------------------------------------------------------------------

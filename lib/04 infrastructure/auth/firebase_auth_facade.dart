@@ -98,7 +98,7 @@ class FirebaseAuthFacade implements IAuthFacade {
   @override
   bool getOnBoardStatus() {
     final status =
-        (_firebaseAuth.currentUser!.displayName == null) ? false : true;
+        (_firebaseAuth.currentUser!.displayName!.isEmpty) ? false : true;
     return status;
   }
 //?-----------------------------------------------------------------------------

@@ -66,9 +66,11 @@ class AppRouter extends _i30.RootStackRouter {
       );
     },
     LandingWrapperRoute.name: (routeData) {
+      final args = routeData.argsAs<LandingWrapperRouteArgs>(
+          orElse: () => const LandingWrapperRouteArgs());
       return _i30.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i2.LandingWrapperPage(),
+        child: _i2.LandingWrapperPage(key: args.key),
         durationInMilliseconds: 1500,
         opaque: true,
         barrierDismissible: false,
@@ -85,9 +87,11 @@ class AppRouter extends _i30.RootStackRouter {
       );
     },
     OnBoardingWrapperRoute.name: (routeData) {
+      final args = routeData.argsAs<OnBoardingWrapperRouteArgs>(
+          orElse: () => const OnBoardingWrapperRouteArgs());
       return _i30.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i4.OnBoardingWrapperPage(),
+        child: _i4.OnBoardingWrapperPage(key: args.key),
         opaque: true,
         barrierDismissible: false,
       );
@@ -546,14 +550,26 @@ class SplashRoute extends _i30.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.LandingWrapperPage]
-class LandingWrapperRoute extends _i30.PageRouteInfo<void> {
-  const LandingWrapperRoute()
+class LandingWrapperRoute extends _i30.PageRouteInfo<LandingWrapperRouteArgs> {
+  LandingWrapperRoute({_i31.Key? key})
       : super(
           LandingWrapperRoute.name,
           path: '/landing',
+          args: LandingWrapperRouteArgs(key: key),
         );
 
   static const String name = 'LandingWrapperRoute';
+}
+
+class LandingWrapperRouteArgs {
+  const LandingWrapperRouteArgs({this.key});
+
+  final _i31.Key? key;
+
+  @override
+  String toString() {
+    return 'LandingWrapperRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -585,14 +601,27 @@ class LoginRouterArgs {
 
 /// generated route for
 /// [_i4.OnBoardingWrapperPage]
-class OnBoardingWrapperRoute extends _i30.PageRouteInfo<void> {
-  const OnBoardingWrapperRoute()
+class OnBoardingWrapperRoute
+    extends _i30.PageRouteInfo<OnBoardingWrapperRouteArgs> {
+  OnBoardingWrapperRoute({_i31.Key? key})
       : super(
           OnBoardingWrapperRoute.name,
           path: '/boarding',
+          args: OnBoardingWrapperRouteArgs(key: key),
         );
 
   static const String name = 'OnBoardingWrapperRoute';
+}
+
+class OnBoardingWrapperRouteArgs {
+  const OnBoardingWrapperRouteArgs({this.key});
+
+  final _i31.Key? key;
+
+  @override
+  String toString() {
+    return 'OnBoardingWrapperRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

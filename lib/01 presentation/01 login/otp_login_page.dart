@@ -61,8 +61,7 @@ class OtpLoginPage extends HookWidget {
                             )),
                         (success) {
                           FocusScope.of(context).unfocus();
-                          context.router
-                              .replaceAll([const LandingWrapperRoute()]);
+                          context.router.replaceAll([LandingWrapperRoute()]);
                         },
                       ));
             }
