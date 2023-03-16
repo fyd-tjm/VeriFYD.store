@@ -7,7 +7,7 @@
 
 
 //! PhoneLogin
-//?-----------------------------------------------------------------------------
+   //?-----------------------------------------------------------------------------
         // Routing Name: /login
         // topsheet Height: 380.h
         // AppBar: Text()--Icon()
@@ -16,7 +16,7 @@
         // widgets: fydTextFormField
         // assets: verifydStore_bg.png, verifyStore_logoWithName
         // colors: 
-//?-----------------------------------------------------------------------------
+    //?-----------------------------------------------------------------------------
         // blocs: PhoneLoginBloc
 
         // listenWhen: 
@@ -39,28 +39,32 @@
         //   if (context.router.currentUrl == '/login') { return true; } return false;
         
         // builder: Loading(): null(): view
-//?-----------------------------------------------------------------------------
+        // events: sendOtp(phoneNumber)
+   //?-----------------------------------------------------------------------------
         // todos: 
         // tag: commit: uic-phoneLogin
-//?-----------------------------------------------------------------------------
+   //?-----------------------------------------------------------------------------
 
 
 //! OtpLogin
 //?-----------------------------------------------------------------------------
+        // routing: /login/otp
         // topsheet Height:
         // AppBar: Text()--Icon()
         // Btn: height()--padding()
-        // widgets: 
-        // assets:
+        // widgets: fydAppBar(), OtpField()
+        // assets: verifydStore_bg.png, verifyStore_logoWithName
 //?-----------------------------------------------------------------------------
-        // blocs: 
+        // blocs: phoneLogin
         // listenWhen:
-        // Listener: ErrorHandling()
-        // buildWhen:
+        // if (context.router.currentUrl == '/login/otp') { return true; } return false;
+        // Listener: same as above
+        // buildWhen: 
         // builder: Loading(): null(): view
+        // Events: confirmOtp(otp)
 //?-----------------------------------------------------------------------------
         // todos:
-        // tag: 
+        // tag: uic-OtpLogin
 //?-----------------------------------------------------------------------------
 
 

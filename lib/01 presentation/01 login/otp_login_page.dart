@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,14 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/02%20application/phone%20login/phone_login_bloc.dart';
 import 'package:verifyd_store/03%20domain/auth/value_objects.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 
+import '../../utils/helpers/asset_helper.dart';
 import '../00 core/widgets/00_core_widgets_export.dart';
 import 'widgets/otp_field.dart';
 
@@ -24,7 +21,6 @@ class OtpLoginPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(context.router.currentUrl);
     //-------
     final otpText = useState('');
     final otpController = useTextEditingController();
@@ -34,11 +30,16 @@ class OtpLoginPage extends HookWidget {
       return;
     }, [update]);
     //-------
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: fydPblack,
-        resizeToAvoidBottomInset: false,
-        body: BlocConsumer<PhoneLoginBloc, PhoneLoginState>(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: BlocConsumer<PhoneLoginBloc, PhoneLoginState>(
+          listenWhen: (previous, current) {
+            if (context.router.currentUrl == '/login/otp') {
+              return true;
+            }
+            return false;
+          },
           listener: (context, state) {
             if (state.failureOrSuccess.isSome()) {
               state.failureOrSuccess.fold(
@@ -53,9 +54,10 @@ class OtpLoginPage extends HookWidget {
                                   'session Expired: try again',
                               userDisabled: () => 'user is disabled',
                               tooManyRequests: () =>
-                                  'too Many Requests: try again',
-                              serverError: () => 'server Error',
-                              unknownError: () => 'something went wrong',
+                                  'too Many Requests: try later',
+                              serverError: () => 'server Error: try again',
+                              unknownError: () =>
+                                  'something went wrong: try again',
                             )),
                         (success) {
                           FocusScope.of(context).unfocus();
@@ -65,31 +67,44 @@ class OtpLoginPage extends HookWidget {
                       ));
             }
           },
+          buildWhen: (previous, current) {
+            if (context.router.currentUrl == '/login/otp') {
+              return true;
+            }
+            return false;
+          },
           builder: (context, state) {
             return FydView(
               pageViewType: ViewType.without_Nav_Bar,
               isScrollable: false,
               topSheetHeight: 380.h,
-              topSheet: topSheetView(context, state, otpController),
-              bottomSheet: bottomSheetView(context, state, otpText),
+              topSheet: _TopSheet(state: state, otpController: otpController),
+              bottomSheet: _BottomSheet(state: state, otpText: otpText),
             );
           },
         ),
       ),
     );
   }
+}
 
 //?-----------------------------------------------------------------------------
-  topSheetView(
-    BuildContext context,
-    PhoneLoginState state,
-    TextEditingController otpController,
-  ) {
+class _TopSheet extends StatelessWidget {
+  final PhoneLoginState state;
+  final TextEditingController otpController;
+  const _TopSheet({
+    super.key,
+    required this.state,
+    required this.otpController,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         // background Image
         image: DecorationImage(
-          image: AssetImage('assets/logo/bg.png'),
+          image: AssetImage(AssetHelper.verifydStore_bg),
           fit: BoxFit.scaleDown,
           alignment: Alignment.topRight,
           opacity: .5,
@@ -104,16 +119,10 @@ class OtpLoginPage extends HookWidget {
         children: [
           //! AppBar(back-btn)
           FydAppBar(
-            leading: AppBarBtn(
-                iconData: FontAwesomeIcons.arrowLeftLong,
-                bgColor: fydPwhite,
-                iconColor: fydSblack,
-                iconSize: 20,
-                padding: const EdgeInsets.all(10.0),
-                onPressed: () {
-                  HapticFeedback.lightImpact();
-                  context.router.pop();
-                }),
+            leading: AppBarBtn.back(onPressed: () {
+              HapticFeedback.lightImpact();
+              context.router.pop();
+            }),
             main: const SizedBox(),
           ),
           //! Heading
@@ -121,17 +130,15 @@ class OtpLoginPage extends HookWidget {
             padding: EdgeInsets.only(top: 40.h, left: 20.w, right: 20.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: const [
                 FydText.d1black(
                   text: 'Enter',
                   size: 40,
                   weight: FontWeight.w600,
-                  color: fydSblack.withOpacity(.8),
                 ),
                 FydText.d1black(
                   text: 'verification code',
                   weight: FontWeight.w600,
-                  color: fydSblack.withOpacity(.8),
                 ),
               ],
             ),
@@ -178,13 +185,21 @@ class OtpLoginPage extends HookWidget {
       ),
     );
   }
+}
 
 //?-----------------------------------------------------------------------------
-  bottomSheetView(
-    BuildContext context,
-    PhoneLoginState state,
-    ValueNotifier<String> otpText,
-  ) {
+
+class _BottomSheet extends StatelessWidget {
+  final PhoneLoginState state;
+  final ValueNotifier<String> otpText;
+  const _BottomSheet({
+    super.key,
+    required this.state,
+    required this.otpText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
@@ -221,13 +236,12 @@ class OtpLoginPage extends HookWidget {
         Padding(
           padding: EdgeInsets.only(bottom: 30.h),
           child: Image.asset(
-            'assets/logo/fyd-tech.png',
-            width: 200.w,
+            AssetHelper.verifydStore_logoWithName,
+            width: 180.w,
             filterQuality: FilterQuality.high,
           ),
         ),
       ],
     );
   }
-//?-----------------------------------------------------------------------------
 }

@@ -1,6 +1,7 @@
 //! fyd-app-bar
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 
 class FydAppBar extends StatelessWidget {
@@ -39,15 +40,25 @@ class FydAppBar extends StatelessWidget {
 //?-----------------------------------------------------------------------------
 class AppBarBtn extends StatelessWidget {
   const AppBarBtn(
-      {Key? key,
+      {super.key,
       required this.iconData,
       this.iconColor = fydBbluegrey,
       this.bgColor = fydSblack,
       required this.onPressed,
       this.iconSize = 25,
       this.alignment = Alignment.center,
-      this.padding = const EdgeInsets.all(5)})
-      : super(key: key);
+      this.padding = const EdgeInsets.all(5)});
+
+  const AppBarBtn.back({
+    super.key,
+    this.iconData = FontAwesomeIcons.arrowLeftLong,
+    this.iconColor = fydPblack,
+    this.bgColor = fydPwhite,
+    this.iconSize = 20,
+    this.padding = const EdgeInsets.all(10.0),
+    this.alignment = Alignment.center,
+    required this.onPressed,
+  });
   final IconData iconData;
   final Color iconColor;
   final Color bgColor;
