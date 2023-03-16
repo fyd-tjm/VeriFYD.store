@@ -30,9 +30,9 @@ class StoreSearch extends SearchDelegate {
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,
         size: 25,
-        color: fydBlueGrey,
+        color: fydBbluegrey,
       ),
-      splashColor: fydPGrey,
+      splashColor: fydSblack,
       padding: const EdgeInsets.symmetric(horizontal: 20),
       onPressed: () {
         FocusScope.of(context).unfocus();
@@ -65,7 +65,7 @@ class StoreSearch extends SearchDelegate {
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
             child: FaIcon(
               FontAwesomeIcons.store,
-              color: fydBlueGrey,
+              color: fydBbluegrey,
               size: 20,
             ),
           ),
@@ -74,19 +74,18 @@ class StoreSearch extends SearchDelegate {
             text: TextSpan(
                 text: suggestionList[index].substring(0, query.length + 1),
                 style: const TextStyle(
-                    fontSize: 18,
-                    color: fydLogoBlue,
-                    fontWeight: FontWeight.w600),
+                    fontSize: 18, color: fydBblue, fontWeight: FontWeight.w600),
                 children: [
                   TextSpan(
                       text: suggestionList[index].substring(query.length + 1),
-                      style: const TextStyle(fontSize: 16, color: fydBlueGrey)),
+                      style:
+                          const TextStyle(fontSize: 16, color: fydBbluegrey)),
                 ]),
           ),
           //! storeName
           subtitle: FydText.b4custom(
             text: searchMap[suggestionList[index]]!,
-            color: fydPLgrey,
+            color: fydSgrey,
             weight: FontWeight.w500,
           ),
         ),
@@ -416,11 +415,11 @@ class _SearchPageState<T> extends State<_SearchPage<T>> {
         data: theme,
         child: SafeArea(
           child: Scaffold(
-            backgroundColor: fydPDgrey,
+            backgroundColor: fydPblack,
             appBar: AppBar(
               elevation: 0,
               automaticallyImplyLeading: false,
-              backgroundColor: fydPDgrey,
+              backgroundColor: fydPblack,
               leadingWidth: 0,
               titleSpacing: 0,
               title: Row(
@@ -434,7 +433,7 @@ class _SearchPageState<T> extends State<_SearchPage<T>> {
                     padding: EdgeInsets.only(left: 15),
                     child: FydText.d2custom(
                       text: '#',
-                      color: fydLogoBlue,
+                      color: fydBblue,
                       isScalable: false,
                     ),
                   ),

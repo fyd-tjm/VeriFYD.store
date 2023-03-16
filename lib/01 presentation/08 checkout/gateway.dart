@@ -130,17 +130,17 @@ class GatewayPage extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 25.h),
           child: FydBtn(
             height: 60.h,
-            color: fydPGrey,
+            color: fydSblack,
             widget: (state.isProcessing)
                 ? const Center(
                     child: SpinKitWave(
-                      color: fydLogoBlue,
+                      color: fydBblue,
                       size: 25,
                     ),
                   )
                 : FydText.h2custom(
                     text: 'Payment Success',
-                    color: fydLogoBlue,
+                    color: fydBblue,
                     weight: FontWeight.bold,
                   ),
             onPressed: () {
@@ -154,10 +154,10 @@ class GatewayPage extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 25.h),
           child: FydBtn(
             height: 60.h,
-            color: fydPGrey,
+            color: fydSblack,
             fydText: FydText.h2custom(
               text: 'testing',
-              color: fydLogoBlue,
+              color: fydBblue,
               weight: FontWeight.bold,
             ),
             onPressed: () {

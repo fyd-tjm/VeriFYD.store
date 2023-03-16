@@ -10,7 +10,7 @@ class PageNotFound extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: fydPGrey,
+      backgroundColor: fydSblack,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

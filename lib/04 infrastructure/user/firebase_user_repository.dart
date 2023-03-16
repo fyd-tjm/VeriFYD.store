@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
@@ -11,7 +9,6 @@ import 'package:verifyd_store/03%20domain/user/00_export_user_domain.dart';
 import 'package:verifyd_store/03%20domain/user/address.dart';
 import 'package:verifyd_store/04%20infrastructure/core/firebase_helper.dart';
 import 'package:verifyd_store/04%20infrastructure/user/user_failure_map.dart';
-import 'user_failure_map.dart';
 
 @LazySingleton(as: IUserRepository)
 class FirebaseUserRepository implements IUserRepository {
@@ -42,6 +39,7 @@ class FirebaseUserRepository implements IUserRepository {
       );
       await fydUserCollectionRef.doc(fydUser.uId).set(fydUser);
       await _firestore.doc(DbRef.getCartRef()).set(Cart.initial().toJson());
+      await FirebaseAuth.instance.currentUser!.updateDisplayName(name);
       return right(unit);
     } catch (e) {
       // error handling

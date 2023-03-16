@@ -40,7 +40,7 @@ class ConfirmationScreen extends StatelessWidget {
             //! go to orders btn
             FydBtn(
                     height: 60.h,
-                    color: fydPGrey,
+                    color: fydSblack,
                     fydText: FydText.h2white(text: 'Go To Orders'),
                     onPressed: () {})
                 .paddingSymmetric(horizontal: 20.w, vertical: 25.h),
@@ -53,7 +53,7 @@ class ConfirmationScreen extends StatelessWidget {
             //! take me home btn
             FydBtn(
                 height: 60.h,
-                color: fydPGrey,
+                color: fydSblack,
                 fydText: FydText.h2white(text: 'Take Me Home'),
                 onPressed: () {
                   HomeRootNavController.i.activeIndex.value = 0;

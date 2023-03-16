@@ -36,7 +36,7 @@ class OtpLoginPage extends HookWidget {
     //-------
     return SafeArea(
       child: Scaffold(
-        backgroundColor: fydPDgrey,
+        backgroundColor: fydPblack,
         resizeToAvoidBottomInset: false,
         body: BlocConsumer<PhoneLoginBloc, PhoneLoginState>(
           listener: (context, state) {
@@ -106,8 +106,8 @@ class OtpLoginPage extends HookWidget {
           FydAppBar(
             leading: AppBarBtn(
                 iconData: FontAwesomeIcons.arrowLeftLong,
-                bgColor: fydPWhite,
-                iconColor: fydPGrey,
+                bgColor: fydPwhite,
+                iconColor: fydSblack,
                 iconSize: 20,
                 padding: const EdgeInsets.all(10.0),
                 onPressed: () {
@@ -126,12 +126,12 @@ class OtpLoginPage extends HookWidget {
                   text: 'Enter',
                   size: 40,
                   weight: FontWeight.w600,
-                  color: fydPGrey.withOpacity(.8),
+                  color: fydSblack.withOpacity(.8),
                 ),
                 FydText.d1black(
                   text: 'verification code',
                   weight: FontWeight.w600,
-                  color: fydPGrey.withOpacity(.8),
+                  color: fydSblack.withOpacity(.8),
                 ),
               ],
             ),
@@ -150,7 +150,7 @@ class OtpLoginPage extends HookWidget {
                     child: FydRichText(
                       size: 14,
                       weight: FontWeight.w600,
-                      color: fydPGrey,
+                      color: fydSblack,
                       textList: [
                         const TextSpan(text: 'we have send you on +91 '),
                         TextSpan(
@@ -160,7 +160,7 @@ class OtpLoginPage extends HookWidget {
                               letterSpacing: .8,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: fydLogoBlue),
+                              color: fydBblue),
                         ),
                       ],
                     ),
@@ -193,14 +193,14 @@ class OtpLoginPage extends HookWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
           child: FydBtn(
-            color: fydPGrey,
+            color: fydSblack,
             height: 60.h,
             widget: (state.isSubmitting)
-                ? const SpinKitWave(color: fydLogoBlue, size: 20.0)
+                ? const SpinKitWave(color: fydBblue, size: 20.0)
                 : FydText.h3custom(
                     text: 'Confirm Otp',
                     weight: FontWeight.w600,
-                    color: (otpText.value.length != 6) ? fydTGrey : fydLogoBlue,
+                    color: (otpText.value.length != 6) ? fydPgrey : fydBblue,
                   ),
             onPressed: () async {
               HapticFeedback.mediumImpact();
@@ -230,5 +230,4 @@ class OtpLoginPage extends HookWidget {
     );
   }
 //?-----------------------------------------------------------------------------
-
 }

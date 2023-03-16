@@ -221,34 +221,6 @@ class Helpers {
   }
 
 //?-----------------------------------------------------------------------------
-  //! get Color for Index
-  static Color getColorForIndex(int index) {
-    List<Color> colors = [fydSBlue, fydSYellow, fydSPink];
-    var modulas = index % colors.length;
-    return colors[modulas];
-  }
-
-  //! Random FydS color
-  static Color getRandomColor() {
-    final colors = [fydSBlue, fydSPink, fydSYellow];
-    final random = Random();
-    final index = random.nextInt(colors.length);
-    return colors[index];
-  }
-
-  //! getContrastColor
-  static Color getContrastColor(Color? color) {
-    if (color == null) return fydPDgrey;
-    if (color == fydSBlue) {
-      return fydSCBlue;
-    } else if (color == fydSPink) {
-      return fydSCPink;
-    } else if (color == fydSYellow) {
-      return fydSCYellow;
-    } else {
-      return fydPDgrey;
-    }
-  }
 
 //?-----------------------------------------------------------------------------
 //! Map to String

@@ -58,11 +58,11 @@ class FydImageDialog extends StatelessWidget {
                       progressIndicatorBuilder:
                           (context, url, downloadProgress) => const SpinKitWave(
                         size: 20,
-                        color: fydTGrey,
+                        color: fydPgrey,
                       ),
                       errorWidget: (context, url, error) => Icon(
                         Icons.image_not_supported_outlined,
-                        color: fydTGrey,
+                        color: fydPgrey,
                         size: 70.h,
                       ),
                     ),

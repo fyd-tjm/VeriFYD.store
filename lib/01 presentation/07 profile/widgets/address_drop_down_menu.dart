@@ -26,35 +26,35 @@ class AddressDropdownMenu extends HookWidget {
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 17.h, horizontal: 20.w),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: fydPLgrey, width: 2),
+          borderSide: const BorderSide(color: fydSgrey, width: 2),
           borderRadius: BorderRadius.circular(8),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: fydPLgrey, width: 2),
+          borderSide: const BorderSide(color: fydSgrey, width: 2),
           borderRadius: BorderRadius.circular(8),
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: fydNotifRed, width: 2),
+          borderSide: const BorderSide(color: fydAred, width: 2),
           borderRadius: BorderRadius.circular(8),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: fydNotifRed, width: 2),
+          borderSide: const BorderSide(color: fydAred, width: 2),
           borderRadius: BorderRadius.circular(8),
         ),
       ),
       menuMaxHeight: MediaQuery.of(context).size.height / 2,
       hint: const FydText.h2custom(
         text: 'select state:',
-        color: fydTGrey,
+        color: fydPgrey,
       ),
       style: const TextStyle(
-        color: fydPWhite,
+        color: fydPwhite,
         fontWeight: FontWeight.w600,
         letterSpacing: 1,
         fontSize: 22,
         decoration: TextDecoration.none,
       ),
-      dropdownColor: fydPGrey,
+      dropdownColor: fydSblack,
       value: value.value,
       items: list.map<DropdownMenuItem<String>>(
         (String val) {

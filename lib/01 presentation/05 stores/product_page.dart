@@ -110,7 +110,7 @@ class ProductPage extends HookWidget {
             if (state.isFetching && state.productRealtime == null) {
               return const Center(
                 child: SpinKitWave(
-                  color: fydLogoBlue,
+                  color: fydBblue,
                   size: 40.0,
                 ),
               );
@@ -133,12 +133,12 @@ class ProductPage extends HookWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 50, vertical: 100),
                     child: FydBtn(
-                      color: fydPGrey,
+                      color: fydSblack,
                       onPressed: () => context.router.pop(),
                       height: 50,
                       fydText: const FydText.b1custom(
                         text: 'Go Back',
-                        color: fydBlueGrey,
+                        color: fydBbluegrey,
                       ),
                     ),
                   )
@@ -154,7 +154,7 @@ class ProductPage extends HookWidget {
                 pageViewType: ViewType.without_Nav_Bar,
                 isScrollable: false,
                 topSheetHeight: 350.h,
-                topSheetColor: fydPGrey,
+                topSheetColor: fydSblack,
                 topSheet: _topSheetView(context, state, imageIndex, inStock),
                 bottomSheet:
                     _bottomSheetView(context, state, selectedSize, inStock),
@@ -185,13 +185,13 @@ class ProductPage extends HookWidget {
                   Icon(
                     Icons.hide_image_outlined,
                     size: 150.h,
-                    color: fydTGrey,
+                    color: fydPgrey,
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 20.h),
                     child: const FydText.b2custom(
                       text: 'Image Not Available',
-                      color: fydTGrey,
+                      color: fydPgrey,
                       letterSpacing: .9,
                       weight: FontWeight.w600,
                     ),
@@ -220,8 +220,8 @@ class ProductPage extends HookWidget {
                 decorator: DotsDecorator(
                   size: const Size.square(9.0),
                   activeSize: const Size(18.0, 9.0),
-                  activeColor: fydBlueGrey,
-                  color: fydPDgrey,
+                  activeColor: fydBbluegrey,
+                  color: fydPblack,
                   activeShape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0)),
                 ),
@@ -273,10 +273,10 @@ class ProductPage extends HookWidget {
                 HapticFeedback.lightImpact();
                 context.router.pop();
               },
-              color: fydPGrey,
+              color: fydSblack,
               fydText: const FydText.h3custom(
                 text: 'Go back ←',
-                color: fydLogoBlue,
+                color: fydBblue,
                 weight: FontWeight.w600,
               ),
             ),
@@ -300,7 +300,7 @@ class ProductPage extends HookWidget {
                 padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 15.h),
                 child: Column(
                   children: [
-                    const FydDivider(color: fydBlueGrey),
+                    const FydDivider(color: fydBbluegrey),
                     //! product-Info section
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -313,7 +313,7 @@ class ProductPage extends HookWidget {
                         price: state.productRealtime!.sellingPrice.toString(),
                       ),
                     ),
-                    const FydDivider(color: fydBlueGrey),
+                    const FydDivider(color: fydBbluegrey),
                     //! Product-Size section
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -336,7 +336,7 @@ class ProductPage extends HookWidget {
                                 //! heading
                                 const FydText.b2custom(
                                   text: 'Size',
-                                  color: fydPWhite,
+                                  color: fydPwhite,
                                   letterSpacing: .9,
                                 ),
                                 //! size-guide btn
@@ -344,7 +344,7 @@ class ProductPage extends HookWidget {
                                   onTap: () {},
                                   child: const FydText.b3custom(
                                     text: 'Size Guide',
-                                    color: fydTGrey,
+                                    color: fydPgrey,
                                     weight: FontWeight.w500,
                                   ),
                                 )
@@ -366,8 +366,8 @@ class ProductPage extends HookWidget {
                                   size: sizeMap.keys.elementAt(idx),
                                   tileColor: (selectedSize.value ==
                                           sizeMap.keys.elementAt(idx))
-                                      ? fydLogoBlue.withOpacity(.8)
-                                      : fydPGrey,
+                                      ? fydBblue.withOpacity(.8)
+                                      : fydSblack,
                                   onPressed: (size) =>
                                       selectedSize.value = size,
                                 ),
@@ -377,7 +377,7 @@ class ProductPage extends HookWidget {
                         ],
                       ),
                     ),
-                    const FydDivider(color: fydBlueGrey),
+                    const FydDivider(color: fydBbluegrey),
                     //! Description and policy
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -387,7 +387,7 @@ class ProductPage extends HookWidget {
                       child: StoreInfoExpansionTile(
                         title: 'Description & Policy',
                         titleSize: 18,
-                        color: fydPWhite,
+                        color: fydPwhite,
                         widgets: [
                           //! sku+storeId
                           Padding(
@@ -403,14 +403,14 @@ class ProductPage extends HookWidget {
                                 //! storeId
                                 FydRichText(
                                   size: 14,
-                                  color: fydTGrey,
+                                  color: fydPgrey,
                                   weight: FontWeight.w600,
                                   textList: [
                                     const TextSpan(text: 'storeId : '),
                                     TextSpan(
                                         text: state.productRealtime!.storeId,
                                         style: const TextStyle(
-                                            color: fydBlueGrey,
+                                            color: fydBbluegrey,
                                             fontSize: 16,
                                             fontWeight: FontWeight.w700)),
                                   ],
@@ -418,14 +418,14 @@ class ProductPage extends HookWidget {
                                 //! skuId
                                 FydRichText(
                                   size: 14,
-                                  color: fydTGrey,
+                                  color: fydPgrey,
                                   weight: FontWeight.w600,
                                   textList: [
                                     const TextSpan(text: 'skuId : '),
                                     TextSpan(
                                         text: state.productRealtime!.skuId,
                                         style: const TextStyle(
-                                            color: fydBlueGrey,
+                                            color: fydBbluegrey,
                                             fontSize: 16,
                                             fontWeight: FontWeight.w700)),
                                   ],
@@ -437,7 +437,7 @@ class ProductPage extends HookWidget {
                           FydTextCard(
                             backgroundColor: Colors.transparent,
                             message: state.productRealtime!.description,
-                            textColor: fydBlueGrey,
+                            textColor: fydBbluegrey,
                             textSize: 15,
                             weight: FontWeight.w500,
                             padding: EdgeInsets.symmetric(
@@ -447,7 +447,7 @@ class ProductPage extends HookWidget {
                           FydTextCard(
                             backgroundColor: Colors.transparent,
                             message: state.productRealtime!.policy,
-                            textColor: fydTGrey,
+                            textColor: fydPgrey,
                             textSize: 14,
                             weight: FontWeight.w500,
                             padding: EdgeInsets.symmetric(
@@ -467,12 +467,12 @@ class ProductPage extends HookWidget {
                 bottom: 25.h, top: 10.h, left: 10.w, right: 10.w),
             child: FydBtn(
               height: 60.h,
-              color: fydPGrey,
+              color: fydSblack,
               widget: (state.addingToCart == true)
-                  ? const SpinKitWave(color: fydLogoBlue, size: 20.0)
+                  ? const SpinKitWave(color: fydBblue, size: 20.0)
                   : const FydText.h3custom(
                       text: 'Add to Cart  ➢',
-                      color: fydLogoBlue,
+                      color: fydBblue,
                       weight: FontWeight.w600,
                     ),
               onPressed: () async {
@@ -529,14 +529,14 @@ class ProductInfoSection extends StatelessWidget {
               width: MediaQuery.of(context).size.width * (2 / 3),
               fydText: FydText.b2custom(
                 text: productName,
-                color: fydPWhite,
+                color: fydPwhite,
                 weight: FontWeight.w700,
               ),
             ),
             FydText.b4custom(
               text: company,
               weight: FontWeight.bold,
-              color: fydTGrey,
+              color: fydPgrey,
               letterSpacing: .9,
             )
           ],
@@ -549,7 +549,7 @@ class ProductInfoSection extends StatelessWidget {
           children: [
             FydText.b1custom(
               text: '₹ $price',
-              color: fydLogoBlue,
+              color: fydBblue,
               weight: FontWeight.w600,
             ),
           ],
@@ -587,7 +587,7 @@ class ProductSizeTile extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
           ),
-          child: Center(child: FydText.b1custom(text: size, color: fydPWhite)),
+          child: Center(child: FydText.b1custom(text: size, color: fydPwhite)),
         ),
       ),
     );

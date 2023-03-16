@@ -25,7 +25,7 @@ class TypeChip extends StatelessWidget {
         height: 80.h,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              primary: fydPGrey,
+              primary: fydSblack,
               // background
               elevation: 5.0,
               shape: RoundedRectangleBorder(
@@ -38,7 +38,7 @@ class TypeChip extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-                color: (color != null) ? color : fydPWhite,
+                color: (color != null) ? color : fydPwhite,
                 fontSize: body14.fontSize,
                 fontWeight: FontWeight.bold),
           ),

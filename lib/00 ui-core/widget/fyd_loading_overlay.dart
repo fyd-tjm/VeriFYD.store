@@ -29,7 +29,7 @@ class FydLoadingOverlay {
                 width: 100,
                 child: Center(
                   child: SpinKitWave(
-                    color: fydPWhite,
+                    color: fydPwhite,
                     size: 30.0,
                   ),
                 ),
@@ -38,7 +38,7 @@ class FydLoadingOverlay {
           ),
         ),
       );
-      Overlay.of(context)?.insert(_overlay!);
+      Overlay.of(context).insert(_overlay!);
     }
   }
 

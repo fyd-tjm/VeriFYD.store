@@ -23,7 +23,7 @@ class ProfileTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return FydBtn(
       height: 70.h,
-      color: fydPGrey,
+      color: fydSblack,
       onPressed: onPressed,
       widget: Row(
         mainAxisSize: MainAxisSize.max,
@@ -37,7 +37,7 @@ class ProfileTile extends StatelessWidget {
               height: 60.h,
               width: 60.h,
               child: Card(
-                color: fydPGrey,
+                color: fydSblack,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.r)),
                 child: Padding(
@@ -63,7 +63,7 @@ class ProfileTile extends StatelessWidget {
               ),
               // tile-description
               FydText.b4custom(
-                color: fydTGrey,
+                color: fydPgrey,
                 text: description,
                 weight: FontWeight.w500,
               )

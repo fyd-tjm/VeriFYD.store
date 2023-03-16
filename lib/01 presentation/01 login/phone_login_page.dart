@@ -1,5 +1,4 @@
 // ignore_for_file: non_constant_identifier_names
-import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -9,21 +8,41 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_network_dialog.dart';
 import 'package:verifyd_store/02%20application/phone%20login/phone_login_bloc.dart';
 import 'package:verifyd_store/03%20domain/auth/value_objects.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
-import 'package:verifyd_store/utils/router.dart';
+import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import '../../00 ui-core/ui_exports.dart';
+import '../../02 application/core/network/network_cubit.dart';
 
 //?-----------------------------------------------------------------------------
 class PhoneLoginWrapperPage extends StatelessWidget {
-  const PhoneLoginWrapperPage({Key? key}) : super(key: key);
+  PhoneLoginWrapperPage({Key? key}) : super(key: key);
+
+  final FydNetworkDialog _networkDialog = getIt<FydNetworkDialog>();
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<PhoneLoginBloc>(),
-      child: const AutoRouter(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => getIt<PhoneLoginBloc>(),
+        ),
+        BlocProvider.value(
+          value: getIt<NetworkCubit>(),
+        ),
+      ],
+      child: BlocListener<NetworkCubit, NetworkState>(
+        listener: (context, state) {
+          if (state.isNetworkAvailable == false) {
+            _networkDialog.show(context);
+          } else {
+            _networkDialog.hide();
+          }
+        },
+        child: const AutoRouter(),
+      ),
     );
   }
 }
@@ -34,7 +53,6 @@ class PhoneLoginPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(context.router.currentUrl);
     //--------
     final phoneText = useState('');
     final phoneController = useTextEditingController();
@@ -44,11 +62,10 @@ class PhoneLoginPage extends HookWidget {
       return;
     }, [update]);
     //---------
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: fydPDgrey,
-        body: BlocConsumer<PhoneLoginBloc, PhoneLoginState>(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: BlocConsumer<PhoneLoginBloc, PhoneLoginState>(
           listenWhen: (previous, current) {
             if (context.router.currentUrl == '/login') {
               return true;
@@ -73,45 +90,57 @@ class PhoneLoginPage extends HookWidget {
                               serverError: () => 'server Error',
                               unknownError: () => 'something went wrong',
                             )),
-                        (success) =>
-                            showSnack(context: context, message: 'success!'),
+                        (success) => null,
                       ));
             }
             if (state.isCodeSent) {
-              context.router.pushNamed(Rn.otp);
+              context.router.pushNamed('otp');
             }
+          },
+          buildWhen: (previous, current) {
+            if (context.router.currentUrl == '/login') {
+              return true;
+            }
+            return false;
           },
           builder: (context, state) {
             return FydView(
               pageViewType: ViewType.without_Nav_Bar,
               isScrollable: false,
               topSheetHeight: 380.h,
-              topSheet: topSheetView(context, phoneController),
-              bottomSheet: bottomSheetView(context, state, phoneText),
+              topSheet: _TopSheet(phoneController: phoneController),
+              bottomSheet: _BottomSheet(state: state, phoneText: phoneText),
             );
           },
         ),
       ),
     );
   }
+}
 
 //?-----------------------------------------------------------------------------
-  topSheetView(
-    BuildContext context,
-    TextEditingController phoneController,
-  ) {
+class _TopSheet extends StatelessWidget {
+  final TextEditingController phoneController;
+  const _TopSheet({
+    // super.key,
+    required this.phoneController,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
         decoration: const BoxDecoration(
           // background Image
           image: DecorationImage(
-            image: AssetImage('assets/logo/bg.png'),
+            image: AssetImage(
+              AssetHelper.verifydStore_bg,
+            ),
             fit: BoxFit.scaleDown,
             alignment: Alignment.topRight,
             opacity: .5,
             filterQuality: FilterQuality.high,
           ),
         ),
-        // height: 460.h,
         child: Padding(
           padding:
               EdgeInsets.only(top: 0.h, left: 20.w, right: 20.w, bottom: 0.h),
@@ -125,17 +154,15 @@ class PhoneLoginPage extends HookWidget {
                 padding: EdgeInsets.only(top: 100.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: const [
                     FydText.d1black(
                       text: 'Enter',
                       size: 40,
                       weight: FontWeight.w600,
-                      color: fydPGrey.withOpacity(.8),
                     ),
                     FydText.d1black(
                       text: 'mobile number',
                       weight: FontWeight.w600,
-                      color: fydPGrey.withOpacity(.8),
                     ),
                   ],
                 ),
@@ -162,8 +189,8 @@ class PhoneLoginPage extends HookWidget {
                         labelText: '(+91)',
                         autoFocus: true,
                         isDigitOnly: true,
-                        floatColor: fydLogoBlue,
-                        labelColor: fydLogoBlue,
+                        floatColor: fydBblue,
+                        labelColor: fydBblue,
                         maxLength: 10,
                         letterSpacing: 4,
                         textAlign: TextAlign.center,
@@ -178,13 +205,20 @@ class PhoneLoginPage extends HookWidget {
           ),
         ));
   }
+}
 
 //?-----------------------------------------------------------------------------
-  bottomSheetView(
-    BuildContext context,
-    PhoneLoginState state,
-    ValueNotifier<String> phoneText,
-  ) {
+class _BottomSheet extends StatelessWidget {
+  final PhoneLoginState state;
+  final ValueNotifier<String> phoneText;
+  const _BottomSheet({
+    super.key,
+    required this.state,
+    required this.phoneText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
@@ -193,15 +227,14 @@ class PhoneLoginPage extends HookWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
           child: FydBtn(
-            color: fydPGrey,
+            color: fydSblack,
             height: 60.h,
             widget: (state.isSubmitting)
-                ? const SpinKitWave(color: fydLogoBlue, size: 20.0)
+                ? const SpinKitWave(color: fydBblue, size: 20.0)
                 : FydText.h3custom(
                     text: 'Send Otp',
                     weight: FontWeight.w600,
-                    color:
-                        (phoneText.value.length != 10) ? fydTGrey : fydLogoBlue,
+                    color: (phoneText.value.length != 10) ? fydPgrey : fydBblue,
                   ),
             onPressed: () async {
               HapticFeedback.mediumImpact();
@@ -222,13 +255,12 @@ class PhoneLoginPage extends HookWidget {
         Padding(
           padding: EdgeInsets.only(bottom: 30.h),
           child: Image.asset(
-            'assets/logo/fyd-tech.png',
-            width: 200.w,
+            AssetHelper.verifydStore_logoWithName,
+            width: 180.w,
             filterQuality: FilterQuality.high,
           ),
         ),
       ],
     );
   }
-//?-----------------------------------------------------------------------------
 }

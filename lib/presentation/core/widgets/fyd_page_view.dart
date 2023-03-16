@@ -25,13 +25,13 @@ class FydPageView extends StatelessWidget {
     required this.topSheetHeight,
     required this.topSheet,
     required this.bottomSheet,
-    this.topSheetColor = fydPWhite,
+    this.topSheetColor = fydPwhite,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: fydPDgrey,
+      backgroundColor: fydPblack,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(
@@ -79,7 +79,7 @@ class _topandbottomColumn extends StatelessWidget {
     required this.topSheetHeight,
     required this.topSheet,
     required this.bottomSheet,
-    this.topSheetColor = fydPWhite,
+    this.topSheetColor = fydPwhite,
     required this.pageViewType,
   }) : super(key: key);
   final PageViewType pageViewType;

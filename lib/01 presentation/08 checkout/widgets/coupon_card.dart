@@ -17,7 +17,7 @@ class CouponCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: fydPLgrey.withOpacity(.3),
+      color: fydSgrey.withOpacity(.3),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       elevation: 15,
       child: Column(
@@ -38,13 +38,13 @@ class CouponCard extends StatelessWidget {
                     bottomRight: Radius.circular(7),
                   ),
                   child: Container(
-                    color: isEnabled ? fydLogoBlue : fydTGrey,
+                    color: isEnabled ? fydBblue : fydPgrey,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 5, vertical: 5),
                       child: FydText.b1custom(
                         text: coupon.message.toUpperCase(),
-                        color: fydPWhite,
+                        color: fydPwhite,
                         letterSpacing: .9,
                         textAlign: TextAlign.center,
                       ),
@@ -58,7 +58,7 @@ class CouponCard extends StatelessWidget {
                 child: FydText.b4custom(
                   text: coupon.code.toUpperCase(),
                   size: 12,
-                  color: fydPWhite,
+                  color: fydPwhite,
                   letterSpacing: .9,
                   weight: FontWeight.bold,
                   isScalable: false,
@@ -79,7 +79,7 @@ class CouponCard extends StatelessWidget {
                   child: FydText.b4custom(
                     size: 13,
                     text: coupon.termsAndCondition,
-                    color: fydPWhite,
+                    color: fydPwhite,
                     weight: FontWeight.normal,
                     isScalable: false,
                   ),
@@ -92,7 +92,7 @@ class CouponCard extends StatelessWidget {
                   onPressed: isEnabled ? () => onApply(coupon) : null,
                   child: FydText.b2custom(
                     text: 'Apply',
-                    color: isEnabled ? fydLogoBlue : fydTGrey,
+                    color: isEnabled ? fydBblue : fydPgrey,
                   ),
                 ),
               ),

@@ -7,7 +7,7 @@ class FydCloseDialog extends StatelessWidget {
   const FydCloseDialog({
     super.key,
     required this.message,
-    this.color = fydSCBlueGrey,
+    this.color = fydABlueGrey,
     required this.onClose,
   });
   final String message;
@@ -17,7 +17,7 @@ class FydCloseDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: fydPLgrey,
+      backgroundColor: fydSgrey,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: ConstrainedBox(
         constraints: BoxConstraints(minHeight: 160.h, maxWidth: 240.w),
@@ -42,7 +42,7 @@ class FydCloseDialog extends StatelessWidget {
                     splashRadius: 50,
                     icon: const Icon(
                       Icons.close_rounded,
-                      color: fydPDgrey,
+                      color: fydPblack,
                     ),
                   ),
                 ],

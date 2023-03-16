@@ -21,17 +21,20 @@ class SplashPage extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           //! Logo-stack
-          Align(
-            alignment: Alignment.center,
-            child: Image.asset(
-              'assets/icons/main-logo.png',
-              width: 180,
-              fit: BoxFit.fitWidth,
-            ),
-          )
-              .animate(delay: 6800.ms)
-              .fadeOut(duration: 800.ms, curve: Curves.easeInOutBack)
-              .scaleXY(duration: 800.ms, curve: Curves.easeInOutBack, end: 0),
+          Padding(
+            padding: EdgeInsets.only(top: 10.h),
+            child: Align(
+              alignment: Alignment.center,
+              child: Image.asset(
+                'assets/icons/main-logo.png',
+                width: 180,
+                fit: BoxFit.fitWidth,
+              ),
+            )
+                .animate(delay: 6800.ms)
+                .fadeOut(duration: 800.ms, curve: Curves.easeInOutBack)
+                .scaleXY(duration: 800.ms, curve: Curves.easeInOutBack, end: 0),
+          ),
 
           //! Name-stack
           Padding(
@@ -54,7 +57,7 @@ class SplashPage extends StatelessWidget {
               .then(delay: 700.ms)
               .shimmer(
                   duration: 2000.ms,
-                  color: logoBlueARGB,
+                  color: fydBblue,
                   curve: Curves.fastOutSlowIn)
               .then(delay: 1100.ms)
               .fadeOut(duration: 1000.ms)

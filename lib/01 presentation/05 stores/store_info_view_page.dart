@@ -74,7 +74,7 @@ class StoreInfoViewPage extends StatelessWidget {
                 velocity: 10,
                 fydText: FydText.h3custom(
                   text: store.name,
-                  color: fydPGrey,
+                  color: fydSblack,
                 )),
           ),
         ),
@@ -82,9 +82,9 @@ class StoreInfoViewPage extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 15.w),
           child: FydTextCard(
-            backgroundColor: fydPLgrey,
+            backgroundColor: fydSgrey,
             message: store.about,
-            textColor: fydTGrey,
+            textColor: fydPgrey,
             overflow: TextOverflow.ellipsis,
             maxLines: 3,
             padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
@@ -145,7 +145,7 @@ class StoreInfoViewPage extends StatelessWidget {
                       icon: const FaIcon(
                         FontAwesomeIcons.facebook,
                         size: 30,
-                        color: fydLogoBlue,
+                        color: fydBblue,
                       ),
                     ),
                   //! Instagram
@@ -159,7 +159,7 @@ class StoreInfoViewPage extends StatelessWidget {
                       icon: const FaIcon(
                         FontAwesomeIcons.instagram,
                         size: 30,
-                        color: fydLogoBlue,
+                        color: fydBblue,
                       ),
                     ),
                   //! Youtube
@@ -173,7 +173,7 @@ class StoreInfoViewPage extends StatelessWidget {
                       icon: const FaIcon(
                         FontAwesomeIcons.youtube,
                         size: 30,
-                        color: fydLogoBlue,
+                        color: fydBblue,
                       ),
                     ),
                   //! Whatsapp
@@ -187,7 +187,7 @@ class StoreInfoViewPage extends StatelessWidget {
                       icon: const FaIcon(
                         FontAwesomeIcons.whatsapp,
                         size: 30,
-                        color: fydLogoBlue,
+                        color: fydBblue,
                       ),
                     ),
                   //! web
@@ -201,7 +201,7 @@ class StoreInfoViewPage extends StatelessWidget {
                       icon: const FaIcon(
                         FontAwesomeIcons.globe,
                         size: 30,
-                        color: fydLogoBlue,
+                        color: fydBblue,
                       ),
                     ),
                 ],
@@ -212,7 +212,7 @@ class StoreInfoViewPage extends StatelessWidget {
               padding: EdgeInsets.only(top: 10.h, bottom: 20.h),
               child: StoreInfoExpansionTile(
                   title: 'Featured-In',
-                  color: fydLogoBlue,
+                  color: fydBblue,
                   widgets: List.generate(store.featuredIn.length, (index) {
                     final featuredInList = store.featuredIn.values.toList()
                       ..reversed;
@@ -225,7 +225,7 @@ class StoreInfoViewPage extends StatelessWidget {
                       },
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      textColor: fydBlueGrey,
+                      textColor: fydBbluegrey,
                       backgroundColor: Colors.transparent,
                       padding: EdgeInsets.symmetric(
                           horizontal: 10.w, vertical: 15.w),
@@ -238,12 +238,12 @@ class StoreInfoViewPage extends StatelessWidget {
               child: StoreInfoExpansionTile(
                   title: 'Address-(es)',
                   expanded: true,
-                  color: fydLogoBlue,
+                  color: fydBblue,
                   widgets: List.generate(
                     store.storeAddress.length,
                     (index) => FydTextCard(
                       message: store.storeAddress.values.elementAt(index),
-                      textColor: fydBlueGrey,
+                      textColor: fydBbluegrey,
                       backgroundColor: Colors.transparent,
                       padding: EdgeInsets.symmetric(
                           horizontal: 15.w, vertical: 15.w),
@@ -255,7 +255,7 @@ class StoreInfoViewPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 20.h),
               child: StoreInfoExpansionTile(
                   title: 'Contact us on: ',
-                  color: fydLogoBlue,
+                  color: fydBblue,
                   widgets: List.generate(
                     store.storeContact.length,
                     (index) => FydTextCard(
@@ -266,7 +266,7 @@ class StoreInfoViewPage extends StatelessWidget {
                           phone: store.storeContact.values.elementAt(index),
                         );
                       },
-                      textColor: fydBlueGrey,
+                      textColor: fydBbluegrey,
                       backgroundColor: Colors.transparent,
                       padding: EdgeInsets.symmetric(
                           horizontal: 15.w, vertical: 15.w),
@@ -303,9 +303,9 @@ class StoreInfoExpansionTile extends StatelessWidget {
       borderRadius: BorderRadius.circular(6),
       child: ExpansionTile(
         initiallyExpanded: expanded,
-        backgroundColor: fydPGrey,
-        collapsedBackgroundColor: fydPGrey,
-        iconColor: fydTGrey,
+        backgroundColor: fydSblack,
+        collapsedBackgroundColor: fydSblack,
+        iconColor: fydPgrey,
         collapsedIconColor: color,
         expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
         title: FydText.h3custom(

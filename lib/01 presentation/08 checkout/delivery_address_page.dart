@@ -119,7 +119,7 @@ class DeliveryAddressPage extends HookWidget {
                   //-------
                   return const Center(
                     child: SpinKitWave(
-                      color: fydLogoBlue,
+                      color: fydBblue,
                       size: 30,
                     ),
                   );
@@ -174,7 +174,7 @@ class DeliveryAddressPage extends HookWidget {
           padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 15.h),
           child: FydBtn(
             height: 50.h,
-            color: fydPDgrey,
+            color: fydPblack,
             widget: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -184,15 +184,15 @@ class DeliveryAddressPage extends HookWidget {
                     Icons.add_circle_outline_sharp,
                     size: 25.w,
                     color: (fydUser.addresses.entries.length > 2)
-                        ? fydTGrey
-                        : fydLogoBlue,
+                        ? fydPgrey
+                        : fydBblue,
                   ),
                 ),
                 FydText.b1custom(
                   text: 'add address',
                   color: (fydUser.addresses.entries.length > 2)
-                      ? fydTGrey
-                      : fydLogoBlue,
+                      ? fydPgrey
+                      : fydBblue,
                 ),
               ],
             ),
@@ -235,7 +235,7 @@ class DeliveryAddressPage extends HookWidget {
                   child: Center(
                     child: FydText.b1custom(
                       text: 'no saved Addresses, \n add new one. ↗️',
-                      color: fydBlueGrey,
+                      color: fydBbluegrey,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -296,16 +296,16 @@ class DeliveryAddressPage extends HookWidget {
                   padding: EdgeInsets.only(bottom: 20.h),
                   child: FydBtn(
                     height: 60.h,
-                    color: fydPGrey,
+                    color: fydSblack,
                     widget: (checkoutState.isProcessing)
                         ? const Center(
                             child: SpinKitWave(
-                            color: fydLogoBlue,
+                            color: fydBblue,
                             size: 25,
                           ))
                         : const FydText.h3custom(
                             text: 'Confirm Address',
-                            color: fydLogoBlue,
+                            color: fydBblue,
                             weight: FontWeight.bold,
                           ),
                     onPressed: () async {
@@ -324,7 +324,6 @@ class DeliveryAddressPage extends HookWidget {
                               ),
                             );
                         //----------
-
                       }
                     },
                   ),
@@ -358,7 +357,7 @@ class DeliveryAddressTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FydBtn(
-      color: fydPGrey,
+      color: fydSblack,
       onPressed: () => onSelect(addressIndex),
       height: 130.h,
       widget: Padding(
@@ -379,14 +378,14 @@ class DeliveryAddressTile extends StatelessWidget {
                   children: [
                     //! name
                     FydText.b3custom(
-                      color: fydPWhite,
+                      color: fydPwhite,
                       text: address.name,
                       weight: FontWeight.w600,
                       letterSpacing: .8,
                     ),
                     //! phone
                     FydText.b3custom(
-                      color: fydPWhite,
+                      color: fydPwhite,
                       text: Helpers.phoneMaskWithCountryCode(address.phone),
                       weight: FontWeight.w600,
                       letterSpacing: .8,
@@ -403,9 +402,9 @@ class DeliveryAddressTile extends StatelessWidget {
                   toggleable: false,
                   fillColor: MaterialStateColor.resolveWith((states) {
                     if (states.contains(MaterialState.selected)) {
-                      return fydLogoBlue;
+                      return fydBblue;
                     }
-                    return fydBlueGrey;
+                    return fydBbluegrey;
                   }),
                 ),
               ],
@@ -424,7 +423,7 @@ class DeliveryAddressTile extends StatelessWidget {
                       width: 270.w,
                       fydText: FydText.b3custom(
                         text: "${address.line1}, ${address.line2}",
-                        color: fydBlueGrey,
+                        color: fydBbluegrey,
                         weight: FontWeight.w600,
                       ),
                     ),
@@ -434,7 +433,7 @@ class DeliveryAddressTile extends StatelessWidget {
                       fydText: FydText.b3custom(
                         text: '${address.city}, ${address.pincode}',
                         weight: FontWeight.w600,
-                        color: fydBlueGrey,
+                        color: fydBbluegrey,
                       ),
                     ),
                   ],
@@ -449,7 +448,7 @@ class DeliveryAddressTile extends StatelessWidget {
                   ),
                   child: const FydText.b2custom(
                     text: 'Edit',
-                    color: fydBlueGrey,
+                    color: fydBbluegrey,
                   ),
                 ),
               ],

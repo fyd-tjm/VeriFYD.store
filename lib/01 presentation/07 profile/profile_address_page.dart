@@ -82,7 +82,7 @@ class ProfileAddressesPage extends StatelessWidget {
           if (state.fydUser == null) {
             return const Center(
               child: SpinKitWave(
-                color: fydPWhite,
+                color: fydPwhite,
                 size: 30.0,
               ),
             );
@@ -125,7 +125,7 @@ class ProfileAddressesPage extends StatelessWidget {
           padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 15.h),
           child: FydBtn(
             height: 50.h,
-            color: fydPDgrey,
+            color: fydPblack,
             widget: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -135,15 +135,15 @@ class ProfileAddressesPage extends StatelessWidget {
                     Icons.add_circle_outline_sharp,
                     size: 25.w,
                     color: (fydUser.addresses.entries.length > 2)
-                        ? fydTGrey
-                        : fydLogoBlue,
+                        ? fydPgrey
+                        : fydBblue,
                   ),
                 ),
                 FydText.b1custom(
                   text: 'add address',
                   color: (fydUser.addresses.entries.length > 2)
-                      ? fydTGrey
-                      : fydLogoBlue,
+                      ? fydPgrey
+                      : fydBblue,
                 ),
               ],
             ),

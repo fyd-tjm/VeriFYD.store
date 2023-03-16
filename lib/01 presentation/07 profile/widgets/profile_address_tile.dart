@@ -21,7 +21,7 @@ class ProfileAddressTile extends StatelessWidget {
       height: 140.h,
       width: double.infinity,
       child: Card(
-        color: fydPGrey,
+        color: fydSblack,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
         child: Padding(
@@ -41,13 +41,13 @@ class ProfileAddressTile extends StatelessWidget {
                     children: [
                       //! name
                       FydText.b3custom(
-                        color: fydPWhite,
+                        color: fydPwhite,
                         text: address.name,
                         weight: FontWeight.w600,
                       ),
                       //! phone
                       FydText.b3custom(
-                        color: fydPWhite,
+                        color: fydPwhite,
                         text: Helpers.phoneMaskWithCountryCode(address.phone),
                         weight: FontWeight.w600,
                       ),
@@ -69,7 +69,7 @@ class ProfileAddressTile extends StatelessWidget {
                         width: 270.w,
                         fydText: FydText.b3custom(
                           text: "${address.line1}, ${address.line2}",
-                          color: fydBlueGrey,
+                          color: fydBbluegrey,
                           weight: FontWeight.w600,
                         ),
                       ),
@@ -78,7 +78,7 @@ class ProfileAddressTile extends StatelessWidget {
                         width: 270.w,
                         fydText: FydText.b3custom(
                           text: '${address.city}, ${address.pincode}',
-                          color: fydBlueGrey,
+                          color: fydBbluegrey,
                           weight: FontWeight.w600,
                         ),
                       ),
@@ -93,7 +93,7 @@ class ProfileAddressTile extends StatelessWidget {
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
                     child: const FydText.b2custom(
-                      color: fydLogoBlue,
+                      color: fydBblue,
                       text: 'Edit',
                     ),
                   ),

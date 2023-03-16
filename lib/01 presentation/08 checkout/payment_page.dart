@@ -110,7 +110,7 @@ class PaymentPage extends HookWidget {
                 //! Loading-View
                 ? const Center(
                     child: SpinKitWave(
-                      color: fydLogoBlue,
+                      color: fydBblue,
                       size: 40.0,
                     ),
                   )
@@ -242,7 +242,7 @@ class PaymentPage extends HookWidget {
                 padding: EdgeInsets.only(bottom: 20.h, left: 10.w, right: 10.w),
                 child: FydBtn(
                   height: 50.h,
-                  color: fydPLgrey.withOpacity(.25),
+                  color: fydSgrey.withOpacity(.25),
                   onPressed: () async {
                     HapticFeedback.lightImpact();
                     //-----------
@@ -273,8 +273,8 @@ class PaymentPage extends HookWidget {
                           Icons.discount_outlined,
                           size: 25.sp,
                           color: (discountCpn.value != null)
-                              ? fydLogoBlue
-                              : fydPWhite,
+                              ? fydBblue
+                              : fydPwhite,
                         ),
                       ),
 
@@ -283,7 +283,7 @@ class PaymentPage extends HookWidget {
                               child: FydText.b3custom(
                               text: ': ${discountCpn.value!.code}',
                               weight: FontWeight.w600,
-                              color: fydLogoBlue,
+                              color: fydBblue,
                               textAlign: TextAlign.end,
                               letterSpacing: .8,
                             ))
@@ -292,7 +292,7 @@ class PaymentPage extends HookWidget {
                               child: FydText.b3white(
                               text: 'apply codes and coupons!',
                               weight: FontWeight.w600,
-                              color: fydPWhite,
+                              color: fydPwhite,
                             )),
                     ],
                   ),
@@ -315,16 +315,16 @@ class PaymentPage extends HookWidget {
               padding: EdgeInsets.only(bottom: 20.h, left: 10.w, right: 10.w),
               child: FydBtn(
                 height: 60.h,
-                color: fydPGrey,
+                color: fydSblack,
                 widget: (state.isProcessing)
                     ? const Center(
                         child: SpinKitWave(
-                        color: fydLogoBlue,
+                        color: fydBblue,
                         size: 25,
                       ))
                     : const FydText.h3custom(
                         text: 'Place Order',
-                        color: fydLogoBlue,
+                        color: fydBblue,
                       ),
                 onPressed: () {
                   if (state.isProcessing) return;
@@ -381,7 +381,7 @@ class DeliveryInfoCard extends StatelessWidget {
       height: 140.h,
       width: double.infinity,
       child: Card(
-        color: fydPGrey,
+        color: fydSblack,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
         child: Padding(
@@ -400,7 +400,7 @@ class DeliveryInfoCard extends StatelessWidget {
                   //! heading
                   const FydText.b1custom(
                     text: 'Delivery Info',
-                    color: fydLogoBlue,
+                    color: fydBblue,
                   ),
                   const Spacer(),
                   Column(
@@ -410,21 +410,21 @@ class DeliveryInfoCard extends StatelessWidget {
                       FydText.b4white(
                         text: name,
                         weight: FontWeight.w600,
-                        color: fydPWhite,
+                        color: fydPwhite,
                         letterSpacing: .8,
                       ),
                       //! phone
                       FydText.b4white(
                         text: phone,
                         weight: FontWeight.w600,
-                        color: fydPWhite,
+                        color: fydPwhite,
                         letterSpacing: .8,
                       ),
                       //! email
                       FydText.b4white(
                         text: address.email,
                         weight: FontWeight.w600,
-                        color: fydPWhite,
+                        color: fydPwhite,
                         letterSpacing: .8,
                       ),
                     ],
@@ -441,7 +441,7 @@ class DeliveryInfoCard extends StatelessWidget {
                     fydText: FydText.b3custom(
                       text: "$line1, $line2",
                       weight: FontWeight.w600,
-                      color: fydBlueGrey,
+                      color: fydBbluegrey,
                     ),
                   ),
                   //! (city + state + pincode)
@@ -450,7 +450,7 @@ class DeliveryInfoCard extends StatelessWidget {
                     fydText: FydText.b3custom(
                       text: '$city, $addressState, ${address.pincode}',
                       weight: FontWeight.w600,
-                      color: fydBlueGrey,
+                      color: fydBbluegrey,
                     ),
                   ),
                 ],
@@ -484,7 +484,7 @@ class PaymentTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return FydBtn(
       height: 60.h,
-      color: fydPGrey,
+      color: fydSblack,
       onPressed: () => (paymentMode == null) ? {} : onSelect(paymentMode!),
       widget: Row(
         mainAxisSize: MainAxisSize.max,
@@ -495,7 +495,7 @@ class PaymentTile extends StatelessWidget {
             padding: EdgeInsets.only(left: 30.w),
             child: FydText.h3custom(
               text: title,
-              color: fydBlueGrey,
+              color: fydBbluegrey,
               weight: FontWeight.bold,
             ),
           ),
@@ -521,9 +521,9 @@ class PaymentTile extends StatelessWidget {
                     toggleable: false,
                     fillColor: MaterialStateColor.resolveWith((states) {
                       if (states.contains(MaterialState.selected)) {
-                        return fydLogoBlue;
+                        return fydBblue;
                       }
-                      return fydBlueGrey;
+                      return fydBbluegrey;
                     }),
                   ),
                 ),

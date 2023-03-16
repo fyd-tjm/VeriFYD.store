@@ -23,15 +23,15 @@ class ProductSizeGroupBtn extends StatelessWidget {
       options: GroupButtonOptions(
         selectedShadow: const [],
         unselectedShadow: const [],
-        selectedColor: fydSOrange,
-        unselectedColor: fydPGrey,
+        selectedColor: fydAorange,
+        unselectedColor: fydSblack,
         unselectedTextStyle: TextStyle(
           fontSize: heading22.fontSize,
-          color: fydPWhite,
+          color: fydPwhite,
         ),
         selectedTextStyle: TextStyle(
           fontSize: heading22.fontSize,
-          color: fydPWhite,
+          color: fydPwhite,
         ),
         borderRadius: BorderRadius.circular(10.r),
         spacing: hvPadding.horizontal,

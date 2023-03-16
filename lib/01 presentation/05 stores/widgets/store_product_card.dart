@@ -34,7 +34,7 @@ class StoreProductCard extends StatelessWidget {
               height: 180.w,
               width: 160.w,
               decoration: const BoxDecoration(boxShadow: [
-                BoxShadow(color: fydPGrey, blurStyle: BlurStyle.inner)
+                BoxShadow(color: fydSblack, blurStyle: BlurStyle.inner)
               ]),
               child: CachedNetworkImage(
                 imageUrl: product.thumbnailImage,
@@ -42,7 +42,7 @@ class StoreProductCard extends StatelessWidget {
                 progressIndicatorBuilder: (context, url, downloadProgress) =>
                     const SpinKitWave(
                   size: 20,
-                  color: fydLogoBlue,
+                  color: fydBblue,
                 ),
                 errorWidget: (context, url, error) => const Icon(
                   Icons.image_not_supported_outlined,
@@ -62,7 +62,7 @@ class StoreProductCard extends StatelessWidget {
                   width: 170.w,
                   fydText: FydText.b4custom(
                     text: product.name,
-                    color: fydTGrey,
+                    color: fydPgrey,
                     weight: FontWeight.w600,
                   ),
                 ),

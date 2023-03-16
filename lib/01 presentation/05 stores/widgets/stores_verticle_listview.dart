@@ -28,10 +28,10 @@ class StoresVerticleListview extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              fydLogoBlue,
+              fydBblue,
               Colors.transparent,
               Colors.transparent,
-              fydLogoBlue
+              fydBblue
             ],
             stops: [0.0, 0.05, 0.95, 1.0],
           ).createShader(rect);
@@ -56,7 +56,7 @@ class StoresVerticleListview extends StatelessWidget {
                       FydText.h2custom(
                         text: categoryHeader,
                         weight: FontWeight.w700,
-                        color: fydPWhite,
+                        color: fydPwhite,
                       ),
                     ],
                   ),
@@ -71,7 +71,7 @@ class StoresVerticleListview extends StatelessWidget {
                         onPressed: onPressed,
                         child: FydText.b3custom(
                           text: footer,
-                          color: fydBlueGrey,
+                          color: fydBbluegrey,
                         )),
                   ],
                 );

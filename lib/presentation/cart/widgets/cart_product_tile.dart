@@ -25,7 +25,7 @@ class CartProductTile extends StatelessWidget {
       height: 100.h,
       width: double.infinity, //400.w
       child: Card(
-        color: fydPWhite,
+        color: fydPwhite,
         elevation: 5,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
@@ -39,7 +39,7 @@ class CartProductTile extends StatelessWidget {
               height: 80.w,
               width: 80.w,
               child: Card(
-                color: fydSBlue,
+                color: fydAlblue,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.r)),
               ),
@@ -57,7 +57,7 @@ class CartProductTile extends StatelessWidget {
                     child: Text(
                       prodName,
                       style: GoogleFonts.exo2(
-                          color: fydPDgrey,
+                          color: fydPblack,
                           fontSize: body16.fontSize,
                           fontWeight: FontWeight.bold),
                       maxLines: 1,
@@ -70,7 +70,7 @@ class CartProductTile extends StatelessWidget {
                     child: Text(
                       '$color : $size : other',
                       style: GoogleFonts.exo2(
-                          color: fydPLgrey,
+                          color: fydSgrey,
                           fontSize: body14.fontSize,
                           fontWeight: FontWeight.w500),
                       maxLines: 1,
@@ -91,7 +91,7 @@ class CartProductTile extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 2.w),
                 constraints: const BoxConstraints(),
                 icon: const Icon(Icons.remove_circle_outline_sharp),
-                color: fydPDgrey,
+                color: fydPblack,
                 iconSize: 30.sp,
               ),
               //! QTY
@@ -105,7 +105,7 @@ class CartProductTile extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 constraints: BoxConstraints(),
                 icon: const Icon(Icons.add_circle_sharp),
-                color: fydPDgrey,
+                color: fydPblack,
                 iconSize: 30.sp,
               ),
             ]).paddingOnly(right: 10.w),

@@ -11,8 +11,8 @@ class FydTextField extends StatelessWidget {
     this.textCapitalization = TextCapitalization.none,
     this.hintText,
     required this.prefixText,
-    this.hintStyle = const TextStyle(fontSize: 22, color: fydPLgrey),
-    this.prefixStyle = const TextStyle(fontSize: 22, color: fydPLgrey),
+    this.hintStyle = const TextStyle(fontSize: 22, color: fydSgrey),
+    this.prefixStyle = const TextStyle(fontSize: 22, color: fydSgrey),
     this.inputStyle = const TextStyle(
       color: fydTWhite,
       fontWeight: FontWeight.w600,
@@ -24,7 +24,7 @@ class FydTextField extends StatelessWidget {
     this.vPadding = 15,
     this.hPadding = 10,
     this.maxLength,
-    this.fillColor = fydPGrey,
+    this.fillColor = fydSblack,
   }) : super(key: key);
 
   final TextEditingController controller;

@@ -64,7 +64,7 @@ class OnBoardingPage extends HookWidget {
                             )),
                         (success) {
                           FocusScope.of(context).unfocus();
-                          context.router.replaceAll([const MainWrapperRoute()]);
+                          context.router.replaceAll([MainWrapperRoute()]);
                         },
                       ));
             }
@@ -74,7 +74,7 @@ class OnBoardingPage extends HookWidget {
               pageViewType: ViewType.without_Nav_Bar,
               isScrollable: false,
               topSheetHeight: 380.h,
-              topSheetColor: fydPDgrey,
+              topSheetColor: fydPblack,
               topSheet: _topSheetView(context, nameController, emailController),
               bottomSheet:
                   _bottomSheet(context, nameController, emailController, state),
@@ -125,8 +125,8 @@ class OnBoardingPage extends HookWidget {
                         autoFocus: true,
                         textCapitalization: TextCapitalization.words,
                         labelText: 'name:',
-                        floatColor: fydLogoBlue,
-                        labelColor: fydLogoBlue,
+                        floatColor: fydBblue,
+                        labelColor: fydBblue,
                         textAlign: TextAlign.start,
                         maxLength: 35,
                         letterSpacing: 1.5,
@@ -149,8 +149,8 @@ class OnBoardingPage extends HookWidget {
                         controller: emailController,
                         color: TextFieldColor.light,
                         labelText: 'em@il:',
-                        floatColor: fydLogoBlue,
-                        labelColor: fydLogoBlue,
+                        floatColor: fydBblue,
+                        labelColor: fydBblue,
                         keyboardType: TextInputType.emailAddress,
                         maxLength: 35,
                         letterSpacing: 1.5,
@@ -189,17 +189,17 @@ class OnBoardingPage extends HookWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.h),
           child: FydBtn(
-            color: fydPGrey,
+            color: fydSblack,
             height: 60.h,
             widget: (state.isSubmitting == true)
-                ? const SpinKitWave(color: fydLogoBlue, size: 20.0)
+                ? const SpinKitWave(color: fydBblue, size: 20.0)
                 : FydText.h3custom(
                     text: 'Get Started',
                     weight: FontWeight.w600,
                     color: (nameController.text.isEmpty &&
                             emailController.text.isEmpty)
-                        ? fydTGrey
-                        : fydLogoBlue,
+                        ? fydPgrey
+                        : fydBblue,
                   ),
             onPressed: () async {
               HapticFeedback.mediumImpact();

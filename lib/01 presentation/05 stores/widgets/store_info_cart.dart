@@ -17,7 +17,7 @@ class StoreInfoCard extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Card(
-        color: fydPGrey,
+        color: fydSblack,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
         elevation: 0,
@@ -34,7 +34,7 @@ class StoreInfoCard extends StatelessWidget {
                   infoList.elementAt(index),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: fydPLgrey,
+                      color: fydSgrey,
                       fontFamily: body12.fontFamily,
                       fontSize: 16,
                       fontWeight: FontWeight.w600),

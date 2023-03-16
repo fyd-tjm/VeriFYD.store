@@ -92,7 +92,7 @@ class FydRichText extends StatelessWidget {
       {Key? key,
       required this.textList,
       required this.size,
-      this.color = fydPDgrey,
+      this.color = fydPblack,
       this.weight = FontWeight.bold,
       this.isSelectable = false,
       this.isScalable = true,

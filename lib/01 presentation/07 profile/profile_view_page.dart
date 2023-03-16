@@ -120,12 +120,12 @@ class ProfileViewPage extends StatelessWidget {
                 height: 100.h,
                 width: 100.h,
                 child: Card(
-                  color: fydPDgrey,
+                  color: fydPblack,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.r)),
                   child: Icon(
                     Icons.person_outline_rounded,
-                    color: fydBlueGrey,
+                    color: fydBbluegrey,
                     size: 90.h,
                   ),
                 ),
@@ -141,7 +141,7 @@ class ProfileViewPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: const [
                     SpinKitWave(
-                      color: fydPDgrey,
+                      color: fydPblack,
                       size: 30.0,
                     ),
                   ],
@@ -156,7 +156,7 @@ class ProfileViewPage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
                       child: FydText.h3custom(
-                        color: fydTGrey,
+                        color: fydPgrey,
                         text: fydUser.name,
                         weight: FontWeight.w600,
                       ),
@@ -173,7 +173,7 @@ class ProfileViewPage extends StatelessWidget {
 
                     //! email
                     FydText.b2custom(
-                      color: fydTGrey,
+                      color: fydPgrey,
                       text: fydUser.email,
                       weight: FontWeight.w600,
                     ),
@@ -200,7 +200,7 @@ class ProfileViewPage extends StatelessWidget {
             children: [
               //!Orders
               ProfileTile(
-                iconColor: fydLogoBlue,
+                iconColor: fydBblue,
                 title: 'Orders',
                 description: 'your order history',
                 iconAsset: 'assets/icons/orders.svg',
@@ -215,7 +215,7 @@ class ProfileViewPage extends StatelessWidget {
               ),
               //!Address(es)
               ProfileTile(
-                iconColor: fydLogoBlue,
+                iconColor: fydBblue,
                 title: 'Address(es)',
                 description: 'manage your addresses',
                 iconAsset: 'assets/icons/address.svg',
@@ -231,7 +231,7 @@ class ProfileViewPage extends StatelessWidget {
               ),
               //!Help
               ProfileTile(
-                iconColor: fydLogoBlue,
+                iconColor: fydBblue,
                 title: 'Help',
                 description: 'wants to speak with us',
                 iconAsset: 'assets/icons/help.svg',
@@ -248,15 +248,15 @@ class ProfileViewPage extends StatelessWidget {
             child: TextButton(
               onPressed: () async {
                 await context.read<FydUserCubit>().logOutUser();
-                context.router.replaceAll(const [
+                context.router.replaceAll([
                   LoginRouter(
-                    children: [PhoneLoginRoute()],
+                    children: const [PhoneLoginRoute()],
                   )
                 ]);
               },
               child: const FydText.b2custom(
                 text: 'Logout',
-                color: fydBlueGrey,
+                color: fydBbluegrey,
                 weight: FontWeight.bold,
                 letterSpacing: 1.2,
               ),
@@ -268,5 +268,4 @@ class ProfileViewPage extends StatelessWidget {
   }
 
 //?-----------------------------------------------------------------------------
-
 }

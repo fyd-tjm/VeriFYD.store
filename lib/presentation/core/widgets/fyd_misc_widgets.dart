@@ -9,8 +9,8 @@ class FydCircularIndicator extends StatelessWidget {
     return const Center(
       child: CircularProgressIndicator(
         value: null,
-        backgroundColor: fydPLgrey,
-        color: fydPWhite,
+        backgroundColor: fydSgrey,
+        color: fydPwhite,
       ),
     );
   }
@@ -24,8 +24,8 @@ class FydLinearIndicator extends StatelessWidget {
     return const Center(
       child: LinearProgressIndicator(
         value: null,
-        backgroundColor: fydPLgrey,
-        color: fydPGrey,
+        backgroundColor: fydSgrey,
+        color: fydSblack,
       ),
     );
   }

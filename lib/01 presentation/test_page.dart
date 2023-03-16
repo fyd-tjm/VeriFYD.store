@@ -74,35 +74,33 @@ class TestPage extends flutterHooks.HookWidget {
     //------
     final discount = flutterHooks.useState<Coupon?>(null);
     final pinController = flutterHooks.useTextEditingController();
-    const borderColor = fydLogoBlue;
-    const fillColor = fydPGrey;
+    const borderColor = fydBblue;
+    const fillColor = fydSblack;
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 50,
       textStyle: GoogleFonts.exo2(
-          fontSize: 22, color: fydBlueGrey, fontWeight: FontWeight.bold),
+          fontSize: 22, color: fydBbluegrey, fontWeight: FontWeight.bold),
       decoration: BoxDecoration(
         color: fillColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.transparent),
       ),
     );
+    return _topSheet(context, state1);
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: bColor,
+      body: _topSheet(context, state1),
 
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: bColor,
-        body: _topSheet(context, state1),
-
-        // FydView(
-        //   pageViewType: ViewType.with_Nav_Bar,
-        //   isScrollable: false,
-        //   topSheetHeight: 400.h,
-        //   topSheetColor: fydPDgrey,
-        //   topSheet: _topSheet(context, state1),
-        //   bottomSheet: _bottomSheet(context, state1, discount),
-        // ),
-      ),
+      // FydView(
+      //   pageViewType: ViewType.with_Nav_Bar,
+      //   isScrollable: false,
+      //   topSheetHeight: 400.h,
+      //   topSheetColor: fydPDgrey,
+      //   topSheet: _topSheet(context, state1),
+      //   bottomSheet: _bottomSheet(context, state1, discount),
+      // ),
     );
   }
 
@@ -117,42 +115,41 @@ class TestPage extends flutterHooks.HookWidget {
         //! Logo-stack
         Align(
           alignment: Alignment.center,
-          child: Image.asset(
-            'assets/icons/main-logo.png',
-            width: 180,
-            fit: BoxFit.fitWidth,
-          ),
-        ),
-
-        //! Name-stack
-        Padding(
-          padding: EdgeInsets.only(bottom: 60.h),
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: SvgPicture.asset(
-              'assets/icons/main-logo-name.svg',
-              fit: BoxFit.fitWidth,
-              width: 160,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15.r),
+            child: Container(
+              color: fydPgrey,
+              width: 220.w,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15.r),
+                    child: Image.asset(
+                      'assets/logo/no-wifi.png',
+                      width: 280.w,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 40.w, right: 40.w, bottom: 15.h),
+                    child: FydBtn(
+                      onPressed: () => null,
+                      height: 40.h,
+                      color: fydPblack,
+                      widget: const FydText.b2custom(
+                        text: 'Re-try',
+                        color: fydBblue,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        )
-            .animate(delay: 2000.ms)
-            .fadeIn(duration: 900.ms)
-            .move(
-                duration: 900.ms,
-                begin: const Offset(-20, 0),
-                curve: Curves.easeInOutBack)
-            .then(delay: 900.ms)
-            .shimmer(
-                duration: 2000.ms,
-                color: logoBlueARGB,
-                curve: Curves.fastOutSlowIn)
-            .then(delay: 1500.ms)
-            .fadeOut(duration: 1000.ms)
-            .move(
-                duration: 900.ms,
-                end: const Offset(100, 0),
-                curve: Curves.easeInBack)
+        ),
       ],
     );
   }
@@ -186,7 +183,7 @@ Widget builBottomNavigationBar({
               Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [fydSCBlueGrey, Colors.transparent],
+                    colors: [fydABlueGrey, Colors.transparent],
                     begin: Alignment.center,
                     end: Alignment.centerLeft,
                   ),
@@ -197,7 +194,7 @@ Widget builBottomNavigationBar({
               Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [fydSCBlueGrey, Colors.transparent],
+                    colors: [fydABlueGrey, Colors.transparent],
                     begin: Alignment.center,
                     end: Alignment.centerRight,
                   ),
@@ -211,10 +208,10 @@ Widget builBottomNavigationBar({
         CustomNavigationBar(
           elevation: 8,
           iconSize: 35.h,
-          selectedColor: fydSCBlueGrey,
+          selectedColor: fydABlueGrey,
           strokeColor: Colors.transparent,
-          unSelectedColor: fydBlueGrey,
-          backgroundColor: fydPDgrey,
+          unSelectedColor: fydBbluegrey,
+          backgroundColor: fydPblack,
           scaleFactor: 0.2,
           scaleCurve: Curves.elasticOut,
           items: [

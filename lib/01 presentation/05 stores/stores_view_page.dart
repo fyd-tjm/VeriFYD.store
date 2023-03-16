@@ -134,7 +134,7 @@ class StoresViewPage extends StatelessWidget {
               FydCategoryCard(
                 svgAsset: 'assets/icons/apparels.svg',
                 title: DbHelpers.getSharedInfoField(SharedInfo.apparel),
-                color: fydSBlue,
+                color: fydAlblue,
                 selectedTitle: state.selectedCategory,
                 onPressed: (category) {
                   context
@@ -158,7 +158,7 @@ class StoresViewPage extends StatelessWidget {
               FydCategoryCard(
                 svgAsset: 'assets/icons/others.svg',
                 title: DbHelpers.getSharedInfoField(SharedInfo.other),
-                color: fydSPink,
+                color: fydAlpink,
                 selectedTitle: state.selectedCategory,
                 onPressed: (category) {
                   context
@@ -179,7 +179,7 @@ class StoresViewPage extends StatelessWidget {
     if (state.isFetching) {
       return const Center(
         child: SpinKitWave(
-          color: fydLogoBlue,
+          color: fydBblue,
           size: 40.0,
         ),
       );
@@ -190,7 +190,7 @@ class StoresViewPage extends StatelessWidget {
         child: FydText.h3custom(
           text: 'select a category',
           weight: FontWeight.w700,
-          color: fydBlueGrey,
+          color: fydBbluegrey,
         ),
       );
     }
@@ -253,7 +253,7 @@ class StoreSearchBar extends StatelessWidget {
     return FydBtn(
       height: 55.h,
       width: double.infinity,
-      color: fydPDgrey,
+      color: fydPblack,
       onPressed: onPressed,
       widget: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -266,14 +266,14 @@ class StoreSearchBar extends StatelessWidget {
             child: Icon(
               Icons.manage_search_sharp,
               size: 32.sp,
-              color: fydLogoBlue,
+              color: fydBblue,
             ),
           ),
           //! hint Text
           const Expanded(
             child: FydRichText(
               size: 15,
-              color: fydBlueGrey,
+              color: fydBbluegrey,
               weight: FontWeight.w600,
               letterSpacing: .9,
               textList: [
@@ -283,12 +283,12 @@ class StoreSearchBar extends StatelessWidget {
                 TextSpan(
                     text: '#',
                     style: TextStyle(
-                        color: fydPWhite,
+                        color: fydPwhite,
                         fontSize: 16,
                         fontWeight: FontWeight.normal)),
                 TextSpan(
                     text: 'store-id',
-                    style: TextStyle(color: fydBlueGrey, fontSize: 16)),
+                    style: TextStyle(color: fydBbluegrey, fontSize: 16)),
               ],
             ),
           ),

@@ -11,7 +11,7 @@ class TestWidget extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Center(
         child: SpinKitWave(
-          color: fydLogoBlue,
+          color: fydBblue,
           size: 40,
         ),
       ),

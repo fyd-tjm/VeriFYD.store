@@ -57,12 +57,12 @@ class ProductImageHolder extends StatelessWidget {
             progressIndicatorBuilder: (context, url, downloadProgress) =>
                 const SpinKitWave(
               size: 20,
-              color: fydBlueGrey,
+              color: fydBbluegrey,
             ),
             errorWidget: (context, url, error) => const Icon(
               Icons.hide_image_outlined,
               size: 50,
-              color: fydTGrey,
+              color: fydPgrey,
             ),
           )),
     );

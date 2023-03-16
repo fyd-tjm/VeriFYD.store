@@ -14,7 +14,7 @@ import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 class FydDivider extends StatelessWidget {
   const FydDivider({
     Key? key,
-    this.color = fydSCPink,
+    this.color = fydBblue,
   }) : super(key: key);
   final Color color;
 
@@ -53,14 +53,14 @@ class FydDivider extends StatelessWidget {
 Future<bool?> showOkDialog({
   required BuildContext context,
   String title = 'Title',
-  Color textColor = fydSCBlueGrey,
+  Color textColor = fydABlueGrey,
   required String message,
 }) {
   final dialog = Dialog(
-    backgroundColor: fydPWhite,
+    backgroundColor: fydPwhite,
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.r),
-        side: const BorderSide(color: fydPDgrey)),
+        side: const BorderSide(color: fydPblack)),
     child: ConstrainedBox(
       constraints: BoxConstraints(minHeight: 160.h, maxWidth: 240.w),
       child: Padding(
@@ -74,7 +74,7 @@ Future<bool?> showOkDialog({
               title,
               textAlign: TextAlign.center,
               style: GoogleFonts.exo2(
-                color: fydPDgrey,
+                color: fydPblack,
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
               ),
@@ -102,12 +102,12 @@ Future<bool?> showOkDialog({
                   child: FydBtn(
                     onPressed: () => Navigator.of(context).pop(true),
                     height: 40.h,
-                    color: fydPDgrey,
+                    color: fydPblack,
                     widget: Text(
                       'Okay',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.exo2(
-                        color: fydPWhite,
+                        color: fydPwhite,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -140,10 +140,10 @@ Future<bool?> showPermissionDialog({
   String falseBtnTitle = 'Cancel',
 }) {
   final dialog = Dialog(
-    backgroundColor: fydPWhite,
+    backgroundColor: fydPwhite,
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.r),
-        side: const BorderSide(color: fydPDgrey)),
+        side: const BorderSide(color: fydPblack)),
     child: ConstrainedBox(
       constraints: BoxConstraints(minHeight: 160.h, maxWidth: 240.w),
       child: Padding(
@@ -157,7 +157,7 @@ Future<bool?> showPermissionDialog({
               title,
               textAlign: TextAlign.center,
               style: GoogleFonts.exo2(
-                color: fydPDgrey,
+                color: fydPblack,
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
               ),
@@ -168,7 +168,7 @@ Future<bool?> showPermissionDialog({
                 message,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.exo2(
-                  color: fydSCBlueGrey,
+                  color: fydABlueGrey,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
@@ -185,12 +185,12 @@ Future<bool?> showPermissionDialog({
                   child: FydBtn(
                     onPressed: () => Navigator.of(context).pop(false),
                     height: 40.h,
-                    color: fydPDgrey,
+                    color: fydPblack,
                     widget: Text(
                       falseBtnTitle,
                       textAlign: TextAlign.center,
                       style: GoogleFonts.exo2(
-                        color: fydPWhite,
+                        color: fydPwhite,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -204,13 +204,13 @@ Future<bool?> showPermissionDialog({
                     onPressed: () => Navigator.of(context).pop(true),
                     height: 40.h,
                     isFilled: false,
-                    fillColor: fydPWhite,
-                    color: fydPDgrey,
+                    fillColor: fydPwhite,
+                    color: fydPblack,
                     widget: Text(
                       trueBtnTitle,
                       textAlign: TextAlign.center,
                       style: GoogleFonts.exo2(
-                        color: fydPDgrey,
+                        color: fydPblack,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -266,7 +266,7 @@ void showSnack({
   //------
   if (backgroundColor == null) {
     if (snackBarColor == SnackBarColor.dark) {
-      backgroundColor = fydPGrey;
+      backgroundColor = fydSblack;
     }
     if (snackBarColor == SnackBarColor.light) {
       backgroundColor = const Color.fromARGB(221, 178, 178, 178);
@@ -291,8 +291,8 @@ void showSnack({
               weight: FontWeight.bold,
               size: textSize,
               color: (snackBarColor == SnackBarColor.dark)
-                  ? fydBlueGrey
-                  : fydPGrey,
+                  ? fydBbluegrey
+                  : fydSblack,
             )
           : fydText,
     ),
@@ -315,7 +315,7 @@ CloseDialog showLoadingScreen({
       mainAxisSize: MainAxisSize.min,
       children: [
         const SpinKitWave(
-          color: fydPDgrey,
+          color: fydPblack,
           size: 30.0,
         ),
         const SizedBox(height: 10),
@@ -370,7 +370,7 @@ class FydLoader {
             mainAxisSize: MainAxisSize.min,
             children: const [
               SpinKitSpinningLines(
-                color: fydPWhite,
+                color: fydPwhite,
                 size: 50.0,
               ),
             ],
@@ -398,7 +398,7 @@ void fydDialog({
     barrierDismissible: isDismissable,
     transitionCurve: Curves.easeIn,
     Dialog(
-      backgroundColor: fydPWhite,
+      backgroundColor: fydPwhite,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
       child: Padding(
         padding: const EdgeInsets.all(0.0),
@@ -420,7 +420,7 @@ void fydDialog({
                   children: [
                     FydText.h1black(text: title),
                     const Divider(
-                      color: fydPDgrey,
+                      color: fydPblack,
                       thickness: 1.0,
                     ),
                   ],
@@ -437,7 +437,7 @@ void fydDialog({
                       message,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: fydPDgrey,
+                        color: fydPblack,
                         fontSize: body12.fontSize,
                         fontFamily: body16.fontFamily,
                       ),
@@ -453,8 +453,8 @@ void fydDialog({
                     width: 280.w,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: fydPGrey, // background
-                        onPrimary: fydPWhite, // foreground
+                        primary: fydSblack, // background
+                        onPrimary: fydPwhite, // foreground
                         elevation: 10.0,
                         shape: RoundedRectangleBorder(
                           //to set border radius to button

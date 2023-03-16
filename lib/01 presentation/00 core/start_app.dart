@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/02%20application/core/network/network_cubit.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
@@ -25,26 +26,21 @@ class StartApp extends StatelessWidget {
         builder: (context, child) {
           return MultiBlocProvider(
             providers: [
-              BlocProvider(
-                create: (context) => getIt<FydUserCubit>(),
-              ),
-              BlocProvider(
-                create: (context) => getIt<SharedInfoCubit>(),
+              BlocProvider.value(
+                value: getIt<NetworkCubit>(),
               ),
             ],
             child: MaterialApp.router(
               title: 'veriFYD.store',
+              debugShowCheckedModeBanner: false,
               routerDelegate: appRouter.delegate(
-                navigatorObservers: () => [MainRouterObserver()],
-              ),
+                  navigatorObservers: () => [MainRouterObserver()]),
               routeInformationParser: appRouter.defaultRouteParser(),
               theme: ThemeData.dark().copyWith(
-                scaffoldBackgroundColor: fydPDgrey,
-                backgroundColor: fydPDgrey,
+                scaffoldBackgroundColor: fydPblack,
                 textSelectionTheme: const TextSelectionThemeData(
-                    selectionHandleColor: fydLogoBlue),
+                    selectionHandleColor: fydBblue),
                 pageTransitionsTheme: const PageTransitionsTheme(builders: {
-                  // TargetPlatform.iOS: NoShadowCupertinoPageTransitionsBuilder(),
                   TargetPlatform.android: SharedAxisPageTransitionsBuilder(
                     transitionType: SharedAxisTransitionType.horizontal,
                   ),

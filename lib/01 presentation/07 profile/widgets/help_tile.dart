@@ -30,7 +30,7 @@ class HelpTile extends StatelessWidget {
         height: 100.h,
         width: double.infinity,
         child: Card(
-          color: fydPGrey,
+          color: fydSblack,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
           child: Row(

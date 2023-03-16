@@ -9,4 +9,6 @@ abstract class IAuthFacade {
   Future<void> signOut();
 
   bool getAuthStatus();
+
+  bool getOnBoardStatus();
 }

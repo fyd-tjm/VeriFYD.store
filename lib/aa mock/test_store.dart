@@ -27,7 +27,7 @@ class _TestStoreScreenState extends State<TestStoreScreen> {
     return Scaffold(
       // extendBody for floating bar get better perfomance
       extendBody: true,
-      backgroundColor: fydPDgrey,
+      backgroundColor: fydPblack,
 
       body: const SafeArea(
         child: HomeViewPage(),
@@ -80,10 +80,10 @@ class _TestStoreScreenState extends State<TestStoreScreen> {
           CustomNavigationBar(
             elevation: 8,
             iconSize: 35.h,
-            selectedColor: fydPWhite,
+            selectedColor: fydPwhite,
             strokeColor: Colors.transparent,
-            unSelectedColor: fydPLgrey,
-            backgroundColor: fydPDgrey,
+            unSelectedColor: fydSgrey,
+            backgroundColor: fydPblack,
             scaleFactor: 0.2,
             scaleCurve: Curves.elasticOut,
             items: [

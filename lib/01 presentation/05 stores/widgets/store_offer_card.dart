@@ -9,7 +9,7 @@ class StoreOfferCard extends StatelessWidget {
     required this.message,
     required this.iconData,
     this.iconSize = 25,
-    this.iconColor = fydLogoBlue,
+    this.iconColor = fydBblue,
     required this.onTap,
   });
   final String message;
@@ -27,7 +27,7 @@ class StoreOfferCard extends StatelessWidget {
         onTap(message);
       },
       child: Card(
-        color: fydPLgrey,
+        color: fydSgrey,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 3,
         child: Padding(
@@ -55,7 +55,7 @@ class StoreOfferCard extends StatelessWidget {
                   width: 10.w,
                   fydText: FydText.b4custom(
                     text: message,
-                    color: fydPGrey.withOpacity(.7),
+                    color: fydSblack.withOpacity(.7),
                   ),
                   maxLines: 2,
                 ),

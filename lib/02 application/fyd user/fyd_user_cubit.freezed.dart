@@ -19,6 +19,7 @@ mixin _$FydUserState {
   bool get isFetching => throw _privateConstructorUsedError;
   bool get loadingState => throw _privateConstructorUsedError;
   bool get isAuthenticated => throw _privateConstructorUsedError;
+  bool get onBoardingStatus => throw _privateConstructorUsedError;
   FydUser? get fydUser => throw _privateConstructorUsedError;
   List<FydOrder>? get fydOrders => throw _privateConstructorUsedError;
   Option<Either<UserFailure, Unit>> get failureOrSuccess =>
@@ -40,6 +41,7 @@ abstract class $FydUserStateCopyWith<$Res> {
       {bool isFetching,
       bool loadingState,
       bool isAuthenticated,
+      bool onBoardingStatus,
       FydUser? fydUser,
       List<FydOrder>? fydOrders,
       Option<Either<UserFailure, Unit>> failureOrSuccess,
@@ -64,6 +66,7 @@ class _$FydUserStateCopyWithImpl<$Res, $Val extends FydUserState>
     Object? isFetching = null,
     Object? loadingState = null,
     Object? isAuthenticated = null,
+    Object? onBoardingStatus = null,
     Object? fydUser = freezed,
     Object? fydOrders = freezed,
     Object? failureOrSuccess = null,
@@ -81,6 +84,10 @@ class _$FydUserStateCopyWithImpl<$Res, $Val extends FydUserState>
       isAuthenticated: null == isAuthenticated
           ? _value.isAuthenticated
           : isAuthenticated // ignore: cast_nullable_to_non_nullable
+              as bool,
+      onBoardingStatus: null == onBoardingStatus
+          ? _value.onBoardingStatus
+          : onBoardingStatus // ignore: cast_nullable_to_non_nullable
               as bool,
       fydUser: freezed == fydUser
           ? _value.fydUser
@@ -126,6 +133,7 @@ abstract class _$$_FydUserStateCopyWith<$Res>
       {bool isFetching,
       bool loadingState,
       bool isAuthenticated,
+      bool onBoardingStatus,
       FydUser? fydUser,
       List<FydOrder>? fydOrders,
       Option<Either<UserFailure, Unit>> failureOrSuccess,
@@ -149,6 +157,7 @@ class __$$_FydUserStateCopyWithImpl<$Res>
     Object? isFetching = null,
     Object? loadingState = null,
     Object? isAuthenticated = null,
+    Object? onBoardingStatus = null,
     Object? fydUser = freezed,
     Object? fydOrders = freezed,
     Object? failureOrSuccess = null,
@@ -166,6 +175,10 @@ class __$$_FydUserStateCopyWithImpl<$Res>
       isAuthenticated: null == isAuthenticated
           ? _value.isAuthenticated
           : isAuthenticated // ignore: cast_nullable_to_non_nullable
+              as bool,
+      onBoardingStatus: null == onBoardingStatus
+          ? _value.onBoardingStatus
+          : onBoardingStatus // ignore: cast_nullable_to_non_nullable
               as bool,
       fydUser: freezed == fydUser
           ? _value.fydUser
@@ -194,6 +207,7 @@ class _$_FydUserState implements _FydUserState {
       {required this.isFetching,
       required this.loadingState,
       required this.isAuthenticated,
+      required this.onBoardingStatus,
       required this.fydUser,
       required final List<FydOrder>? fydOrders,
       required this.failureOrSuccess,
@@ -206,6 +220,8 @@ class _$_FydUserState implements _FydUserState {
   final bool loadingState;
   @override
   final bool isAuthenticated;
+  @override
+  final bool onBoardingStatus;
   @override
   final FydUser? fydUser;
   final List<FydOrder>? _fydOrders;
@@ -224,7 +240,7 @@ class _$_FydUserState implements _FydUserState {
 
   @override
   String toString() {
-    return 'FydUserState(isFetching: $isFetching, loadingState: $loadingState, isAuthenticated: $isAuthenticated, fydUser: $fydUser, fydOrders: $fydOrders, failureOrSuccess: $failureOrSuccess, updating: $updating)';
+    return 'FydUserState(isFetching: $isFetching, loadingState: $loadingState, isAuthenticated: $isAuthenticated, onBoardingStatus: $onBoardingStatus, fydUser: $fydUser, fydOrders: $fydOrders, failureOrSuccess: $failureOrSuccess, updating: $updating)';
   }
 
   @override
@@ -238,6 +254,8 @@ class _$_FydUserState implements _FydUserState {
                 other.loadingState == loadingState) &&
             (identical(other.isAuthenticated, isAuthenticated) ||
                 other.isAuthenticated == isAuthenticated) &&
+            (identical(other.onBoardingStatus, onBoardingStatus) ||
+                other.onBoardingStatus == onBoardingStatus) &&
             (identical(other.fydUser, fydUser) || other.fydUser == fydUser) &&
             const DeepCollectionEquality()
                 .equals(other._fydOrders, _fydOrders) &&
@@ -253,6 +271,7 @@ class _$_FydUserState implements _FydUserState {
       isFetching,
       loadingState,
       isAuthenticated,
+      onBoardingStatus,
       fydUser,
       const DeepCollectionEquality().hash(_fydOrders),
       failureOrSuccess,
@@ -270,6 +289,7 @@ abstract class _FydUserState implements FydUserState {
       {required final bool isFetching,
       required final bool loadingState,
       required final bool isAuthenticated,
+      required final bool onBoardingStatus,
       required final FydUser? fydUser,
       required final List<FydOrder>? fydOrders,
       required final Option<Either<UserFailure, Unit>> failureOrSuccess,
@@ -281,6 +301,8 @@ abstract class _FydUserState implements FydUserState {
   bool get loadingState;
   @override
   bool get isAuthenticated;
+  @override
+  bool get onBoardingStatus;
   @override
   FydUser? get fydUser;
   @override

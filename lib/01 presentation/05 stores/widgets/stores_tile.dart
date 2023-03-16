@@ -28,7 +28,7 @@ class StoresTile extends StatelessWidget {
         height: 90.h,
         width: double.infinity,
         child: Card(
-          color: fydPGrey,
+          color: fydSblack,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.r)),
           child: Row(
@@ -43,7 +43,7 @@ class StoresTile extends StatelessWidget {
                   height: 70.h,
                   width: 70.h,
                   child: Card(
-                    color: fydPDgrey,
+                    color: fydPblack,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.r)),
                     child: (store.storeLogo.isEmpty)
@@ -59,11 +59,11 @@ class StoresTile extends StatelessWidget {
                                   (context, url, downloadProgress) =>
                                       const SpinKitWave(
                                 size: 20,
-                                color: fydLogoBlue,
+                                color: fydBblue,
                               ),
                               errorWidget: (context, url, error) => Icon(
                                 Icons.image_not_supported_outlined,
-                                color: fydTGrey,
+                                color: fydPgrey,
                                 size: 30.h,
                               ),
                             ),
@@ -81,7 +81,7 @@ class StoresTile extends StatelessWidget {
                       width: 220.w,
                       fydText: FydText.b2custom(
                         text: store.name,
-                        color: fydBlueGrey,
+                        color: fydBbluegrey,
                         weight: FontWeight.w600,
                       ),
                     ),
@@ -89,7 +89,7 @@ class StoresTile extends StatelessWidget {
                   //! StoreId
                   FydRichText(
                     size: 14,
-                    color: fydTGrey,
+                    color: fydPgrey,
                     weight: FontWeight.w600,
                     letterSpacing: .9,
                     textList: [
@@ -98,8 +98,8 @@ class StoresTile extends StatelessWidget {
                       ),
                       TextSpan(
                           text: store.storeId,
-                          style: const TextStyle(
-                              color: fydLogoBlue, fontSize: 16)),
+                          style:
+                              const TextStyle(color: fydBblue, fontSize: 16)),
                     ],
                   ),
                 ],

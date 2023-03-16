@@ -44,12 +44,12 @@ class CouponSearch extends SearchDelegate<Coupon?> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: const [
-                    FydText.b3custom(text: 'Find', color: fydLogoBlue),
+                    FydText.b3custom(text: 'Find', color: fydBblue),
                     Padding(
                       padding: EdgeInsets.only(top: 5, left: 3),
                       child: Icon(
                         Icons.find_replace,
-                        color: fydLogoBlue,
+                        color: fydBblue,
                         size: 25,
                       ),
                     ),
@@ -67,9 +67,9 @@ class CouponSearch extends SearchDelegate<Coupon?> {
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,
         size: 25,
-        color: fydBlueGrey,
+        color: fydBbluegrey,
       ),
-      splashColor: fydPGrey,
+      splashColor: fydSblack,
       padding: const EdgeInsets.symmetric(horizontal: 20),
       onPressed: () {
         FocusScope.of(context).unfocus();
@@ -120,7 +120,7 @@ class CouponSearch extends SearchDelegate<Coupon?> {
                   children: const [
                     Center(
                         child: FydText.b2custom(
-                            text: 'No Coupon Found!', color: fydBlueGrey)),
+                            text: 'No Coupon Found!', color: fydBbluegrey)),
                   ],
                 ),
               )

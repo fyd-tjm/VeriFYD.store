@@ -10,7 +10,7 @@ class FydTextCard extends StatelessWidget {
     this.textSize = 16,
     this.weight = FontWeight.bold,
     required this.padding,
-    this.backgroundColor = fydGreyWhite,
+    this.backgroundColor = fydSwhite,
     this.onTap,
     this.maxLines,
     this.overflow,

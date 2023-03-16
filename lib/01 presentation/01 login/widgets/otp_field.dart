@@ -11,13 +11,13 @@ class OtpField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final borderColor = fydLogoBlue.withOpacity(.9);
-    const color = fydPLgrey;
+    final borderColor = fydBblue.withOpacity(.9);
+    const color = fydSgrey;
     final defaultPinTheme = PinTheme(
       width: 50,
       height: 50,
       textStyle: GoogleFonts.exo2(
-          fontSize: 22, color: fydPGrey, fontWeight: FontWeight.bold),
+          fontSize: 22, color: fydSblack, fontWeight: FontWeight.bold),
       decoration: BoxDecoration(
         // color: fillColor,
         borderRadius: BorderRadius.circular(8),

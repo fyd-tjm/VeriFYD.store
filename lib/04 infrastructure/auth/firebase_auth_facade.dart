@@ -84,7 +84,6 @@ class FirebaseAuthFacade implements IAuthFacade {
     await _firebaseAuth.signOut();
   }
 //?-----------------------------------------------------------------------------
-//?-----------------------------------------------------------------------------
 
 //! Interface Override GET-CURRENT-USER
   @override
@@ -92,6 +91,15 @@ class FirebaseAuthFacade implements IAuthFacade {
     final authStatus = (_firebaseAuth.currentUser == null) ? false : true;
     return authStatus;
   }
+
 //?-----------------------------------------------------------------------------
 
+//! Interface Override Check-Onboard-status
+  @override
+  bool getOnBoardStatus() {
+    final status =
+        (_firebaseAuth.currentUser!.displayName == null) ? false : true;
+    return status;
+  }
+//?-----------------------------------------------------------------------------
 }

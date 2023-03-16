@@ -43,14 +43,14 @@ class HelpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: fydPDgrey,
+      backgroundColor: fydPblack,
       body: SafeArea(
         child: BlocBuilder<SharedInfoCubit, SharedInfoState>(
           builder: (context, state) {
             return (state.sharedInfo == null)
                 ? const Center(
                     child: SpinKitWave(
-                      color: fydPLgrey,
+                      color: fydSgrey,
                       size: 30.0,
                     ),
                   )
@@ -87,7 +87,7 @@ class HelpPage extends StatelessWidget {
           ),
         ),
         const FydDivider(
-          color: fydBlueGrey,
+          color: fydBbluegrey,
         ),
         //! timmings via sharedInfo
         Padding(
@@ -109,7 +109,7 @@ class HelpPage extends StatelessWidget {
                   FydText.b2custom(
                     text: state.sharedInfo!.timmings[
                         DbHelpers.getSharedInfoField(SharedInfo.callingHours)]!,
-                    color: fydTGrey,
+                    color: fydPgrey,
                     weight: FontWeight.w700,
                   ),
                 ],
@@ -130,7 +130,7 @@ class HelpPage extends StatelessWidget {
                     text: state.sharedInfo!.timmings[
                         DbHelpers.getSharedInfoField(
                             SharedInfo.operatingHours)]!,
-                    color: fydTGrey,
+                    color: fydPgrey,
                     weight: FontWeight.w700,
                   ),
                 ],
@@ -156,7 +156,7 @@ class HelpPage extends StatelessWidget {
             icon: const Icon(
               FontAwesomeIcons.whatsapp,
               size: 40,
-              color: fydLogoBlue,
+              color: fydBblue,
             ),
             heading: 'Whatsapp support. Quick resolution',
             subHeading: '(recommended)',
@@ -175,7 +175,7 @@ class HelpPage extends StatelessWidget {
             icon: const Icon(
               Icons.phone_outlined,
               size: 40,
-              color: fydLogoBlue,
+              color: fydBblue,
             ),
             heading: Helpers.phoneMaskWithCountryCode(state.sharedInfo!
                 .support[DbHelpers.getSharedInfoField(SharedInfo.phone)]!),
@@ -194,7 +194,7 @@ class HelpPage extends StatelessWidget {
             icon: const Icon(
               Icons.mail_rounded,
               size: 40,
-              color: fydLogoBlue,
+              color: fydBblue,
             ),
             heading: 'Mail us at',
             subHeading: state.sharedInfo!

@@ -41,8 +41,8 @@ class AppBarBtn extends StatelessWidget {
   const AppBarBtn(
       {Key? key,
       required this.iconData,
-      this.iconColor = fydBlueGrey,
-      this.bgColor = fydPGrey,
+      this.iconColor = fydBbluegrey,
+      this.bgColor = fydSblack,
       required this.onPressed,
       this.iconSize = 25,
       this.alignment = Alignment.center,

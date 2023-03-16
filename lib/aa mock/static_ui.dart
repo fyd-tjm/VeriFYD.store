@@ -256,27 +256,27 @@ class MockUi {
     Card(
       elevation: 20.0,
       child: SizedBox(height: 180, width: 160),
-      color: fydPGrey.withOpacity(.7),
+      color: fydSblack.withOpacity(.7),
     ),
     Card(
       elevation: 20.0,
       child: SizedBox(height: 180, width: 160),
-      color: fydPGrey.withOpacity(.7),
+      color: fydSblack.withOpacity(.7),
     ),
     Card(
       elevation: 20.0,
       child: SizedBox(height: 180, width: 160),
-      color: fydPGrey.withOpacity(.7),
+      color: fydSblack.withOpacity(.7),
     ),
     Card(
       elevation: 20.0,
       child: SizedBox(height: 180, width: 160),
-      color: fydPGrey.withOpacity(.7),
+      color: fydSblack.withOpacity(.7),
     ),
     Card(
       elevation: 20.0,
       child: SizedBox(height: 180, width: 160),
-      color: fydPGrey.withOpacity(.7),
+      color: fydSblack.withOpacity(.7),
     ),
   ];
   static List<Column> categoryIconList = [
@@ -290,7 +290,7 @@ class MockUi {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.r)),
             elevation: 5.0,
-            color: fydSBlue,
+            color: fydAlblue,
             child: SvgPicture.asset(
               'assets/icons/apparels.svg',
             ).paddingAll(5.r),
@@ -312,7 +312,7 @@ class MockUi {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.r)),
             elevation: 5.0,
-            color: fydSYellow,
+            color: fydAlyellow,
             child: SvgPicture.asset(
               'assets/icons/electronics.svg',
             ).paddingAll(5.r),
@@ -334,7 +334,7 @@ class MockUi {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.r)),
             elevation: 5.0,
-            color: fydSPink,
+            color: fydAlpink,
             child: SvgPicture.asset(
               'assets/icons/footwear.svg',
             ).paddingAll(5.r),
@@ -409,7 +409,7 @@ class MockUi {
         TextSpan(
           text: '.store',
           style: GoogleFonts.exo2(
-              textStyle: TextStyle(fontSize: 30.sp, color: fydLogoGreen)),
+              textStyle: TextStyle(fontSize: 30.sp, color: fydABlueGrey)),
         ),
       ],
     ),

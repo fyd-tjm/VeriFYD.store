@@ -67,7 +67,7 @@ class OrdersPage extends StatelessWidget {
             if (state.updating || state.fydOrders == null) {
               return const Center(
                 child: SpinKitWave(
-                  color: fydBlueGrey,
+                  color: fydBbluegrey,
                   size: 30,
                 ),
               );
@@ -116,7 +116,7 @@ class OrdersPage extends StatelessWidget {
           main: const Center(
             child: FydText.d3custom(
               text: 'Orders',
-              color: fydPGrey,
+              color: fydSblack,
             ),
           ),
         ),
@@ -133,11 +133,11 @@ class OrdersPage extends StatelessWidget {
                 children: [
                   const FydText.b2custom(
                     text: 'Active-Orders :  ',
-                    color: fydTGrey,
+                    color: fydPgrey,
                   ),
                   FydText.b2custom(
                     text: activeOrders.toString().padLeft(2, '0'),
-                    color: fydLogoBlue,
+                    color: fydBblue,
                     weight: FontWeight.w700,
                   ),
                 ],
@@ -145,7 +145,7 @@ class OrdersPage extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: FydDivider(
-                  color: fydBlueGrey,
+                  color: fydBbluegrey,
                 ),
               ),
               //! Total orders
@@ -155,11 +155,11 @@ class OrdersPage extends StatelessWidget {
                 children: [
                   const FydText.b2custom(
                     text: 'Total-Orders :  ',
-                    color: fydTGrey,
+                    color: fydPgrey,
                   ),
                   FydText.b2custom(
                     text: state.fydOrders!.length.toString().padLeft(2, '0'),
-                    color: fydLogoBlue,
+                    color: fydBblue,
                     weight: FontWeight.w700,
                   ),
                 ],
@@ -196,7 +196,7 @@ class OrdersPage extends StatelessWidget {
               ),
               const FydText.b1custom(
                 text: 'It seems you have no Orders, Yet!',
-                color: fydBlueGrey,
+                color: fydBbluegrey,
                 letterSpacing: .8,
               ),
             ],
@@ -209,10 +209,10 @@ class OrdersPage extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    fydLogoBlue,
+                    fydBblue,
                     Colors.transparent,
                     Colors.transparent,
-                    fydLogoBlue
+                    fydBblue
                   ],
                   stops: [0.0, 0.04, 0.96, 1.0],
                 ).createShader(rect);
@@ -250,13 +250,13 @@ class OrdersTile extends StatelessWidget {
       height: 130.h,
       width: double.infinity,
       child: InkWell(
-        splashColor: fydLogoBlue,
+        splashColor: fydBblue,
         onTap: () {
           HapticFeedback.mediumImpact();
           onPressed(fydOrder);
         },
         child: Card(
-          color: fydPGrey,
+          color: fydSblack,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
           child: Padding(
@@ -279,26 +279,26 @@ class OrdersTile extends StatelessWidget {
                         FydText.b2custom(
                           text: 'Order-Id: ${fydOrder.orderId}',
                           weight: FontWeight.w600,
-                          color: fydBlueGrey,
+                          color: fydBbluegrey,
                         ),
                         //! storeName
                         FydText.b4custom(
                           text: fydOrder.orderInfo.storeName,
                           weight: FontWeight.w600,
-                          color: fydTGrey,
+                          color: fydPgrey,
                         ),
                         //! itemCount
                         FydText.b4custom(
                           text:
                               '${fydOrder.orderInfo.orderSummary.totalItems} Items',
                           weight: FontWeight.w600,
-                          color: fydTGrey,
+                          color: fydPgrey,
                         ),
                       ],
                     ),
                     //! date
                     FydText.b4custom(
-                      color: fydBlueGrey,
+                      color: fydBbluegrey,
                       text:
                           DateFormat("dd-MM-yyyy").format(fydOrder.orderDate!),
                       weight: FontWeight.bold,
@@ -315,7 +315,7 @@ class OrdersTile extends StatelessWidget {
                     FydText.b2white(
                       text: '₹ ${fydOrder.paymentInfo.paymentAmount}',
                       weight: FontWeight.bold,
-                      color: fydBlueGrey,
+                      color: fydBbluegrey,
                     ),
                     //! status
                     FydText.b4custom(
@@ -332,13 +332,13 @@ class OrdersTile extends StatelessWidget {
                       weight: FontWeight.bold,
                       color: fydOrder.orderStatus.when(
                         failure: (f) => Colors.transparent,
-                        success: () => fydLogoGreen,
-                        confirmed: () => fydLogoGreen,
-                        declined: () => fydNotifRed,
-                        shipped: () => fydLogoYellow,
-                        delivered: (date) => fydSOrange,
-                        fullFilled: () => fydBlueGrey,
-                        refunded: (id) => fydNotifRed.withOpacity(.5),
+                        success: () => fydAgreen,
+                        confirmed: () => fydAgreen,
+                        declined: () => fydAred,
+                        shipped: () => fydAyellow,
+                        delivered: (date) => fydAorange,
+                        fullFilled: () => fydBbluegrey,
+                        refunded: (id) => fydAred.withOpacity(.5),
                       ),
                     )
                   ],

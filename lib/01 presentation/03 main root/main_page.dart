@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_network_dialog.dart';
+import 'package:verifyd_store/02%20application/core/network/network_cubit.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
@@ -14,20 +16,32 @@ import 'package:verifyd_store/utils/router.gr.dart';
 //?-----------------------------------------------------------------------------
 
 class MainWrapperPage extends StatelessWidget {
-  const MainWrapperPage({Key? key}) : super(key: key);
-
+  MainWrapperPage({Key? key}) : super(key: key);
+  final FydNetworkDialog _networkDialog = getIt<FydNetworkDialog>();
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(
-          value: getIt<SharedInfoCubit>()..getSharedInfoRealtime(),
+          value: getIt<NetworkCubit>(),
         ),
         BlocProvider.value(
           value: getIt<FydUserCubit>(),
         ),
+        BlocProvider.value(
+          value: getIt<SharedInfoCubit>()..getSharedInfoRealtime(),
+        ),
       ],
-      child: const MainPage(),
+      child: BlocListener<NetworkCubit, NetworkState>(
+        listener: (context, state) {
+          if (state.isNetworkAvailable == false) {
+            _networkDialog.show(context);
+          } else {
+            _networkDialog.hide();
+          }
+        },
+        child: const MainPage(),
+      ),
     );
   }
 }
@@ -39,7 +53,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      backgroundColor: fydPDgrey,
+      backgroundColor: fydPblack,
       resizeToAvoidBottomInset: false,
       routes: const [
         HomeViewWrapperRoute(),
@@ -54,7 +68,7 @@ class MainPage extends StatelessWidget {
           animation: animation,
           secondaryAnimation: secondaryAnimation,
           transitionType: SharedAxisTransitionType.horizontal,
-          fillColor: fydPDgrey,
+          fillColor: fydPblack,
           child: child,
         ),
         child: child,
@@ -90,7 +104,7 @@ Widget buildBottomNavigationBar({
               Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [fydLogoBlue, Colors.transparent],
+                    colors: [fydBblue, Colors.transparent],
                     begin: Alignment.center,
                     end: Alignment.centerLeft,
                   ),
@@ -101,7 +115,7 @@ Widget buildBottomNavigationBar({
               Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [fydLogoBlue, Colors.transparent],
+                    colors: [fydBblue, Colors.transparent],
                     begin: Alignment.center,
                     end: Alignment.centerRight,
                   ),
@@ -115,10 +129,10 @@ Widget buildBottomNavigationBar({
         CustomNavigationBar(
           elevation: 8,
           iconSize: 35.h,
-          selectedColor: fydLogoBlue,
+          selectedColor: fydBblue,
           strokeColor: Colors.transparent,
-          unSelectedColor: fydBlueGrey,
-          backgroundColor: fydPDgrey,
+          unSelectedColor: fydBbluegrey,
+          backgroundColor: fydPblack,
           scaleFactor: 0.2,
           scaleCurve: Curves.elasticOut,
           items: [

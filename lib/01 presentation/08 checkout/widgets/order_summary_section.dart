@@ -32,13 +32,13 @@ class OrderSummarySection extends StatelessWidget {
               FydText.b3custom(
                 text:
                     'subTotal   (${totalItems.toString().padLeft(2, '0')} items)',
-                color: fydTGrey,
+                color: fydPgrey,
                 weight: FontWeight.w700,
                 letterSpacing: .75,
               ),
               FydText.b2custom(
                 text: '+ $subTotal',
-                color: fydBlueGrey,
+                color: fydBbluegrey,
                 letterSpacing: .8,
               )
             ],
@@ -53,13 +53,13 @@ class OrderSummarySection extends StatelessWidget {
             children: [
               const FydText.b3custom(
                 text: 'Shipping',
-                color: fydTGrey,
+                color: fydPgrey,
                 weight: FontWeight.w700,
                 letterSpacing: .75,
               ),
               FydText.b2custom(
                 text: '+ $shipping',
-                color: fydBlueGrey,
+                color: fydBbluegrey,
                 letterSpacing: .8,
               ),
             ],
@@ -76,13 +76,13 @@ class OrderSummarySection extends StatelessWidget {
                   children: [
                     FydText.b3custom(
                       text: 'Discount  (${discountCoupon!.code})',
-                      color: fydTGrey,
+                      color: fydPgrey,
                       weight: FontWeight.w700,
                       letterSpacing: .75,
                     ),
                     FydText.b2custom(
                       text: '-  ${discountCoupon!.value}',
-                      color: fydBlueGrey,
+                      color: fydBbluegrey,
                       letterSpacing: .8,
                     ),
                   ],
@@ -92,7 +92,7 @@ class OrderSummarySection extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(vertical: 10.h),
           child: const FydDivider(
-            color: fydBlueGrey,
+            color: fydBbluegrey,
           ),
         ),
         //!total
@@ -104,12 +104,12 @@ class OrderSummarySection extends StatelessWidget {
             children: [
               const FydText.b2custom(
                 text: 'Total',
-                color: fydPWhite,
+                color: fydPwhite,
                 weight: FontWeight.bold,
               ),
               FydText.b1custom(
                 text: '₹ $total',
-                color: fydLogoBlue,
+                color: fydBblue,
                 letterSpacing: .9,
               ),
             ],

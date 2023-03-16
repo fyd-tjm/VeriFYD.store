@@ -53,7 +53,7 @@ class EditProfilePage extends HookWidget {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: fydPDgrey,
+        backgroundColor: fydPblack,
         body: BlocListener<FydUserCubit, FydUserState>(
           listener: (context, state) {
             if (state.failureOrSuccess.isSome()) {
@@ -146,7 +146,7 @@ class EditProfilePage extends HookWidget {
                     child: FydTextFormField(
                       controller: nameController,
                       labelText: 'name:',
-                      floatColor: fydTGrey,
+                      floatColor: fydPgrey,
                       keyboardType: TextInputType.visiblePassword,
                       onScrollPadding: false,
                       validator: (value) {
@@ -163,7 +163,7 @@ class EditProfilePage extends HookWidget {
                     child: FydTextFormField(
                       controller: emailController,
                       labelText: 'em@il:',
-                      floatColor: fydTGrey,
+                      floatColor: fydPgrey,
                       keyboardType: TextInputType.emailAddress,
                       onScrollPadding: false,
                       validator: (value) {
@@ -199,11 +199,11 @@ class EditProfilePage extends HookWidget {
         children: [
           //! Updater btn
           FydBtn(
-            color: fydPGrey,
+            color: fydSblack,
             height: 60.h,
             fydText: const FydText.h2custom(
               text: 'Update  ⇪',
-              color: fydLogoBlue,
+              color: fydBblue,
               weight: FontWeight.w600,
             ),
             onPressed: () {

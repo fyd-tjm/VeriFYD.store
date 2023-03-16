@@ -75,9 +75,11 @@ class AppRouter extends _i30.RootStackRouter {
       );
     },
     LoginRouter.name: (routeData) {
+      final args = routeData.argsAs<LoginRouterArgs>(
+          orElse: () => const LoginRouterArgs());
       return _i30.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i3.PhoneLoginWrapperPage(),
+        child: _i3.PhoneLoginWrapperPage(key: args.key),
         opaque: true,
         barrierDismissible: false,
       );
@@ -91,9 +93,11 @@ class AppRouter extends _i30.RootStackRouter {
       );
     },
     MainWrapperRoute.name: (routeData) {
+      final args = routeData.argsAs<MainWrapperRouteArgs>(
+          orElse: () => const MainWrapperRouteArgs());
       return _i30.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i5.MainWrapperPage(),
+        child: _i5.MainWrapperPage(key: args.key),
         opaque: true,
         barrierDismissible: false,
       );
@@ -554,15 +558,29 @@ class LandingWrapperRoute extends _i30.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.PhoneLoginWrapperPage]
-class LoginRouter extends _i30.PageRouteInfo<void> {
-  const LoginRouter({List<_i30.PageRouteInfo>? children})
-      : super(
+class LoginRouter extends _i30.PageRouteInfo<LoginRouterArgs> {
+  LoginRouter({
+    _i31.Key? key,
+    List<_i30.PageRouteInfo>? children,
+  }) : super(
           LoginRouter.name,
           path: '/login',
+          args: LoginRouterArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'LoginRouter';
+}
+
+class LoginRouterArgs {
+  const LoginRouterArgs({this.key});
+
+  final _i31.Key? key;
+
+  @override
+  String toString() {
+    return 'LoginRouterArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -579,15 +597,29 @@ class OnBoardingWrapperRoute extends _i30.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.MainWrapperPage]
-class MainWrapperRoute extends _i30.PageRouteInfo<void> {
-  const MainWrapperRoute({List<_i30.PageRouteInfo>? children})
-      : super(
+class MainWrapperRoute extends _i30.PageRouteInfo<MainWrapperRouteArgs> {
+  MainWrapperRoute({
+    _i31.Key? key,
+    List<_i30.PageRouteInfo>? children,
+  }) : super(
           MainWrapperRoute.name,
           path: '/main',
+          args: MainWrapperRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'MainWrapperRoute';
+}
+
+class MainWrapperRouteArgs {
+  const MainWrapperRouteArgs({this.key});
+
+  final _i31.Key? key;
+
+  @override
+  String toString() {
+    return 'MainWrapperRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

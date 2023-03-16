@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_network_dialog.dart';
+import 'package:verifyd_store/02%20application/core/network/network_cubit.dart';
 import 'widgets/store_search.dart';
 import 'package:verifyd_store/01%20presentation/05%20stores/stores_view_page.dart';
 import 'package:verifyd_store/01%20presentation/05%20stores/widgets/store_product_card.dart';
@@ -30,10 +31,7 @@ class HomeViewWrapperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: getIt<SharedInfoCubit>(),
-      child: const HomeViewPage(),
-    );
+    return const HomeViewPage();
   }
 }
 
@@ -77,7 +75,7 @@ class HomeViewPage extends StatelessWidget {
             if (state.sharedInfo == null) {
               return const Center(
                 child: SpinKitWave(
-                  color: fydBlueGrey,
+                  color: fydBbluegrey,
                   size: 30,
                 ),
               );
@@ -111,12 +109,12 @@ class HomeViewPage extends StatelessWidget {
             child: const Center(
               child: FydRichText(
                 size: 26,
-                color: fydPGrey,
+                color: fydSblack,
                 weight: FontWeight.w700,
                 letterSpacing: .85,
                 textList: [
                   TextSpan(text: 'veri'),
-                  TextSpan(text: 'FYD', style: TextStyle(color: fydPDgrey)),
+                  TextSpan(text: 'FYD', style: TextStyle(color: fydPblack)),
                   TextSpan(
                       text: '.',
                       style: TextStyle(
@@ -215,7 +213,7 @@ class HomeViewPage extends StatelessWidget {
               FydText.b3custom(
                 text: 'Store Categories',
                 weight: FontWeight.w700,
-                color: fydTGrey,
+                color: fydPgrey,
               )
             ],
           ),
@@ -231,7 +229,7 @@ class HomeViewPage extends StatelessWidget {
               FydCategoryCard(
                 svgAsset: 'assets/icons/apparels.svg',
                 title: DbHelpers.getSharedInfoField(SharedInfo.apparel),
-                color: fydSBlue,
+                color: fydAlblue,
                 selectedTitle: null,
                 onPressed: (category) {
                   //-------
@@ -307,7 +305,7 @@ class HomeViewPage extends StatelessWidget {
               FydCategoryCard(
                 svgAsset: 'assets/icons/others.svg',
                 title: DbHelpers.getSharedInfoField(SharedInfo.other),
-                color: fydSPink,
+                color: fydAlpink,
                 selectedTitle: null,
                 onPressed: (category) {
                   //-------
@@ -359,7 +357,7 @@ class HomeViewPage extends StatelessWidget {
               children: const [
                 FydText.b1custom(
                   text: 'Recently Purchased',
-                  color: fydPLgrey,
+                  color: fydSgrey,
                   weight: FontWeight.w600,
                 )
               ],

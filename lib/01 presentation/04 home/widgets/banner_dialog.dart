@@ -44,7 +44,7 @@ class BannerDialog extends StatelessWidget {
                       constraints: const BoxConstraints(),
                       icon: const Icon(
                         Icons.close_rounded,
-                        color: fydPWhite,
+                        color: fydPwhite,
                         size: 25,
                       ),
                     ),
@@ -62,11 +62,11 @@ class BannerDialog extends StatelessWidget {
                       progressIndicatorBuilder:
                           (context, url, downloadProgress) => const SpinKitWave(
                         size: 20,
-                        color: fydTGrey,
+                        color: fydPgrey,
                       ),
                       errorWidget: (context, url, error) => Icon(
                         Icons.image_not_supported_outlined,
-                        color: fydTGrey,
+                        color: fydPgrey,
                         size: 70.h,
                       ),
                     ),
@@ -78,7 +78,7 @@ class BannerDialog extends StatelessWidget {
                       bottom: 0.h, top: 20.h, left: 5.w, right: 5.w),
                   child: FydText.b4custom(
                     text: info,
-                    color: fydPWhite,
+                    color: fydPwhite,
                   ),
                 ),
               ],

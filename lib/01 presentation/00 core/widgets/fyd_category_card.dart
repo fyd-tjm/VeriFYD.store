@@ -43,8 +43,8 @@ class FydCategoryCard extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.r)),
                 elevation: 15.0,
-                shadowColor: isEnabled ? fydLogoBlue : null,
-                color: fydPDgrey,
+                shadowColor: isEnabled ? fydBblue : null,
+                color: fydPblack,
                 child: Padding(
                   padding: EdgeInsets.all(10.r),
                   child: SvgPicture.asset(

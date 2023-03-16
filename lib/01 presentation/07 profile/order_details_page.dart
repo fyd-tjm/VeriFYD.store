@@ -51,20 +51,18 @@ class OrderDetailsPage extends StatelessWidget {
   _topSheetView(BuildContext context) {
     //--------
     final Tuple4<int, String, String, Color> orderStatus = fydOrder.orderStatus.whenOrNull(
-        success: () => const Tuple4(0, 'Order is Placed Successfully!',
-            'waiting for Sellers confirmation..', fydLogoBlue),
+        success: () => const Tuple4(
+            0, 'Order is Placed Successfully!', 'waiting for Sellers confirmation..', fydBblue),
         confirmed: () => const Tuple4(
-            1, 'Order is Confirmed by the Seller!', 'ready to be shipped..', fydLogoBlue),
-        declined: () => Tuple4(
-            1,
-            'Order is Declined by the Seller!',
-            'Refund will be initiated within 24Hrs',
-            fydNotifRed.withOpacity(.8)),
+            1, 'Order is Confirmed by the Seller!', 'ready to be shipped..', fydBblue),
+        declined: () => Tuple4(1, 'Order is Declined by the Seller!',
+            'Refund will be initiated within 24Hrs', fydAred.withOpacity(.8)),
         shipped: () => const Tuple4(
-            2, 'Order has been shipped!', 'you can Track it here', fydLogoBlue),
-        delivered: (date) => const Tuple4(3, 'Order has been Delivered!', 'We hope you enjoy your purchase.', fydLogoBlue),
-        fullFilled: () => Tuple4(4, 'Order has been FullFilled!', 'delivered on ${DateFormat("dd-MM-yyyy").format(fydOrder.deliveryDate!)} ', fydBlueGrey),
-        refunded: (id) => Tuple4(-1, 'Order Amount has been Refunded!', ' refund Id : $id ', fydBlueGrey))!;
+            2, 'Order has been shipped!', 'you can Track it here', fydBblue),
+        delivered: (date) =>
+            const Tuple4(3, 'Order has been Delivered!', 'We hope you enjoy your purchase.', fydBblue),
+        fullFilled: () => Tuple4(4, 'Order has been FullFilled!', 'delivered on ${DateFormat("dd-MM-yyyy").format(fydOrder.deliveryDate!)} ', fydBbluegrey),
+        refunded: (id) => Tuple4(-1, 'Order Amount has been Refunded!', ' refund Id : $id ', fydBbluegrey))!;
     //--------
     return Column(
       mainAxisSize: MainAxisSize.max,
@@ -90,7 +88,7 @@ class OrderDetailsPage extends StatelessWidget {
               const TextSpan(
                   text: 'Order: ',
                   style:
-                      TextStyle(color: fydTGrey, fontWeight: FontWeight.w500)),
+                      TextStyle(color: fydPgrey, fontWeight: FontWeight.w500)),
               TextSpan(text: fydOrder.orderId)
             ],
           )),
@@ -107,7 +105,7 @@ class OrderDetailsPage extends StatelessWidget {
                   height: 100.h,
                   width: double.infinity,
                   child: Card(
-                    color: fydGreyWhite,
+                    color: fydSwhite,
                     elevation: 10.0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.r)),
@@ -128,7 +126,7 @@ class OrderDetailsPage extends StatelessWidget {
                         //! message
                         FydText.b3custom(
                           text: orderStatus.value3,
-                          color: fydTGrey,
+                          color: fydPgrey,
                           weight: FontWeight.bold,
                         ),
                       ],
@@ -171,10 +169,10 @@ class OrderDetailsPage extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              fydLogoBlue,
+              fydBblue,
               Colors.transparent,
               Colors.transparent,
-              fydLogoBlue
+              fydBblue
             ],
             stops: [0.0, 0.04, 0.96, 1.0],
           ).createShader(rect);
@@ -198,13 +196,13 @@ class OrderDetailsPage extends StatelessWidget {
                       FydText.b2custom(
                         text: 'store-Id: ${fydOrder.orderInfo.storeId}',
                         weight: FontWeight.w600,
-                        color: fydBlueGrey,
+                        color: fydBbluegrey,
                       ),
                       //! storeName
                       FydText.b4white(
                         text: fydOrder.orderInfo.storeName,
                         weight: FontWeight.w600,
-                        color: fydPLgrey,
+                        color: fydSgrey,
                       ),
                     ],
                   ),
@@ -214,14 +212,14 @@ class OrderDetailsPage extends StatelessWidget {
                     children: [
                       //! date
                       FydText.b4custom(
-                        color: fydTGrey,
+                        color: fydPgrey,
                         text: DateFormat("dd-MM-yyyy")
                             .format(fydOrder.orderDate!),
                         weight: FontWeight.bold,
                       ),
                       //! time
                       FydText.b4custom(
-                        color: fydTGrey,
+                        color: fydPgrey,
                         size: 12,
                         text:
                             "${fydOrder.orderDate!.hour}:${fydOrder.orderDate!.minute}",
@@ -236,7 +234,7 @@ class OrderDetailsPage extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: FydDivider(
-                color: fydBlueGrey,
+                color: fydBbluegrey,
               ),
             ),
             //! paymentInfo-Section
@@ -250,7 +248,7 @@ class OrderDetailsPage extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: FydDivider(
-                color: fydBlueGrey,
+                color: fydBbluegrey,
               ),
             ),
             //! OrderItems-Tiles list
@@ -277,7 +275,7 @@ class OrderDetailsPage extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 5),
               child: FydDivider(
-                color: fydBlueGrey,
+                color: fydBbluegrey,
               ),
             ),
             //! OrderSummary-Section
@@ -292,7 +290,7 @@ class OrderDetailsPage extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: FydDivider(
-                color: fydBlueGrey,
+                color: fydBbluegrey,
               ),
             ),
           ],
@@ -324,14 +322,14 @@ class Tracker4 extends StatelessWidget {
         if (index == 3) {
           return TrackerStep(
             enabledColor: activeColor,
-            disabledColor: fydGreyWhite,
+            disabledColor: fydSwhite,
             isActive: (activeIndex >= index),
             isLast: true,
           );
         }
         return TrackerStep(
           enabledColor: activeColor,
-          disabledColor: fydGreyWhite,
+          disabledColor: fydSwhite,
           isActive: (activeIndex >= index),
         );
       }),
@@ -403,7 +401,7 @@ class PaymentInfoSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const FydText.b3custom(
-              color: fydTGrey,
+              color: fydPgrey,
               text: 'Payment Mode:',
               weight: FontWeight.bold,
             ),
@@ -412,7 +410,7 @@ class PaymentInfoSection extends StatelessWidget {
                 online: (id) => 'online',
                 payOnDelivery: () => 'Pay On Delivery',
               ),
-              color: fydBlueGrey,
+              color: fydBbluegrey,
             ),
           ],
         ),
@@ -422,7 +420,7 @@ class PaymentInfoSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             FydText.b3custom(
-              color: fydTGrey,
+              color: fydPgrey,
               text: paymentMode.when(
                   online: (id) => 'Payment Id:', payOnDelivery: () => ''),
               weight: FontWeight.bold,
@@ -430,7 +428,7 @@ class PaymentInfoSection extends StatelessWidget {
             FydText.b4custom(
               text: paymentMode.when(
                   online: (id) => id!, payOnDelivery: () => ''),
-              color: fydLogoBlue,
+              color: fydBblue,
               weight: FontWeight.bold,
               letterSpacing: .8,
               isSelectable: true,
@@ -464,7 +462,7 @@ class OrderItemTile extends StatelessWidget {
       borderRadius: BorderRadius.circular(5.0),
       child: Container(
         height: 80.w,
-        color: fydPGrey,
+        color: fydSblack,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
@@ -496,11 +494,11 @@ class OrderItemTile extends StatelessWidget {
                     progressIndicatorBuilder:
                         (context, url, downloadProgress) => const SpinKitWave(
                       size: 20,
-                      color: fydTGrey,
+                      color: fydPgrey,
                     ),
                     errorWidget: (context, url, error) => Icon(
                       Icons.image_not_supported_outlined,
-                      color: fydTGrey,
+                      color: fydPgrey,
                       size: 30.h,
                     ),
                   ),
@@ -533,14 +531,14 @@ class OrderItemTile extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * .6,
                               fydText: FydText.b4custom(
                                 text: product.name,
-                                color: fydTGrey,
+                                color: fydPgrey,
                                 weight: FontWeight.normal,
                               ),
                             ),
                             //! companyName
                             FydText.b4custom(
                               text: product.company,
-                              color: fydBlueGrey,
+                              color: fydBbluegrey,
                               size: 13,
                               weight: FontWeight.w600,
                             ),
@@ -549,13 +547,13 @@ class OrderItemTile extends StatelessWidget {
                         //! skuId
                         FydRichText(
                           size: 13,
-                          color: fydTGrey,
+                          color: fydPgrey,
                           textList: [
                             const TextSpan(text: 'sku: '),
                             TextSpan(
                               text: product.skuId,
                               style: const TextStyle(
-                                  color: fydSCBlueGrey, fontSize: 14),
+                                  color: fydABlueGrey, fontSize: 14),
                             )
                           ],
                         ),
@@ -572,7 +570,7 @@ class OrderItemTile extends StatelessWidget {
                       children: [
                         //! Size
                         Card(
-                          color: fydTGrey,
+                          color: fydPgrey,
                           elevation: 4.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(4.0),
@@ -582,7 +580,7 @@ class OrderItemTile extends StatelessWidget {
                                 horizontal: 4, vertical: 2),
                             child: FydText.b3custom(
                               text: size,
-                              color: fydPWhite,
+                              color: fydPwhite,
                               weight: FontWeight.bold,
                             ),
                           ),
@@ -590,7 +588,7 @@ class OrderItemTile extends StatelessWidget {
                         //! qty X price
                         FydRichText(
                           size: 15,
-                          color: fydBlueGrey,
+                          color: fydBbluegrey,
                           textList: [
                             //! Price
                             TextSpan(text: '₹ ${product.sellingPrice.toInt()}'),
@@ -598,7 +596,7 @@ class OrderItemTile extends StatelessWidget {
                             const TextSpan(
                                 text: '  X  ',
                                 style: TextStyle(
-                                    color: fydSCBlueGrey, fontSize: 18)),
+                                    color: fydABlueGrey, fontSize: 18)),
                             //! Qty
                             TextSpan(text: qty.toString().padLeft(2, '0'))
                           ],

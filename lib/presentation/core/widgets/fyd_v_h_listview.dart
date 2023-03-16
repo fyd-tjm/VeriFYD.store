@@ -23,12 +23,7 @@ class FydVListView extends StatelessWidget {
         return const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [
-            fydLogoBlue,
-            Colors.transparent,
-            Colors.transparent,
-            fydLogoBlue
-          ],
+          colors: [fydBblue, Colors.transparent, Colors.transparent, fydBblue],
           stops: [0.0, 0.05, 0.95, 1.0],
         ).createShader(rect);
       },

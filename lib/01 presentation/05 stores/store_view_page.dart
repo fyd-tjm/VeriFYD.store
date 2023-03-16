@@ -103,7 +103,7 @@ class StoreViewPage extends StatelessWidget {
             if (state.isFetching && state.storeRealtime == null) {
               return const Center(
                 child: SpinKitWave(
-                  color: fydLogoBlue,
+                  color: fydBblue,
                   size: 30.0,
                 ),
               );
@@ -126,12 +126,12 @@ class StoreViewPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 50, vertical: 100),
                     child: FydBtn(
-                      color: fydPGrey,
+                      color: fydSblack,
                       onPressed: () => context.router.navigateBack(),
                       height: 50,
                       fydText: const FydText.b1custom(
                         text: 'Go Back',
-                        color: fydBlueGrey,
+                        color: fydBbluegrey,
                       ),
                     ),
                   )
@@ -188,7 +188,7 @@ class StoreViewPage extends StatelessWidget {
                 velocity: 10,
                 fydText: FydText.h3custom(
                   text: state.storeRealtime!.name,
-                  color: fydPGrey,
+                  color: fydSblack,
                 )),
           ),
         ),
@@ -210,7 +210,7 @@ class StoreViewPage extends StatelessWidget {
                     useRootNavigator: false,
                     builder: (context) => FydCloseDialog(
                       message: message,
-                      color: fydPGrey.withOpacity(.7),
+                      color: fydSblack.withOpacity(.7),
                       onClose: () => Navigator.of(context).pop(true),
                     ),
                   );
@@ -238,12 +238,12 @@ class StoreViewPage extends StatelessWidget {
                 children: [
                   const FydText.b3custom(
                     text: "store Id: ",
-                    color: fydLogoBlue,
+                    color: fydBblue,
                     weight: FontWeight.bold,
                   ),
                   FydText.b3custom(
                     text: state.storeRealtime!.storeId,
-                    color: fydTGrey,
+                    color: fydPgrey,
                     weight: FontWeight.bold,
                     letterSpacing: .9,
                   )
@@ -265,14 +265,14 @@ class StoreViewPage extends StatelessWidget {
                       FaIcon(
                         FontAwesomeIcons.store,
                         size: 15.w,
-                        color: fydLogoBlue,
+                        color: fydBblue,
                       ),
                       SizedBox(
                         width: 8.w,
                       ),
                       const FydText.b3custom(
                         text: 'Store Info',
-                        color: fydTGrey,
+                        color: fydPgrey,
                         weight: FontWeight.bold,
                         letterSpacing: .9,
                       ),
@@ -346,8 +346,8 @@ class StoreViewPage extends StatelessWidget {
                     color: (sortedTypeList.elementAt(idx).key !=
                                 state.selectedType ||
                             state.selectedType == null)
-                        ? fydPLgrey
-                        : fydLogoBlue,
+                        ? fydSgrey
+                        : fydBblue,
                   );
                 },
               ),
@@ -359,7 +359,7 @@ class StoreViewPage extends StatelessWidget {
               return const Expanded(
                 child: Center(
                   child: SpinKitWave(
-                    color: fydLogoBlue,
+                    color: fydBblue,
                     size: 30.0,
                   ),
                 ),
@@ -372,7 +372,7 @@ class StoreViewPage extends StatelessWidget {
                   child: FydText.h3custom(
                     text: 'select a Type',
                     weight: FontWeight.w700,
-                    color: fydBlueGrey,
+                    color: fydBbluegrey,
                   ),
                 ),
               );

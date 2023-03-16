@@ -34,8 +34,9 @@ class FydUserCubit extends Cubit<FydUserState> {
       failureOrSuccess: none(),
     ));
     await Future.delayed(const Duration(seconds: 1));
-    final authStatus = _iAuthFacade.getAuthStatus();
 
+    final authStatus = _iAuthFacade.getAuthStatus();
+    // check authentication status
     if (authStatus == false) {
       emit(state.copyWith(
         isFetching: false,
@@ -43,7 +44,20 @@ class FydUserCubit extends Cubit<FydUserState> {
         failureOrSuccess: none(),
       ));
     } else {
-      getFydUserRealtime();
+      final onBoardStatus = _iAuthFacade.getOnBoardStatus();
+      // check onBoarding status
+      if (onBoardStatus == false) {
+        emit(state.copyWith(
+          isFetching: false,
+          isAuthenticated: authStatus,
+          onBoardingStatus: onBoardStatus,
+          failureOrSuccess: none(),
+        ));
+      }
+      // Retrieve userData
+      else {
+        getFydUserRealtime();
+      }
     }
   }
 
@@ -63,6 +77,7 @@ class FydUserCubit extends Cubit<FydUserState> {
         emit(state.copyWith(
           isFetching: false,
           isAuthenticated: true,
+          onBoardingStatus: true,
           failureOrSuccess: some(left(failure)),
         ));
         toggleFailures();
@@ -72,6 +87,7 @@ class FydUserCubit extends Cubit<FydUserState> {
           isFetching: false,
           fydUser: fydUser,
           isAuthenticated: true,
+          onBoardingStatus: true,
           failureOrSuccess: none(),
         ));
       },
@@ -274,5 +290,4 @@ class FydUserCubit extends Cubit<FydUserState> {
     return super.close();
   }
 //?-----------------------------------------------------------------------------
-
 }

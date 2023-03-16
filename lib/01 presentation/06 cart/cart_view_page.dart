@@ -91,7 +91,7 @@ class CartViewPage extends StatelessWidget {
             if (state.updating && state.cartRealtime == null) {
               return const Center(
                 child: SpinKitWave(
-                  color: fydLogoBlue,
+                  color: fydBblue,
                   size: 40.0,
                 ),
               );
@@ -116,7 +116,7 @@ class CartViewPage extends StatelessWidget {
                   ),
                   const FydText.b1custom(
                     text: 'Ahhh! something went wrong',
-                    color: fydBlueGrey,
+                    color: fydBbluegrey,
                     letterSpacing: .8,
                   ),
                   SizedBox(
@@ -126,14 +126,14 @@ class CartViewPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 50, vertical: 100),
                     child: FydBtn(
-                      color: fydPGrey,
+                      color: fydSblack,
                       onPressed: () {
                         context.read<CartCubit>().initializeCart();
                       },
                       height: 50,
                       fydText: const FydText.b1custom(
                         text: 'Refresh cart',
-                        color: fydBlueGrey,
+                        color: fydBbluegrey,
                       ),
                     ),
                   )
@@ -163,7 +163,7 @@ class CartViewPage extends StatelessWidget {
                   ),
                   const FydText.b1custom(
                     text: 'Shop to add items in Cart!',
-                    color: fydBlueGrey,
+                    color: fydBbluegrey,
                     letterSpacing: .8,
                   ),
                 ],
@@ -329,7 +329,7 @@ class CartViewPage extends StatelessWidget {
                 padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 5.h),
                 child: FydText.b3custom(
                   text: state.cartRealtime!.storeName,
-                  color: fydTGrey,
+                  color: fydPgrey,
                   weight: FontWeight.w600,
                 ),
               ),
@@ -338,7 +338,7 @@ class CartViewPage extends StatelessWidget {
                 padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
                 child: FydText.b3custom(
                   text: state.cartRealtime!.cartId,
-                  color: fydTGrey,
+                  color: fydPgrey,
                   weight: FontWeight.w600,
                 ),
               ),
@@ -352,20 +352,20 @@ class CartViewPage extends StatelessWidget {
                   children: [
                     const FydText.b2custom(
                       text: 'Total Items',
-                      color: fydBlueGrey,
+                      color: fydBbluegrey,
                       letterSpacing: .8,
                     ),
                     FydText.b2custom(
                       text:
                           '(${state.cartRealtime!.cartCount.toString().padLeft(2, '0')}) ',
                       weight: FontWeight.w600,
-                      color: fydLogoBlue,
+                      color: fydBblue,
                     )
                   ],
                 ),
               ),
               const FydDivider(
-                color: fydBlueGrey,
+                color: fydBbluegrey,
               ),
               //!total
               Padding(
@@ -376,14 +376,14 @@ class CartViewPage extends StatelessWidget {
                   children: [
                     const FydText.b2custom(
                       text: 'Sub-Total',
-                      color: fydBlueGrey,
+                      color: fydBbluegrey,
                       letterSpacing: .8,
                     ),
                     Text(
                       '₹ ${subTotal.toInt()}',
                       style: GoogleFonts.exo2(
                         fontWeight: FontWeight.w600,
-                        color: fydLogoBlue,
+                        color: fydBblue,
                         fontSize: 20,
                         letterSpacing: .9,
                       ),
@@ -399,10 +399,10 @@ class CartViewPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 25, horizontal: 15.w),
           child: FydBtn(
             height: 60.h,
-            color: fydPGrey,
+            color: fydSblack,
             fydText: const FydText.h3custom(
               text: 'Proceed To Checkout',
-              color: fydLogoBlue,
+              color: fydBblue,
               weight: FontWeight.bold,
             ),
             onPressed: () async {
@@ -469,13 +469,13 @@ class CartTile extends StatelessWidget {
           height: 90.h,
           width: double.infinity,
           child: Card(
-            color: (availability >= qty) ? fydPWhite : Colors.grey[300],
+            color: (availability >= qty) ? fydPwhite : Colors.grey[300],
             elevation: 0.8,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5.r),
               side: (availability >= qty)
                   ? BorderSide.none
-                  : const BorderSide(color: fydNotifRed, width: 1.5),
+                  : const BorderSide(color: fydAred, width: 1.5),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -510,11 +510,11 @@ class CartTile extends StatelessWidget {
                               (context, url, downloadProgress) =>
                                   const SpinKitWave(
                             size: 20,
-                            color: fydTGrey,
+                            color: fydPgrey,
                           ),
                           errorWidget: (context, url, error) => Icon(
                             Icons.image_not_supported_outlined,
-                            color: fydTGrey,
+                            color: fydPgrey,
                             size: 70.h,
                           ),
                         ),
@@ -549,7 +549,7 @@ class CartTile extends StatelessWidget {
                                 //! price
                                 FydText.b4custom(
                                   text: '₹ $price',
-                                  color: fydLogoBlue,
+                                  color: fydBblue,
                                   weight: FontWeight.bold,
                                 ),
                               ],
@@ -561,7 +561,7 @@ class CartTile extends StatelessWidget {
                               child: const Icon(
                                 Icons.cancel_outlined,
                                 size: 22,
-                                color: fydTGrey,
+                                color: fydPgrey,
                               ),
                             ),
                           ],
@@ -573,7 +573,7 @@ class CartTile extends StatelessWidget {
                           children: [
                             //! Size
                             Card(
-                              color: fydTGrey,
+                              color: fydPgrey,
                               elevation: 4.0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
@@ -583,7 +583,7 @@ class CartTile extends StatelessWidget {
                                     horizontal: 6, vertical: 2),
                                 child: FydText.b3custom(
                                   text: size,
-                                  color: fydPWhite,
+                                  color: fydPwhite,
                                   weight: FontWeight.bold,
                                 ),
                               ),
@@ -599,7 +599,7 @@ class CartTile extends StatelessWidget {
                                     child: const Icon(
                                       Icons.remove_circle_outline,
                                       size: 22,
-                                      color: fydTGrey,
+                                      color: fydPgrey,
                                     ),
                                   ),
                                   //! QTY
@@ -608,18 +608,18 @@ class CartTile extends StatelessWidget {
                                         EdgeInsets.symmetric(horizontal: 8.w),
                                     child: FydText.b3custom(
                                       text: qty.toString().padLeft(2, '0'),
-                                      color: fydPDgrey,
+                                      color: fydPblack,
                                       weight: FontWeight.w600,
                                     ),
                                   ),
                                   //! Increament-btn
                                   InkResponse(
                                     onTap: onIncrementPressed,
-                                    splashColor: fydLogoBlue,
+                                    splashColor: fydBblue,
                                     child: const Icon(
                                       Icons.add_circle_sharp,
                                       size: 22,
-                                      color: fydTGrey,
+                                      color: fydPgrey,
                                     ),
                                   ),
                                 ]),
@@ -647,7 +647,7 @@ class CartTile extends StatelessWidget {
                     ? ''
                     : '$availability available right now',
                 style: const TextStyle(
-                    color: fydNotifRed,
+                    color: fydAred,
                     fontSize: 12,
                     letterSpacing: .9,
                     fontWeight: FontWeight.w700),

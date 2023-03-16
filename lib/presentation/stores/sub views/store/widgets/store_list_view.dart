@@ -20,12 +20,7 @@ class StoreListView extends StatelessWidget {
         return const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [
-            fydLogoBlue,
-            Colors.transparent,
-            Colors.transparent,
-            fydLogoBlue
-          ],
+          colors: [fydBblue, Colors.transparent, Colors.transparent, fydBblue],
           stops: [0.0, 0.04, 0.96, 1.0],
         ).createShader(rect);
       },
@@ -49,7 +44,7 @@ class StoreListView extends StatelessWidget {
                       onPressed: onPressed,
                       child: FydText.b3custom(
                         text: footer,
-                        color: fydBlueGrey,
+                        color: fydBbluegrey,
                       )),
                 ],
               );

@@ -33,7 +33,7 @@ class FydHeadingWithBackBtn extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.r)),
-                primary: fydPDgrey),
+                primary: fydPblack),
             onPressed: onBackPressed,
             child: Icon(
               Icons.arrow_back_ios_new_rounded,

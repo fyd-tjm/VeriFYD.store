@@ -197,7 +197,7 @@ class NewAddressPage extends HookWidget {
                       controller: nameController,
                       textCapitalization: TextCapitalization.words,
                       labelText: 'name:',
-                      floatColor: fydTGrey,
+                      floatColor: fydPgrey,
                       maxLength: 30,
                       keyboardType: TextInputType.visiblePassword,
                       onScrollPadding: false,
@@ -216,7 +216,7 @@ class NewAddressPage extends HookWidget {
                     child: FydTextFormField(
                       controller: phoneController,
                       labelText: 'phone: (+91) ',
-                      floatColor: fydTGrey,
+                      floatColor: fydPgrey,
                       isDigitOnly: true,
                       keyboardType: TextInputType.number,
                       maxLength: 10,
@@ -238,7 +238,7 @@ class NewAddressPage extends HookWidget {
                     child: FydTextFormField(
                       controller: emailController,
                       labelText: 'em@il:',
-                      floatColor: fydTGrey,
+                      floatColor: fydPgrey,
                       keyboardType: TextInputType.emailAddress,
                       maxLength: 30,
                       onScrollPadding: false,
@@ -419,12 +419,12 @@ class NewAddressPage extends HookWidget {
               ),
               //! save-btn
               FydBtn(
-                color: fydPGrey,
+                color: fydSblack,
                 height: 55.h,
                 fydText: const FydText.h2custom(
                   text: 'save  💾',
                   weight: FontWeight.w600,
-                  color: fydLogoBlue,
+                  color: fydBblue,
                 ),
                 onPressed: () async {
                   HapticFeedback.mediumImpact();

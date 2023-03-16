@@ -77,7 +77,7 @@ class Rn {
         durationInMilliseconds: 1500),
     //! login-Router
     CustomRoute(
-      path: Rn.login,
+      path: '/login',
       name: 'LoginRouter',
       page: PhoneLoginWrapperPage,
       children: [
@@ -91,7 +91,7 @@ class Rn {
         ),
       ],
     ),
-    //! boarding-Router
+    //! boarding
     CustomRoute(path: Rn.boarding, page: OnBoardingWrapperPage),
     //! main
     CustomRoute(path: Rn.main, page: MainWrapperPage, children: [
@@ -124,14 +124,14 @@ class Rn {
       transitionsBuilder: TransitionsBldr.fadeThrough,
     ),
     //! profileAddress
-    CustomRoute(path: Rn.profileAddress, page: ProfileAddressesWrapperPage),
+    CustomRoute(path: '/profileAddress', page: ProfileAddressesWrapperPage),
     //! updateAddress
     CustomRoute(path: '/updateAddress', page: UpdateAddressWrapperPage),
     //! newAddress
-    CustomRoute(path: Rn.newAddress, page: NewAddressWrapperPage),
+    CustomRoute(path: '/newAddress', page: NewAddressWrapperPage),
     //! orders-Router
     CustomRoute(
-        path: Rn.orders,
+        path: '/orders',
         name: 'OrdersRouter',
         page: EmptyRouterPage,
         children: [
@@ -147,7 +147,7 @@ class Rn {
         transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
     //! checkout-Router
     CustomRoute(
-      path: Rn.checkout,
+      path: '/checkout',
       name: 'CheckoutRouter',
       page: CheckoutWrapperPage,
       children: [
@@ -198,7 +198,7 @@ class TransitionsBldr {
       animation: animation,
       secondaryAnimation: secondaryAnimation,
       transitionType: SharedAxisTransitionType.scaled,
-      fillColor: fydPDgrey,
+      fillColor: fydPblack,
       child: child,
     );
   }
@@ -215,7 +215,7 @@ class TransitionsBldr {
       animation: animation,
       secondaryAnimation: secondaryAnimation,
       transitionType: SharedAxisTransitionType.horizontal,
-      fillColor: fydPDgrey,
+      fillColor: fydPblack,
       child: child,
     );
   }
@@ -231,7 +231,7 @@ class TransitionsBldr {
       animation: animation,
       secondaryAnimation: secondaryAnimation,
       transitionType: SharedAxisTransitionType.vertical,
-      fillColor: fydPDgrey,
+      fillColor: fydPblack,
       child: child,
     );
   }
@@ -253,7 +253,7 @@ class TransitionsBldr {
     return FadeThroughTransition(
       animation: animation,
       secondaryAnimation: secondaryAnimation,
-      fillColor: fydPDgrey,
+      fillColor: fydPblack,
       child: child,
     );
   }

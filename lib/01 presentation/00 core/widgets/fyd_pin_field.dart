@@ -13,13 +13,13 @@ class FydPinField extends StatelessWidget {
   final void Function(String)? onSubmitted;
   @override
   Widget build(BuildContext context) {
-    const borderColor = fydLogoBlue;
-    const fillColor = fydPGrey;
+    const borderColor = fydBblue;
+    const fillColor = fydSblack;
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 50,
       textStyle: GoogleFonts.exo2(
-          fontSize: 22, color: fydBlueGrey, fontWeight: FontWeight.bold),
+          fontSize: 22, color: fydBbluegrey, fontWeight: FontWeight.bold),
       decoration: BoxDecoration(
         color: fillColor,
         borderRadius: BorderRadius.circular(8),

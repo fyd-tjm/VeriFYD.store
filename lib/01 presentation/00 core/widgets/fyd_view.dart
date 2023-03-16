@@ -25,13 +25,13 @@ class FydView extends StatelessWidget {
     required this.topSheetHeight,
     required this.topSheet,
     required this.bottomSheet,
-    this.topSheetColor = fydPWhite,
+    this.topSheetColor = fydPwhite,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: fydPDgrey,
+      color: fydPblack,
       height: (pageViewType == ViewType.with_Nav_Bar) ? 772.h : 838.h,
       child: (isScrollable)
           ? SingleChildScrollView(

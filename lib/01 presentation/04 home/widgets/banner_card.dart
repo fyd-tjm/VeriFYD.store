@@ -39,9 +39,9 @@ class BannerCard extends StatelessWidget {
         child: Container(
           decoration: const BoxDecoration(
             boxShadow: [
-              BoxShadow(color: fydPWhite, blurStyle: BlurStyle.inner)
+              BoxShadow(color: fydPwhite, blurStyle: BlurStyle.inner)
             ],
-            color: fydPDgrey,
+            color: fydPblack,
           ),
           height: 140.h,
           width: double.infinity,
@@ -51,11 +51,11 @@ class BannerCard extends StatelessWidget {
             progressIndicatorBuilder: (context, url, downloadProgress) =>
                 const SpinKitWave(
               size: 20,
-              color: fydLogoBlue,
+              color: fydBblue,
             ),
             errorWidget: (context, url, error) => Icon(
               Icons.image_not_supported_outlined,
-              color: fydTGrey,
+              color: fydPgrey,
               size: 40.h,
             ),
           ),

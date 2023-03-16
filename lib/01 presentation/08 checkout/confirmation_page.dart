@@ -106,12 +106,12 @@ class ConfirmationPage extends StatelessWidget {
                 children: [
                   FydText.b3custom(
                     text: (isSuccessFull) ? 'order-id: ' : 'payment-id: ',
-                    color: fydPLgrey,
+                    color: fydSgrey,
                     weight: FontWeight.w600,
                   ),
                   FydText.b3custom(
                       text: (isSuccessFull) ? '#A001254' : 'cde3120023',
-                      color: fydLogoBlue)
+                      color: fydBblue)
                 ],
               ),
             ),
@@ -123,7 +123,7 @@ class ConfirmationPage extends StatelessWidget {
                 text: (isSuccessFull)
                     ? 'Your Order has been placed successfully!'
                     : 'Apologies for the inconvenience. We can\'t confirm your order due to a backend issue. If we can\'t confirm it within 24 hours, we\'ll refund your payment promptly.',
-                color: fydTGrey,
+                color: fydPgrey,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -139,7 +139,7 @@ class ConfirmationPage extends StatelessWidget {
                 text: (isSuccessFull)
                     ? 'You can track it in your orders.'
                     : 'If you have any further questions or concerns, please do not hesitate to contact us.',
-                color: fydLogoBlue,
+                color: fydBblue,
                 weight: FontWeight.w700,
                 textAlign: TextAlign.center,
               ),
@@ -154,11 +154,11 @@ class ConfirmationPage extends StatelessWidget {
                 child: FydBtn(
                   height: 60.h,
                   isFilled: false,
-                  color: fydBlueGrey,
+                  color: fydBbluegrey,
                   fydText: const FydText.h3custom(
                     text: 'Go To Orders',
                     weight: FontWeight.w700,
-                    color: fydTGrey,
+                    color: fydPgrey,
                   ),
                   onPressed: () async {
                     //! Orders Navigation
@@ -182,10 +182,10 @@ class ConfirmationPage extends StatelessWidget {
           padding: EdgeInsets.only(top: 30.h, left: 15.w, right: 15.w),
           child: FydBtn(
             height: 60.h,
-            color: fydPGrey,
+            color: fydSblack,
             fydText: const FydText.h3custom(
               text: 'Take Me Home',
-              color: fydBlueGrey,
+              color: fydBbluegrey,
               weight: FontWeight.w700,
             ),
             onPressed: () async {
@@ -202,12 +202,12 @@ class ConfirmationPage extends StatelessWidget {
                 child: FydBtn(
                   height: 60.h,
                   isFilled: false,
-                  fillColor: fydPDgrey,
-                  color: fydBlueGrey,
+                  fillColor: fydPblack,
+                  color: fydBbluegrey,
                   fydText: const FydText.h3custom(
                     text: 'Go Towards Help',
                     weight: FontWeight.w700,
-                    color: fydBlueGrey,
+                    color: fydBbluegrey,
                   ),
                   onPressed: () async {
                     context.navigateNamedTo(Rn.profile);
