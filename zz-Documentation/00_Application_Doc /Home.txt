@@ -1,0 +1,27 @@
+Home Documentation
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Screens(1): homeView
+Routers: none
+Routing: '/main/home'
+tag: uic-Home
+
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    topsheet Height: 
+    AppBar: Text()--Icon()
+    Btn: height(60.h)--padding(20.w, 20.h)
+         loading: const SpinKitWave(color: fydBblue, size: 20.0)         
+    widgets:
+    colors:  
+    assets:
+
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    blocs: 
+    listenWhen:
+    Listener: ErrorHandling()
+    buildWhen:
+    builder: Loading(): null(): view 
+    events: 
+
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    Todos:

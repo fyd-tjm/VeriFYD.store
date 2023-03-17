@@ -1,7 +1,7 @@
 
 # ui-CleanUp checklist
 
-## [AUTH] [HOME] [STORES] [CART] [PROFILE] [CHECKOUT]
+## [AUTH-Done] [HOME] [STORES] [CART] [PROFILE] [CHECKOUT]
 
  * `WrapperHandling`
         Bloc Providers
@@ -19,7 +19,6 @@
         Images: asset(exporting): Cache:
         Avoid: ShaderMask--opacity--clipping
                --for.maps/each
-               --SizedBox(nil)
         colors:     
  
  * `Bloc Handling`

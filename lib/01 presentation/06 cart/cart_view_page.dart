@@ -1,23 +1,23 @@
-import 'dart:developer';
+// ignore_for_file: use_build_context_synchronously
 
-import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
-import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
 import 'package:verifyd_store/presentation/core/widgets/fyd_v_h_listview.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 import 'package:verifyd_store/utils/router.dart';
 
 import '../../02 application/cart/cubit/cart_cubit.dart';
 import '../../03 domain/store/product.dart';
+import '../00 core/widgets/fyd_app_bar.dart';
+import '../00 core/widgets/fyd_view.dart';
+import 'widgets/cart_tile.dart';
 
 //?-----------------------------------------------------------------------------
 
@@ -42,10 +42,10 @@ class CartViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(context.router.currentUrl);
-    return SafeArea(
-      child: Scaffold(
-        body: BlocConsumer<CartCubit, CartState>(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: BlocConsumer<CartCubit, CartState>(
           listenWhen: (previous, current) {
             if (context.router.currentUrl == '/main/cart') {
               return true;
@@ -110,14 +110,18 @@ class CartViewPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Image.asset(
-                    'assets/logo/oops.png',
+                    AssetHelper.something_went_wrong,
                     fit: BoxFit.fitWidth,
-                    width: 250,
+                    width: 250.w,
                   ),
-                  const FydText.b1custom(
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  const FydText.b2custom(
                     text: 'Ahhh! something went wrong',
                     color: fydBbluegrey,
                     letterSpacing: .8,
+                    weight: FontWeight.w600,
                   ),
                   SizedBox(
                     height: 80.h,
@@ -130,7 +134,7 @@ class CartViewPage extends StatelessWidget {
                       onPressed: () {
                         context.read<CartCubit>().initializeCart();
                       },
-                      height: 50,
+                      height: 50.h,
                       fydText: const FydText.b1custom(
                         text: 'Refresh cart',
                         color: fydBbluegrey,
@@ -152,19 +156,20 @@ class CartViewPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        'assets/logo/empty-cart.png',
+                        AssetHelper.empty_cart,
                         fit: BoxFit.fitWidth,
-                        width: 150,
+                        width: 180.w,
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 30.h,
+                    height: 10.h,
                   ),
-                  const FydText.b1custom(
-                    text: 'Shop to add items in Cart!',
+                  const FydText.b2custom(
+                    text: 'Cart is empty at the moment!',
                     color: fydBbluegrey,
                     letterSpacing: .8,
+                    weight: FontWeight.w600,
                   ),
                 ],
               );
@@ -190,31 +195,31 @@ class CartViewPage extends StatelessWidget {
 
               //------
               return FydView(
-                pageViewType: ViewType.with_Nav_Bar,
-                isScrollable: false,
-                topSheetHeight: getTopSheetHeight(),
-                topSheet: _topSheetView(
-                  context: context,
-                  state: state,
-                ),
-                bottomSheet: _bottomSheetView(
-                  context: context,
-                  state: state,
-                ),
-              );
+                  pageViewType: ViewType.with_Nav_Bar,
+                  isScrollable: false,
+                  topSheetHeight: getTopSheetHeight(),
+                  topSheet: _TopSheet(context: context, state: state),
+                  bottomSheet: _BottomSheet(context: context, state: state));
             }
           },
         ),
       ),
     );
   }
+}
+//?-----------------------------------------------------------------------------
 
-//?--Top-Sheet-View-------------------------------------------------------------
+class _TopSheet extends StatelessWidget {
+  final BuildContext context;
+  final CartState state;
+  const _TopSheet({
+    super.key,
+    required this.context,
+    required this.state,
+  });
 
-  _topSheetView({
-    required BuildContext context,
-    required CartState state,
-  }) {
+  @override
+  Widget build(BuildContext context) {
     //-----
     Product getProductForCartItem(Tuple3 cartItem) {
       return state.cartItemsDetail![cartItem.value1]!;
@@ -297,13 +302,21 @@ class CartViewPage extends StatelessWidget {
       ],
     );
   }
+}
 
-//?--Bottom-Sheet-View----------------------------------------------------------
+//?-----------------------------------------------------------------------------
 
-  _bottomSheetView({
-    required BuildContext context,
-    required CartState state,
-  }) {
+class _BottomSheet extends StatelessWidget {
+  final BuildContext context;
+  final CartState state;
+  const _BottomSheet({
+    super.key,
+    required this.context,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     //--------
     //subTotal calculation
     double subTotal = 0;
@@ -379,15 +392,12 @@ class CartViewPage extends StatelessWidget {
                       color: fydBbluegrey,
                       letterSpacing: .8,
                     ),
-                    Text(
-                      '₹ ${subTotal.toInt()}',
-                      style: GoogleFonts.exo2(
-                        fontWeight: FontWeight.w600,
-                        color: fydBblue,
-                        fontSize: 20,
-                        letterSpacing: .9,
-                      ),
-                    )
+                    FydText.b1custom(
+                      text: '₹ ${subTotal.toInt()}',
+                      color: fydBblue,
+                      weight: FontWeight.w600,
+                      letterSpacing: .9,
+                    ),
                   ],
                 ),
               ),
@@ -396,7 +406,7 @@ class CartViewPage extends StatelessWidget {
         ),
         //! Proceed-to-checkout BTN
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 25, horizontal: 15.w),
+          padding: EdgeInsets.symmetric(vertical: 25.h, horizontal: 15.w),
           child: FydBtn(
             height: 60.h,
             color: fydSblack,
@@ -425,236 +435,6 @@ class CartViewPage extends StatelessWidget {
             },
           ),
         ),
-      ],
-    );
-  }
-
-//?-----------------------------------------------------------------------------
-}
-//?-----------------------------------------------------------------------------
-
-//! cart-tile
-class CartTile extends StatelessWidget {
-  final String imageLink;
-  final String prodName;
-  final String company;
-  final String size;
-  final double price;
-  final int qty;
-  final int availability;
-  final VoidCallback onDecrementPressed;
-  final VoidCallback onIncrementPressed;
-  final VoidCallback onDeletePressed;
-  const CartTile({
-    Key? key,
-    required this.prodName,
-    required this.company,
-    required this.size,
-    required this.price,
-    required this.qty,
-    required this.availability,
-    required this.onDecrementPressed,
-    required this.onIncrementPressed,
-    required this.imageLink,
-    required this.onDeletePressed,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        //! available view
-        SizedBox(
-          height: 90.h,
-          width: double.infinity,
-          child: Card(
-            color: (availability >= qty) ? fydPwhite : Colors.grey[300],
-            elevation: 0.8,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.r),
-              side: (availability >= qty)
-                  ? BorderSide.none
-                  : const BorderSide(color: fydAred, width: 1.5),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                //! Product-Image (width:85w)
-                GestureDetector(
-                  onTap: () async {
-                    //! image-Pop dialog
-                    await showModal<bool>(
-                      context: context,
-                      configuration: const FadeScaleTransitionConfiguration(
-                        barrierDismissible: true,
-                      ),
-                      useRootNavigator: false,
-                      builder: (context) => FydImageDialog(
-                        imageUrl: imageLink,
-                        onClose: () => Navigator.of(context).pop(true),
-                      ),
-                    );
-                  },
-                  child: SizedBox(
-                      height: double.infinity,
-                      width: 85.w,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5.0),
-                        child: CachedNetworkImage(
-                          imageUrl: imageLink,
-                          fit: BoxFit.cover,
-                          progressIndicatorBuilder:
-                              (context, url, downloadProgress) =>
-                                  const SpinKitWave(
-                            size: 20,
-                            color: fydPgrey,
-                          ),
-                          errorWidget: (context, url, error) => Icon(
-                            Icons.image_not_supported_outlined,
-                            color: fydPgrey,
-                            size: 70.h,
-                          ),
-                        ),
-                      )),
-                ),
-                //! Product-Detail
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: 3.h, left: 5.w, right: 3.w, bottom: 3.h),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //! Name : price : delete
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                //! name
-                                FydEllipsisText(
-                                  width: MediaQuery.of(context).size.width * .6,
-                                  fydText: FydText.b3black(text: prodName),
-                                ),
-
-                                //! price
-                                FydText.b4custom(
-                                  text: '₹ $price',
-                                  color: fydBblue,
-                                  weight: FontWeight.bold,
-                                ),
-                              ],
-                            ),
-                            //! delete btn
-                            InkResponse(
-                              onTap: onDeletePressed,
-                              radius: 50,
-                              child: const Icon(
-                                Icons.cancel_outlined,
-                                size: 22,
-                                color: fydPgrey,
-                              ),
-                            ),
-                          ],
-                        ),
-                        //! size : incre/decrement : qty
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            //! Size
-                            Card(
-                              color: fydPgrey,
-                              elevation: 4.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4.0),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 6, vertical: 2),
-                                child: FydText.b3custom(
-                                  text: size,
-                                  color: fydPwhite,
-                                  weight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            //! Editor
-                            Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  //! Decreament-btn
-                                  InkResponse(
-                                    onTap: onDecrementPressed,
-                                    child: const Icon(
-                                      Icons.remove_circle_outline,
-                                      size: 22,
-                                      color: fydPgrey,
-                                    ),
-                                  ),
-                                  //! QTY
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 8.w),
-                                    child: FydText.b3custom(
-                                      text: qty.toString().padLeft(2, '0'),
-                                      color: fydPblack,
-                                      weight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  //! Increament-btn
-                                  InkResponse(
-                                    onTap: onIncrementPressed,
-                                    splashColor: fydBblue,
-                                    child: const Icon(
-                                      Icons.add_circle_sharp,
-                                      size: 22,
-                                      color: fydPgrey,
-                                    ),
-                                  ),
-                                ]),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        //! not available view
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            //! alert Message
-            Padding(
-              padding: EdgeInsets.only(left: 15.w),
-              // width: double.infinity,
-              child: Text(
-                (availability >= qty)
-                    ? ''
-                    : '$availability available right now',
-                style: const TextStyle(
-                    color: fydAred,
-                    fontSize: 12,
-                    letterSpacing: .9,
-                    fontWeight: FontWeight.w700),
-              ),
-            ),
-          ],
-        )
       ],
     );
   }
