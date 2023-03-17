@@ -94,6 +94,7 @@ flutter:
     - assets/icons/
     - assets/gifs/
     - assets/images/
+    - assets/svgs/
   # example:
   # fonts:
   #   - family: Schyler

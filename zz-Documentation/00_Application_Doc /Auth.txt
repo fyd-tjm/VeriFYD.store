@@ -1,14 +1,12 @@
-// ignore_for_file: file_names
-
-//! Authentication Doc
+Authentication Doc
 
 
-//? Screens(3): PhoneLogin, OtpLogin, OnBoarding
-//? Routers: LoginRouter('/login')
-//? tag: uic-Auth
+ Screens(3): PhoneLogin, OtpLogin, OnBoarding
+ Routers: LoginRouter('/login')
+ tag: uic-Auth
 
 
-//! PhoneLogin
+ PhoneLogin
    //?-----------------------------------------------------------------------------
         // Routing Name: /login
         // topsheet Height: 380.h

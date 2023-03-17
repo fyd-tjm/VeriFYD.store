@@ -6,6 +6,8 @@ class AssetHelper {
       'assets/images/verify.store-logo.png';
   static const something_went_wrong = 'assets/images/404.png';
   static const empty_cart = 'assets/images/empty-cart.png';
+  static const launch_soon = 'assets/images/launch-soon.webp';
+
   static const svg_apparel = 'assets/svgs/apparels.svg';
   static const svg_footwear = 'assets/svgs/footwear.svg';
   static const svg_other = 'assets/svgs/others.svg';

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 
-import '../../../00 ui-core/ui_exports.dart';
 //?-----------------------------------------------------------------------------
 
-class FydCategoryCard extends StatelessWidget {
-  const FydCategoryCard({
+class StoresCategoryCard extends StatelessWidget {
+  const StoresCategoryCard({
     Key? key,
     required this.svgAsset,
     required this.title,

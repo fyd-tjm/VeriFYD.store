@@ -1,42 +1,145 @@
-## StoresBloc
+`Stores` Documentation
+>>>>>>>>>>>>>>>>>>>>>>>>>>
 
- ### Update-Selected-Category Event
+`Screens`(4): storesView, storeView, product, storeInfo
+`Routers`: StoresRouter(2screens) 
+`Routing`: 'main/stores'
+`tag`: uic-Stores
 
-  * // emit isFetching: true, SelectedCategory: event.category ..and few other 
-  * // check if category available in _storesLocally if not add it with []
-  * // if storesLocally [isNotEmpty]
-      // (1)=> emit isFetching: false, storeList: _storesLocally(selectedCategory)
-      // (0)=> AddStoresLocally(state.category)
-  * // AddStoresLocally(category) :
-        // check if stores available via LiveStores
-        // (0)=> emit isFetching: false, notAvailable: true
-        // (1)=> FetchStores(state.category)
-  * // FetchStores(category, afterSId?):
-          // fetchStores via iStoreRepo -->
-          // (0)=> emit isFetching: fasle, failure: some(failure)
-          // (1)=> add list to _storeLocally respected List
-          //       && emit isFetching: false, storeList: _storeLocally(state.Category)[]
+----------------------------------------------------------
 
+# StoresViewPage: ('/main/stores')
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+* `WrapperHandling`
+     Bloc Providers: storesBloc, sharedInfoCubit
 
-## Domain
-## Infra
- ### getStoresByCategory(String<category>, String?<fetchAfterSid>)
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `topsheet Height`: 200.h   
+    
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `blocs`: storesBloc
+    `listenWhen`: currentUrl == '/main/stores'
+    `Listener`: 
+        ErrorHandling
+        permissionDenied: () => 'permission Denied',
+        notFound: () => 'not exist anymore',
+        serverError: () => 'seError: try again',
+        unexpectedError: () => 'something went wrong: try again',
+    `buildWhen`: currentUrl == '/main/stores'
+    `builder`: 
+        Loading(bottomSheet): SpinKitWave(color: fydBblue,size: 40.0)
+        null(selectedCategory): 'select-a-category or search a store'
+        if-stores-not-available: launch-soon image
+        view
+    `events`: updateRecentSearchMap(), 
+              UpdateSelectedCategory(category)
+              LoadMoreStores()
+    
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `assets`: launch_soon.. svg_apparel..footwear..other
+    `widgets`: storesSearchBar(), StoresCategoryCard(),
+               StoresVerticleListView(),
+               StoresTile(), 
 
-  * 'isLive' = true + 
-  * orderBy 'sId' + 
-  * fetchLimit(5)
-  * returns List of <Store> objects
- 
- ### getStoreRealTime(String<storeId>)
-  * first doc match
-  * returns Stream of <Store/StoreFailure> snapshots
- 
- ### getProductsByType(String<type>, String<productsReference>, String?<startAfterSkuId>)
-  * 'inStock' = true
-  * orderBy 'skuId'
-  * fetchLimit(15)
-  * returns List of <Product> objects
- 
- ### getProductRealTime(String<productsReference>)
-  * returns Stream of <Product/ProductFailure> snapshots
-  * inStock value needs to checked at application/ui
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `Todos`: null
+    - commit: ui-cleanup-storesViewPage
+    
+
+----------------------------------------------------------
+
+# StoreViewPage: ()
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+* `WrapperHandling`
+        Bloc Providers:
+        Will PopScope: 
+        Network Dialogs: 
+
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    - Scaffold(resize)-->SafeArea: 
+    - TopSheet/btmSheet--stless:
+    `topsheet Height`: 
+    `AppBar`: Text()--Icon()   
+    
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `blocs`: 
+    `listenWhen`:
+    `Listener`: ErrorHandling()
+    `buildWhen`:
+    `builder`: Loading(): null(): view
+    `events`: 
+    
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `assets`: 
+    `widgets`: 
+
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    - importing/exporting/widgets
+    `Todos`: 
+    - tagging/commit:
+
+----------------------------------------------------------
+
+# StoreInfoPage: ()
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+* `WrapperHandling`
+        Bloc Providers:
+        Will PopScope: 
+        Network Dialogs: 
+
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    - Scaffold(resize)-->SafeArea: 
+    - TopSheet/btmSheet--stless:
+    `topsheet Height`: 
+    `AppBar`: Text()--Icon()   
+    
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `blocs`: 
+    `listenWhen`:
+    `Listener`: ErrorHandling()
+    `buildWhen`:
+    `builder`: Loading(): null(): view
+    `events`: 
+    
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `assets`: 
+    `widgets`: 
+
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    - importing/exporting/widgets
+    `Todos`: 
+    - tagging/commit:
+
+----------------------------------------------------------
+
+# ProductPage: ()
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+* `WrapperHandling`
+        Bloc Providers:
+        Will PopScope: 
+        Network Dialogs: 
+
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    - Scaffold(resize)-->SafeArea: 
+    - TopSheet/btmSheet--stless:
+    `topsheet Height`: 
+    `AppBar`: Text()--Icon()   
+    
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `blocs`: 
+    `listenWhen`:
+    `Listener`: ErrorHandling()
+    `buildWhen`:
+    `builder`: Loading(): null(): view
+    `events`: 
+    
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `assets`: 
+    `widgets`: 
+
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    - importing/exporting/widgets
+    `Todos`: 
+    - tagging/commit:
+
+----------------------------------------------------------

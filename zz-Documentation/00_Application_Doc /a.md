@@ -4,13 +4,13 @@
 ## [AUTH-Done] [HOME] [STORES] [CART-Done] [PROFILE] [CHECKOUT]
 
  * `WrapperHandling`
-        Bloc Providers
-        Will PopScope
-        Network Dialogs
+        Bloc Providers:
+        Will PopScope:
+        Network Dialogs:
 
  * `UI`
-        Scaffold(resize)-->SafeArea
-        TopSheet/btmSheet--stless---height
+        - Scaffold(resize)-->SafeArea:
+        - TopSheet/btmSheet--stless:
         AppBar: Text()--Icon()
         Btn: height()--padding()
         ListView: shrinkWrap(false)--ItemExtent(true)
@@ -50,3 +50,43 @@
         tag: 
 
  * `Git-Tagging`
+
+
+ ----------------
+
+ `Home` Documentation
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+`Screens`(): 
+`Routers`: 
+`Routing`: 
+`tag`: 
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+* `WrapperHandling`
+        Bloc Providers:
+        Will PopScope: 
+        Network Dialogs: 
+
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    - Scaffold(resize)-->SafeArea: 
+    - TopSheet/btmSheet--stless:
+    `topsheet Height`: 
+    AppBar: Text()--Icon()   
+    
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `blocs`: 
+    `listenWhen`:
+    `Listener`: ErrorHandling()
+    `buildWhen`:
+    `builder`: Loading(): null(): view
+    `events`: 
+    
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `assets`: 
+    `widgets`: 
+
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    - importing/exporting/widgets
+    `Todos`: 
+    - tagging/commit:

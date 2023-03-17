@@ -35,3 +35,4 @@ tag: uic-Home
     Todos: 
           -> on-start-loading remove
           -> ui design
+          -> buildWhen-add searchMap condition

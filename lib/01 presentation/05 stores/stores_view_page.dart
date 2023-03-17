@@ -2,21 +2,19 @@ import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
-import 'package:verifyd_store/01%20presentation/05%20stores/widgets/store_search.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_view.dart';
 import 'package:verifyd_store/02%20application/stores/stores_bloc.dart';
 import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/helpers/db_helpers.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 import '../../00 ui-core/ui_exports.dart';
-import 'widgets/export_widgets.dart';
-import 'widgets/store_search_bar.dart';
+import 'widgets/stores_export.dart';
 
 //?-----------------------------------------------------------------------------
 class StoresViewWrapperPage extends StatelessWidget {
@@ -45,13 +43,13 @@ class StoresViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log(context.router.currentUrl);
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: BlocConsumer<StoresBloc, StoresState>(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: BlocConsumer<StoresBloc, StoresState>(
           listenWhen: (previous, current) {
-            //TODO: Listen when routing condition
-            return true;
+            if (context.router.currentUrl == '/main/stores') return true;
+            return false;
           },
           listener: (context, state) {
             if (state.failure.isSome()) {
@@ -63,32 +61,45 @@ class StoresViewPage extends StatelessWidget {
                         message: storeFailure.when(
                           permissionDenied: () => 'permission Denied',
                           notFound: () => 'not exist anymore',
-                          serverError: () => 'server Error',
-                          unexpectedError: () => 'something went wrong',
+                          serverError: () => 'server Error: try again',
+                          unexpectedError: () =>
+                              'something went wrong: try again',
                         ),
                       ));
             }
           },
           buildWhen: (previous, current) {
-            //TODO: navigation/buildWhen condition
-            return true;
+            if (context.router.currentUrl == '/main/stores') return true;
+            return false;
           },
           builder: (context, state) {
             return FydView(
               pageViewType: ViewType.with_Nav_Bar,
               isScrollable: false,
               topSheetHeight: 200.h,
-              topSheet: _topSheetView(context, state),
-              bottomSheet: _bottomSheetView(context, state),
+              topSheet: _TopSheet(context: context, state: state),
+              bottomSheet: _BottomSheet(context: context, state: state),
             );
           },
         ),
       ),
     );
   }
+}
 
-//?--TopSheetView---------------------------------------------------------------
-  Widget _topSheetView(BuildContext context, StoresState state) {
+//?-----------------------------------------------------------------------------
+
+class _TopSheet extends StatelessWidget {
+  final BuildContext context;
+  final StoresState state;
+  const _TopSheet({
+    super.key,
+    required this.context,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,7 +112,7 @@ class StoresViewPage extends StatelessWidget {
           //! search bar
           return Padding(
             padding: EdgeInsets.only(top: 20.h, left: 8.w, right: 8.w),
-            child: StoreSearchBar(
+            child: StoresSearchBar(
               searchMap: searchMap,
               recentMap: recentMap,
               onResultTap: (searchMapEntry) {
@@ -123,8 +134,8 @@ class StoresViewPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               //! apparel
-              FydCategoryCard(
-                svgAsset: 'assets/icons/apparels.svg',
+              StoresCategoryCard(
+                svgAsset: AssetHelper.svg_apparel,
                 title: DbHelpers.getSharedInfoField(SharedInfo.apparel),
                 color: fydAlblue,
                 selectedTitle: state.selectedCategory,
@@ -135,8 +146,8 @@ class StoresViewPage extends StatelessWidget {
                 },
               ),
               //! footwear
-              FydCategoryCard(
-                svgAsset: 'assets/icons/footwear.svg',
+              StoresCategoryCard(
+                svgAsset: AssetHelper.svg_footwear,
                 title: DbHelpers.getSharedInfoField(SharedInfo.footwear),
                 color: fydDustyPeach,
                 selectedTitle: state.selectedCategory,
@@ -147,8 +158,8 @@ class StoresViewPage extends StatelessWidget {
                 },
               ),
               //! other
-              FydCategoryCard(
-                svgAsset: 'assets/icons/others.svg',
+              StoresCategoryCard(
+                svgAsset: AssetHelper.svg_other,
                 title: DbHelpers.getSharedInfoField(SharedInfo.other),
                 color: fydAlpink,
                 selectedTitle: state.selectedCategory,
@@ -164,9 +175,21 @@ class StoresViewPage extends StatelessWidget {
       ],
     );
   }
+}
 
-//?--BottomSheetView------------------------------------------------------------
-  Widget _bottomSheetView(BuildContext context, StoresState state) {
+//?-----------------------------------------------------------------------------
+
+class _BottomSheet extends StatelessWidget {
+  final BuildContext context;
+  final StoresState state;
+  const _BottomSheet({
+    super.key,
+    required this.context,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     //! Loading
     if (state.isFetching) {
       return const Center(
@@ -179,10 +202,11 @@ class StoresViewPage extends StatelessWidget {
     //! No Selected Category
     else if (state.selectedCategory == null) {
       return const Center(
-        child: FydText.h3custom(
-          text: 'select a category',
-          weight: FontWeight.w700,
+        child: FydText.b2custom(
+          text: 'select a category \n or \n search with storeId.',
+          weight: FontWeight.w600,
           color: fydBbluegrey,
+          textAlign: TextAlign.center,
         ),
       );
     }
@@ -199,8 +223,8 @@ class StoresViewPage extends StatelessWidget {
           onEmptyListWidget: Padding(
             padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 40.w),
             child: Image.asset(
-              'assets/logo/launching-soon.webp',
-              width: 300.w,
+              AssetHelper.launch_soon,
+              width: 250.w,
               fit: BoxFit.fitWidth,
             ),
           ),
@@ -229,6 +253,6 @@ class StoresViewPage extends StatelessWidget {
       );
     }
   }
+}
 
 //?-----------------------------------------------------------------------------
-}

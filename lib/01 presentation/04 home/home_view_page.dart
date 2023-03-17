@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/01%20presentation/05%20stores/widgets/stores_category_card.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/01%20presentation/05%20stores/widgets/store_product_card.dart';
 import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
@@ -16,7 +17,7 @@ import 'package:verifyd_store/utils/helpers/db_helpers.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 
 import '../00 core/widgets/00_core_widgets_export.dart';
-import '../05 stores/widgets/store_search_bar.dart';
+import '../05 stores/widgets/stores_search_bar.dart';
 import 'widgets/banner_card.dart';
 
 //?-----------------------------------------------------------------------------
@@ -147,7 +148,7 @@ class _TopSheet extends StatelessWidget {
         //! store-Search
         Padding(
           padding: EdgeInsets.only(left: 8.w, right: 8.w),
-          child: StoreSearchBar(
+          child: StoresSearchBar(
             searchMap: searchMap,
             recentMap: recentMap,
             onResultTap: (searchMapEntry) {
@@ -231,7 +232,7 @@ class _TopSheet extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               //! apparel
-              FydCategoryCard(
+              StoresCategoryCard(
                 svgAsset: AssetHelper.svg_apparel,
                 title: DbHelpers.getSharedInfoField(SharedInfo.apparel),
                 color: fydAlblue,
@@ -269,7 +270,7 @@ class _TopSheet extends StatelessWidget {
                 },
               ),
               //! footwear
-              FydCategoryCard(
+              StoresCategoryCard(
                 svgAsset: AssetHelper.svg_footwear,
                 title: DbHelpers.getSharedInfoField(SharedInfo.footwear),
                 color: fydDustyPeach,
@@ -307,7 +308,7 @@ class _TopSheet extends StatelessWidget {
                 },
               ),
               //! other
-              FydCategoryCard(
+              StoresCategoryCard(
                 svgAsset: AssetHelper.svg_other,
                 title: DbHelpers.getSharedInfoField(SharedInfo.other),
                 color: fydAlpink,

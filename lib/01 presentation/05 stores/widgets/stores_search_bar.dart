@@ -5,8 +5,8 @@ import 'package:verifyd_store/01%20presentation/05%20stores/widgets/store_search
 
 import '../../../00 ui-core/ui_exports.dart';
 
-class StoreSearchBar extends StatelessWidget {
-  const StoreSearchBar({
+class StoresSearchBar extends StatelessWidget {
+  const StoresSearchBar({
     Key? key,
     required this.searchMap,
     required this.recentMap,
