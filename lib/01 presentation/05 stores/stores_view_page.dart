@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
-import 'package:verifyd_store/01%20presentation/04%20home/widgets/store_search.dart';
+import 'package:verifyd_store/01%20presentation/05%20stores/widgets/store_search.dart';
 import 'package:verifyd_store/02%20application/stores/stores_bloc.dart';
 import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
@@ -16,6 +16,7 @@ import 'package:verifyd_store/utils/helpers/helpers.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 import '../../00 ui-core/ui_exports.dart';
 import 'widgets/export_widgets.dart';
+import 'widgets/store_search_bar.dart';
 
 //?-----------------------------------------------------------------------------
 class StoresViewWrapperPage extends StatelessWidget {
@@ -101,23 +102,14 @@ class StoresViewPage extends StatelessWidget {
           return Padding(
             padding: EdgeInsets.only(top: 20.h, left: 8.w, right: 8.w),
             child: StoreSearchBar(
-              onPressed: () async {
-                HapticFeedback.mediumImpact();
-                await showCustomSearch(
-                  context: context,
-                  delegate: StoreSearch(
-                    context: context,
-                    searchMap: searchMap,
-                    recentMap: recentMap,
-                    onTap: (searchMapEntry) {
-                      context.read<SharedInfoCubit>().updateRecentSearchMap(
-                            recentSearchEntry: searchMapEntry,
-                          );
-                      context.navigateTo(
-                          StoreViewWrapperRoute(storeId: searchMapEntry.key));
-                    },
-                  ),
-                );
+              searchMap: searchMap,
+              recentMap: recentMap,
+              onResultTap: (searchMapEntry) {
+                context.read<SharedInfoCubit>().updateRecentSearchMap(
+                      recentSearchEntry: searchMapEntry,
+                    );
+                context.navigateTo(
+                    StoreViewWrapperRoute(storeId: searchMapEntry.key));
               },
             ),
           );
@@ -239,61 +231,4 @@ class StoresViewPage extends StatelessWidget {
   }
 
 //?-----------------------------------------------------------------------------
-}
-
-class StoreSearchBar extends StatelessWidget {
-  const StoreSearchBar({
-    Key? key,
-    required this.onPressed,
-  }) : super(key: key);
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return FydBtn(
-      height: 55.h,
-      width: double.infinity,
-      color: fydPblack,
-      onPressed: onPressed,
-      widget: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          //! icon
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w),
-            child: Icon(
-              Icons.manage_search_sharp,
-              size: 32.sp,
-              color: fydBblue,
-            ),
-          ),
-          //! hint Text
-          const Expanded(
-            child: FydRichText(
-              size: 15,
-              color: fydBbluegrey,
-              weight: FontWeight.w600,
-              letterSpacing: .9,
-              textList: [
-                TextSpan(
-                  text: 'find store via ',
-                ),
-                TextSpan(
-                    text: '#',
-                    style: TextStyle(
-                        color: fydPwhite,
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal)),
-                TextSpan(
-                    text: 'store-id',
-                    style: TextStyle(color: fydBbluegrey, fontSize: 16)),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

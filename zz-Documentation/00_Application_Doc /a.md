@@ -1,7 +1,7 @@
 
 # ui-CleanUp checklist
 
-## [AUTH-Done] [HOME] [STORES] [CART] [PROFILE] [CHECKOUT]
+## [AUTH-Done] [HOME] [STORES] [CART-Done] [PROFILE] [CHECKOUT]
 
  * `WrapperHandling`
         Bloc Providers

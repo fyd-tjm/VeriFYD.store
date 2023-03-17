@@ -1,19 +1,13 @@
 import 'dart:developer';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
-import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_network_dialog.dart';
-import 'package:verifyd_store/02%20application/core/network/network_cubit.dart';
-import 'widgets/store_search.dart';
-import 'package:verifyd_store/01%20presentation/05%20stores/stores_view_page.dart';
+import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/01%20presentation/05%20stores/widgets/store_product_card.dart';
 import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
 import 'package:verifyd_store/02%20application/stores/stores_bloc.dart';
@@ -22,6 +16,7 @@ import 'package:verifyd_store/utils/helpers/db_helpers.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 
 import '../00 core/widgets/00_core_widgets_export.dart';
+import '../05 stores/widgets/store_search_bar.dart';
 import 'widgets/banner_card.dart';
 
 //?-----------------------------------------------------------------------------
@@ -44,12 +39,12 @@ class HomeViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     log(context.router.currentUrl);
 
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: BlocConsumer<SharedInfoCubit, SharedInfoState>(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: BlocConsumer<SharedInfoCubit, SharedInfoState>(
           listenWhen: (previous, current) {
-            if (context.router.isPathActive('/main/home')) return true;
+            if (context.router.currentUrl == '/main/home') return true;
             return false;
           },
           listener: (context, state) {
@@ -70,13 +65,23 @@ class HomeViewPage extends StatelessWidget {
                       ));
             }
           },
+          buildWhen: (previous, current) {
+            if (previous.sharedInfo?.banners != current.sharedInfo?.banners) {
+              return true;
+            } else if (previous.sharedInfo?.recentlyPurchased !=
+                current.sharedInfo?.recentlyPurchased) {
+              return true;
+            } else {
+              return false;
+            }
+          },
           builder: (context, state) {
             //! Loading
             if (state.sharedInfo == null) {
               return const Center(
                 child: SpinKitWave(
-                  color: fydBbluegrey,
-                  size: 30,
+                  color: fydBblue,
+                  size: 40,
                 ),
               );
             }
@@ -86,8 +91,8 @@ class HomeViewPage extends StatelessWidget {
                 pageViewType: ViewType.with_Nav_Bar,
                 isScrollable: false,
                 topSheetHeight: 420.h,
-                topSheet: _topSheetView(context, state),
-                bottomSheet: _bottomSheetView(context, state),
+                topSheet: _TopSheet(context: context, state: state),
+                bottomSheet: _BottomSheet(context: context, state: state),
               );
             }
           },
@@ -95,9 +100,20 @@ class HomeViewPage extends StatelessWidget {
       ),
     );
   }
+}
+//?-----------------------------------------------------------------------------
 
-//?--topSheetView---------------------------------------------------------------
-  Widget _topSheetView(BuildContext context, SharedInfoState state) {
+class _TopSheet extends StatelessWidget {
+  final BuildContext context;
+  final SharedInfoState state;
+  const _TopSheet({
+    super.key,
+    required this.context,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     final searchMap = state.sharedInfo!.storeSearchMap;
     final recentMap = state.recentSearchMap;
     return Column(
@@ -132,52 +148,41 @@ class HomeViewPage extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(left: 8.w, right: 8.w),
           child: StoreSearchBar(
-            onPressed: () async {
-              HapticFeedback.mediumImpact();
-              // await showCustomSearch(
-              //   context: context,
-              //   delegate: StoreSearch(
-              //     context: context,
-              //     searchMap: searchMap,
-              //     recentMap: recentMap,
-              //     onTap: (searchMapEntry) {
-              //       //-------
-              //       context.read<SharedInfoCubit>().updateRecentSearchMap(
-              //             recentSearchEntry: searchMapEntry,
-              //           );
-              //       //-------
-              //       final storesRouter =
-              //           context.tabsRouter.stackRouterOfIndex(1);
-              //       // storesRouter == null
-              //       if (storesRouter == null) {
-              //         context.navigateTo(StoresRouter(
-              //           children: [
-              //             StoresViewWrapperRoute(),
-              //             StoreViewWrapperRoute(storeId: searchMapEntry.key)
-              //           ],
-              //         ));
-              //       }
-              //       // PageCount =1
-              //       else if (storesRouter.pageCount == 1) {
-              //         context.navigateTo(StoresRouter(
-              //           children: [
-              //             StoreViewWrapperRoute(storeId: searchMapEntry.key)
-              //           ],
-              //         ));
-              //       }
-              //       // PageCount =2
-              //       else {
-              //         storesRouter.popForced();
-              //         context.navigateTo(StoresRouter(
-              //           children: [
-              //             StoreViewWrapperRoute(storeId: searchMapEntry.key)
-              //           ],
-              //         ));
-              //       }
-              //     },
-              //   ),
-              // );
-              context.navigateTo(TestRouter());
+            searchMap: searchMap,
+            recentMap: recentMap,
+            onResultTap: (searchMapEntry) {
+              //-------
+              context.read<SharedInfoCubit>().updateRecentSearchMap(
+                    recentSearchEntry: searchMapEntry,
+                  );
+              //-------
+              final storesRouter = context.tabsRouter.stackRouterOfIndex(1);
+              // storesRouter == null
+              if (storesRouter == null) {
+                context.navigateTo(StoresRouter(
+                  children: [
+                    const StoresViewWrapperRoute(),
+                    StoreViewWrapperRoute(storeId: searchMapEntry.key)
+                  ],
+                ));
+              }
+              // PageCount =1
+              else if (storesRouter.pageCount == 1) {
+                context.navigateTo(StoresRouter(
+                  children: [
+                    StoreViewWrapperRoute(storeId: searchMapEntry.key)
+                  ],
+                ));
+              }
+              // PageCount =2
+              else {
+                storesRouter.popForced();
+                context.navigateTo(StoresRouter(
+                  children: [
+                    StoreViewWrapperRoute(storeId: searchMapEntry.key)
+                  ],
+                ));
+              }
             },
           ),
         ),
@@ -227,7 +232,7 @@ class HomeViewPage extends StatelessWidget {
             children: [
               //! apparel
               FydCategoryCard(
-                svgAsset: 'assets/icons/apparels.svg',
+                svgAsset: AssetHelper.svg_apparel,
                 title: DbHelpers.getSharedInfoField(SharedInfo.apparel),
                 color: fydAlblue,
                 selectedTitle: null,
@@ -265,7 +270,7 @@ class HomeViewPage extends StatelessWidget {
               ),
               //! footwear
               FydCategoryCard(
-                svgAsset: 'assets/icons/footwear.svg',
+                svgAsset: AssetHelper.svg_footwear,
                 title: DbHelpers.getSharedInfoField(SharedInfo.footwear),
                 color: fydDustyPeach,
                 selectedTitle: null,
@@ -303,7 +308,7 @@ class HomeViewPage extends StatelessWidget {
               ),
               //! other
               FydCategoryCard(
-                svgAsset: 'assets/icons/others.svg',
+                svgAsset: AssetHelper.svg_other,
                 title: DbHelpers.getSharedInfoField(SharedInfo.other),
                 color: fydAlpink,
                 selectedTitle: null,
@@ -345,9 +350,21 @@ class HomeViewPage extends StatelessWidget {
       ],
     );
   }
+}
 
-//?--bottomSheetView------------------------------------------------------------
-  Widget _bottomSheetView(BuildContext context, SharedInfoState state) {
+//?-----------------------------------------------------------------------------
+
+class _BottomSheet extends StatelessWidget {
+  final BuildContext context;
+  final SharedInfoState state;
+  const _BottomSheet({
+    super.key,
+    required this.context,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         //! Heading - R.P.
@@ -411,7 +428,6 @@ class HomeViewPage extends StatelessWidget {
       ],
     );
   }
-//?-----------------------------------------------------------------------------
 }
-//?-----------------------------------------------------------------------------
 
+//?-----------------------------------------------------------------------------

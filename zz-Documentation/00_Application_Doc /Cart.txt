@@ -11,8 +11,6 @@ tag: uic-Cart
         Bloc Providers: CartCubit..initializeCart()
         Will PopScope: null
         Network Dialogs: null
-        - Scaffold(resize)-->SafeArea: done
-        - TopSheet/btmSheet--stless: done
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
     topsheet Height: 180| 280| 380| 490.h
@@ -34,10 +32,7 @@ tag: uic-Cart
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
     widgets: FydVListView(), CartTile()
-    colors:  
     assets: something_went_wrong, empty_cart
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    imports: widets/imp/exp
     Todos: null
-    Tagging: uic-Cart
