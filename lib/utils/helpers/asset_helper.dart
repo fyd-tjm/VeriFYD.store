@@ -5,8 +5,11 @@ class AssetHelper {
   static const verifydStore_logoWithName =
       'assets/images/verify.store-logo.png';
   static const something_went_wrong = 'assets/images/404.png';
+  static const fetching_error = 'assets/images/serve-crash.png';
   static const empty_cart = 'assets/images/empty-cart.png';
   static const launch_soon = 'assets/images/launch-soon.webp';
+  static const store_closed = 'assets/images/store-closed.png';
+  static const stockout = 'assets/images/stockout.png';
 
   static const svg_apparel = 'assets/svgs/apparels.svg';
   static const svg_footwear = 'assets/svgs/footwear.svg';

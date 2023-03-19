@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -11,16 +10,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
-import 'package:verifyd_store/presentation/stores/sub%20views/store/widgets/store_list_view.dart';
-import 'package:verifyd_store/01%20presentation/05%20stores/widgets/store_product_card.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 
 import '../../02 application/stores/store/store_bloc.dart';
-import '../../presentation/core/widgets/fyd_v_h_listview.dart';
-import 'widgets/export_widgets.dart';
-import 'widgets/store_offer_card.dart';
+import 'widgets/store_export.dart';
 
 //?-----------------------------------------------------------------------------
 
@@ -45,7 +41,9 @@ class StoreViewWrapperPage extends StatelessWidget {
               trueBtnTitle: 'Yes');
           return popResult ?? false;
         },
-        child: const StoreViewPage(),
+        child: StoreViewPage(
+          storeId: storeId,
+        ),
       ),
     );
   }
@@ -53,16 +51,16 @@ class StoreViewWrapperPage extends StatelessWidget {
 //?-----------------------------------------------------------------------------
 
 class StoreViewPage extends StatelessWidget {
-  const StoreViewPage({Key? key}) : super(key: key);
+  final String storeId;
+  const StoreViewPage({Key? key, required this.storeId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // log(context.router.currentUrl);
-    // log(context.router.pageCount.toString());
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: BlocConsumer<StoreBloc, StoreState>(
+    log(context.router.currentUrl);
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: BlocConsumer<StoreBloc, StoreState>(
           listenWhen: (previous, current) {
             if (context.tabsRouter.currentUrl == '/main/stores') {
               return true;
@@ -78,20 +76,20 @@ class StoreViewPage extends StatelessWidget {
                     context: context,
                     viewType: SnackBarViewType.withNav,
                     message: storeFailure.when(
-                      permissionDenied: () => 'permission denied',
+                      permissionDenied: () => '',
                       notFound: () => 'store not found',
-                      serverError: () => 'server error, try again',
-                      unexpectedError: () => 'unexpected error, try again',
+                      serverError: () => 'server error: try again',
+                      unexpectedError: () => 'unexpected error: try again',
                     ),
                   ),
                   (productFailure) => showSnack(
                     context: context,
                     viewType: SnackBarViewType.withNav,
                     message: productFailure.when(
-                      permissionDenied: () => 'permission denied',
+                      permissionDenied: () => '',
                       notFound: () => 'product not found',
-                      serverError: () => 'server error, try again',
-                      unexpectedError: () => 'unexpected error, try again',
+                      serverError: () => 'server error: try again',
+                      unexpectedError: () => 'unexpected error: try again',
                     ),
                   ),
                 ),
@@ -104,7 +102,7 @@ class StoreViewPage extends StatelessWidget {
               return const Center(
                 child: SpinKitWave(
                   color: fydBblue,
-                  size: 30.0,
+                  size: 40.0,
                 ),
               );
             }
@@ -115,24 +113,42 @@ class StoreViewPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Image.asset(
-                    'assets/logo/oops.png',
+                    AssetHelper.fetching_error,
                     fit: BoxFit.fitWidth,
-                    width: 250,
+                    width: 200,
                   ),
-                  const SizedBox(
-                    height: 100,
+                  SizedBox(
+                    height: 100.h,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 100),
-                    child: FydBtn(
-                      color: fydSblack,
-                      onPressed: () => context.router.navigateBack(),
-                      height: 50,
-                      fydText: const FydText.b1custom(
-                        text: 'Go Back',
-                        color: fydBbluegrey,
-                      ),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 50, vertical: 50.h),
+                    child: Column(
+                      children: [
+                        FydBtn(
+                          color: fydSblack,
+                          onPressed: () => context
+                              .read<StoreBloc>()
+                              .add(GetStoreRealtime(storeId: storeId)),
+                          height: 50,
+                          fydText: const FydText.b1custom(
+                            text: 'Reload',
+                            color: fydBbluegrey,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        FydBtn(
+                          color: fydSblack,
+                          onPressed: () => context.router.navigateBack(),
+                          height: 50,
+                          fydText: const FydText.b1custom(
+                            text: 'Go Back',
+                            color: fydBbluegrey,
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 ],
@@ -144,8 +160,8 @@ class StoreViewPage extends StatelessWidget {
                 pageViewType: ViewType.with_Nav_Bar,
                 isScrollable: false,
                 topSheetHeight: 200.h,
-                topSheet: _topSheetView(context, state),
-                bottomSheet: _bottomSheetView(context, state),
+                topSheet: _TopSheet(context: context, state: state),
+                bottomSheet: _BottomSheet(context: context, state: state),
               );
             }
           },
@@ -153,9 +169,20 @@ class StoreViewPage extends StatelessWidget {
       ),
     );
   }
+}
+//?-----------------------------------------------------------------------------
 
-//?--TopSheetView---------------------------------------------------------------
-  _topSheetView(BuildContext context, StoreState state) {
+class _TopSheet extends StatelessWidget {
+  final BuildContext context;
+  final StoreState state;
+  const _TopSheet({
+    super.key,
+    required this.context,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     //-------
     final messages = <dynamic, String>{
       ...state.storeRealtime!.storeAlerts,
@@ -174,17 +201,15 @@ class StoreViewPage extends StatelessWidget {
         //! AppBar (backBTN + heading)
         FydAppBar(
           //! close-btn
-          leading: AppBarBtn(
-              iconData: Icons.close_rounded,
-              onPressed: () {
-                HapticFeedback.mediumImpact();
-                context.router.pop();
-              }),
+          leading: AppBarBtn.close(onPressed: () {
+            HapticFeedback.mediumImpact();
+            context.router.pop();
+          }),
           //! store name
           main: Center(
             child: FydAutoScrollingText(
                 width: 300.w,
-                height: 50.h,
+                height: 50,
                 velocity: 10,
                 fydText: FydText.h3custom(
                   text: state.storeRealtime!.name,
@@ -201,20 +226,6 @@ class StoreViewPage extends StatelessWidget {
               (index) => StoreOfferCard(
                 message: messages.values.elementAt(index),
                 iconData: Icons.auto_awesome_mosaic_outlined,
-                onTap: (message) async {
-                  await showModal<bool>(
-                    context: context,
-                    configuration: const FadeScaleTransitionConfiguration(
-                      barrierDismissible: true,
-                    ),
-                    useRootNavigator: false,
-                    builder: (context) => FydCloseDialog(
-                      message: message,
-                      color: fydSblack.withOpacity(.7),
-                      onClose: () => Navigator.of(context).pop(true),
-                    ),
-                  );
-                },
               ),
             ),
             options: CarouselOptions(
@@ -286,16 +297,27 @@ class StoreViewPage extends StatelessWidget {
       ],
     );
   }
+}
+//?-----------------------------------------------------------------------------
 
-//?--BottomSheetView------------------------------------------------------------
-  _bottomSheetView(BuildContext context, StoreState state) {
+class _BottomSheet extends StatelessWidget {
+  final BuildContext context;
+  final StoreState state;
+  const _BottomSheet({
+    super.key,
+    required this.context,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     //! store-Closed
     if (state.storeRealtime!.isLive == false) {
       return Center(
         child: Image.asset(
-          'assets/logo/closed.png',
-          fit: BoxFit.contain,
-          height: 300.h,
+          AssetHelper.store_closed,
+          width: 250.w,
+          fit: BoxFit.fitWidth,
         ),
       );
     }
@@ -306,8 +328,8 @@ class StoreViewPage extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 40.w),
           child: Image.asset(
-            'assets/logo/launching-soon.webp',
-            width: 300.w,
+            AssetHelper.launch_soon,
+            width: 250.w,
             fit: BoxFit.fitWidth,
           ),
         ),
@@ -327,30 +349,34 @@ class StoreViewPage extends StatelessWidget {
           //! types-listView
           Padding(
             padding: EdgeInsets.only(top: 20.h, bottom: 5.h),
-            child: FydHListView(
+            child: SizedBox(
               height: 32.h,
-              widgetListPadding: EdgeInsets.only(left: 40.w),
-              separation: 12.w,
-              itemCount: sortedTypeList.length,
-              listWidget: List<Widget>.generate(
-                sortedTypeList.length,
-                (int idx) {
-                  return TypeChip(
-                    onPressed: (type) {
-                      if (type == state.selectedType) return;
-                      context
-                          .read<StoreBloc>()
-                          .add(UpdateSelectedType(type: type));
-                    },
-                    title: sortedTypeList.elementAt(idx).key,
-                    color: (sortedTypeList.elementAt(idx).key !=
-                                state.selectedType ||
-                            state.selectedType == null)
-                        ? fydSgrey
-                        : fydBblue,
-                  );
-                },
-              ),
+              child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.only(left: 40.w),
+                  itemCount: sortedTypeList.length,
+                  separatorBuilder: (context, index) => SizedBox(width: 12.w),
+                  itemBuilder: (context, index) {
+                    return List<Widget>.generate(
+                      sortedTypeList.length,
+                      (int idx) {
+                        return StoreTypeChip(
+                          onPressed: (type) {
+                            if (type == state.selectedType) return;
+                            context
+                                .read<StoreBloc>()
+                                .add(UpdateSelectedType(type: type));
+                          },
+                          title: sortedTypeList.elementAt(idx).key,
+                          color: (sortedTypeList.elementAt(idx).key !=
+                                      state.selectedType ||
+                                  state.selectedType == null)
+                              ? fydSgrey
+                              : fydBgreen,
+                        );
+                      },
+                    ).elementAt(index);
+                  }),
             ),
           ),
           Builder(builder: (context) {
@@ -359,8 +385,8 @@ class StoreViewPage extends StatelessWidget {
               return const Expanded(
                 child: Center(
                   child: SpinKitWave(
-                    color: fydBblue,
-                    size: 30.0,
+                    color: fydABlueGrey,
+                    size: 25.0,
                   ),
                 ),
               );
@@ -369,9 +395,9 @@ class StoreViewPage extends StatelessWidget {
             else if (state.selectedType == null) {
               return const Expanded(
                 child: Center(
-                  child: FydText.h3custom(
-                    text: 'select a Type',
-                    weight: FontWeight.w700,
+                  child: FydText.b2custom(
+                    text: 'select a Product Type',
+                    weight: FontWeight.w600,
                     color: fydBbluegrey,
                   ),
                 ),
@@ -382,9 +408,9 @@ class StoreViewPage extends StatelessWidget {
               return Expanded(
                 child: Center(
                   child: Image.asset(
-                    'assets/logo/stockout.png',
-                    fit: BoxFit.contain,
-                    height: 300.h,
+                    AssetHelper.stockout,
+                    width: 250.w,
+                    fit: BoxFit.fitWidth,
                   ),
                 ),
               );
@@ -397,13 +423,13 @@ class StoreViewPage extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: Center(
-                    child: StoreListView(
+                    child: StoreProductGrid(
                       // LoadMore Footer
                       footer: (inStockByType == null)
                           ? 'something went wrong'
                           : (inStockByType > state.productList.length)
                               ? 'load more..'
-                              : 'More Stores Launching Soon!',
+                              : 'More Products comming Soon!',
                       // LoadMore OnPressed
                       onPressed: (inStockByType != null &&
                               inStockByType > state.productList.length)
@@ -474,6 +500,5 @@ class StoreViewPage extends StatelessWidget {
       );
     }
   }
-//?-----------------------------------------------------------------------------
 }
 //?-----------------------------------------------------------------------------

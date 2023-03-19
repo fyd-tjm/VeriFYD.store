@@ -59,6 +59,16 @@ class AppBarBtn extends StatelessWidget {
     this.alignment = Alignment.center,
     required this.onPressed,
   });
+  const AppBarBtn.close({
+    super.key,
+    this.iconData = FontAwesomeIcons.xmark,
+    this.iconColor = fydBbluegrey,
+    this.bgColor = fydPblack,
+    this.iconSize = 22,
+    this.padding = const EdgeInsets.all(8.0),
+    this.alignment = Alignment.center,
+    required this.onPressed,
+  });
   final IconData iconData;
   final Color iconColor;
   final Color bgColor;

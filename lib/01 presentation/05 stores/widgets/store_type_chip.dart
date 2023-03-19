@@ -5,12 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../00 ui-core/ui_exports.dart';
 
-class TypeChip extends StatelessWidget {
+class StoreTypeChip extends StatelessWidget {
   final String title;
   final Color? color;
   final Function(String) onPressed;
 
-  const TypeChip({
+  const StoreTypeChip({
     Key? key,
     required this.onPressed,
     required this.title,

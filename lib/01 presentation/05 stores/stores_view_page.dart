@@ -203,7 +203,7 @@ class _BottomSheet extends StatelessWidget {
     else if (state.selectedCategory == null) {
       return const Center(
         child: FydText.b2custom(
-          text: 'select a category \n or \n search with storeId.',
+          text: 'select a category \n \n or \n \n search with storeId.',
           weight: FontWeight.w600,
           color: fydBbluegrey,
           textAlign: TextAlign.center,

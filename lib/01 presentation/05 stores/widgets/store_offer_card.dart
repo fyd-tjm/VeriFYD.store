@@ -1,7 +1,9 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_close_dialog.dart';
 
 class StoreOfferCard extends StatelessWidget {
   const StoreOfferCard({
@@ -9,22 +11,30 @@ class StoreOfferCard extends StatelessWidget {
     required this.message,
     required this.iconData,
     this.iconSize = 25,
-    this.iconColor = fydBblue,
-    required this.onTap,
+    this.iconColor = fydBgreen,
   });
   final String message;
   final IconData iconData;
   final double iconSize;
   final Color iconColor;
 
-  final void Function(String) onTap;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         HapticFeedback.mediumImpact();
-        onTap(message);
+        await showModal<bool>(
+          context: context,
+          configuration: const FadeScaleTransitionConfiguration(
+            barrierDismissible: true,
+          ),
+          useRootNavigator: false,
+          builder: (context) => FydCloseDialog(
+            message: message,
+            color: fydSblack,
+            onClose: () => Navigator.of(context).pop(true),
+          ),
+        );
       },
       child: Card(
         color: fydSgrey,

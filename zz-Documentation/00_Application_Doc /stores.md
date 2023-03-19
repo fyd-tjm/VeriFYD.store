@@ -1,11 +1,10 @@
-`Stores` Documentation
+## Stores Documentation
 >>>>>>>>>>>>>>>>>>>>>>>>>>
 
 `Screens`(4): storesView, storeView, product, storeInfo
 `Routers`: StoresRouter(2screens) 
-`Routing`: 'main/stores'
+`Routing`: 'main/stores', 'main/stores/:storeId'
 `tag`: uic-Stores
-
 ----------------------------------------------------------
 
 # StoresViewPage: ('/main/stores')
@@ -42,41 +41,52 @@
                StoresTile(), 
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `Todos`: null
+    `Todos`: 
     - commit: ui-cleanup-storesViewPage
     
 
 ----------------------------------------------------------
 
-# StoreViewPage: ()
+# StoreViewPage: ('main/stores/:storeId')
 >>>>>>>>>>>>>>>>>>>>>>>>>>
 * `WrapperHandling`
-        Bloc Providers:
-        Will PopScope: 
-        Network Dialogs: 
+        Bloc Providers: StoreBloc()..GetStoreRealtime(storeId)
+        Will PopScope: Yes | showPermissionDialog()
+        Network Dialogs: via mainPage
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    - Scaffold(resize)-->SafeArea: 
-    - TopSheet/btmSheet--stless:
-    `topsheet Height`: 
-    `AppBar`: Text()--Icon()   
+    `topsheet Height`: 200.h
+    `AppBar`: Text(h3)--Icon()   
     
     >>>>>>>>>>>>>>>>>>>>>>>>>>
     `blocs`: 
-    `listenWhen`:
-    `Listener`: ErrorHandling()
+    `listenWhen`: (context.tabsRouter.currentUrl == '/main/stores')
+    `Listener`: Error-Handling
+            -'store not found'
+            -'product not found'
+            -'server error: try again'
+            -'unexpected error: try again'
     `buildWhen`:
-    `builder`: Loading(): null(): view
-    `events`: 
+    `builder`: 
+            Loading(fetching+state.storeRealtime is null): SpinKitWave(color: fydBblue, size: 40.0)
+            null(state.storeRealtime): go-back or retry 
+            view
+    `events`: GetStoreRealtime(storeId)
     
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `assets`: 
-    `widgets`: 
+    `assets`: store_closed, launch_soon, stockout, fetching_error,
+    `widgets`: showPermissionDialog(), FydAutoScrollingText()
+               StoreOfferCard, StoreTypeChip()
+               StoreListView(), StoreGridRow(),
+               StoreProductCard()
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    - importing/exporting/widgets
-    `Todos`: 
-    - tagging/commit:
+    `Todos`:
+            => onStart logo avoid
+            => star-logo for verifyd store 
+            => ui-Design social Media display maybe
+            => grid-row integrate within storelistView
+    - commit: 'ui-cleanup-storeView'
 
 ----------------------------------------------------------
 
