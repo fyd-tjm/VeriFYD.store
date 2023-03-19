@@ -18,8 +18,7 @@
     >>>>>>>>>>>>>>>>>>>>>>>>>>
     `blocs`: storesBloc
     `listenWhen`: currentUrl == '/main/stores'
-    `Listener`: 
-        ErrorHandling
+    `Listener`: ErrorHandling
         permissionDenied: () => 'permission Denied',
         notFound: () => 'not exist anymore',
         serverError: () => 'seError: try again',
@@ -82,29 +81,28 @@
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
     `Todos`:
-            => onStart logo avoid
+            => storeInfo touchArea Increase
+            => onStart null view image avoid
             => star-logo for verifyd store 
-            => ui-Design social Media display maybe
             => grid-row integrate within storelistView
+            => ui-Design social Media display maybe
     - commit: 'ui-cleanup-storeView'
 
 ----------------------------------------------------------
 
-# StoreInfoPage: ()
+# StoreInfoPage: (/storeInfo)
 >>>>>>>>>>>>>>>>>>>>>>>>>>
 * `WrapperHandling`
-        Bloc Providers:
-        Will PopScope: 
-        Network Dialogs: 
+        Bloc Providers: null
+        Will PopScope: null 
+        Network Dialogs: via mainPage 
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    - Scaffold(resize)-->SafeArea: 
-    - TopSheet/btmSheet--stless:
-    `topsheet Height`: 
-    `AppBar`: Text()--Icon()   
+    `topsheet Height`: 200.h
+    `AppBar`: Text(h3)--Icon(back)   
     
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `blocs`: 
+    `blocs`: none
     `listenWhen`:
     `Listener`: ErrorHandling()
     `buildWhen`:
@@ -112,13 +110,16 @@
     `events`: 
     
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `assets`: 
-    `widgets`: 
+    `assets`:
+
+    `widgets`: FydTExtCard(), fydCloseDialog,
+              FydAutoScrollingText()
+              StoreInfoExpansionTile() 
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    - importing/exporting/widgets
-    `Todos`: 
-    - tagging/commit:
+    `Todos`:
+            => add verifyd check at top right
+    - commit: ui-cleanup-storeInfo
 
 ----------------------------------------------------------
 

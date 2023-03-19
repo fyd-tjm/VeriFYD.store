@@ -10,12 +10,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
-import 'package:verifyd_store/01%20presentation/05%20stores/store_info_view_page.dart';
+import 'package:verifyd_store/01%20presentation/05%20stores/store_info_page.dart';
 import 'package:verifyd_store/02%20application/product/product_bloc.dart';
 import 'package:verifyd_store/aa%20mock/static_ui.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 
 import 'widgets/export_widgets.dart';
+import 'widgets/store_info_expansion_tile.dart';
 
 //?-----------------------------------------------------------------------------
 

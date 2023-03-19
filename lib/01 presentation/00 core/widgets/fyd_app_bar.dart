@@ -52,8 +52,8 @@ class AppBarBtn extends StatelessWidget {
   const AppBarBtn.back({
     super.key,
     this.iconData = FontAwesomeIcons.arrowLeftLong,
-    this.iconColor = fydPblack,
-    this.bgColor = fydPwhite,
+    this.iconColor = fydBbluegrey,
+    this.bgColor = fydPblack,
     this.iconSize = 20,
     this.padding = const EdgeInsets.all(10.0),
     this.alignment = Alignment.center,
@@ -87,7 +87,7 @@ class AppBarBtn extends StatelessWidget {
             padding: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.r)),
-            primary: bgColor),
+            backgroundColor: bgColor),
         // ignore: sort_child_properties_last
         child: Padding(
           padding: padding,

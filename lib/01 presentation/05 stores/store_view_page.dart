@@ -265,7 +265,7 @@ class _TopSheet extends StatelessWidget {
                 onTap: () {
                   HapticFeedback.lightImpact();
                   context.router.push(
-                    StoreInfoViewWrapperRoute(store: state.storeRealtime!),
+                    StoreInfoWrapperRoute(store: state.storeRealtime!),
                   );
                 },
                 child: Padding(

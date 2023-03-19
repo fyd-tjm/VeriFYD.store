@@ -23,7 +23,7 @@ import '../01%20presentation/02%20on%20boarding/on_boarding_page.dart' as _i4;
 import '../01%20presentation/03%20main%20root/main_page.dart' as _i5;
 import '../01%20presentation/04%20home/home_view_page.dart' as _i16;
 import '../01%20presentation/05%20stores/product_page.dart' as _i6;
-import '../01%20presentation/05%20stores/store_info_view_page.dart' as _i7;
+import '../01 presentation/05 stores/store_info_page.dart' as _i7;
 import '../01%20presentation/05%20stores/store_view_page.dart' as _i20;
 import '../01%20presentation/05%20stores/stores_view_page.dart' as _i19;
 import '../01%20presentation/06%20cart/cart_view_page.dart' as _i17;
@@ -118,11 +118,11 @@ class AppRouter extends _i30.RootStackRouter {
         barrierDismissible: false,
       );
     },
-    StoreInfoViewWrapperRoute.name: (routeData) {
-      final args = routeData.argsAs<StoreInfoViewWrapperRouteArgs>();
+    StoreInfoWrapperRoute.name: (routeData) {
+      final args = routeData.argsAs<StoreInfoWrapperRouteArgs>();
       return _i30.CustomPage<dynamic>(
         routeData: routeData,
-        child: _i7.StoreInfoViewWrapperPage(
+        child: _i7.StoreInfoWrapperPage(
           key: args.key,
           store: args.store,
         ),
@@ -439,7 +439,7 @@ class AppRouter extends _i30.RootStackRouter {
           path: '/product',
         ),
         _i30.RouteConfig(
-          StoreInfoViewWrapperRoute.name,
+          StoreInfoWrapperRoute.name,
           path: '/storeInfo',
         ),
         _i30.RouteConfig(
@@ -686,26 +686,26 @@ class ProductWrapperRouteArgs {
 }
 
 /// generated route for
-/// [_i7.StoreInfoViewWrapperPage]
-class StoreInfoViewWrapperRoute
-    extends _i30.PageRouteInfo<StoreInfoViewWrapperRouteArgs> {
-  StoreInfoViewWrapperRoute({
+/// [_i7.StoreInfoWrapperPage]
+class StoreInfoWrapperRoute
+    extends _i30.PageRouteInfo<StoreInfoWrapperRouteArgs> {
+  StoreInfoWrapperRoute({
     _i31.Key? key,
     required _i33.Store store,
   }) : super(
-          StoreInfoViewWrapperRoute.name,
+          StoreInfoWrapperRoute.name,
           path: '/storeInfo',
-          args: StoreInfoViewWrapperRouteArgs(
+          args: StoreInfoWrapperRouteArgs(
             key: key,
             store: store,
           ),
         );
 
-  static const String name = 'StoreInfoViewWrapperRoute';
+  static const String name = 'StoreInfoWrapperRoute';
 }
 
-class StoreInfoViewWrapperRouteArgs {
-  const StoreInfoViewWrapperRouteArgs({
+class StoreInfoWrapperRouteArgs {
+  const StoreInfoWrapperRouteArgs({
     this.key,
     required this.store,
   });
@@ -716,7 +716,7 @@ class StoreInfoViewWrapperRouteArgs {
 
   @override
   String toString() {
-    return 'StoreInfoViewWrapperRouteArgs{key: $key, store: $store}';
+    return 'StoreInfoWrapperRouteArgs{key: $key, store: $store}';
   }
 }
 

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -12,17 +10,17 @@ import 'package:verifyd_store/utils/helpers/db_helpers.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 
 import '../../03 domain/store/store.dart';
+import 'widgets/store_info_expansion_tile.dart';
 
 //?-----------------------------------------------------------------------------
 
-class StoreInfoViewWrapperPage extends StatelessWidget {
-  const StoreInfoViewWrapperPage({Key? key, required this.store})
-      : super(key: key);
+class StoreInfoWrapperPage extends StatelessWidget {
+  const StoreInfoWrapperPage({Key? key, required this.store}) : super(key: key);
   final Store store;
 
   @override
   Widget build(BuildContext context) {
-    return StoreInfoViewPage(
+    return StoreInfoPage(
       store: store,
     );
   }
@@ -30,47 +28,52 @@ class StoreInfoViewWrapperPage extends StatelessWidget {
 
 //?-----------------------------------------------------------------------------
 
-class StoreInfoViewPage extends StatelessWidget {
-  const StoreInfoViewPage({Key? key, required this.store}) : super(key: key);
+class StoreInfoPage extends StatelessWidget {
+  const StoreInfoPage({Key? key, required this.store}) : super(key: key);
   final Store store;
 
   @override
   Widget build(BuildContext context) {
-    log(context.router.currentUrl);
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: FydView(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: FydView(
           pageViewType: ViewType.without_Nav_Bar,
           isScrollable: false,
           topSheetHeight: 200.h,
-          topSheet: _topSheetView(context),
-          bottomSheet: _bottomSheetView(context),
+          topSheet: _TopSheet(store: store),
+          bottomSheet: _BottomSheet(store: store),
         ),
       ),
     );
   }
+}
 
-//?--Top-Sheet-view-------------------------------------------------------------
-  _topSheetView(BuildContext context) {
+//?-----------------------------------------------------------------------------
+class _TopSheet extends StatelessWidget {
+  const _TopSheet({
+    super.key,
+    required this.store,
+  });
+
+  final Store store;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         //! AppBar
         FydAppBar(
-          leading: AppBarBtn(
-              iconData: FontAwesomeIcons.arrowLeftLong,
-              iconSize: 20,
-              padding: const EdgeInsets.all(10.0),
-              onPressed: () {
-                HapticFeedback.lightImpact();
-                context.router.pop();
-              }),
+          leading: AppBarBtn.back(onPressed: () {
+            HapticFeedback.lightImpact();
+            context.router.pop();
+          }),
           main: Center(
             child: FydAutoScrollingText(
                 width: 300.w,
-                height: 50.h,
+                height: 50,
                 velocity: 10,
                 fydText: FydText.h3custom(
                   text: store.name,
@@ -84,7 +87,7 @@ class StoreInfoViewPage extends StatelessWidget {
           child: FydTextCard(
             backgroundColor: fydSgrey,
             message: store.about,
-            textColor: fydPgrey,
+            textColor: fydABlueGrey,
             overflow: TextOverflow.ellipsis,
             maxLines: 3,
             padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
@@ -106,9 +109,19 @@ class StoreInfoViewPage extends StatelessWidget {
       ],
     );
   }
+}
 
-//?--bottom-Sheet-view----------------------------------------------------------
-  _bottomSheetView(BuildContext context) {
+//?-----------------------------------------------------------------------------
+
+class _BottomSheet extends StatelessWidget {
+  final Store store;
+  const _BottomSheet({
+    super.key,
+    required this.store,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     //-------
     String? facebook =
         store.socialPresence[DbHelpers.getStoreInfoField(StoreInfo.facebook)];
@@ -145,7 +158,7 @@ class StoreInfoViewPage extends StatelessWidget {
                       icon: const FaIcon(
                         FontAwesomeIcons.facebook,
                         size: 30,
-                        color: fydBblue,
+                        color: fydBgreen,
                       ),
                     ),
                   //! Instagram
@@ -159,7 +172,7 @@ class StoreInfoViewPage extends StatelessWidget {
                       icon: const FaIcon(
                         FontAwesomeIcons.instagram,
                         size: 30,
-                        color: fydBblue,
+                        color: fydBgreen,
                       ),
                     ),
                   //! Youtube
@@ -173,7 +186,7 @@ class StoreInfoViewPage extends StatelessWidget {
                       icon: const FaIcon(
                         FontAwesomeIcons.youtube,
                         size: 30,
-                        color: fydBblue,
+                        color: fydBgreen,
                       ),
                     ),
                   //! Whatsapp
@@ -187,7 +200,7 @@ class StoreInfoViewPage extends StatelessWidget {
                       icon: const FaIcon(
                         FontAwesomeIcons.whatsapp,
                         size: 30,
-                        color: fydBblue,
+                        color: fydBgreen,
                       ),
                     ),
                   //! web
@@ -201,7 +214,7 @@ class StoreInfoViewPage extends StatelessWidget {
                       icon: const FaIcon(
                         FontAwesomeIcons.globe,
                         size: 30,
-                        color: fydBblue,
+                        color: fydBgreen,
                       ),
                     ),
                 ],
@@ -278,44 +291,6 @@ class StoreInfoViewPage extends StatelessWidget {
       ),
     );
   }
+}
+
 //?-----------------------------------------------------------------------------
-}
-
-class StoreInfoExpansionTile extends StatelessWidget {
-  const StoreInfoExpansionTile({
-    Key? key,
-    required this.title,
-    this.titleSize = 22,
-    required this.color,
-    this.expanded = false,
-    required this.widgets,
-  }) : super(key: key);
-
-  final String title;
-  final double titleSize;
-  final Color color;
-  final bool expanded;
-  final List<Widget> widgets;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(6),
-      child: ExpansionTile(
-        initiallyExpanded: expanded,
-        backgroundColor: fydSblack,
-        collapsedBackgroundColor: fydSblack,
-        iconColor: fydPgrey,
-        collapsedIconColor: color,
-        expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
-        title: FydText.h3custom(
-          color: color,
-          size: titleSize,
-          text: title,
-          weight: FontWeight.w600,
-        ),
-        children: widgets,
-      ),
-    );
-  }
-}

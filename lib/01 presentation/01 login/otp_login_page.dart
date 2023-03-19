@@ -118,10 +118,13 @@ class _TopSheet extends StatelessWidget {
         children: [
           //! AppBar(back-btn)
           FydAppBar(
-            leading: AppBarBtn.back(onPressed: () {
-              HapticFeedback.lightImpact();
-              context.router.pop();
-            }),
+            leading: AppBarBtn.back(
+                bgColor: fydPwhite,
+                iconColor: fydPblack,
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  context.router.pop();
+                }),
             main: const SizedBox(),
           ),
           //! Heading

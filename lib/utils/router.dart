@@ -11,7 +11,7 @@ import 'package:verifyd_store/01%20presentation/02%20on%20boarding/on_boarding_p
 import 'package:verifyd_store/01%20presentation/03%20main%20root/main_page.dart';
 import 'package:verifyd_store/01%20presentation/04%20home/home_view_page.dart';
 import 'package:verifyd_store/01%20presentation/05%20stores/product_page.dart';
-import 'package:verifyd_store/01%20presentation/05%20stores/store_info_view_page.dart';
+import 'package:verifyd_store/01%20presentation/05%20stores/store_info_page.dart';
 import 'package:verifyd_store/01%20presentation/05%20stores/store_view_page.dart';
 import 'package:verifyd_store/01%20presentation/05%20stores/stores_view_page.dart';
 import 'package:verifyd_store/01%20presentation/06%20cart/cart_view_page.dart';
@@ -116,7 +116,7 @@ class Rn {
     //! product
     CustomRoute(path: '/product', page: ProductWrapperPage),
     //! store-Info
-    CustomRoute(path: '/storeInfo', page: StoreInfoViewWrapperPage),
+    CustomRoute(path: '/storeInfo', page: StoreInfoWrapperPage),
     //! editProfile
     CustomRoute(
       path: Rn.editProfile,
