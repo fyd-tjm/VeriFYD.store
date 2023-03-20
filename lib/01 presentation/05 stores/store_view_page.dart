@@ -35,6 +35,7 @@ class StoreViewWrapperPage extends StatelessWidget {
       child: WillPopScope(
         onWillPop: () async {
           final popResult = await showPermissionDialog(
+              title: 'Alert!',
               context: context,
               message: " Leaving store? Press Yes to leave, Cancel to stay.",
               falseBtnTitle: 'Cancel',
@@ -116,6 +117,11 @@ class StoreViewPage extends StatelessWidget {
                     AssetHelper.fetching_error,
                     fit: BoxFit.fitWidth,
                     width: 200,
+                  ),
+                  const FydText.b2custom(
+                    text: 'ahhh! something went wrong',
+                    color: fydBbluegrey,
+                    weight: FontWeight.w600,
                   ),
                   SizedBox(
                     height: 100.h,

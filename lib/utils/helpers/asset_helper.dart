@@ -10,6 +10,7 @@ class AssetHelper {
   static const launch_soon = 'assets/images/launch-soon.webp';
   static const store_closed = 'assets/images/store-closed.png';
   static const stockout = 'assets/images/stockout.png';
+  static const soldout = 'assets/images/soldout.png';
 
   static const svg_apparel = 'assets/svgs/apparels.svg';
   static const svg_footwear = 'assets/svgs/footwear.svg';

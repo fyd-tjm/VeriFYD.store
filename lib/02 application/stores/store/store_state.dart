@@ -12,7 +12,7 @@ class StoreState with _$StoreState {
     required Option<Either<StoreFailure, ProductFailure>> failure,
   }) = _StoreState;
   factory StoreState.initial() => StoreState(
-        isFetching: false,
+        isFetching: true,
         selectedType: null,
         storeRealtime: null,
         productList: [],

@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,16 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
-import 'package:verifyd_store/01%20presentation/05%20stores/store_info_page.dart';
 import 'package:verifyd_store/02%20application/product/product_bloc.dart';
-import 'package:verifyd_store/aa%20mock/static_ui.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 
-import 'widgets/export_widgets.dart';
-import 'widgets/store_info_expansion_tile.dart';
+import 'widgets/product_exports.dart';
 
 //?-----------------------------------------------------------------------------
 
@@ -30,7 +26,7 @@ class ProductWrapperPage extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           getIt<ProductBloc>()..add(GetProductRealtime(productRef: productRef)),
-      child: const ProductPage(),
+      child: ProductPage(productRef: productRef),
     );
   }
 }
@@ -38,7 +34,9 @@ class ProductWrapperPage extends StatelessWidget {
 //?-----------------------------------------------------------------------------
 
 class ProductPage extends HookWidget {
+  final String productRef;
   const ProductPage({
+    required this.productRef,
     Key? key,
   }) : super(key: key);
 
@@ -47,10 +45,10 @@ class ProductPage extends HookWidget {
     final imageIndex = useState(0);
     final selectedSize = useState('');
 
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: BlocConsumer<ProductBloc, ProductState>(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: BlocConsumer<ProductBloc, ProductState>(
           listenWhen: (previous, current) {
             if (context.router.currentUrl == '/product') {
               return true;
@@ -67,8 +65,8 @@ class ProductPage extends HookWidget {
                         message: productFailure.when(
                           permissionDenied: () => 'permission-denied',
                           notFound: () => 'product not found',
-                          serverError: () => 'server error, try later!',
-                          unexpectedError: () => 'unexpected error, try later!',
+                          serverError: () => 'server error: try later!',
+                          unexpectedError: () => 'unexpected error: try later!',
                         ),
                       ));
             }
@@ -122,25 +120,48 @@ class ProductPage extends HookWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Image.network(
-                    'https://imgtr.ee/images/2023/02/18/OHk7I.png',
+                  Image.asset(
+                    AssetHelper.fetching_error,
                     fit: BoxFit.fitWidth,
-                    width: 250,
+                    width: 200,
                   ),
-                  const SizedBox(
-                    height: 100,
+                  const FydText.b2custom(
+                    text: 'ahhh! something went wrong',
+                    color: fydBbluegrey,
+                    weight: FontWeight.w600,
+                  ),
+                  SizedBox(
+                    height: 100.h,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 100),
-                    child: FydBtn(
-                      color: fydSblack,
-                      onPressed: () => context.router.pop(),
-                      height: 50,
-                      fydText: const FydText.b1custom(
-                        text: 'Go Back',
-                        color: fydBbluegrey,
-                      ),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 50, vertical: 50.h),
+                    child: Column(
+                      children: [
+                        FydBtn(
+                          color: fydSblack,
+                          onPressed: () => context
+                              .read<ProductBloc>()
+                              .add(GetProductRealtime(productRef: productRef)),
+                          height: 50,
+                          fydText: const FydText.b1custom(
+                            text: 'Reload',
+                            color: fydBbluegrey,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        FydBtn(
+                          color: fydSblack,
+                          onPressed: () => context.router.navigateBack(),
+                          height: 50,
+                          fydText: const FydText.b1custom(
+                            text: 'Go Back',
+                            color: fydBbluegrey,
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 ],
@@ -156,9 +177,10 @@ class ProductPage extends HookWidget {
                 isScrollable: false,
                 topSheetHeight: 350.h,
                 topSheetColor: fydSblack,
-                topSheet: _topSheetView(context, state, imageIndex, inStock),
-                bottomSheet:
-                    _bottomSheetView(context, state, selectedSize, inStock),
+                topSheet: _TopSheet(
+                    state: state, imageIndex: imageIndex, inStock: inStock),
+                bottomSheet: _BottomSheet(
+                    state: state, selectedSize: selectedSize, inStock: inStock),
               );
             }
           },
@@ -166,14 +188,22 @@ class ProductPage extends HookWidget {
       ),
     );
   }
+}
+//?-----------------------------------------------------------------------------
 
-//?--Top-Sheet-View-------------------------------------------------------------
-  _topSheetView(
-    BuildContext context,
-    ProductState state,
-    ValueNotifier<int> imageIndex,
-    bool inStock,
-  ) {
+class _TopSheet extends StatelessWidget {
+  final ProductState state;
+  final ValueNotifier<int> imageIndex;
+  final bool inStock;
+  const _TopSheet({
+    super.key,
+    required this.state,
+    required this.imageIndex,
+    required this.inStock,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -232,51 +262,55 @@ class ProductPage extends HookWidget {
         Align(
           alignment: Alignment.topCenter,
           child: FydAppBar(
-            leading: AppBarBtn(
-                iconData: FontAwesomeIcons.arrowLeftLong,
-                iconSize: 20,
-                padding: const EdgeInsets.all(10.0),
-                onPressed: () {
-                  HapticFeedback.lightImpact();
-                  context.router.pop();
-                }),
+            leading: AppBarBtn.back(onPressed: () {
+              HapticFeedback.lightImpact();
+              context.router.pop();
+            }),
             main: const SizedBox(),
           ),
         ),
       ],
     );
   }
+}
 
-//?--Bottom-Sheet-View----------------------------------------------------------
-  _bottomSheetView(
-    BuildContext context,
-    ProductState state,
-    ValueNotifier<String> selectedSize,
-    bool inStock,
-  ) {
+//?-----------------------------------------------------------------------------
+
+class _BottomSheet extends StatelessWidget {
+  final ProductState state;
+  final ValueNotifier<String> selectedSize;
+  final bool inStock;
+  const _BottomSheet({
+    super.key,
+    required this.state,
+    required this.selectedSize,
+    required this.inStock,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     //! sold out
     if (inStock == false) {
       return Column(
-        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           //! sold-out Image
           Image.asset(
-            'assets/logo/soldout.png',
-            fit: BoxFit.contain,
-            height: 300.h,
+            AssetHelper.soldout,
+            height: 250.h,
+            fit: BoxFit.fitWidth,
           ),
           //! go-back btn
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(horizontal: 50.h),
             child: FydBtn(
               onPressed: () {
                 HapticFeedback.lightImpact();
                 context.router.pop();
               },
               color: fydSblack,
-              fydText: const FydText.h3custom(
-                text: 'Go back ←',
+              fydText: const FydText.b2custom(
+                text: 'Go back',
                 color: fydBblue,
                 weight: FontWeight.w600,
               ),
@@ -465,7 +499,7 @@ class ProductPage extends HookWidget {
           //! AddToCart-BTN
           Padding(
             padding: EdgeInsets.only(
-                bottom: 25.h, top: 10.h, left: 10.w, right: 10.w),
+                bottom: 30.h, top: 10.h, left: 10.w, right: 10.w),
             child: FydBtn(
               height: 60.h,
               color: fydSblack,
@@ -497,101 +531,6 @@ class ProductPage extends HookWidget {
         ],
       );
     }
-  }
-}
-
-//?-----------------------------------------------------------------------------
-//! product-info-section
-class ProductInfoSection extends StatelessWidget {
-  final String productName;
-  final String company;
-  final String price;
-  const ProductInfoSection({
-    Key? key,
-    required this.productName,
-    required this.company,
-    required this.price,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        //! product-company names
-        Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            FydEllipsisText(
-              width: MediaQuery.of(context).size.width * (2 / 3),
-              fydText: FydText.b2custom(
-                text: productName,
-                color: fydPwhite,
-                weight: FontWeight.w700,
-              ),
-            ),
-            FydText.b4custom(
-              text: company,
-              weight: FontWeight.bold,
-              color: fydPgrey,
-              letterSpacing: .9,
-            )
-          ],
-        ),
-        //! price
-        Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            FydText.b1custom(
-              text: '₹ $price',
-              color: fydBblue,
-              weight: FontWeight.w600,
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-//?-----------------------------------------------------------------------------
-//! Product-Size-Tile
-class ProductSizeTile extends StatelessWidget {
-  const ProductSizeTile({
-    Key? key,
-    required this.size,
-    required this.tileColor,
-    required this.onPressed,
-  }) : super(key: key);
-  final String size;
-  final Color tileColor;
-  final Function(String) onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50.h,
-      width: 70.w,
-      child: GestureDetector(
-        onTap: () {
-          HapticFeedback.lightImpact();
-          onPressed(size);
-        },
-        child: Card(
-          color: tileColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Center(child: FydText.b1custom(text: size, color: fydPwhite)),
-        ),
-      ),
-    );
   }
 }
 

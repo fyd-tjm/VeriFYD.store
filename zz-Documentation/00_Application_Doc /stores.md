@@ -123,34 +123,46 @@
 
 ----------------------------------------------------------
 
-# ProductPage: ()
+# ProductPage: ('/product')
 >>>>>>>>>>>>>>>>>>>>>>>>>>
 * `WrapperHandling`
-        Bloc Providers:
-        Will PopScope: 
-        Network Dialogs: 
+        Bloc Providers: ProductBloc()..GetProductRealtime(pRef)
+        Will PopScope: nil
+        Network Dialogs: via mainPage
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    - Scaffold(resize)-->SafeArea: 
-    - TopSheet/btmSheet--stless:
     `topsheet Height`: 
-    `AppBar`: Text()--Icon()   
+    `AppBar`: Icon(back)   
     
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `blocs`: 
-    `listenWhen`:
-    `Listener`: ErrorHandling()
-    `buildWhen`:
-    `builder`: Loading(): null(): view
-    `events`: 
+    `blocs`: ProductBloc()
+    `listenWhen`: (context.router.currentUrl == '/product')
+    `Listener`: ErrorHandling() + showPermissionDialog()
+                => 'permission-denied'
+                => 'product not found'
+                => 'server error: try later!'
+                => 'unexpected error: try later!'
+
+                => 'No more left in stock',
+                => 'Max cart limit reached.',
+                => 'unexpected Error, try later!',
+    `builder`: 
+        Loading(fetching + prodRealtime is null): spinkit(40+fydBblue)
+        null(): 
+        view
+    `events`: AddNewCartWithProduct(size), AddToCart()
     
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `assets`: 
-    `widgets`: 
+    `assets`: fetch_error, soldout
+    `widgets`:  ProductCarouselSlider(),
+                ProductInfoSection(), ProductSizeTile()
+                StoreInfoExpansionTile()
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    - importing/exporting/widgets
     `Todos`: 
-    - tagging/commit:
+            => avoid loading/null display on start
+            => Add size-Guide Logic
+
+    - commit: ui-cleanup-product
 
 ----------------------------------------------------------
