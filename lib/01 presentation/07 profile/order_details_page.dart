@@ -1,12 +1,8 @@
-import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/widgets/order_summary_section.dart';
@@ -14,6 +10,7 @@ import 'package:verifyd_store/03%20domain/checkout/order.dart';
 import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
 import 'package:verifyd_store/03%20domain/store/product.dart';
 import 'package:intl/intl.dart';
+import 'widgets/order_details_exports.dart';
 
 //?-----------------------------------------------------------------------------
 class OrderDetailsWrapperPage extends StatelessWidget {
@@ -33,10 +30,10 @@ class OrderDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: FydView(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: FydView(
           pageViewType: ViewType.without_Nav_Bar,
           isScrollable: false,
           topSheetHeight: 250.h,
@@ -71,14 +68,10 @@ class OrderDetailsPage extends StatelessWidget {
         //! AppBar (backBTN + heading)
         FydAppBar(
           //! close-btn
-          leading: AppBarBtn(
-              iconData: FontAwesomeIcons.arrowLeftLong,
-              iconSize: 20,
-              padding: const EdgeInsets.all(8.0),
-              onPressed: () {
-                HapticFeedback.lightImpact();
-                context.router.pop();
-              }),
+          leading: AppBarBtn.back(onPressed: () {
+            HapticFeedback.lightImpact();
+            context.router.pop();
+          }),
           //! Heading-OrderId
           main: Center(
               child: FydRichText(
@@ -302,87 +295,6 @@ class OrderDetailsPage extends StatelessWidget {
 }
 
 //?-----------------------------------------------------------------------------
-//! Tracker-4-steps
-class Tracker4 extends StatelessWidget {
-  const Tracker4({
-    Key? key,
-    required this.activeIndex,
-    required this.activeColor,
-  }) : super(key: key);
-  final int activeIndex;
-  final Color activeColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: List.generate(4, (index) {
-        if (index == 3) {
-          return TrackerStep(
-            enabledColor: activeColor,
-            disabledColor: fydSwhite,
-            isActive: (activeIndex >= index),
-            isLast: true,
-          );
-        }
-        return TrackerStep(
-          enabledColor: activeColor,
-          disabledColor: fydSwhite,
-          isActive: (activeIndex >= index),
-        );
-      }),
-    );
-  }
-}
-
-class TrackerStep extends StatelessWidget {
-  final Color enabledColor;
-  final Color disabledColor;
-  final bool isLast;
-  final bool isActive;
-  const TrackerStep({
-    Key? key,
-    this.isLast = false,
-    required this.enabledColor,
-    required this.disabledColor,
-    required this.isActive,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        CircleAvatar(
-          backgroundColor: (isActive) ? enabledColor : disabledColor,
-          radius: 12.r,
-        ),
-        (!isLast)
-            ? Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      (isActive) ? enabledColor : disabledColor,
-                      Colors.white
-                    ],
-                    begin: Alignment.center,
-                    end: Alignment.centerRight,
-                  ),
-                ),
-                height: 1.0,
-                width: 70,
-              )
-            : const SizedBox.shrink(),
-      ],
-    );
-  }
-}
-
-//?-----------------------------------------------------------------------------
 //! payment-Info-Section
 class PaymentInfoSection extends StatelessWidget {
   const PaymentInfoSection({
@@ -441,175 +353,4 @@ class PaymentInfoSection extends StatelessWidget {
   }
 } //ordersPage
 
-//?-----------------------------------------------------------------------------
-//! Order-Item-Tile
-class OrderItemTile extends StatelessWidget {
-  final Product product;
-  final String sku;
-  final int qty;
-  final String size;
-  const OrderItemTile({
-    Key? key,
-    required this.product,
-    required this.sku,
-    required this.size,
-    required this.qty,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(5.0),
-      child: Container(
-        height: 80.w,
-        color: fydSblack,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            //! Product-Image (width:85w)
-            GestureDetector(
-              onTap: () async {
-                //! image-Pop dialog
-                await showModal<bool>(
-                  context: context,
-                  configuration: const FadeScaleTransitionConfiguration(
-                    barrierDismissible: true,
-                  ),
-                  useRootNavigator: false,
-                  builder: (context) => FydImageDialog(
-                    imageUrl: product.thumbnailImage,
-                    onClose: () => Navigator.of(context).pop(true),
-                  ),
-                );
-              },
-              child: SizedBox(
-                height: double.infinity,
-                width: 75.w,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5.0),
-                  child: CachedNetworkImage(
-                    imageUrl: product.thumbnailImage,
-                    fit: BoxFit.cover,
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) => const SpinKitWave(
-                      size: 20,
-                      color: fydPgrey,
-                    ),
-                    errorWidget: (context, url, error) => Icon(
-                      Icons.image_not_supported_outlined,
-                      color: fydPgrey,
-                      size: 30.h,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            //! Product-Detail
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  //! productName: companyName: skuId
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //! productName: companyName
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            //! productName
-                            FydEllipsisText(
-                              width: MediaQuery.of(context).size.width * .6,
-                              fydText: FydText.b4custom(
-                                text: product.name,
-                                color: fydPgrey,
-                                weight: FontWeight.normal,
-                              ),
-                            ),
-                            //! companyName
-                            FydText.b4custom(
-                              text: product.company,
-                              color: fydBbluegrey,
-                              size: 13,
-                              weight: FontWeight.w600,
-                            ),
-                          ],
-                        ),
-                        //! skuId
-                        FydRichText(
-                          size: 13,
-                          color: fydPgrey,
-                          textList: [
-                            const TextSpan(text: 'sku: '),
-                            TextSpan(
-                              text: product.skuId,
-                              style: const TextStyle(
-                                  color: fydABlueGrey, fontSize: 14),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  //! size : qty X price
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        //! Size
-                        Card(
-                          color: fydPgrey,
-                          elevation: 4.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 4, vertical: 2),
-                            child: FydText.b3custom(
-                              text: size,
-                              color: fydPwhite,
-                              weight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        //! qty X price
-                        FydRichText(
-                          size: 15,
-                          color: fydBbluegrey,
-                          textList: [
-                            //! Price
-                            TextSpan(text: '₹ ${product.sellingPrice.toInt()}'),
-                            //! X
-                            const TextSpan(
-                                text: '  X  ',
-                                style: TextStyle(
-                                    color: fydABlueGrey, fontSize: 18)),
-                            //! Qty
-                            TextSpan(text: qty.toString().padLeft(2, '0'))
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

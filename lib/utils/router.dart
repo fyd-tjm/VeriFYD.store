@@ -17,12 +17,12 @@ import 'package:verifyd_store/01%20presentation/05%20stores/stores_view_page.dar
 import 'package:verifyd_store/01%20presentation/06%20cart/cart_view_page.dart';
 import 'package:verifyd_store/01%20presentation/07%20profile/edit_profile_page.dart';
 import 'package:verifyd_store/01%20presentation/07%20profile/help_page.dart';
-import 'package:verifyd_store/01%20presentation/07%20profile/new_address_page.dart';
+import 'package:verifyd_store/01%20presentation/09%20address/new_address_page.dart';
 import 'package:verifyd_store/01%20presentation/07%20profile/order_details_page.dart';
 import 'package:verifyd_store/01%20presentation/07%20profile/orders_page.dart';
 import 'package:verifyd_store/01%20presentation/07%20profile/profile_address_page.dart';
 import 'package:verifyd_store/01%20presentation/07%20profile/profile_view_page.dart';
-import 'package:verifyd_store/01%20presentation/07%20profile/update_address_page.dart';
+import 'package:verifyd_store/01%20presentation/09%20address/update_address_page.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/checkout_wrapper_page.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/confirmation_page.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/delivery_address_page.dart';

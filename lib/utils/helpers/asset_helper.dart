@@ -11,8 +11,12 @@ class AssetHelper {
   static const store_closed = 'assets/images/store-closed.png';
   static const stockout = 'assets/images/stockout.png';
   static const soldout = 'assets/images/soldout.png';
+  static const no_orders = 'assets/images/no-orders-yet.png';
 
   static const svg_apparel = 'assets/svgs/apparels.svg';
   static const svg_footwear = 'assets/svgs/footwear.svg';
   static const svg_other = 'assets/svgs/others.svg';
+  static const svg_orders = 'assets/svgs/orders.svg';
+  static const svg_addresses = 'assets/svgs/address.svg';
+  static const svg_help = 'assets/svgs/help.svg';
 }

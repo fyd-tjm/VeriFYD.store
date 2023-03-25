@@ -1,35 +1,36 @@
+## Core Documentation
+>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-### Core
- * scaffold -> safeArea
- * xx_view_page : with navBar(without scaffold and safeArea)
- * xx_page : without NavBar(with scaffold)
- * xx_WrapperPage / xx_WrapperViewPage : 
-   - case 1: if not RouterPage, call WrapperPage to call Page/viewPage
-   - case 2: if routerPage, use ViewPage/Page to call itself  
+`Screens`(3): start/ splash/ landing/ 
+`Extra Screens`(2):  Address(new/update)
+`tag`: uic-Core
+----------------------------------------------------------
 
+# NewAddressPage: ('/newAddress') 
+# UpdateAddressPage: ('/updateAddress') 
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+* `WrapperHandling`
+      Bloc Providers: FydUserCubit(), SharedInfoCubit()
+      Will PopScope: yes
+      Network Dialogs: via mainPage
 
-### Referenced Size (890, 400) 
- * usable H 838.6 with safeArea
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `AppBar`: Text(d3--1.3ls)--Icon(back)      
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `blocs`: FydUserCubit
+    `listenWhen`: (context.router.currentUrl == '/newAddress')
+    `Listener`: ErrorHandling() + FydLoadingOverlay
+    `events`: clearCart(), cartAvailabilityCheck(), updateQty(), removeSize()
 
-### Packages
- * `custom_bubble_navigation_bar`  Bottom nav bar
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `widgets`: FydTextFormField, AddressDropdownMenu
+    `assets`: something_went_wrong, empty_cart
 
-### FydWidgets
- * `FydView` - topSheet, bottomSheet
- * `FydAppBar` - leading, trailing, main Widgets
- * `FydCategoryCard` - title, color, imageUrl/asset
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
+    `Todos`: null
 
-## stores-View-Page
- * `FydCategoryCard` - title, color, imageUrl/asset
- * `StoresVerticleListView` - categoryHeader, footer with onPressed(), widgetList
- * `StoresTile` - store, onPressed()
+# Extra
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+widets
+----------------------------------------------------------
 
-## shared-Info []
- *  `shared-Info` {categories with logos, liveStores by categories...} 
- * `shared-Info-Cubit`
- * `i-shared-info-repository`
-
-## Stores
- *  `Stores-Bloc`
-
- 

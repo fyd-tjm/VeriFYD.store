@@ -6,13 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/router.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 
-import '../../02 application/fyd user/fyd_user_cubit.dart';
-import '../00 core/widgets/00_core_widgets_export.dart';
-import 'widgets/exports.dart';
+import 'widgets/profile_address_tile.dart';
 
 //?-----------------------------------------------------------------------------
 class ProfileAddressesWrapperPage extends StatelessWidget {
@@ -34,74 +34,84 @@ class ProfileAddressesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log(context.router.currentUrl);
-    return SafeArea(
-      child: Scaffold(
-          body: BlocConsumer<FydUserCubit, FydUserState>(
-        listenWhen: (previous, current) {
-          if (context.router.currentUrl == '/profileAddress') {
-            return true;
-          }
-          return false;
-        },
-        listener: (context, state) {
-          if (state.fydUser == null) {
-            context.router.pop();
-          }
-          if (state.failureOrSuccess.isSome()) {
-            state.failureOrSuccess.fold(
-              () => null,
-              (userFailure) => userFailure.fold(
-                (failure) => showSnack(
-                  viewType: SnackBarViewType.withoutNav,
-                  context: context,
-                  message: failure.when(
-                    aborted: () => 'Failed! try again later',
-                    invalidArgument: () => 'Invalid Argument. try again',
-                    alreadyExists: () => 'Data already Exists',
-                    notFound: () => 'Data not found!',
-                    permissionDenied: () => 'Permission Denied',
-                    serverError: () => 'Server Error. try again later',
-                    unknownError: () => 'Something went wrong. try again later',
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: BlocConsumer<FydUserCubit, FydUserState>(
+            listenWhen: (previous, current) {
+              if (context.router.currentUrl == '/profileAddress') {
+                return true;
+              }
+              return false;
+            },
+            listener: (context, state) {
+              if (state.fydUser == null) {
+                context.router.pop();
+              }
+              if (state.failureOrSuccess.isSome()) {
+                state.failureOrSuccess.fold(
+                  () => null,
+                  (userFailure) => userFailure.fold(
+                    (failure) => showSnack(
+                      viewType: SnackBarViewType.withoutNav,
+                      context: context,
+                      message: failure.when(
+                        aborted: () => 'Failed! try again later',
+                        invalidArgument: () => 'Invalid Argument. try again',
+                        alreadyExists: () => 'Data already Exists',
+                        notFound: () => 'Data not found!',
+                        permissionDenied: () => 'Permission Denied',
+                        serverError: () => 'Server Error. try again later',
+                        unknownError: () =>
+                            'Something went wrong. try again later',
+                      ),
+                    ),
+                    (success) => showSnack(
+                        context: context,
+                        viewType: SnackBarViewType.withoutNav,
+                        message: 'success!'),
                   ),
-                ),
-                (success) => showSnack(
-                    context: context,
-                    viewType: SnackBarViewType.withoutNav,
-                    message: 'success!'),
-              ),
-            );
-          }
-        },
-        buildWhen: (previous, current) {
-          if (previous.fydUser?.addresses != current.fydUser?.addresses) {
-            return true;
-          }
-          return false;
-        },
-        builder: (context, state) {
-          if (state.fydUser == null) {
-            return const Center(
-              child: SpinKitWave(
-                color: fydPwhite,
-                size: 30.0,
-              ),
-            );
-          } else {
-            return FydView(
-              pageViewType: ViewType.without_Nav_Bar,
-              isScrollable: false,
-              topSheetHeight: 160.h,
-              topSheet: _topSheetView(context, state),
-              bottomSheet: _bottomSheetView(context, state),
-            );
-          }
-        },
-      )),
-    );
+                );
+              }
+            },
+            buildWhen: (previous, current) {
+              if (previous.fydUser?.addresses != current.fydUser?.addresses) {
+                return true;
+              }
+              return false;
+            },
+            builder: (context, state) {
+              if (state.fydUser == null) {
+                return const Center(
+                  child: SpinKitWave(
+                    color: fydBblue,
+                    size: 30.0,
+                  ),
+                );
+              } else {
+                return FydView(
+                    pageViewType: ViewType.without_Nav_Bar,
+                    isScrollable: false,
+                    topSheetHeight: 160.h,
+                    topSheet: _TopSheet(state: state),
+                    bottomSheet: _BottomSheet(state: state));
+              }
+            },
+          ),
+        ));
   }
-
+}
 //?-----------------------------------------------------------------------------
-  _topSheetView(BuildContext context, FydUserState state) {
+
+class _TopSheet extends StatelessWidget {
+  final FydUserState state;
+  const _TopSheet({
+    super.key,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     final fydUser = state.fydUser!;
     return Column(
       mainAxisSize: MainAxisSize.max,
@@ -109,8 +119,7 @@ class ProfileAddressesPage extends StatelessWidget {
       children: [
         //! AppBar (heading + back-Btn )
         FydAppBar(
-          leading: AppBarBtn(
-            iconData: Icons.arrow_back_ios_new_rounded,
+          leading: AppBarBtn.back(
             onPressed: () => context.router.pop(),
           ),
           main: const Center(
@@ -165,10 +174,19 @@ class ProfileAddressesPage extends StatelessWidget {
       ],
     );
   }
+}
 
 //?-----------------------------------------------------------------------------
-  _bottomSheetView(BuildContext context, FydUserState state) {
-    //! ListView Profile-Address-Tiles
+
+class _BottomSheet extends StatelessWidget {
+  final FydUserState state;
+  const _BottomSheet({
+    super.key,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     final userAddressMap = state.fydUser!.addresses;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
@@ -204,7 +222,6 @@ class ProfileAddressesPage extends StatelessWidget {
       ),
     );
   }
-
-//?-----------------------------------------------------------------------------
 }
+
 //?-----------------------------------------------------------------------------

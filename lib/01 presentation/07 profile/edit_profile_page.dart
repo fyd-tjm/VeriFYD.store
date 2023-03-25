@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +22,7 @@ class EditProfileWrapperPage extends StatelessWidget {
           onWillPop: () async {
             final popResult = await showPermissionDialog(
                 context: context,
+                title: 'Alert!',
                 message: "Changes not saved. Yes to leave, Cancel to stay.",
                 falseBtnTitle: 'Cancel',
                 trueBtnTitle: 'Yes');
@@ -42,7 +41,6 @@ class EditProfilePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(context.router.currentUrl);
     //-----
     final fydUserName = getIt<FydUserCubit>().state.fydUser!.name;
     final fydUserEmail = getIt<FydUserCubit>().state.fydUser!.email;
@@ -50,11 +48,10 @@ class EditProfilePage extends HookWidget {
     final nameController = useTextEditingController(text: fydUserName);
     final emailController = useTextEditingController(text: fydUserEmail);
     //-----
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: fydPblack,
-        body: BlocListener<FydUserCubit, FydUserState>(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: BlocListener<FydUserCubit, FydUserState>(
           listener: (context, state) {
             if (state.failureOrSuccess.isSome()) {
               state.failureOrSuccess.fold(
@@ -67,14 +64,13 @@ class EditProfilePage extends HookWidget {
                       viewType: SnackBarViewType.withNav,
                       context: context,
                       message: failure.when(
-                        aborted: () => 'Failed! try again later',
-                        invalidArgument: () => 'Invalid Argument. try again',
+                        aborted: () => 'Failed! try again',
+                        invalidArgument: () => 'Invalid Argument: try again',
                         alreadyExists: () => 'Data already Exists',
                         notFound: () => 'Data not found!',
                         permissionDenied: () => 'Permission Denied',
-                        serverError: () => 'Server Error. try again later',
-                        unknownError: () =>
-                            'Something went wrong. try again later',
+                        serverError: () => 'Server Error: try again ',
+                        unknownError: () => 'Something went wrong: try again ',
                       ),
                     ),
                     (success) => showSnack(
@@ -117,8 +113,7 @@ class EditProfilePage extends HookWidget {
       children: [
         //! AppBar (heading + close-Btn)
         FydAppBar(
-          leading: AppBarBtn(
-            iconData: Icons.close_rounded,
+          leading: AppBarBtn.close(
             onPressed: () {
               FocusScope.of(context).unfocus();
               context.router.pop();
@@ -202,7 +197,7 @@ class EditProfilePage extends HookWidget {
             color: fydSblack,
             height: 60.h,
             fydText: const FydText.h2custom(
-              text: 'Update  ⇪',
+              text: 'Update ',
               color: fydBblue,
               weight: FontWeight.w600,
             ),

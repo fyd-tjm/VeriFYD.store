@@ -1,14 +1,12 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
-import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/db_helpers.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
@@ -21,15 +19,8 @@ class HelpWrapperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider.value(
-          value: getIt<SharedInfoCubit>(),
-        ),
-        BlocProvider.value(
-          value: getIt<FydUserCubit>(),
-        ),
-      ],
+    return BlocProvider.value(
+      value: getIt<SharedInfoCubit>(),
       child: const HelpPage(),
     );
   }
@@ -43,14 +34,14 @@ class HelpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: fydPblack,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: BlocBuilder<SharedInfoCubit, SharedInfoState>(
           builder: (context, state) {
             return (state.sharedInfo == null)
                 ? const Center(
                     child: SpinKitWave(
-                      color: fydSgrey,
+                      color: fydBblue,
                       size: 30.0,
                     ),
                   )
@@ -75,10 +66,10 @@ class HelpPage extends StatelessWidget {
       children: [
         //! appBar(back-btn + heading)
         FydAppBar(
-          leading: AppBarBtn(
-            iconData: Icons.close_rounded,
-            onPressed: () => context.router.pop(),
-          ),
+          leading: AppBarBtn.close(onPressed: () {
+            HapticFeedback.mediumImpact();
+            context.router.pop();
+          }),
           main: const Center(
             child: FydText.d3black(
               text: 'Help',

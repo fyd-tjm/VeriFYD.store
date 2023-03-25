@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,11 +7,12 @@ import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 import 'package:verifyd_store/utils/router.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 
-import 'widgets/exports.dart';
+import 'widgets/profile_tile.dart';
 
 //?-----------------------------------------------------------------------------
 
@@ -35,10 +34,10 @@ class ProfileViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(context.router.currentUrl);
-    return SafeArea(
-      child: Scaffold(
-        body: BlocConsumer<FydUserCubit, FydUserState>(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: BlocConsumer<FydUserCubit, FydUserState>(
           listenWhen: (previous, current) {
             if (context.tabsRouter.currentUrl == '/main/profile') {
               return true;
@@ -54,14 +53,13 @@ class ProfileViewPage extends StatelessWidget {
                     viewType: SnackBarViewType.withNav,
                     context: context,
                     message: failure.when(
-                      aborted: () => 'Failed! try again later',
+                      aborted: () => 'Failed! try again',
                       invalidArgument: () => 'Invalid Argument. try again',
                       alreadyExists: () => 'Data already Exists',
                       notFound: () => 'Data not found!',
                       permissionDenied: () => 'Permission Denied',
-                      serverError: () => 'Server Error. try again later',
-                      unknownError: () =>
-                          'Something went wrong. try again later',
+                      serverError: () => 'Server Error: try again',
+                      unknownError: () => 'Something went wrong: try again ',
                     ),
                   ),
                   (success) => showSnack(
@@ -77,17 +75,27 @@ class ProfileViewPage extends StatelessWidget {
               pageViewType: ViewType.with_Nav_Bar,
               isScrollable: false,
               topSheetHeight: 300.h,
-              topSheet: _topSheetView(context, state),
-              bottomSheet: _bottomSheetView(context, state),
+              topSheet: _TopSheet(state: state),
+              bottomSheet: _BottomSheet(state: state),
             );
           },
         ),
       ),
     );
   }
-//?-Top-Sheet-View--------------------------------------------------------------
+}
 
-  _topSheetView(BuildContext context, FydUserState state) {
+//?-----------------------------------------------------------------------------
+
+class _TopSheet extends StatelessWidget {
+  final FydUserState state;
+  const _TopSheet({
+    super.key,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     final fydUser = state.fydUser;
     return Column(
       children: [
@@ -105,7 +113,6 @@ class ProfileViewPage extends StatelessWidget {
             onPressed: (fydUser == null)
                 ? null
                 : () {
-                    //! EditProfile Page navigation
                     context.router.navigateNamed(Rn.editProfile);
                   },
           ),
@@ -135,6 +142,7 @@ class ProfileViewPage extends StatelessWidget {
         ),
         //! Profile-info
         (fydUser == null)
+            //loading
             ? Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -142,11 +150,12 @@ class ProfileViewPage extends StatelessWidget {
                   children: const [
                     SpinKitWave(
                       color: fydPblack,
-                      size: 30.0,
+                      size: 40.0,
                     ),
                   ],
                 ),
               )
+            //Info
             : Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -154,27 +163,25 @@ class ProfileViewPage extends StatelessWidget {
                   children: [
                     //! Name
                     Padding(
-                      padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
+                      padding: EdgeInsets.only(top: 10.h, bottom: 8.h),
                       child: FydText.h3custom(
                         color: fydPgrey,
                         text: fydUser.name,
                         weight: FontWeight.w600,
                       ),
                     ),
-
                     //! Phone
                     Padding(
-                      padding: EdgeInsets.only(bottom: 2.h),
+                      padding: EdgeInsets.only(bottom: 20.h),
                       child: FydText.b2black(
                         text: Helpers.phoneMaskWithCountryCode(fydUser.phone),
                         weight: FontWeight.w700,
                       ),
                     ),
-
                     //! email
-                    FydText.b2custom(
+                    FydText.b3custom(
                       color: fydPgrey,
-                      text: fydUser.email,
+                      text: '(${fydUser.email})',
                       weight: FontWeight.w600,
                     ),
                   ],
@@ -183,9 +190,18 @@ class ProfileViewPage extends StatelessWidget {
       ],
     );
   }
+}
+//?-----------------------------------------------------------------------------
 
-//?-Bottom-Sheet-View-----------------------------------------------------------
-  _bottomSheetView(BuildContext context, FydUserState state) {
+class _BottomSheet extends StatelessWidget {
+  final FydUserState state;
+  const _BottomSheet({
+    super.key,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     final fydUser = state.fydUser;
     return Padding(
       padding:
@@ -203,7 +219,7 @@ class ProfileViewPage extends StatelessWidget {
                 iconColor: fydBblue,
                 title: 'Orders',
                 description: 'your order history',
-                iconAsset: 'assets/icons/orders.svg',
+                iconAsset: AssetHelper.svg_orders,
                 onPressed: (fydUser == null)
                     ? () {}
                     : () {
@@ -218,7 +234,7 @@ class ProfileViewPage extends StatelessWidget {
                 iconColor: fydBblue,
                 title: 'Address(es)',
                 description: 'manage your addresses',
-                iconAsset: 'assets/icons/address.svg',
+                iconAsset: AssetHelper.svg_addresses,
                 onPressed: (fydUser == null)
                     ? () {}
                     : () {
@@ -234,7 +250,7 @@ class ProfileViewPage extends StatelessWidget {
                 iconColor: fydBblue,
                 title: 'Help',
                 description: 'wants to speak with us',
-                iconAsset: 'assets/icons/help.svg',
+                iconAsset: AssetHelper.svg_help,
                 onPressed: (fydUser == null)
                     ? () {}
                     : () {
@@ -248,11 +264,7 @@ class ProfileViewPage extends StatelessWidget {
             child: TextButton(
               onPressed: () async {
                 await context.read<FydUserCubit>().logOutUser();
-                context.router.replaceAll([
-                  LoginRouter(
-                    children: const [PhoneLoginRoute()],
-                  )
-                ]);
+                context.router.replaceAll([LandingWrapperRoute()]);
               },
               child: const FydText.b2custom(
                 text: 'Logout',
@@ -266,6 +278,6 @@ class ProfileViewPage extends StatelessWidget {
       ),
     );
   }
+}
 
 //?-----------------------------------------------------------------------------
-}

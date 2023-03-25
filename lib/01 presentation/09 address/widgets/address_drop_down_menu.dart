@@ -23,14 +23,15 @@ class AddressDropdownMenu extends HookWidget {
 
     return DropdownButtonFormField(
       validator: validator,
+      isExpanded: true,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 17.h, horizontal: 20.w),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: fydSgrey, width: 2),
+          borderSide: const BorderSide(color: fydSblack, width: 2),
           borderRadius: BorderRadius.circular(8),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: fydSgrey, width: 2),
+          borderSide: const BorderSide(color: fydPgrey, width: 2),
           borderRadius: BorderRadius.circular(8),
         ),
         errorBorder: OutlineInputBorder(
