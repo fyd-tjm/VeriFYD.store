@@ -6,6 +6,8 @@
 `Routers`: Checkout Router 
 `Routing`: ('/checkout')
 `tag`: uic-Checkout
+
+`TODOs`: Single Scroll Page for Checkout
 ------------------------------------------
 
 # DeliveryAddressPage ('/checkout/delivery')
@@ -36,52 +38,39 @@
 
 
 
-# ProfileView ('/main/profile')
+# PaymentPage ('/checkout/payment')
 >>>>>>>>>>>>>>>>>>>>>>>>>>
 * `WrapperHandling`
-        Bloc Providers: fydUserCubit()
-        Will PopScope: nil
-        Network Dialogs: via mainPage
+        Bloc Providers: 
+        Will PopScope: 
+        Network Dialogs: 
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `blocs`: FydUserCubit()
-    `listenWhen`: (context.tabsRouter.currentUrl == '/main/profile')
+    `blocs`: 
+    `listenWhen`: 
     `Listener`: ErrorHandling()
-                => 'Failed! try again ',
-                => 'Invalid Argument. try again',
-                => 'Data already Exists',
-                => 'Data not found!',
-                => 'Permission Denied',
-                => 'Server Error: try again',
-                => 'Something went wrong: try again '
-    `buildWhen`: nil
-    `builder`: Loading(if null) : view
-    `events`: logOutUser()
+    `buildWhen`: 
+    `builder`: 
+    `events`: 
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `topsheet Height`: 300.h
+    `topsheet Height`: 
     `AppBar`: Text(d3--1.3)--Icon(mode_edit_outline_outlined)   
-    `assets`: address/orders/help...svgs
-    `widgets`: ProfileTile()
+    `assets`: 
+    `widgets`: 
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
     `Todos`: 
 
 -----------------------------------------
 
-# EditProfile ('/editProfile')
+# Confirmation ('/checkout/confirmation')
 >>>>>>>>>>>>>>>>>>>>>>>>>>
 * `WrapperHandling`
-        Bloc Providers: fydUserCubit, 
-        Will PopScope: showPermissionDialog()
-        Network Dialogs: via MainPage
+        Bloc Providers: 
+        Will PopScope: 
+        Network Dialogs:
 
-    >>>>>>>>>>>>>>>>>>>>>>>>>>
-    - Scaffold(resize)-->SafeArea: 
-    - TopSheet/btmSheet--stless:
-    `topsheet Height`: 
-    AppBar: Text()--Icon()   
-    
     >>>>>>>>>>>>>>>>>>>>>>>>>>
     `blocs`: 
     `listenWhen`:
@@ -91,9 +80,13 @@
     `events`: 
     
     >>>>>>>>>>>>>>>>>>>>>>>>>>
+    - Scaffold(resize)-->SafeArea: 
+    - TopSheet/btmSheet--stless:
+    `topsheet Height`: 
+    `AppBar`: Text()--Icon()   
+    >>>>>>>>>>>>>>>>>>>>>>>>>>
     `assets`: 
     `widgets`: 
-
     >>>>>>>>>>>>>>>>>>>>>>>>>>
     - importing/exporting/widgets
     `Todos`: 
@@ -101,74 +94,3 @@
 
 -----------------------------------------
 
-# Orders ('/orders')
->>>>>>>>>>>>>>>>>>>>>>>>>>
-* `WrapperHandling`
-        Bloc Providers: fydUserCubit()..getFydOrders()
-        Will PopScope: nil
-        Network Dialogs: via mainPage
-
-    >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `blocs`: fydUserCubit()
-    `listenWhen`: (context.router.currentUrl == '/orders')
-    `Listener`: ErrorHandling()
-                => 'something went wrong'
-                => navigateTo(profile) 
-    `buildWhen`: (context.router.currentUrl == '/orders')
-    `builder`: 
-        Loading(updating+null): spinkit(Bbluegrey + 30)
-        fydView:
-            no-orders
-    `events`: getFydOrders()
-    
-    >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `topsheet Height`: 150.h
-    `AppBar`: Text(d3--1.3)--Icon(close)   
-    >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `assets`: no_orders
-    `widgets`: OrdersTile
-
-    >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `Todos`: 
-
------------------------------------------
-
-# OrderDetails ('/orders/detail')
->>>>>>>>>>>>>>>>>>>>>>>>>>
-* `WrapperHandling`
-        Bloc Providers:
-        Will PopScope: 
-        Network Dialogs: 
-
-    >>>>>>>>>>>>>>>>>>>>>>>>>>
-    - TopSheet/btmSheet--stless:
-    `topsheet Height`: 
-    AppBar: text(rich-24)--Icon(back)   
-    
-    
-    >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `widgets`: orderItemTile() Tracker4, StepTracker
-
-    >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `Todos`: => add Return Logic
-
------------------------------------------
-
-
-# Help ('/help')
->>>>>>>>>>>>>>>>>>>>>>>>>>
-* `WrapperHandling`
-        Bloc Providers: SharedInfoCubit()
-        Will PopScope: nil
-        Network Dialogs: via mainPage
-
-    >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `topsheet Height`: 170.h
-    AppBar: Text(d3-1.3)--Icon(close)   
-    >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `widgets`: HelpTile()
-
-    >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `Todos`: add pre-message
-
------------------------------------------

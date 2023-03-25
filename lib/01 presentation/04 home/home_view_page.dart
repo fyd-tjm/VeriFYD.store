@@ -426,6 +426,15 @@ class _BottomSheet extends StatelessWidget {
             ),
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20.0),
+          child: Center(
+            child: InkWell(
+                onTap: () => context.navigateTo(const TestRouter()),
+                child: const FydText.b1custom(
+                    text: 'Test-Page', color: fydABlueGrey)),
+          ),
+        ),
       ],
     );
   }

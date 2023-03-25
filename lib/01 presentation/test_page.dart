@@ -69,39 +69,8 @@ class TestPage extends flutterHooks.HookWidget {
   @override
   Widget build(BuildContext context) {
     final state1 = flutterHooks.useState<double>(0);
-    final size = flutterHooks.useState<double>(1);
-    final opacity = flutterHooks.useState<double>(1);
-    //------
-    final discount = flutterHooks.useState<Coupon?>(null);
-    final pinController = flutterHooks.useTextEditingController();
-    const borderColor = fydBblue;
-    const fillColor = fydSblack;
-    final defaultPinTheme = PinTheme(
-      width: 56,
-      height: 50,
-      textStyle: GoogleFonts.exo2(
-          fontSize: 22, color: fydBbluegrey, fontWeight: FontWeight.bold),
-      decoration: BoxDecoration(
-        color: fillColor,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.transparent),
-      ),
-    );
-    return _topSheet(context, state1);
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: bColor,
-      body: _topSheet(context, state1),
 
-      // FydView(
-      //   pageViewType: ViewType.with_Nav_Bar,
-      //   isScrollable: false,
-      //   topSheetHeight: 400.h,
-      //   topSheetColor: fydPDgrey,
-      //   topSheet: _topSheet(context, state1),
-      //   bottomSheet: _bottomSheet(context, state1, discount),
-      // ),
-    );
+    return _topSheet(context, state1);
   }
 
 //?-----------------------------------------------------------------------------
@@ -112,44 +81,42 @@ class TestPage extends flutterHooks.HookWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        //! Logo-stack
+        //! Name-stack
         Align(
           alignment: Alignment.center,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(15.r),
-            child: Container(
-              color: fydPgrey,
-              width: 220.w,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15.r),
-                    child: Image.asset(
-                      'assets/logo/no-wifi.png',
-                      width: 280.w,
-                      fit: BoxFit.fitWidth,
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(left: 40.w, right: 40.w, bottom: 15.h),
-                    child: FydBtn(
-                      onPressed: () => null,
-                      height: 40.h,
-                      color: fydPblack,
-                      widget: const FydText.b2custom(
-                        text: 'Re-try',
-                        color: fydBblue,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          child: SvgPicture.asset(
+            'assets/icons/main-logo-name.svg',
+            fit: BoxFit.fitWidth,
+            width: 160,
           ),
-        ),
+        )
+            .animate(
+              delay: 500.ms,
+            )
+            .fadeIn(duration: 500.ms)
+            .move(
+                duration: 500.ms,
+                begin: const Offset(-20, 0),
+                curve: Curves.easeInOutBack)
+            .then(delay: 500.ms)
+            .shimmer(
+                duration: 3000.ms, color: fydBblue, curve: Curves.fastOutSlowIn)
+            .then(delay: 300.ms)
+            .fadeOut(duration: 800.ms, curve: Curves.easeInOutBack)
+            .scaleXY(duration: 800.ms, curve: Curves.easeInOutBack, end: 0),
+
+        Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(45),
+              child: FydBtn(
+                fydText: FydText.b1white(text: 'Restart - ${state1.value}'),
+                onPressed: () {
+                  HapticFeedback.mediumImpact();
+                  state1.value = state1.value + 1;
+                },
+              ),
+            ))
       ],
     );
   }

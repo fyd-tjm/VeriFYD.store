@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,22 +5,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
-import 'package:verifyd_store/01%20presentation/08%20checkout/widgets/order_summary_section.dart';
 import 'package:verifyd_store/02%20application/checkout/checkout_bloc.dart';
 import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
 import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
 import 'package:verifyd_store/03%20domain/store/coupon.dart';
-import 'package:verifyd_store/03%20domain/user/address.dart';
-import 'package:verifyd_store/aa%20mock/static_ui.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
-import 'package:verifyd_store/utils/helpers/helpers.dart';
 import 'package:verifyd_store/utils/router.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 
-import 'widgets/coupon_search.dart';
+import 'widgets/payment_exports.dart';
 
 //?-----------------------------------------------------------------------------
 
@@ -119,24 +112,32 @@ class PaymentPage extends HookWidget {
                     pageViewType: ViewType.without_Nav_Bar,
                     isScrollable: false,
                     topSheetHeight: 380.h,
-                    topSheet:
-                        _topSheetView(context, selectedPaymentMode, state),
-                    bottomSheet: _bottomSheetView(
-                        context, selectedPaymentMode, discountCpn, state),
+                    topSheet: _TopSheet(
+                        selectedPaymentMode: selectedPaymentMode, state: state),
+                    bottomSheet: _BottomSheet(
+                        selectedPaymentMode: selectedPaymentMode,
+                        discountCpn: discountCpn,
+                        state: state),
                   );
           },
         ),
       ),
     );
   }
+}
 //?-----------------------------------------------------------------------------
 
-  _topSheetView(
-    BuildContext context,
-    ValueNotifier<PaymentMode?> selectedPaymentMode,
-    CheckoutState state,
-  ) {
-    //-------
+class _TopSheet extends StatelessWidget {
+  final ValueNotifier<PaymentMode?> selectedPaymentMode;
+  final CheckoutState state;
+  const _TopSheet({
+    super.key,
+    required this.selectedPaymentMode,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding:
           EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h, bottom: 20.h),
@@ -192,15 +193,22 @@ class PaymentPage extends HookWidget {
       ),
     );
   }
-
+}
 //?-----------------------------------------------------------------------------
 
-  _bottomSheetView(
-    BuildContext context,
-    ValueNotifier<PaymentMode?> selectedPaymentMode,
-    ValueNotifier<Coupon?> discountCpn,
-    CheckoutState state,
-  ) {
+class _BottomSheet extends StatelessWidget {
+  final ValueNotifier<PaymentMode?> selectedPaymentMode;
+  final ValueNotifier<Coupon?> discountCpn;
+  final CheckoutState state;
+  const _BottomSheet({
+    super.key,
+    required this.selectedPaymentMode,
+    required this.discountCpn,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     //-------
     final offers = context
         .select((SharedInfoCubit cubit) => cubit.state.sharedInfo!.offers);
@@ -227,9 +235,6 @@ class PaymentPage extends HookWidget {
         .ceil()
         .toDouble();
     //-------
-    log(allCoupons.keys.toString());
-    log(availableCoupons.keys.toString());
-
     return Padding(
       padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
       child: Column(
@@ -351,188 +356,7 @@ class PaymentPage extends HookWidget {
           ]),
     );
   }
-
-//?-----------------------------------------------------------------------------
-} // PaymentPage
-
-//?-----------------------------------------------------------------------------
-//! order-summary-section
-
-//?-----------------------------------------------------------------------------
-//! Delivery-info-card
-
-class DeliveryInfoCard extends StatelessWidget {
-  final FydAddress address;
-  const DeliveryInfoCard({
-    required this.address,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final line1 = (address.line1);
-    final line2 = address.line2;
-    final city = (address.city);
-    final addressState = (address.state);
-    final name = (address.name);
-    final phone = Helpers.phoneMaskWithCountryCode(address.phone);
-
-    return SizedBox(
-      height: 140.h,
-      width: double.infinity,
-      child: Card(
-        color: fydSblack,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //! (name : phone : email)
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //! heading
-                  const FydText.b1custom(
-                    text: 'Delivery Info',
-                    color: fydBblue,
-                  ),
-                  const Spacer(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //! name
-                      FydText.b4white(
-                        text: name,
-                        weight: FontWeight.w600,
-                        color: fydPwhite,
-                        letterSpacing: .8,
-                      ),
-                      //! phone
-                      FydText.b4white(
-                        text: phone,
-                        weight: FontWeight.w600,
-                        color: fydPwhite,
-                        letterSpacing: .8,
-                      ),
-                      //! email
-                      FydText.b4white(
-                        text: address.email,
-                        weight: FontWeight.w600,
-                        color: fydPwhite,
-                        letterSpacing: .8,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              //! (line1, line2, city, state, pinCode)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //! (al1 + al2)
-                  FydEllipsisText(
-                    width: 270.w,
-                    fydText: FydText.b3custom(
-                      text: "$line1, $line2",
-                      weight: FontWeight.w600,
-                      color: fydBbluegrey,
-                    ),
-                  ),
-                  //! (city + state + pincode)
-                  FydEllipsisText(
-                    width: 270.w,
-                    fydText: FydText.b3custom(
-                      text: '$city, $addressState, ${address.pincode}',
-                      weight: FontWeight.w600,
-                      color: fydBbluegrey,
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-//?-----------------------------------------------------------------------------
-//! Payment-tile
-
-class PaymentTile extends StatelessWidget {
-  final PaymentMode? paymentMode;
-  final String title;
-  final PaymentMode? selectedMode;
-  final Function(PaymentMode) onSelect;
-
-  const PaymentTile({
-    required this.onSelect,
-    Key? key,
-    required this.paymentMode,
-    required this.title,
-    required this.selectedMode,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return FydBtn(
-      height: 60.h,
-      color: fydSblack,
-      onPressed: () => (paymentMode == null) ? {} : onSelect(paymentMode!),
-      widget: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          //! title
-          Padding(
-            padding: EdgeInsets.only(left: 30.w),
-            child: FydText.h3custom(
-              text: title,
-              color: fydBbluegrey,
-              weight: FontWeight.bold,
-            ),
-          ),
-          (paymentMode == null)
-              //! comming soon
-              ? Padding(
-                  padding: EdgeInsets.only(right: 0.w),
-                  child: Image.asset(
-                    'assets/logo/soon.png',
-                    width: 130.w,
-                    fit: BoxFit.fitWidth,
-                  ),
-                )
-              //! radio-Btn
-              : Padding(
-                  padding: EdgeInsets.only(right: 20.w),
-                  child: Radio<PaymentMode?>(
-                    value: paymentMode,
-                    groupValue: selectedMode,
-                    onChanged: (v) {
-                      onSelect(paymentMode!);
-                    },
-                    toggleable: false,
-                    fillColor: MaterialStateColor.resolveWith((states) {
-                      if (states.contains(MaterialState.selected)) {
-                        return fydBblue;
-                      }
-                      return fydBbluegrey;
-                    }),
-                  ),
-                ),
-        ],
-      ),
-    );
-  }
 }
 
 //?-----------------------------------------------------------------------------
 
-//?-----------------------------------------------------------------------------

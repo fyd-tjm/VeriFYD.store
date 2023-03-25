@@ -58,9 +58,7 @@ class AppRouter extends _i30.RootStackRouter {
       return _i30.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i1.SplashPage(),
-        transitionsBuilder: _i32.TransitionsBldr.sharedAxisHorizontal,
-        durationInMilliseconds: 1000,
-        reverseDurationInMilliseconds: 50,
+        transitionsBuilder: _i32.TransitionsBldr.fadeThrough,
         opaque: true,
         barrierDismissible: false,
       );
@@ -71,7 +69,6 @@ class AppRouter extends _i30.RootStackRouter {
       return _i30.CustomPage<dynamic>(
         routeData: routeData,
         child: _i2.LandingWrapperPage(key: args.key),
-        durationInMilliseconds: 1500,
         opaque: true,
         barrierDismissible: false,
       );
@@ -102,6 +99,7 @@ class AppRouter extends _i30.RootStackRouter {
       return _i30.CustomPage<dynamic>(
         routeData: routeData,
         child: _i5.MainWrapperPage(key: args.key),
+        transitionsBuilder: _i32.TransitionsBldr.sharedAxisScale,
         opaque: true,
         barrierDismissible: false,
       );
@@ -114,6 +112,7 @@ class AppRouter extends _i30.RootStackRouter {
           key: args.key,
           productRef: args.productRef,
         ),
+        transitionsBuilder: _i32.TransitionsBldr.sharedAxisScale,
         opaque: true,
         barrierDismissible: false,
       );
@@ -134,7 +133,7 @@ class AppRouter extends _i30.RootStackRouter {
       return _i30.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i8.EditProfileWrapperPage(),
-        transitionsBuilder: _i32.TransitionsBldr.fadeThrough,
+        transitionsBuilder: _i32.TransitionsBldr.sharedAxisScale,
         opaque: true,
         barrierDismissible: false,
       );
@@ -156,6 +155,7 @@ class AppRouter extends _i30.RootStackRouter {
           existingAddress: args.existingAddress,
           addressIndex: args.addressIndex,
         ),
+        transitionsBuilder: _i32.TransitionsBldr.sharedAxisScale,
         opaque: true,
         barrierDismissible: false,
       );
@@ -164,6 +164,7 @@ class AppRouter extends _i30.RootStackRouter {
       return _i30.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i11.NewAddressWrapperPage(),
+        transitionsBuilder: _i32.TransitionsBldr.sharedAxisScale,
         opaque: true,
         barrierDismissible: false,
       );
@@ -180,9 +181,6 @@ class AppRouter extends _i30.RootStackRouter {
       return _i30.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i13.HelpWrapperPage(),
-        transitionsBuilder: _i30.TransitionsBuilders.slideLeftWithFade,
-        durationInMilliseconds: 150,
-        reverseDurationInMilliseconds: 150,
         opaque: true,
         barrierDismissible: false,
       );

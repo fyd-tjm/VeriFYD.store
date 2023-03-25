@@ -64,17 +64,21 @@ class Rn {
 @CustomAutoRouter(
   replaceInRouteName: 'Page,Route',
   preferRelativeImports: true,
-  durationInMilliseconds: 1000,
+  durationInMilliseconds: 800,
   transitionsBuilder: TransitionsBldr.sharedAxisHorizontal,
   reverseDurationInMilliseconds: 50,
   routes: [
     //! splash
-    AutoRoute(path: Rn.splash, page: SplashPage),
+    CustomRoute(
+        path: Rn.splash,
+        page: SplashPage,
+        transitionsBuilder: TransitionsBldr.fadeThrough),
     //! landing
     CustomRoute(
-        path: Rn.landing,
-        page: LandingWrapperPage,
-        durationInMilliseconds: 1500),
+      path: Rn.landing,
+      page: LandingWrapperPage,
+      // durationInMilliseconds: 1500
+    ),
     //! login-Router
     CustomRoute(
       path: '/login',
@@ -94,41 +98,53 @@ class Rn {
     //! boarding
     CustomRoute(path: Rn.boarding, page: OnBoardingWrapperPage),
     //! main
-    CustomRoute(path: Rn.main, page: MainWrapperPage, children: [
-      //! home
-      CustomRoute(path: 'home', page: HomeViewWrapperPage),
-      //! stores-Router
-      CustomRoute(
-          path: 'stores',
-          name: 'StoresRouter',
-          page: EmptyRouterPage,
-          children: [
-            //! stores (all-stores)
-            CustomRoute(path: '', page: StoresViewWrapperPage),
-            //! store
-            CustomRoute(path: ':storeId', page: StoreViewWrapperPage),
-          ]),
-      //! cart
-      CustomRoute(path: 'cart', page: CartViewWrapperPage),
-      //! profile
-      CustomRoute(path: 'profile', page: ProfileViewWrapperPage),
-    ]),
+    CustomRoute(
+        path: Rn.main,
+        page: MainWrapperPage,
+        transitionsBuilder: TransitionsBldr.sharedAxisScale,
+        children: [
+          //! home
+          CustomRoute(path: 'home', page: HomeViewWrapperPage),
+          //! stores-Router
+          CustomRoute(
+              path: 'stores',
+              name: 'StoresRouter',
+              page: EmptyRouterPage,
+              children: [
+                //! stores (all-stores)
+                CustomRoute(path: '', page: StoresViewWrapperPage),
+                //! store
+                CustomRoute(path: ':storeId', page: StoreViewWrapperPage),
+              ]),
+          //! cart
+          CustomRoute(path: 'cart', page: CartViewWrapperPage),
+          //! profile
+          CustomRoute(path: 'profile', page: ProfileViewWrapperPage),
+        ]),
     //! product
-    CustomRoute(path: '/product', page: ProductWrapperPage),
+    CustomRoute(
+        path: '/product',
+        page: ProductWrapperPage,
+        transitionsBuilder: TransitionsBldr.sharedAxisScale),
     //! store-Info
     CustomRoute(path: '/storeInfo', page: StoreInfoWrapperPage),
     //! editProfile
     CustomRoute(
-      path: Rn.editProfile,
-      page: EditProfileWrapperPage,
-      transitionsBuilder: TransitionsBldr.fadeThrough,
-    ),
+        path: Rn.editProfile,
+        page: EditProfileWrapperPage,
+        transitionsBuilder: TransitionsBldr.sharedAxisScale),
     //! profileAddress
     CustomRoute(path: '/profileAddress', page: ProfileAddressesWrapperPage),
     //! updateAddress
-    CustomRoute(path: '/updateAddress', page: UpdateAddressWrapperPage),
+    CustomRoute(
+        path: '/updateAddress',
+        page: UpdateAddressWrapperPage,
+        transitionsBuilder: TransitionsBldr.sharedAxisScale),
     //! newAddress
-    CustomRoute(path: '/newAddress', page: NewAddressWrapperPage),
+    CustomRoute(
+        path: '/newAddress',
+        page: NewAddressWrapperPage,
+        transitionsBuilder: TransitionsBldr.sharedAxisScale),
     //! orders-Router
     CustomRoute(
         path: '/orders',
@@ -140,11 +156,9 @@ class Rn {
         ]),
     //! help
     CustomRoute(
-        path: Rn.help,
-        page: HelpWrapperPage,
-        durationInMilliseconds: 150,
-        reverseDurationInMilliseconds: 150,
-        transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
+      path: Rn.help,
+      page: HelpWrapperPage,
+    ),
     //! checkout-Router
     CustomRoute(
       path: '/checkout',

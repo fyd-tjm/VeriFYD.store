@@ -191,57 +191,49 @@ class _BottomSheet extends StatelessWidget {
     final userAddressMap = state.fydUser!.addresses;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          (userAddressMap.isNotEmpty)
-              ? Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      AssetHelper.no_address_saved,
-                      width: 100.w,
-                      fit: BoxFit.fitWidth,
-                    ),
-                    SizedBox(height: 20.h),
-                    const FydText.b2custom(
-                      text: 'No Address added yet!',
-                      weight: FontWeight.w600,
-                      color: fydBbluegrey,
-                    ),
-                  ],
-                )
-              : ListView(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  children: List.generate(
-                    userAddressMap.entries.length,
-                    (index) {
-                      final reverseIndex =
-                          (userAddressMap.entries.length - 1) - index;
-                      return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.h),
-                        child: ProfileAddressTile(
-                          address:
-                              userAddressMap.values.elementAt(reverseIndex),
-                          addressIndex:
-                              userAddressMap.keys.elementAt(reverseIndex),
-                          onEditPresses: (addressIndex) {
-                            context.navigateTo(UpdateAddressWrapperRoute(
-                              existingAddress:
-                                  userAddressMap.values.elementAt(reverseIndex),
-                              addressIndex: addressIndex,
-                            ));
-                          },
-                        ),
-                      );
-                    },
-                  ),
+      child: (userAddressMap.isEmpty)
+          ? Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  AssetHelper.no_address_saved,
+                  width: 100.w,
+                  fit: BoxFit.fitWidth,
                 ),
-        ],
-      ),
+                SizedBox(height: 20.h),
+                const FydText.b2custom(
+                  text: 'No Address added yet!',
+                  weight: FontWeight.w600,
+                  color: fydBbluegrey,
+                ),
+              ],
+            )
+          : ListView(
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              children: List.generate(
+                userAddressMap.entries.length,
+                (index) {
+                  final reverseIndex =
+                      (userAddressMap.entries.length - 1) - index;
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    child: ProfileAddressTile(
+                      address: userAddressMap.values.elementAt(reverseIndex),
+                      addressIndex: userAddressMap.keys.elementAt(reverseIndex),
+                      onEditPresses: (addressIndex) {
+                        context.navigateTo(UpdateAddressWrapperRoute(
+                          existingAddress:
+                              userAddressMap.values.elementAt(reverseIndex),
+                          addressIndex: addressIndex,
+                        ));
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
     );
   }
 }
