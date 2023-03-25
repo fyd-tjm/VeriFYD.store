@@ -90,7 +90,7 @@ class ProfileAddressTile extends StatelessWidget {
                     style: TextButton.styleFrom(
                       minimumSize: Size.zero,
                       padding: EdgeInsets.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      tapTargetSize: MaterialTapTargetSize.padded,
                     ),
                     child: const FydText.b2custom(
                       color: fydBblue,

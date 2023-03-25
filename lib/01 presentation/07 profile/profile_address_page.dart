@@ -9,6 +9,7 @@ import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/router.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 
@@ -33,7 +34,6 @@ class ProfileAddressesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(context.router.currentUrl);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
@@ -153,6 +153,7 @@ class _TopSheet extends StatelessWidget {
                   color: (fydUser.addresses.entries.length > 2)
                       ? fydPgrey
                       : fydBblue,
+                  weight: FontWeight.w600,
                 ),
               ],
             ),
@@ -192,32 +193,53 @@ class _BottomSheet extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
       child: Column(
         mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ListView(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            children: List.generate(
-              userAddressMap.entries.length,
-              (index) {
-                final reverseIndex =
-                    (userAddressMap.entries.length - 1) - index;
-                return Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.h),
-                  child: ProfileAddressTile(
-                    address: userAddressMap.values.elementAt(reverseIndex),
-                    addressIndex: userAddressMap.keys.elementAt(reverseIndex),
-                    onEditPresses: (addressIndex) {
-                      context.navigateTo(UpdateAddressWrapperRoute(
-                        existingAddress:
-                            userAddressMap.values.elementAt(reverseIndex),
-                        addressIndex: addressIndex,
-                      ));
+          (userAddressMap.isNotEmpty)
+              ? Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      AssetHelper.no_address_saved,
+                      width: 100.w,
+                      fit: BoxFit.fitWidth,
+                    ),
+                    SizedBox(height: 20.h),
+                    const FydText.b2custom(
+                      text: 'No Address added yet!',
+                      weight: FontWeight.w600,
+                      color: fydBbluegrey,
+                    ),
+                  ],
+                )
+              : ListView(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  children: List.generate(
+                    userAddressMap.entries.length,
+                    (index) {
+                      final reverseIndex =
+                          (userAddressMap.entries.length - 1) - index;
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10.h),
+                        child: ProfileAddressTile(
+                          address:
+                              userAddressMap.values.elementAt(reverseIndex),
+                          addressIndex:
+                              userAddressMap.keys.elementAt(reverseIndex),
+                          onEditPresses: (addressIndex) {
+                            context.navigateTo(UpdateAddressWrapperRoute(
+                              existingAddress:
+                                  userAddressMap.values.elementAt(reverseIndex),
+                              addressIndex: addressIndex,
+                            ));
+                          },
+                        ),
+                      );
                     },
                   ),
-                );
-              },
-            ),
-          ),
+                ),
         ],
       ),
     );

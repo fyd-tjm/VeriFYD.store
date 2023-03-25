@@ -13,13 +13,13 @@ import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widget
 import 'package:verifyd_store/02%20application/checkout/checkout_bloc.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/03%20domain/user/address.dart';
-import 'package:verifyd_store/presentation/core/widgets/fyd_text_ellipsis.dart';
+import 'package:verifyd_store/03%20domain/user/fyd_user.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
-import 'package:verifyd_store/utils/helpers/helpers.dart';
+import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/router.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 
-import '../../03 domain/user/00_export_user_domain.dart';
+import 'widgets/delivery_address_tile.dart';
 
 //?-----------------------------------------------------------------------------
 
@@ -54,13 +54,12 @@ class DeliveryAddressPage extends HookWidget {
   Widget build(BuildContext context) {
     log(context.router.currentUrl);
     //------
-    // deliveryAddress Tuple(index, address)
     final deliveryAddress = useState<Tuple2<int, FydAddress>?>(null);
     //------
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: BlocConsumer<CheckoutBloc, CheckoutState>(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: BlocConsumer<CheckoutBloc, CheckoutState>(
           listenWhen: (previous, current) {
             if (context.router.currentUrl == '/checkout/delivery') {
               return true;
@@ -129,10 +128,13 @@ class DeliveryAddressPage extends HookWidget {
                   return FydView(
                     pageViewType: ViewType.without_Nav_Bar,
                     isScrollable: false,
-                    topSheetHeight: 150.h,
-                    topSheet: _topSheetView(context, fydUser, deliveryAddress),
-                    bottomSheet: _bottomSheetView(
-                        context, fydUser, checkoutState, deliveryAddress),
+                    topSheetHeight: 160.h,
+                    topSheet: _TopSheet(
+                        fydUser: fydUser, deliveryAddress: deliveryAddress),
+                    bottomSheet: _BottomSheet(
+                        fydUser: fydUser,
+                        checkoutState: checkoutState,
+                        deliveryAddress: deliveryAddress),
                   );
                 }
               },
@@ -142,32 +144,39 @@ class DeliveryAddressPage extends HookWidget {
       ),
     );
   }
+}
 //?-----------------------------------------------------------------------------
 
-  _topSheetView(
-    BuildContext context,
-    FydUser fydUser,
-    ValueNotifier<Tuple2<int, FydAddress>?> deliveryAddress,
-  ) {
+class _TopSheet extends StatelessWidget {
+  final FydUser fydUser;
+  final ValueNotifier<Tuple2<int, FydAddress>?> deliveryAddress;
+
+  const _TopSheet({
+    super.key,
+    required this.fydUser,
+    required this.deliveryAddress,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        //! AppBar (backBTN + heading)
+        //! AppBar (heading + back-Btn )
         FydAppBar(
-          //! close-btn
-          leading: AppBarBtn(
-              iconData: Icons.close_rounded,
-              onPressed: () {
-                HapticFeedback.lightImpact();
-                context.router.pop();
-              }),
-          //! store name
+          leading: AppBarBtn.close(
+            onPressed: () {
+              HapticFeedback.mediumImpact();
+              context.router.pop();
+            },
+          ),
           main: const Center(
-              child: FydText.d3black(
-            text: 'Delivery Address',
-            size: 27,
-          )),
+            child: FydText.h2black(
+              text: 'delivery Address',
+              letterSpacing: .9,
+            ),
+          ),
         ),
         //! newAddress-Btn
         Padding(
@@ -193,6 +202,7 @@ class DeliveryAddressPage extends HookWidget {
                   color: (fydUser.addresses.entries.length > 2)
                       ? fydPgrey
                       : fydBblue,
+                  weight: FontWeight.w600,
                 ),
               ],
             ),
@@ -203,7 +213,11 @@ class DeliveryAddressPage extends HookWidget {
               //-------
               // max 3 addresses
               if (fydUser.addresses.entries.length > 2) {
-                showSnack(context: context, message: 'address Limit is 3!');
+                showSnack(
+                    context: context,
+                    snackPosition: SnackBarPosition.bottom,
+                    durationSeconds: 3,
+                    message: 'address Limit is 3!');
               } //
               else {
                 context.router.pushNamed('/newAddress');
@@ -214,15 +228,23 @@ class DeliveryAddressPage extends HookWidget {
       ],
     );
   }
+}
 
 //?-----------------------------------------------------------------------------
 
-  _bottomSheetView(
-    BuildContext context,
-    FydUser fydUser,
-    CheckoutState checkoutState,
-    ValueNotifier<Tuple2<int, FydAddress>?> deliveryAddress,
-  ) {
+class _BottomSheet extends StatelessWidget {
+  final FydUser fydUser;
+  final CheckoutState checkoutState;
+  final ValueNotifier<Tuple2<int, FydAddress>?> deliveryAddress;
+  const _BottomSheet({
+    super.key,
+    required this.fydUser,
+    required this.checkoutState,
+    required this.deliveryAddress,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.w),
       child: Column(
@@ -231,14 +253,22 @@ class DeliveryAddressPage extends HookWidget {
         children: [
           //! Delivery-address list view
           (fydUser.addresses.isEmpty)
-              ? const Expanded(
-                  child: Center(
-                    child: FydText.b1custom(
-                      text: 'no saved Addresses, \n add new one. ↗️',
-                      color: fydBbluegrey,
-                      textAlign: TextAlign.center,
+              ? Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      AssetHelper.no_address_saved,
+                      width: 100.w,
+                      fit: BoxFit.fitWidth,
                     ),
-                  ),
+                    SizedBox(height: 20.h),
+                    const FydText.b2custom(
+                      text: 'No Address added yet!',
+                      weight: FontWeight.w600,
+                      color: fydBbluegrey,
+                    ),
+                  ],
                 )
               : ListView(
                   shrinkWrap: true,
@@ -250,7 +280,7 @@ class DeliveryAddressPage extends HookWidget {
                       final reverseIndex =
                           (fydUser.addresses.entries.length - 1) - index;
                       return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 5.h),
+                        padding: EdgeInsets.symmetric(vertical: 10.h),
                         child: DeliveryAddressTile(
                           addressIndex: addressMap.keys.elementAt(reverseIndex),
                           selectedIndex: deliveryAddress.value?.value1,
@@ -306,7 +336,7 @@ class DeliveryAddressPage extends HookWidget {
                         : const FydText.h3custom(
                             text: 'Confirm Address',
                             color: fydBblue,
-                            weight: FontWeight.bold,
+                            weight: FontWeight.w600,
                           ),
                     onPressed: () async {
                       if (checkoutState.isProcessing) return;
@@ -329,132 +359,6 @@ class DeliveryAddressPage extends HookWidget {
                   ),
                 ),
         ],
-      ),
-    );
-  }
-
-//?-----------------------------------------------------------------------------
-} // DeliveryAddressPage
-
-//?-----------------------------------------------------------------------------
-//! deliveryAddress tile
-class DeliveryAddressTile extends StatelessWidget {
-  final FydAddress address;
-  final int addressIndex;
-  final int? selectedIndex;
-  final Function(int) onSelect;
-  final Function(int) onEditPresses;
-
-  const DeliveryAddressTile({
-    required this.addressIndex,
-    required this.address,
-    required this.selectedIndex,
-    required this.onSelect,
-    required this.onEditPresses,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return FydBtn(
-      color: fydSblack,
-      onPressed: () => onSelect(addressIndex),
-      height: 130.h,
-      widget: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 15.h),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            //! (name + phone + radioBtn)
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                //! name:phone
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //! name
-                    FydText.b3custom(
-                      color: fydPwhite,
-                      text: address.name,
-                      weight: FontWeight.w600,
-                      letterSpacing: .8,
-                    ),
-                    //! phone
-                    FydText.b3custom(
-                      color: fydPwhite,
-                      text: Helpers.phoneMaskWithCountryCode(address.phone),
-                      weight: FontWeight.w600,
-                      letterSpacing: .8,
-                    ),
-                  ],
-                ),
-                //! radio-Btn
-                Radio(
-                  value: addressIndex,
-                  groupValue: selectedIndex,
-                  onChanged: (v) {
-                    onSelect(addressIndex);
-                  },
-                  toggleable: false,
-                  fillColor: MaterialStateColor.resolveWith((states) {
-                    if (states.contains(MaterialState.selected)) {
-                      return fydBblue;
-                    }
-                    return fydBbluegrey;
-                  }),
-                ),
-              ],
-            ),
-            //! (address + editBtn)
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //! (al1 + al2)
-                    FydTextEllipsis(
-                      width: 270.w,
-                      fydText: FydText.b3custom(
-                        text: "${address.line1}, ${address.line2}",
-                        color: fydBbluegrey,
-                        weight: FontWeight.w600,
-                      ),
-                    ),
-                    //! (state + pincode)
-                    FydTextEllipsis(
-                      width: 260.w,
-                      fydText: FydText.b3custom(
-                        text: '${address.city}, ${address.pincode}',
-                        weight: FontWeight.w600,
-                        color: fydBbluegrey,
-                      ),
-                    ),
-                  ],
-                ),
-                //! edit-Btn
-                TextButton(
-                  onPressed: () => onEditPresses(addressIndex),
-                  style: TextButton.styleFrom(
-                    minimumSize: Size.zero,
-                    padding: EdgeInsets.zero,
-                    tapTargetSize: MaterialTapTargetSize.padded,
-                  ),
-                  child: const FydText.b2custom(
-                    text: 'Edit',
-                    color: fydBbluegrey,
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
       ),
     );
   }
