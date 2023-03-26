@@ -27,6 +27,7 @@ _$_SharedInfo _$$_SharedInfoFromJson(Map<String, dynamic> json) =>
           (json['recentlyPurchased'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(k, Product.fromJson(e as Map<String, dynamic>)),
       ),
+      isPodAvailable: json['isPodAvailable'] as bool,
     );
 
 Map<String, dynamic> _$$_SharedInfoToJson(_$_SharedInfo instance) =>
@@ -44,4 +45,5 @@ Map<String, dynamic> _$$_SharedInfoToJson(_$_SharedInfo instance) =>
       'storeSearchMap': instance.storeSearchMap,
       'recentlyPurchased':
           instance.recentlyPurchased.map((k, e) => MapEntry(k, e.toJson())),
+      'isPodAvailable': instance.isPodAvailable,
     };

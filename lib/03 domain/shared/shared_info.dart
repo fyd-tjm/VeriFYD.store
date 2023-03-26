@@ -21,6 +21,7 @@ abstract class SharedInfo with _$SharedInfo {
     required Map<String, Coupon> offers,
     required Map<String, String> storeSearchMap,
     required Map<String, Product> recentlyPurchased,
+    required bool isPodAvailable,
   }) = _SharedInfo;
 
   factory SharedInfo.fromJson(Map<String, dynamic> json) =>

@@ -13,6 +13,7 @@ class AssetHelper {
   static const soldout = 'assets/images/soldout.png';
   static const no_orders = 'assets/images/no-orders-yet.png';
   static const no_address_saved = 'assets/images/no-address.png';
+  static const comming_soon_tag = 'assets/images/comming-soon-tag.png';
 
   static const svg_splash_name = 'assets/svgs/splash-name.svg';
   static const svg_apparel = 'assets/svgs/apparels.svg';
@@ -21,4 +22,7 @@ class AssetHelper {
   static const svg_orders = 'assets/svgs/orders.svg';
   static const svg_addresses = 'assets/svgs/address.svg';
   static const svg_help = 'assets/svgs/help.svg';
+
+  static const gif_success = 'assets/gifs/success.gif';
+  static const gif_failure = 'assets/gifs/failure.gif';
 }

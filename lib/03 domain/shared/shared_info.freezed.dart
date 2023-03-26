@@ -33,6 +33,7 @@ mixin _$SharedInfo {
   Map<String, String> get storeSearchMap => throw _privateConstructorUsedError;
   Map<String, Product> get recentlyPurchased =>
       throw _privateConstructorUsedError;
+  bool get isPodAvailable => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,7 +59,8 @@ abstract class $SharedInfoCopyWith<$Res> {
       Map<String, String> banners,
       Map<String, Coupon> offers,
       Map<String, String> storeSearchMap,
-      Map<String, Product> recentlyPurchased});
+      Map<String, Product> recentlyPurchased,
+      bool isPodAvailable});
 }
 
 /// @nodoc
@@ -86,6 +88,7 @@ class _$SharedInfoCopyWithImpl<$Res, $Val extends SharedInfo>
     Object? offers = null,
     Object? storeSearchMap = null,
     Object? recentlyPurchased = null,
+    Object? isPodAvailable = null,
   }) {
     return _then(_value.copyWith(
       shippingCost: null == shippingCost
@@ -136,6 +139,10 @@ class _$SharedInfoCopyWithImpl<$Res, $Val extends SharedInfo>
           ? _value.recentlyPurchased
           : recentlyPurchased // ignore: cast_nullable_to_non_nullable
               as Map<String, Product>,
+      isPodAvailable: null == isPodAvailable
+          ? _value.isPodAvailable
+          : isPodAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -160,7 +167,8 @@ abstract class _$$_SharedInfoCopyWith<$Res>
       Map<String, String> banners,
       Map<String, Coupon> offers,
       Map<String, String> storeSearchMap,
-      Map<String, Product> recentlyPurchased});
+      Map<String, Product> recentlyPurchased,
+      bool isPodAvailable});
 }
 
 /// @nodoc
@@ -186,6 +194,7 @@ class __$$_SharedInfoCopyWithImpl<$Res>
     Object? offers = null,
     Object? storeSearchMap = null,
     Object? recentlyPurchased = null,
+    Object? isPodAvailable = null,
   }) {
     return _then(_$_SharedInfo(
       shippingCost: null == shippingCost
@@ -236,6 +245,10 @@ class __$$_SharedInfoCopyWithImpl<$Res>
           ? _value._recentlyPurchased
           : recentlyPurchased // ignore: cast_nullable_to_non_nullable
               as Map<String, Product>,
+      isPodAvailable: null == isPodAvailable
+          ? _value.isPodAvailable
+          : isPodAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -256,7 +269,8 @@ class _$_SharedInfo implements _SharedInfo {
       required final Map<String, String> banners,
       required final Map<String, Coupon> offers,
       required final Map<String, String> storeSearchMap,
-      required final Map<String, Product> recentlyPurchased})
+      required final Map<String, Product> recentlyPurchased,
+      required this.isPodAvailable})
       : _deliveryStates = deliveryStates,
         _liveStores = liveStores,
         _timmings = timmings,
@@ -340,8 +354,11 @@ class _$_SharedInfo implements _SharedInfo {
   }
 
   @override
+  final bool isPodAvailable;
+
+  @override
   String toString() {
-    return 'SharedInfo(shippingCost: $shippingCost, totalOrders: $totalOrders, cartLimit: $cartLimit, deliveryStates: $deliveryStates, liveStores: $liveStores, timmings: $timmings, images: $images, support: $support, banners: $banners, offers: $offers, storeSearchMap: $storeSearchMap, recentlyPurchased: $recentlyPurchased)';
+    return 'SharedInfo(shippingCost: $shippingCost, totalOrders: $totalOrders, cartLimit: $cartLimit, deliveryStates: $deliveryStates, liveStores: $liveStores, timmings: $timmings, images: $images, support: $support, banners: $banners, offers: $offers, storeSearchMap: $storeSearchMap, recentlyPurchased: $recentlyPurchased, isPodAvailable: $isPodAvailable)';
   }
 
   @override
@@ -367,7 +384,9 @@ class _$_SharedInfo implements _SharedInfo {
             const DeepCollectionEquality()
                 .equals(other._storeSearchMap, _storeSearchMap) &&
             const DeepCollectionEquality()
-                .equals(other._recentlyPurchased, _recentlyPurchased));
+                .equals(other._recentlyPurchased, _recentlyPurchased) &&
+            (identical(other.isPodAvailable, isPodAvailable) ||
+                other.isPodAvailable == isPodAvailable));
   }
 
   @JsonKey(ignore: true)
@@ -385,7 +404,8 @@ class _$_SharedInfo implements _SharedInfo {
       const DeepCollectionEquality().hash(_banners),
       const DeepCollectionEquality().hash(_offers),
       const DeepCollectionEquality().hash(_storeSearchMap),
-      const DeepCollectionEquality().hash(_recentlyPurchased));
+      const DeepCollectionEquality().hash(_recentlyPurchased),
+      isPodAvailable);
 
   @JsonKey(ignore: true)
   @override
@@ -414,7 +434,8 @@ abstract class _SharedInfo implements SharedInfo {
       required final Map<String, String> banners,
       required final Map<String, Coupon> offers,
       required final Map<String, String> storeSearchMap,
-      required final Map<String, Product> recentlyPurchased}) = _$_SharedInfo;
+      required final Map<String, Product> recentlyPurchased,
+      required final bool isPodAvailable}) = _$_SharedInfo;
 
   factory _SharedInfo.fromJson(Map<String, dynamic> json) =
       _$_SharedInfo.fromJson;
@@ -443,6 +464,8 @@ abstract class _SharedInfo implements SharedInfo {
   Map<String, String> get storeSearchMap;
   @override
   Map<String, Product> get recentlyPurchased;
+  @override
+  bool get isPodAvailable;
   @override
   @JsonKey(ignore: true)
   _$$_SharedInfoCopyWith<_$_SharedInfo> get copyWith =>

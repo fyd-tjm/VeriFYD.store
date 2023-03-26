@@ -26,37 +26,27 @@ class PaymentWrapperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider.value(
-          value: getIt<CheckoutBloc>(),
-        ),
-        BlocProvider.value(
-          value: getIt<SharedInfoCubit>(),
-        ),
-      ],
-      child: const PaymentPage(),
-    );
+    return const PaymentPage();
   }
 }
 
 //?-----------------------------------------------------------------------------
-//TODO: add remote config condition for pay On Delivery
-const remoteCondition = true;
 
 class PaymentPage extends HookWidget {
   const PaymentPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final isPodAvailable =
+        getIt<SharedInfoCubit>().state.sharedInfo!.isPodAvailable;
     final selectedPaymentMode = useState<PaymentMode?>(
-        (remoteCondition) ? const PaymentMode.online() : null);
+        (isPodAvailable) ? null : const PaymentMode.online());
     final discountCpn = useState<Coupon?>(null);
     //-------
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: BlocConsumer<CheckoutBloc, CheckoutState>(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: BlocConsumer<CheckoutBloc, CheckoutState>(
           listenWhen: (previous, current) {
             if (context.router.currentUrl == '/checkout/payment') {
               return true;
@@ -104,7 +94,7 @@ class PaymentPage extends HookWidget {
                 ? const Center(
                     child: SpinKitWave(
                       color: fydBblue,
-                      size: 40.0,
+                      size: 30.0,
                     ),
                   )
                 //! Fyd-View
@@ -113,7 +103,9 @@ class PaymentPage extends HookWidget {
                     isScrollable: false,
                     topSheetHeight: 380.h,
                     topSheet: _TopSheet(
-                        selectedPaymentMode: selectedPaymentMode, state: state),
+                        isPodAvailable: isPodAvailable,
+                        selectedPaymentMode: selectedPaymentMode,
+                        state: state),
                     bottomSheet: _BottomSheet(
                         selectedPaymentMode: selectedPaymentMode,
                         discountCpn: discountCpn,
@@ -130,8 +122,10 @@ class PaymentPage extends HookWidget {
 class _TopSheet extends StatelessWidget {
   final ValueNotifier<PaymentMode?> selectedPaymentMode;
   final CheckoutState state;
+  final bool isPodAvailable;
   const _TopSheet({
     super.key,
+    required this.isPodAvailable,
     required this.selectedPaymentMode,
     required this.state,
   });
@@ -179,9 +173,8 @@ class _TopSheet extends StatelessWidget {
               //! cod Mode tile
               PaymentTile(
                 title: 'pay on delivery',
-                paymentMode: (remoteCondition)
-                    ? null
-                    : const PaymentMode.payOnDelivery(),
+                paymentMode:
+                    (isPodAvailable) ? const PaymentMode.payOnDelivery() : null,
                 selectedMode: selectedPaymentMode.value,
                 onSelect: (mode) {
                   selectedPaymentMode.value = mode;
@@ -219,11 +212,11 @@ class _BottomSheet extends StatelessWidget {
     allCoupons.removeWhere((key, value) => ((value.isActive == false) ||
         value.validTill.isBefore(DateTime.now())));
 
-    allCoupons.values.forEach((cpn) {
+    for (var cpn in allCoupons.values) {
       if (!cpn.isHidden) {
         availableCoupons.addAll({cpn.code: cpn});
       }
-    });
+    }
 
     //-------
     final totalItems = state.orderInfo!.orderSummary.totalItems;
@@ -247,7 +240,7 @@ class _BottomSheet extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: 20.h, left: 10.w, right: 10.w),
                 child: FydBtn(
                   height: 50.h,
-                  color: fydSgrey.withOpacity(.25),
+                  color: fydSblack,
                   onPressed: () async {
                     HapticFeedback.lightImpact();
                     //-----------
@@ -333,6 +326,7 @@ class _BottomSheet extends StatelessWidget {
                       ),
                 onPressed: () {
                   if (state.isProcessing) return;
+                  HapticFeedback.lightImpact();
                   //--------
                   if (selectedPaymentMode.value == null) {
                     showSnack(

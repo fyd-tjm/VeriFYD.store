@@ -28,6 +28,7 @@ import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_pin_field.
 import 'package:verifyd_store/01%20presentation/03%20main%20root/main_page.dart';
 import 'package:verifyd_store/01%20presentation/05%20stores/widgets/store_offer_card.dart';
 import 'package:verifyd_store/01%20presentation/07%20profile/widgets/profile_address_tile.dart';
+import 'package:verifyd_store/01%20presentation/08%20checkout/confirmation_page.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/delivery_address_page.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/payment_page.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/widgets/coupon_search.dart';
@@ -42,6 +43,7 @@ import 'package:verifyd_store/03%20domain/store/coupon.dart';
 import 'package:verifyd_store/03%20domain/store/tester.dart';
 import 'package:verifyd_store/03%20domain/user/fyd_user.dart';
 import 'package:verifyd_store/aa%20mock/static_ui.dart';
+import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
 
@@ -55,7 +57,10 @@ class TestWrapperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TestPage();
+    // return const TestPage();
+    return const ConfirmationPage(
+      orderStatus: OrderStatus.failure(paymentMode: PaymentMode.online()),
+    );
   }
 }
 
@@ -81,36 +86,27 @@ class TestPage extends flutterHooks.HookWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        //! Name-stack
         Align(
-          alignment: Alignment.center,
-          child: SvgPicture.asset(
-            'assets/icons/main-logo-name.svg',
-            fit: BoxFit.fitWidth,
-            width: 160,
-          ),
-        )
-            .animate(
-              delay: 500.ms,
-            )
-            .fadeIn(duration: 500.ms)
-            .move(
-                duration: 500.ms,
-                begin: const Offset(-20, 0),
-                curve: Curves.easeInOutBack)
-            .then(delay: 500.ms)
-            .shimmer(
-                duration: 3000.ms, color: fydBblue, curve: Curves.fastOutSlowIn)
-            .then(delay: 300.ms)
-            .fadeOut(duration: 800.ms, curve: Curves.easeInOutBack)
-            .scaleXY(duration: 800.ms, curve: Curves.easeInOutBack, end: 0),
-
-        Align(
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.center,
             child: Padding(
-              padding: const EdgeInsets.all(45),
+              padding: const EdgeInsets.all(15),
               child: FydBtn(
-                fydText: FydText.b1white(text: 'Restart - ${state1.value}'),
+                height: 55,
+                widget: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const FydText.b1white(text: 'Restart'),
+                    const SizedBox(width: 100),
+                    Image.asset(
+                      AssetHelper.comming_soon_tag,
+                      width: 100,
+                      filterQuality: FilterQuality.high,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ],
+                ),
+                // fydText: FydText.b1white(text: 'Restart - ${state1.value}'),
                 onPressed: () {
                   HapticFeedback.mediumImpact();
                   state1.value = state1.value + 1;
@@ -355,37 +351,46 @@ void dbSharedInfo() async {
   final fire = FirebaseFirestore.instance;
   final docRef = fire.collection('shared-info').doc('user');
 
-  const sharedInfo =
-      SharedInfo(shippingCost: 100, totalOrders: 0, cartLimit: 10, liveStores: {
-    'APPAREL': 10,
-    'FOOTWEAR': 5,
-    'OTHER': 0
-  }, timmings: {
-    'CALLING HOURS': "09:00 - 18:00",
-    'OPERATING HOURS': "09:00 - 21:00"
-  }, deliveryStates: [], images: {
-    'LAUNCHING SOON': 'https://cdn-icons-png.flaticon.com/512/5578/5578691.png'
-  }, support: {
-    'MAIL': 'fyd.technologies@gmail.com',
-    'PHONE': '+919690590197',
-    'WHATSAPP': '+919690590197'
-  }, banners: {}, offers: {}, recentlyPurchased: {}, storeSearchMap: {
-    "#A108": "LOREM IPSUM A-108",
-    "#B110": "LOREM IPSUM B-110",
-    "#B111": "LOREM IPSUM B-111",
-    "#B112": "LOREM IPSUM B-112",
-    "#B113": "LOREM IPSUM B-113",
-    "#B114": "LOREM IPSUM B-114",
-    "#B115": "LOREM IPSUM B-115",
-    "#B116": "LOREM IPSUM B-116",
-    "#B117": "LOREM IPSUM B-117",
-    "#B118": "LOREM IPSUM B-118",
-    "#B210": "LOREM IPSUM B-210",
-    "#B211": "LOREM IPSUM B-211",
-    "#B212": "LOREM IPSUM B-212",
-    "#B213": "LOREM IPSUM B-213",
-    "#B214": "LOREM IPSUM B-214"
-  });
+  const sharedInfo = SharedInfo(
+      shippingCost: 100,
+      totalOrders: 0,
+      cartLimit: 10,
+      liveStores: {'APPAREL': 10, 'FOOTWEAR': 5, 'OTHER': 0},
+      timmings: {
+        'CALLING HOURS': "09:00 - 18:00",
+        'OPERATING HOURS': "09:00 - 21:00"
+      },
+      deliveryStates: [],
+      images: {
+        'LAUNCHING SOON':
+            'https://cdn-icons-png.flaticon.com/512/5578/5578691.png'
+      },
+      support: {
+        'MAIL': 'fyd.technologies@gmail.com',
+        'PHONE': '+919690590197',
+        'WHATSAPP': '+919690590197'
+      },
+      banners: {},
+      offers: {},
+      recentlyPurchased: {},
+      storeSearchMap: {
+        "#A108": "LOREM IPSUM A-108",
+        "#B110": "LOREM IPSUM B-110",
+        "#B111": "LOREM IPSUM B-111",
+        "#B112": "LOREM IPSUM B-112",
+        "#B113": "LOREM IPSUM B-113",
+        "#B114": "LOREM IPSUM B-114",
+        "#B115": "LOREM IPSUM B-115",
+        "#B116": "LOREM IPSUM B-116",
+        "#B117": "LOREM IPSUM B-117",
+        "#B118": "LOREM IPSUM B-118",
+        "#B210": "LOREM IPSUM B-210",
+        "#B211": "LOREM IPSUM B-211",
+        "#B212": "LOREM IPSUM B-212",
+        "#B213": "LOREM IPSUM B-213",
+        "#B214": "LOREM IPSUM B-214"
+      },
+      isPodAvailable: true);
 
   await docRef
       .set(sharedInfo.toJson())

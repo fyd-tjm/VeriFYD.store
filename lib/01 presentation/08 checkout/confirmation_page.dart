@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
 import 'package:verifyd_store/03%20domain/checkout/order.dart';
+import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/router.dart';
 
 //?-----------------------------------------------------------------------------
@@ -30,9 +31,10 @@ class ConfirmationPage extends StatelessWidget {
   const ConfirmationPage({Key? key, required this.orderStatus})
       : super(key: key);
   final OrderStatus orderStatus;
+
+  //----------
   @override
   Widget build(BuildContext context) {
-    //----------
     final bool? isSuccessFull = orderStatus.when(
         failure: (v) => false,
         success: () => true,
@@ -43,22 +45,36 @@ class ConfirmationPage extends StatelessWidget {
         fullFilled: () => null,
         refunded: (id) => null);
     //----------
-    return SafeArea(
-      child: Scaffold(
-        body: FydView(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: FydView(
           pageViewType: ViewType.without_Nav_Bar,
           isScrollable: false,
           topSheetHeight: 500.h,
-          topSheetColor: fydTWhite,
-          topSheet: _topSheetView(context, isSuccessFull!),
-          bottomSheet: _bottomSheetView(context, isSuccessFull),
+          topSheetColor: Colors.white,
+          topSheet: _TopSheet(
+            isSuccessFull: isSuccessFull!,
+          ),
+          bottomSheet: _BottomSheet(
+            isSuccessFull: isSuccessFull,
+          ),
         ),
       ),
     );
   }
+}
 //?-----------------------------------------------------------------------------
 
-  _topSheetView(BuildContext context, bool isSuccessFull) {
+class _TopSheet extends StatelessWidget {
+  final bool isSuccessFull;
+  const _TopSheet({
+    super.key,
+    required this.isSuccessFull,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
@@ -77,25 +93,30 @@ class ConfirmationPage extends StatelessWidget {
                   text: (isSuccessFull) ? 'success!' : 'failure!',
                   letterSpacing: .8,
                   color: (isSuccessFull)
-                      ? const Color.fromARGB(255, 70, 182, 5)
+                      ? fydAgreen
                       : const Color.fromARGB(255, 213, 75, 75),
                 ),
               ),
             ),
+
             //! gif
             Image.asset(
                 (isSuccessFull)
-                    ? 'assets/gifs/success1.gif'
-                    : 'assets/gifs/cancled1.gif',
+                    ? AssetHelper.gif_success
+                    : AssetHelper.gif_failure,
                 height: (isSuccessFull) ? 220.h : 160.h,
                 fit: BoxFit.contain,
                 scale: 1,
                 repeat: ImageRepeat.noRepeat),
+
             // spacing
             (isSuccessFull)
                 ? const SizedBox.shrink()
                 : SizedBox(
                     height: 20.h,
+                    child: const FydDivider(
+                      color: fydAred,
+                    ),
                   ),
             //! Order-Info
             Padding(
@@ -170,10 +191,18 @@ class ConfirmationPage extends StatelessWidget {
       ],
     );
   }
-
+}
 //?-----------------------------------------------------------------------------
 
-  _bottomSheetView(BuildContext context, bool isSuccessFull) {
+class _BottomSheet extends StatelessWidget {
+  final bool isSuccessFull;
+  const _BottomSheet({
+    super.key,
+    required this.isSuccessFull,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -217,7 +246,5 @@ class ConfirmationPage extends StatelessWidget {
       ],
     );
   }
-
-//?-----------------------------------------------------------------------------
 } // ConfirmationPage
 //?-----------------------------------------------------------------------------

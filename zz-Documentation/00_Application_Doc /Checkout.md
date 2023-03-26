@@ -13,7 +13,7 @@
 # DeliveryAddressPage ('/checkout/delivery')
 >>>>>>>>>>>>>>>>>>>>>>>>>>
 * `WrapperHandling`
-        Bloc Providers: CheckoutBloc()
+        Bloc Providers: via Router Wrapper
         Will PopScope: yes
         Network Dialogs: via mainPage
 
@@ -41,56 +41,42 @@
 # PaymentPage ('/checkout/payment')
 >>>>>>>>>>>>>>>>>>>>>>>>>>
 * `WrapperHandling`
-        Bloc Providers: 
-        Will PopScope: 
-        Network Dialogs: 
+        Bloc Providers: via Router Wrapper
+        Will PopScope: null
+        Network Dialogs: via mainPage
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `blocs`: 
-    `listenWhen`: 
-    `Listener`: ErrorHandling()
-    `buildWhen`: 
-    `builder`: 
-    `events`: 
+    `blocs`: checkoutBloc
+    `listenWhen`: '/checkout/payment'
+    `Listener`: ErrorHandling() + redirection
+    `builder`: loading + fydView
+    `events`: AddPaymentInfo
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `topsheet Height`: 
-    `AppBar`: Text(d3--1.3)--Icon(mode_edit_outline_outlined)   
-    `assets`: 
-    `widgets`: 
+    `topsheet Height`: 380.h
+    `assets`: comming-soon-tag via paymenttile
+    `widgets`: DeliveryInfoCard, PaymentTile
+               CouponSearch, OrderSummarySection
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `Todos`: 
+    `Todos`: Add orderId via cloudf() + payment-gateway
 
 -----------------------------------------
 
 # Confirmation ('/checkout/confirmation')
 >>>>>>>>>>>>>>>>>>>>>>>>>>
 * `WrapperHandling`
-        Bloc Providers: 
-        Will PopScope: 
-        Network Dialogs:
+        Will PopScope: yes
+        Network Dialogs: via mainPage
 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `blocs`: 
-    `listenWhen`:
-    `Listener`: ErrorHandling()
-    `buildWhen`:
-    `builder`: Loading(): null(): view
-    `events`: 
-    
+    `topsheet Height`: 500
+    `AppBar`: heading(d2--.8) 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    - Scaffold(resize)-->SafeArea: 
-    - TopSheet/btmSheet--stless:
-    `topsheet Height`: 
-    `AppBar`: Text()--Icon()   
-    >>>>>>>>>>>>>>>>>>>>>>>>>>
-    `assets`: 
+    `assets`: success.gif, failure.gif
     `widgets`: 
     >>>>>>>>>>>>>>>>>>>>>>>>>>
-    - importing/exporting/widgets
-    `Todos`: 
-    - tagging/commit:
+    `Todos`: orderId and paymentId integration 
 
 -----------------------------------------
 

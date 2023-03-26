@@ -28,20 +28,17 @@ class DeliveryAddressWrapperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: getIt<CheckoutBloc>(),
-      child: WillPopScope(
-          onWillPop: () async {
-            final popResult = await showPermissionDialog(
-                context: context,
-                title: 'Alert!',
-                message: "Leave and discard changes?",
-                falseBtnTitle: 'No',
-                trueBtnTitle: 'Yes');
-            return popResult ?? false;
-          },
-          child: const DeliveryAddressPage()),
-    );
+    return WillPopScope(
+        onWillPop: () async {
+          final popResult = await showPermissionDialog(
+              context: context,
+              title: 'Alert!',
+              message: "Leave and discard changes?",
+              falseBtnTitle: 'No',
+              trueBtnTitle: 'Yes');
+          return popResult ?? false;
+        },
+        child: const DeliveryAddressPage());
   }
 }
 
@@ -167,7 +164,6 @@ class _TopSheet extends StatelessWidget {
         FydAppBar(
           leading: AppBarBtn.close(
             onPressed: () {
-              HapticFeedback.mediumImpact();
               context.router.pop();
             },
           ),
@@ -297,6 +293,7 @@ class _BottomSheet extends StatelessWidget {
                           },
                           onEditPresses: (index) {
                             //-------
+                            HapticFeedback.lightImpact();
                             // select the address
                             deliveryAddress.value = Tuple2(
                               index,
@@ -341,6 +338,7 @@ class _BottomSheet extends StatelessWidget {
                     onPressed: () async {
                       if (checkoutState.isProcessing) return;
                       //-------
+                      HapticFeedback.mediumImpact();
                       if (deliveryAddress.value == null) {
                         showSnack(
                             context: context,

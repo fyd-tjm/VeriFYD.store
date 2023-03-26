@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
+import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 
 class PaymentTile extends StatelessWidget {
   final PaymentMode? paymentMode;
@@ -41,8 +42,9 @@ class PaymentTile extends StatelessWidget {
               ? Padding(
                   padding: EdgeInsets.only(right: 0.w),
                   child: Image.asset(
-                    'assets/logo/soon.png',
-                    width: 130.w,
+                    AssetHelper.comming_soon_tag,
+                    width: 100,
+                    filterQuality: FilterQuality.high,
                     fit: BoxFit.fitWidth,
                   ),
                 )
