@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 
 //?-----------------------------------------------------------------------------
 
@@ -9,7 +8,7 @@ class CheckoutErrorWrapperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CheckoutErrorPage();
+    return const CheckoutErrorPage();
   }
 }
 

@@ -9,7 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart' as _i4;
 import 'package:firebase_auth/firebase_auth.dart' as _i3;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:verifyd_store/00%20ui-core/widget/fyd_loading_overlay.dart'
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_loading_overlay.dart'
     as _i5;
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_network_dialog.dart'
     as _i25;

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:verifyd_store/03%20domain/store/store_failure.dart';
+
 import '00_export_store_domain.dart';
 
 abstract class IStoreRepository {

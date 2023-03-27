@@ -5,6 +5,7 @@ class AssetHelper {
   static const verifydStore_logoWithName =
       'assets/images/verify.store-logo.png';
   static const something_went_wrong = 'assets/images/404.png';
+  static const no_wifi = 'assets/images/no-wifi.png';
   static const fetching_error = 'assets/images/serve-crash.png';
   static const empty_cart = 'assets/images/empty-cart.png';
   static const launch_soon = 'assets/images/launch-soon.webp';

@@ -5,15 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_network_dialog.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_text_form_field.dart';
 import 'package:verifyd_store/02%20application/phone%20login/phone_login_bloc.dart';
 import 'package:verifyd_store/03%20domain/auth/value_objects.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
-import '../../00 ui-core/ui_exports.dart';
+
 import '../../02 application/core/network/network_cubit.dart';
 
 //?-----------------------------------------------------------------------------
@@ -212,7 +211,6 @@ class _BottomSheet extends StatelessWidget {
   final PhoneLoginState state;
   final ValueNotifier<String> phoneText;
   const _BottomSheet({
-    super.key,
     required this.state,
     required this.phoneText,
   });

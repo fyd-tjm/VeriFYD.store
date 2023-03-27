@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -12,8 +13,8 @@ import 'package:verifyd_store/utils/helpers/helpers.dart';
 
 import '../../../03 domain/cart/cart.dart';
 
-part 'cart_state.dart';
 part 'cart_cubit.freezed.dart';
+part 'cart_state.dart';
 
 @LazySingleton()
 class CartCubit extends Cubit<CartState> {

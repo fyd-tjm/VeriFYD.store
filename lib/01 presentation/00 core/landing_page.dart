@@ -2,13 +2,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/02%20application/core/network/network_cubit.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/router.dart';
 
+import 'widgets/core_exports.dart';
 import 'widgets/fyd_network_dialog.dart';
 
 //?-----------------------------------------------------------------------------

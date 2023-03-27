@@ -1,16 +1,9 @@
+import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
-import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:verifyd_store/01%20presentation/04%20home/home_view_page.dart';
-import 'package:verifyd_store/01%20presentation/05%20stores/stores_view_page.dart';
-import 'package:verifyd_store/01%20presentation/05%20stores/store_info_page.dart';
-import 'package:verifyd_store/01%20presentation/05%20stores/store_view_page.dart';
-import 'package:verifyd_store/01%20presentation/06%20cart/cart_view_page.dart';
-import 'package:verifyd_store/01%20presentation/07%20profile/profile_view_page.dart';
 
-import '../01 presentation/00 core/widgets/00_core_widgets_export.dart';
+import '../01 presentation/00 core/widgets/core_exports.dart';
 
 class TestStoreScreen extends StatefulWidget {
   const TestStoreScreen({Key? key}) : super(key: key);

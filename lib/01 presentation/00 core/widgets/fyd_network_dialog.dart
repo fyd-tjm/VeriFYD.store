@@ -1,9 +1,14 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:injectable/injectable.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/02%20application/core/network/network_cubit.dart';
+import 'package:verifyd_store/utils/helpers/asset_helper.dart';
+
+import 'fyd_button.dart';
+import 'fyd_colors.dart';
+import 'fyd_text.dart';
 
 @lazySingleton
 class FydNetworkDialog {
@@ -31,7 +36,7 @@ class FydNetworkDialog {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(15.r),
                       child: Image.asset(
-                        'assets/logo/no-wifi.png',
+                        AssetHelper.no_wifi,
                         width: 280.w,
                         fit: BoxFit.fitWidth,
                       ),

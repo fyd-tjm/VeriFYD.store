@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 
 class TestWidget extends StatelessWidget {
   const TestWidget({Key? key}) : super(key: key);

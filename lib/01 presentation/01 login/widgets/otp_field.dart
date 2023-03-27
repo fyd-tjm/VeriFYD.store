@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 
 //?-----------------------------------------------------------------------------
 

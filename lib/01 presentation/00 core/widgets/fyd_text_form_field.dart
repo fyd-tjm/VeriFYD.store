@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
-import 'package:flutter/material.dart';
+
+import 'fyd_colors.dart';
 
 enum TextFieldColor { dark, light }
 

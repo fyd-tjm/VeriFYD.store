@@ -17,10 +17,7 @@ class AuthFailureMapper {
       } else {
         return (const AuthFailure.serverError());
       }
-    }
-    // todo log other exceptions
-    // Other Exceptions Logging
-    else {
+    } else {
       return const AuthFailure.unknownError();
     }
   }

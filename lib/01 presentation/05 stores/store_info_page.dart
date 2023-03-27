@@ -2,10 +2,10 @@ import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
-import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_close_dialog.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_text_card.dart';
 import 'package:verifyd_store/utils/helpers/db_helpers.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 
@@ -52,7 +52,6 @@ class StoreInfoPage extends StatelessWidget {
 //?-----------------------------------------------------------------------------
 class _TopSheet extends StatelessWidget {
   const _TopSheet({
-    super.key,
     required this.store,
   });
 
@@ -116,7 +115,6 @@ class _TopSheet extends StatelessWidget {
 class _BottomSheet extends StatelessWidget {
   final Store store;
   const _BottomSheet({
-    super.key,
     required this.store,
   });
 

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/03%20domain/user/address.dart';
-import 'package:verifyd_store/presentation/core/widgets/fyd_text_ellipsis.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
 
 class DeliveryAddressTile extends StatelessWidget {
@@ -86,7 +84,7 @@ class DeliveryAddressTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //! (al1 + al2)
-                    FydTextEllipsis(
+                    FydEllipsisText(
                       width: 270.w,
                       fydText: FydText.b3custom(
                         text: "${address.line1}, ${address.line2}",
@@ -95,7 +93,7 @@ class DeliveryAddressTile extends StatelessWidget {
                       ),
                     ),
                     //! (state + pincode)
-                    FydTextEllipsis(
+                    FydEllipsisText(
                       width: 260.w,
                       fydText: FydText.b3custom(
                         text: '${address.city}, ${address.pincode}',

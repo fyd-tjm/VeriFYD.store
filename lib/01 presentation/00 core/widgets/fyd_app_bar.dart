@@ -1,8 +1,10 @@
 //! fyd-app-bar
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+
+import 'fyd_colors.dart';
 
 class FydAppBar extends StatelessWidget {
   const FydAppBar({
@@ -75,7 +77,7 @@ class AppBarBtn extends StatelessWidget {
   final double iconSize;
   final EdgeInsets padding;
   final Alignment alignment;
-  final void Function()? onPressed;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +96,10 @@ class AppBarBtn extends StatelessWidget {
           child: Icon(iconData, size: iconSize, color: iconColor),
         ),
 
-        onPressed: onPressed,
+        onPressed: () {
+          HapticFeedback.mediumImpact();
+          onPressed();
+        },
       ),
     );
   }

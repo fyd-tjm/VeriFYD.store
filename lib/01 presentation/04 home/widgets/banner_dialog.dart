@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 
 class BannerDialog extends StatelessWidget {
   const BannerDialog({

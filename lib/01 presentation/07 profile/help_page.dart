@@ -2,14 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
-import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/db_helpers.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
+
 import '../../02 application/shared info/shared_info_cubit.dart';
 import 'widgets/exports.dart';
 

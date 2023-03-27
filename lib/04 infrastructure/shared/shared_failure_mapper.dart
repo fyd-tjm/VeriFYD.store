@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../../03 domain/shared/00_export_shared_domain.dart';
+import 'package:verifyd_store/03%20domain/shared/shared_info_failure.dart';
 
 class SharedInfoFailureMapper {
   static SharedInfoFailure failureMapper(error) {
@@ -14,10 +13,7 @@ class SharedInfoFailureMapper {
       } else {
         return (const SharedInfoFailure.serverError());
       }
-    }
-    // Other Exceptions Logging
-    else {
-      // todo logging exceptions
+    } else {
       return (const SharedInfoFailure.unexpectedError());
     }
   }

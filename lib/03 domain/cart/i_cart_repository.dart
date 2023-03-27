@@ -15,12 +15,6 @@ abstract class ICartRepository {
     required String skuId,
     required Map<String, int> sizeQty,
   });
-  // Add New Size in existing Sku-Id product
-  // Future<Either<CartFailure, Unit>> addNewSize({
-  //   required String cartRef,
-  //   required String skuId,
-  //   required SizeQty sizeQty,
-  // });
   // update Size in existing Sku-Id product
   Future<Either<CartFailure, Unit>> updateSize({
     required String skuId,
@@ -35,9 +29,6 @@ abstract class ICartRepository {
     required String size,
     required int removedQty,
   });
-  // remove sku product
-  Future<Either<CartFailure, Unit>> removeSku(
-      {required String skuId, required int removedQty});
   // clear Cart--remove all products
   Future<Either<CartFailure, Unit>> clearCart();
 }

@@ -1,8 +1,7 @@
 //! drpdown-selection
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 
 class AddressDropdownMenu extends HookWidget {
   final List<String> list;

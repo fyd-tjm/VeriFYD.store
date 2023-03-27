@@ -2,14 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
-import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:intl/intl.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/widgets/order_summary_section.dart';
 import 'package:verifyd_store/03%20domain/checkout/order.dart';
 import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
 import 'package:verifyd_store/03%20domain/store/product.dart';
-import 'package:intl/intl.dart';
+
 import 'widgets/order_details_exports.dart';
 
 //?-----------------------------------------------------------------------------

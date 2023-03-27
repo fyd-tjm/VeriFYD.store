@@ -2,9 +2,9 @@ import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/landing_page.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/splash_page.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_colors.dart';
 import 'package:verifyd_store/01%20presentation/01%20login/otp_login_page.dart';
 import 'package:verifyd_store/01%20presentation/01%20login/phone_login_page.dart';
 import 'package:verifyd_store/01%20presentation/02%20on%20boarding/on_boarding_page.dart';
@@ -17,18 +17,18 @@ import 'package:verifyd_store/01%20presentation/05%20stores/stores_view_page.dar
 import 'package:verifyd_store/01%20presentation/06%20cart/cart_view_page.dart';
 import 'package:verifyd_store/01%20presentation/07%20profile/edit_profile_page.dart';
 import 'package:verifyd_store/01%20presentation/07%20profile/help_page.dart';
-import 'package:verifyd_store/01%20presentation/09%20address/new_address_page.dart';
 import 'package:verifyd_store/01%20presentation/07%20profile/order_details_page.dart';
 import 'package:verifyd_store/01%20presentation/07%20profile/orders_page.dart';
 import 'package:verifyd_store/01%20presentation/07%20profile/profile_address_page.dart';
 import 'package:verifyd_store/01%20presentation/07%20profile/profile_view_page.dart';
-import 'package:verifyd_store/01%20presentation/09%20address/update_address_page.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/checkout_wrapper_page.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/confirmation_page.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/delivery_address_page.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/error_page.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/gateway.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/payment_page.dart';
+import 'package:verifyd_store/01%20presentation/09%20address/new_address_page.dart';
+import 'package:verifyd_store/01%20presentation/09%20address/update_address_page.dart';
 import 'package:verifyd_store/01%20presentation/test_page.dart';
 import 'package:verifyd_store/aa%20mock/test_store.dart';
 
@@ -164,6 +164,7 @@ class Rn {
       path: '/checkout',
       name: 'CheckoutRouter',
       page: CheckoutWrapperPage,
+      transitionsBuilder: TransitionsBldr.sharedAxisHorizontal,
       children: [
         RedirectRoute(path: '', redirectTo: 'delivery'),
         CustomRoute(path: 'delivery', page: DeliveryAddressWrapperPage),

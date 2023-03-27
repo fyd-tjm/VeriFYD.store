@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:verifyd_store/00%20ui-core/core/fyd_colors.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_colors.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 
 //?-----------------------------------------------------------------------------

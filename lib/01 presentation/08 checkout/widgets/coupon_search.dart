@@ -1,8 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/widgets/coupon_card.dart';
 import 'package:verifyd_store/03%20domain/store/coupon.dart';
 

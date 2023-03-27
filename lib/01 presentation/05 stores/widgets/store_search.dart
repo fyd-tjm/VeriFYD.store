@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
-import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_pin_field.dart';
 
 class StoreSearch extends SearchDelegate {
   final BuildContext context;
@@ -145,7 +145,8 @@ abstract class SearchDelegate<T> {
             ? Colors.grey[900]
             : Colors.white,
         iconTheme: theme.primaryIconTheme.copyWith(color: Colors.grey),
-        textTheme: theme.textTheme,
+        toolbarTextStyle: theme.textTheme.bodyMedium,
+        titleTextStyle: theme.textTheme.titleLarge,
       ),
       inputDecorationTheme: searchFieldDecorationTheme ??
           InputDecorationTheme(
@@ -158,7 +159,6 @@ abstract class SearchDelegate<T> {
   String get query => _queryTextController.text;
 
   set query(String value) {
-    assert(query != null);
     _queryTextController.text = value;
     _queryTextController.selection = TextSelection.fromPosition(
         TextPosition(offset: _queryTextController.text.length));
@@ -225,7 +225,7 @@ enum _SearchBody {
 class _SearchPageRoute<T> extends PageRoute<T> {
   _SearchPageRoute({
     required this.delegate,
-  }) : assert(delegate != null) {
+  }) {
     assert(
       delegate._route == null,
       'The ${delegate.runtimeType} instance is currently used by another active '

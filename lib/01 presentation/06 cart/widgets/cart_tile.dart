@@ -1,10 +1,8 @@
 import 'package:animations/animations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 
-import '../../../00 ui-core/ui_exports.dart';
 import '../../00 core/widgets/fyd_image_dialog.dart';
 
 class CartTile extends StatelessWidget {

@@ -5,11 +5,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
-import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
@@ -182,7 +179,6 @@ class _TopSheet extends StatelessWidget {
   final BuildContext context;
   final StoreState state;
   const _TopSheet({
-    super.key,
     required this.context,
     required this.state,
   });
@@ -310,7 +306,6 @@ class _BottomSheet extends StatelessWidget {
   final BuildContext context;
   final StoreState state;
   const _BottomSheet({
-    super.key,
     required this.context,
     required this.state,
   });

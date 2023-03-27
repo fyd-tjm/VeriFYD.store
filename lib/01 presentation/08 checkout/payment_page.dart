@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
-import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/02%20application/checkout/checkout_bloc.dart';
 import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
 import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
@@ -124,7 +121,6 @@ class _TopSheet extends StatelessWidget {
   final CheckoutState state;
   final bool isPodAvailable;
   const _TopSheet({
-    super.key,
     required this.isPodAvailable,
     required this.selectedPaymentMode,
     required this.state,
@@ -194,7 +190,6 @@ class _BottomSheet extends StatelessWidget {
   final ValueNotifier<Coupon?> discountCpn;
   final CheckoutState state;
   const _BottomSheet({
-    super.key,
     required this.selectedPaymentMode,
     required this.discountCpn,
     required this.state,

@@ -1,11 +1,11 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/transformers.dart';
 import 'package:verifyd_store/03%20domain/cart/cart.dart';
 import 'package:verifyd_store/03%20domain/cart/cart_failure.dart';
-import 'package:dartz/dartz.dart';
 import 'package:verifyd_store/03%20domain/cart/i_cart_repository.dart';
 import 'package:verifyd_store/04%20infrastructure/core/firebase_helper.dart';
 
@@ -129,30 +129,6 @@ class FirebaseCartRepository implements ICartRepository {
     );
   }
 
-//?--Remove-Sku-----------------------------------------------------------------
-  @override
-  Future<Either<CartFailure, Unit>> removeSku(
-      {required String skuId, required int removedQty}) async {
-    final cartRef = DbRef.getCartRef();
-    final docRef = _firestore.doc(cartRef);
-
-    final result = await docRef
-        .update(
-          {
-            '${DbFKeys.cartItems()}.$skuId': FieldValue.delete(),
-            DbFKeys.cartCount(): FieldValue.increment(-removedQty),
-          },
-        )
-        .then((value) => right<CartFailure, Unit>(unit))
-        .onError(
-            (error, stackTrace) => left(const CartFailure.updateCartFailure()));
-
-    return result.fold(
-      (failure) => left(failure),
-      (r) => right(unit),
-    );
-  }
-
 //?--Clear-Cart-----------------------------------------------------------------
   @override
   Future<Either<CartFailure, Unit>> clearCart() async {
@@ -170,8 +146,6 @@ class FirebaseCartRepository implements ICartRepository {
       (r) => right(unit),
     );
   }
-
-//?-----------------------------------------------------------------------------
 
 //?-----------------------------------------------------------------------------
 }

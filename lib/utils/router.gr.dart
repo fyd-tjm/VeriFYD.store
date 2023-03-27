@@ -189,6 +189,7 @@ class AppRouter extends _i30.RootStackRouter {
       return _i30.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i14.CheckoutWrapperPage(),
+        transitionsBuilder: _i32.TransitionsBldr.sharedAxisHorizontal,
         opaque: true,
         barrierDismissible: false,
       );

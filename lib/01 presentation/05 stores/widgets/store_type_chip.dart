@@ -1,9 +1,8 @@
 //! Type-chip
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../00 ui-core/ui_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_styles.dart';
 
 class StoreTypeChip extends StatelessWidget {
   final String title;
@@ -25,7 +24,7 @@ class StoreTypeChip extends StatelessWidget {
         height: 80.h,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              primary: fydSblack,
+              backgroundColor: fydSblack,
               // background
               elevation: 5.0,
               shape: RoundedRectangleBorder(

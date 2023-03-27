@@ -4,10 +4,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
-import 'package:verifyd_store/presentation/core/widgets/fyd_v_h_listview.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_loading_overlay.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
@@ -15,8 +13,6 @@ import 'package:verifyd_store/utils/router.dart';
 
 import '../../02 application/cart/cubit/cart_cubit.dart';
 import '../../03 domain/store/product.dart';
-import '../00 core/widgets/fyd_app_bar.dart';
-import '../00 core/widgets/fyd_view.dart';
 import 'widgets/cart_tile.dart';
 
 //?-----------------------------------------------------------------------------
@@ -213,7 +209,6 @@ class _TopSheet extends StatelessWidget {
   final BuildContext context;
   final CartState state;
   const _TopSheet({
-    super.key,
     required this.context,
     required this.state,
   });
@@ -255,9 +250,10 @@ class _TopSheet extends StatelessWidget {
               right: 10.w,
               bottom: 4.h,
             ),
-            child: FydVListView(
+            child: _FydVListView(
                 width: double.infinity,
                 separation: 0,
+                widgetListPadding: null,
                 itemCount: state.cartItemsInTuple3!.length,
                 listWidget: List.generate(
                   state.cartItemsInTuple3!.length,
@@ -310,7 +306,6 @@ class _BottomSheet extends StatelessWidget {
   final BuildContext context;
   final CartState state;
   const _BottomSheet({
-    super.key,
     required this.context,
     required this.state,
   });
@@ -441,3 +436,48 @@ class _BottomSheet extends StatelessWidget {
 }
 
 //?-----------------------------------------------------------------------------
+
+class _FydVListView extends StatelessWidget {
+  final double width;
+  final double separation;
+  final int itemCount;
+  final List<Widget> listWidget;
+  final EdgeInsets? widgetListPadding;
+  const _FydVListView({
+    Key? key,
+    required this.width,
+    required this.separation,
+    required this.itemCount,
+    required this.listWidget,
+    required this.widgetListPadding,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      shaderCallback: (Rect rect) {
+        return const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [fydBblue, Colors.transparent, Colors.transparent, fydBblue],
+          stops: [0.0, 0.05, 0.95, 1.0],
+        ).createShader(rect);
+      },
+      blendMode: BlendMode.dstOut,
+      child: SizedBox(
+        width: width,
+        child: ListView.separated(
+          padding: widgetListPadding ??
+              const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          itemCount: itemCount,
+          itemBuilder: ((context, index) => listWidget[index]),
+          separatorBuilder: (context, index) => SizedBox(
+            height: separation,
+          ),
+        ),
+      ),
+    );
+  }
+}

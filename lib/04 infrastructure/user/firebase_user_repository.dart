@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
-import 'package:dartz/dartz.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:verifyd_store/03%20domain/cart/cart.dart';
 import 'package:verifyd_store/03%20domain/checkout/order.dart';
@@ -121,8 +121,6 @@ class FirebaseUserRepository implements IUserRepository {
   @override
   Future<Either<UserFailure, Unit>> updateAddress(
       {required FydAddress address, required int atIndex}) async {
-    //! for-testing
-
     var userDoc = _firestore.usersCollection().doc(DbRef.getUserId());
 
     var result = await userDoc.update(

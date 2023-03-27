@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get_utils/get_utils.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/03%20domain/checkout/customer_info.dart';
 import 'package:verifyd_store/03%20domain/checkout/order.dart';
 import 'package:verifyd_store/03%20domain/checkout/order_Info.dart';
@@ -9,9 +11,6 @@ import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
 import 'package:verifyd_store/03%20domain/checkout/shipping_info.dart';
 import 'package:verifyd_store/03%20domain/store/coupon.dart';
 import 'package:verifyd_store/03%20domain/user/address.dart';
-import '../../00 ui-core/ui_exports.dart';
-import 'package:get/get_utils/get_utils.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../03 domain/store/00_export_store_domain.dart';
 
@@ -255,28 +254,28 @@ class MockUi {
   static List<Card> cardList = [
     Card(
       elevation: 20.0,
-      child: SizedBox(height: 180, width: 160),
       color: fydSblack.withOpacity(.7),
+      child: const SizedBox(height: 180, width: 160),
     ),
     Card(
       elevation: 20.0,
-      child: SizedBox(height: 180, width: 160),
       color: fydSblack.withOpacity(.7),
+      child: const SizedBox(height: 180, width: 160),
     ),
     Card(
       elevation: 20.0,
-      child: SizedBox(height: 180, width: 160),
       color: fydSblack.withOpacity(.7),
+      child: const SizedBox(height: 180, width: 160),
     ),
     Card(
       elevation: 20.0,
-      child: SizedBox(height: 180, width: 160),
       color: fydSblack.withOpacity(.7),
+      child: const SizedBox(height: 180, width: 160),
     ),
     Card(
       elevation: 20.0,
-      child: SizedBox(height: 180, width: 160),
       color: fydSblack.withOpacity(.7),
+      child: const SizedBox(height: 180, width: 160),
     ),
   ];
   static List<Column> categoryIconList = [
@@ -296,7 +295,7 @@ class MockUi {
             ).paddingAll(5.r),
           ),
         ),
-        FydText.b4black(
+        const FydText.b4black(
           text: 'Apparels',
           weight: FontWeight.w600,
         )
@@ -318,7 +317,7 @@ class MockUi {
             ).paddingAll(5.r),
           ),
         ),
-        FydText.b4black(
+        const FydText.b4black(
           text: 'Electronics',
           weight: FontWeight.w600,
         ),
@@ -340,7 +339,7 @@ class MockUi {
             ).paddingAll(5.r),
           ),
         ),
-        FydText.b4black(
+        const FydText.b4black(
           text: 'Footwear',
           weight: FontWeight.w600,
         ),
@@ -386,7 +385,7 @@ class MockUi {
                           vertical: 10.0, horizontal: 20.0),
                       child: Text(
                         'No. ${imgList.indexOf(item)} image',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,

@@ -3,9 +3,7 @@ import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/02%20application/checkout/checkout_bloc.dart';
 import 'package:verifyd_store/03%20domain/checkout/customer_info.dart';
 import 'package:verifyd_store/03%20domain/checkout/order.dart';
@@ -17,8 +15,6 @@ import 'package:verifyd_store/aa%20mock/static_ui.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/router.dart';
 import 'package:verifyd_store/utils/router.gr.dart';
-
-import '../../00 ui-core/ui_exports.dart';
 
 //?-----------------------------------------------------------------------------
 class GatewayWrapperPage extends StatelessWidget {
@@ -138,7 +134,7 @@ class GatewayPage extends StatelessWidget {
                       size: 25,
                     ),
                   )
-                : FydText.h2custom(
+                : const FydText.h2custom(
                     text: 'Payment Success',
                     color: fydBblue,
                     weight: FontWeight.bold,
@@ -155,7 +151,7 @@ class GatewayPage extends StatelessWidget {
           child: FydBtn(
             height: 60.h,
             color: fydSblack,
-            fydText: FydText.h2custom(
+            fydText: const FydText.h2custom(
               text: 'testing',
               color: fydBblue,
               weight: FontWeight.bold,

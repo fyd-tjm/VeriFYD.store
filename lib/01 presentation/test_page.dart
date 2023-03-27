@@ -1,55 +1,23 @@
 import 'dart:developer';
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:animations/animations.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dots_indicator/dots_indicator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart' as flutterHooks;
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/route_manager.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:pinput/pinput.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
-import 'package:verifyd_store/01%20presentation/00%20core/widgets/00_core_widgets_export.dart';
-import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_pin_field.dart';
-import 'package:verifyd_store/01%20presentation/03%20main%20root/main_page.dart';
-import 'package:verifyd_store/01%20presentation/05%20stores/widgets/store_offer_card.dart';
-import 'package:verifyd_store/01%20presentation/07%20profile/widgets/profile_address_tile.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/confirmation_page.dart';
-import 'package:verifyd_store/01%20presentation/08%20checkout/delivery_address_page.dart';
-import 'package:verifyd_store/01%20presentation/08%20checkout/payment_page.dart';
-import 'package:verifyd_store/01%20presentation/08%20checkout/widgets/coupon_search.dart';
-import 'package:verifyd_store/01%20presentation/test_widget.dart';
-import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/03%20domain/cart/cart.dart';
 import 'package:verifyd_store/03%20domain/checkout/order.dart';
 import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
 import 'package:verifyd_store/03%20domain/shared/shared_info.dart';
 import 'package:verifyd_store/03%20domain/store/00_export_store_domain.dart';
 import 'package:verifyd_store/03%20domain/store/coupon.dart';
-import 'package:verifyd_store/03%20domain/store/tester.dart';
 import 'package:verifyd_store/03%20domain/user/fyd_user.dart';
 import 'package:verifyd_store/aa%20mock/static_ui.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
-import 'package:verifyd_store/utils/router.gr.dart';
-
-import '08 checkout/widgets/coupon_card.dart';
-import '08 checkout/widgets/order_summary_section.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 //?-----------------------------------------------------------------------------
 class TestWrapperPage extends StatelessWidget {
@@ -120,7 +88,7 @@ class TestPage extends flutterHooks.HookWidget {
 //?-----------------------------------------------------------------------------
   _bottomSheet(BuildContext context, ValueNotifier<bool> state1,
       ValueNotifier<Coupon?> discount) {
-    return Column(children: []);
+    return Column(children: const []);
   }
 
 //?-----------------------------------------------------------------------------
@@ -245,7 +213,7 @@ void dbProducts() async {
           'A product description is the marketing copy that explains what a product is and why its worth purchasing.',
       policy:
           'Thank you for shopping at (Store Name)! We offer refund and/or exchange within the first 30 days of your purchase, if 30 days have passed since your purchase, you will not be offered a refund and/or exchange of any kind. Your item must be unused and in the same condition that you received it.',
-      sizeAvailability: {'S': 1, 'M': 3, 'L': 2},
+      sizeAvailability: const {'S': 1, 'M': 3, 'L': 2},
       sizeGuide: '',
       sellingPrice: 950,
       mrp: 2100,

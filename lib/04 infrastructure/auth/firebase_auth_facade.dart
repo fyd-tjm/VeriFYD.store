@@ -1,12 +1,11 @@
 import 'dart:async';
-import 'dart:developer';
+
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
-import 'package:dartz/dartz.dart';
 
 import '../../03 domain/auth/00_export_auth_domain.dart';
 import 'auth_failure_mapper.dart';
-import 'firebase_user_mapper.dart';
 
 @LazySingleton(as: IAuthFacade)
 class FirebaseAuthFacade implements IAuthFacade {
@@ -97,8 +96,9 @@ class FirebaseAuthFacade implements IAuthFacade {
 //! Interface Override Check-Onboard-status
   @override
   bool getOnBoardStatus() {
-    final status =
-        (_firebaseAuth.currentUser!.displayName!.isEmpty) ? false : true;
+    final status = (_firebaseAuth.currentUser!.displayName == null)
+        ? false
+        : ((_firebaseAuth.currentUser!.displayName!.isEmpty) ? false : true);
     return status;
   }
 //?-----------------------------------------------------------------------------

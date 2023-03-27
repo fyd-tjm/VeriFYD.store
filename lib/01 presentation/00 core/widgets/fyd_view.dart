@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
+
+import 'fyd_colors.dart';
 
 enum ViewType { with_Nav_Bar, without_Nav_Bar }
 

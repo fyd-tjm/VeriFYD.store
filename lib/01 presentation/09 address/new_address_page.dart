@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:verifyd_store/00%20ui-core/ui_exports.dart';
-import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_app_bar.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
+import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_loading_overlay.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_text_form_field.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
@@ -224,7 +223,6 @@ class NewAddressPage extends HookWidget {
 
 class _TopForm extends StatelessWidget {
   const _TopForm({
-    super.key,
     required GlobalKey<FormState> formKey1,
     required this.nameController,
     required this.phoneController,
@@ -327,7 +325,6 @@ class _TopForm extends StatelessWidget {
 
 class _BottomForm extends StatelessWidget {
   const _BottomForm({
-    super.key,
     required GlobalKey<FormState> formKey2,
     required this.line1Controller,
     required this.line2Controller,
