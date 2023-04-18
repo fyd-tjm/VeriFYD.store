@@ -11,7 +11,7 @@ Verifyd.store is an ecommerce platform that addresses the concerns of modern-day
 The company's dedication to customer service is reflected in its hassle-free return and refund policy, which gives consumers peace of mind when making a purchase. With Verifyd.store, you can shop with confidence knowing that your personal and financial information is secure, and your satisfaction is guaranteed. 
 ## Screenshots
 
-<img src="[screenshot.png](https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/home.png)" alt="Home" width="200" height="450">
+<img src="https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/home.png" alt="Home" width="200" height="450">
 
 
 
