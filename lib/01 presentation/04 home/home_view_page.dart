@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:verifyd_store/01%20presentation/05%20stores/widgets/store_product_card.dart';
 import 'package:verifyd_store/01%20presentation/05%20stores/widgets/stores_category_card.dart';
 import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
@@ -15,7 +13,6 @@ import 'package:verifyd_store/utils/routes/router.gr.dart';
 
 import '../00 core/widgets/core_exports.dart';
 import '../05 stores/widgets/stores_search_bar.dart';
-
 import 'widgets/banner_card.dart';
 
 //?-----------------------------------------------------------------------------

@@ -1,24 +1,27 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/services/crashylitics_service.dart';
 import 'package:verifyd_store/utils/services/dynamic_link_services.dart';
 
 import '../01 presentation/00 core/start_app.dart';
+
 import 'app_config.dart';
 
 //?-----------------------------------------------------------------------------
 //! Switches
 const bool useEmulator = false;
-const bool useDebugMode = true;
+const bool useDebugMode = false;
 //?-----------------------------------------------------------------------------
 void main() async {
   runZonedGuarded<Future<void>>(

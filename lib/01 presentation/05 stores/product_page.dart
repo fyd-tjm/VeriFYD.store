@@ -1,9 +1,11 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:auto_route/auto_route.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_text_card.dart';
 import 'package:verifyd_store/02%20application/product/product_bloc.dart';
