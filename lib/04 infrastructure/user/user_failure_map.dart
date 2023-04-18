@@ -1,11 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:verifyd_store/03%20domain/user/00_export_user_domain.dart';
+import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+import 'package:verifyd_store/utils/services/analytics_service.dart';
 
 class UserFailureMapper {
   static UserFailure failureMapper(error) {
     // Firestore Exceptions
     if (error is FirebaseException) {
+      // Analytics logging
+      getIt<AnalyticsService>()
+          .logUserException(errorMessage: error.message ?? error.code);
+      // error handling
       if (error.code == 'aborted') {
         return (const UserFailure.aborted());
       } else if (error.code == 'already-exists') {
@@ -22,7 +28,8 @@ class UserFailureMapper {
     }
     // Other Exceptions Logging
     else {
-      // todo logging exceptions
+      // Analytics logging
+      getIt<AnalyticsService>().logUserException(errorMessage: error.code);
       return (const UserFailure.unknownError());
     }
   }

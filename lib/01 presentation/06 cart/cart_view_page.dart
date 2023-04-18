@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +8,8 @@ import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_loading_ov
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
-import 'package:verifyd_store/utils/router.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
+import 'package:verifyd_store/utils/services/analytics_service.dart';
 
 import '../../02 application/cart/cubit/cart_cubit.dart';
 import '../../03 domain/store/product.dart';
@@ -43,7 +43,7 @@ class CartViewPage extends StatelessWidget {
       body: SafeArea(
         child: BlocConsumer<CartCubit, CartState>(
           listenWhen: (previous, current) {
-            if (context.router.currentUrl == '/main/cart') {
+            if (context.router.currentUrl == Rn.cart) {
               return true;
             }
             return false;
@@ -417,6 +417,11 @@ class _BottomSheet extends StatelessWidget {
                   await context.read<CartCubit>().cartAvailabilityCheck();
               //---------
               if (availabilityCheck == true) {
+                // Analytics Logging
+                getIt<AnalyticsService>().logProceedToCheckout(
+                    storeId: state.cartRealtime!.cartId,
+                    subTotal: subTotal,
+                    itemCount: state.cartRealtime!.cartCount);
                 //Procceed Towards Checkout
                 context.router.navigateNamed(Rn.checkout);
               } else {

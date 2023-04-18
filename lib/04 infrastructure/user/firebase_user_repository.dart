@@ -25,21 +25,20 @@ class FirebaseUserRepository implements IUserRepository {
 //?-Create-User-----------------------------------------------------------------
   @override
   Future<Either<UserFailure, Unit>> createUser({
-    required String name,
-    required String email,
+    required String? name,
+    required String? email,
   }) async {
     try {
       // create fydUser
       final fydUser = FydUser(
         uId: DbRef.getUserId(),
         phone: FirebaseAuth.instance.currentUser!.phoneNumber!,
-        name: name,
-        email: email,
+        name: name ?? '',
+        email: email ?? '',
         addresses: const {},
       );
       await fydUserCollectionRef.doc(fydUser.uId).set(fydUser);
       await _firestore.doc(DbRef.getCartRef()).set(Cart.initial().toJson());
-      await FirebaseAuth.instance.currentUser!.updateDisplayName(name);
       return right(unit);
     } catch (e) {
       // error handling

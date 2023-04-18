@@ -16,7 +16,6 @@ _$_SharedInfo _$$_SharedInfoFromJson(Map<String, dynamic> json) =>
           .toList(),
       liveStores: Map<String, int>.from(json['liveStores'] as Map),
       timmings: Map<String, String>.from(json['timmings'] as Map),
-      images: Map<String, String>.from(json['images'] as Map),
       support: Map<String, String>.from(json['support'] as Map),
       banners: Map<String, String>.from(json['banners'] as Map),
       offers: (json['offers'] as Map<String, dynamic>).map(
@@ -38,7 +37,6 @@ Map<String, dynamic> _$$_SharedInfoToJson(_$_SharedInfo instance) =>
       'deliveryStates': instance.deliveryStates,
       'liveStores': instance.liveStores,
       'timmings': instance.timmings,
-      'images': instance.images,
       'support': instance.support,
       'banners': instance.banners,
       'offers': instance.offers.map((k, e) => MapEntry(k, e.toJson())),

@@ -18,7 +18,7 @@ class OrdersTile extends StatelessWidget {
       child: InkWell(
         splashColor: fydBblue,
         onTap: () {
-          HapticFeedback.mediumImpact();
+          HapticFeedback.lightImpact();
           onPressed(fydOrder);
         },
         child: Card(

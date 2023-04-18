@@ -1,5 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:verifyd_store/utils/routes/router.gr.dart';
+
 import 'injection.config.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -9,4 +11,7 @@ final GetIt getIt = GetIt.instance;
   preferRelativeImports: true,
   initializerName: 'init',
 )
-void configureInjection(String env) => getIt.init(environment: env);
+void configureInjection() {
+  getIt.init();
+  getIt.registerSingleton<AppRouter>(AppRouter());
+}

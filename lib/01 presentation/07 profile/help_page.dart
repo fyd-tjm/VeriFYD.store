@@ -1,12 +1,13 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
+import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/db_helpers.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
+import 'package:verifyd_store/utils/services/analytics_service.dart';
 
 import '../../02 application/shared info/shared_info_cubit.dart';
 import 'widgets/exports.dart';
@@ -17,8 +18,15 @@ class HelpWrapperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: getIt<SharedInfoCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(
+          value: getIt<SharedInfoCubit>(),
+        ),
+        BlocProvider.value(
+          value: getIt<FydUserCubit>(),
+        ),
+      ],
       child: const HelpPage(),
     );
   }
@@ -64,10 +72,7 @@ class HelpPage extends StatelessWidget {
       children: [
         //! appBar(back-btn + heading)
         FydAppBar(
-          leading: AppBarBtn.close(onPressed: () {
-            HapticFeedback.mediumImpact();
-            context.router.pop();
-          }),
+          leading: AppBarBtn.close(onPressed: () => context.router.pop()),
           main: const Center(
             child: FydText.d3black(
               text: 'Help',
@@ -97,7 +102,8 @@ class HelpPage extends StatelessWidget {
                   ),
                   FydText.b2custom(
                     text: state.sharedInfo!.timmings[
-                        DbHelpers.getSharedInfoField(SharedInfo.callingHours)]!,
+                        DbHelpers.getSharedInfoField(
+                            SharedInfoFields.callingHours)]!,
                     color: fydPgrey,
                     weight: FontWeight.w700,
                   ),
@@ -118,7 +124,7 @@ class HelpPage extends StatelessWidget {
                   FydText.b2custom(
                     text: state.sharedInfo!.timmings[
                         DbHelpers.getSharedInfoField(
-                            SharedInfo.operatingHours)]!,
+                            SharedInfoFields.operatingHours)]!,
                     color: fydPgrey,
                     weight: FontWeight.w700,
                   ),
@@ -133,6 +139,8 @@ class HelpPage extends StatelessWidget {
 
 //?-----------------------------------------------------------------------------
   _bottomSheetView(BuildContext context, SharedInfoState state) {
+    final uId =
+        context.select((FydUserCubit cubit) => cubit.state.fydUser!.uId);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 40.h),
       child: Column(
@@ -150,9 +158,11 @@ class HelpPage extends StatelessWidget {
             heading: 'Whatsapp support. Quick resolution',
             subHeading: '(recommended)',
             onPressed: () async {
+              // Analytics logging
+              getIt<AnalyticsService>().logHelpNeeded(helpBy: 'whatsapp');
               Helpers.launchWhatsApp(
                 phone: state.sharedInfo!.support[
-                    DbHelpers.getSharedInfoField(SharedInfo.whatsapp)]!,
+                    DbHelpers.getSharedInfoField(SharedInfoFields.whatsapp)]!,
               );
             },
           ),
@@ -166,12 +176,14 @@ class HelpPage extends StatelessWidget {
               size: 40,
               color: fydBblue,
             ),
-            heading: Helpers.phoneMaskWithCountryCode(state.sharedInfo!
-                .support[DbHelpers.getSharedInfoField(SharedInfo.phone)]!),
+            heading: Helpers.phoneMaskWithCountryCode(state.sharedInfo!.support[
+                DbHelpers.getSharedInfoField(SharedInfoFields.phone)]!),
             onPressed: () async {
+              // Analytics logging
+              getIt<AnalyticsService>().logHelpNeeded(helpBy: 'phone');
               Helpers.launchPhone(
-                phone: state.sharedInfo!
-                    .support[DbHelpers.getSharedInfoField(SharedInfo.phone)]!,
+                phone: state.sharedInfo!.support[
+                    DbHelpers.getSharedInfoField(SharedInfoFields.phone)]!,
               );
             },
           ),
@@ -187,12 +199,14 @@ class HelpPage extends StatelessWidget {
             ),
             heading: 'Mail us at',
             subHeading: state.sharedInfo!
-                .support[DbHelpers.getSharedInfoField(SharedInfo.mail)]!,
+                .support[DbHelpers.getSharedInfoField(SharedInfoFields.mail)]!,
             onPressed: () async {
+              // Analytics logging
+              getIt<AnalyticsService>().logHelpNeeded(helpBy: 'mail');
               await Helpers.launchMail(
-                email: state.sharedInfo!
-                    .support[DbHelpers.getSharedInfoField(SharedInfo.mail)]!,
-                subject: 'Help with userId:  ',
+                email: state.sharedInfo!.support[
+                    DbHelpers.getSharedInfoField(SharedInfoFields.mail)]!,
+                subject: 'Help from userId: $uId',
               );
             },
           ),

@@ -1,11 +1,11 @@
-// ignore_for_file: use_build_context_synchronously
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+// ignore_for_file: use_build_context_synchronously
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:verifyd_store/02%20application/core/network/network_cubit.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
-import 'package:verifyd_store/utils/router.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
+import 'package:verifyd_store/utils/services/analytics_service.dart';
 
 import 'widgets/core_exports.dart';
 import 'widgets/fyd_network_dialog.dart';
@@ -17,6 +17,8 @@ class LandingWrapperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Analytics logging
+    getIt<AnalyticsService>().setUserId();
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(

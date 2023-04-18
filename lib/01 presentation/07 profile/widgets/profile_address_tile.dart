@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/03%20domain/user/address.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
@@ -85,7 +87,10 @@ class ProfileAddressTile extends StatelessWidget {
                   ),
                   //! edit-Btn
                   TextButton(
-                    onPressed: () => onEditPresses(addressIndex),
+                    onPressed: () {
+                      HapticFeedback.mediumImpact();
+                      onEditPresses(addressIndex);
+                    },
                     style: TextButton.styleFrom(
                       minimumSize: Size.zero,
                       padding: EdgeInsets.zero,

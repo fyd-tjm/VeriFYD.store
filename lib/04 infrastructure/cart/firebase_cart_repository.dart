@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -8,6 +6,8 @@ import 'package:verifyd_store/03%20domain/cart/cart.dart';
 import 'package:verifyd_store/03%20domain/cart/cart_failure.dart';
 import 'package:verifyd_store/03%20domain/cart/i_cart_repository.dart';
 import 'package:verifyd_store/04%20infrastructure/core/firebase_helper.dart';
+import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
+import 'package:verifyd_store/utils/services/analytics_service.dart';
 
 @LazySingleton(as: ICartRepository)
 class FirebaseCartRepository implements ICartRepository {
@@ -26,6 +26,10 @@ class FirebaseCartRepository implements ICartRepository {
     yield* cartDoc.snapshots().map((cartSnapshot) {
       return right<CartFailure, Cart>(cartSnapshot.data()!);
     }).onErrorReturnWith((error, stackTrace) {
+      // Analytics logging
+      getIt<AnalyticsService>()
+          .logCartException(errorMessage: error.toString());
+
       return left(const CartFailure.cartStreamFailure());
     });
   }
@@ -41,8 +45,12 @@ class FirebaseCartRepository implements ICartRepository {
     final result = await cartDoc
         .set(cart)
         .then((value) => right<CartFailure, Unit>(unit))
-        .onError(
-            (error, stackTrace) => left(const CartFailure.updateCartFailure()));
+        .onError((error, stackTrace) {
+      // Analytics logging
+      getIt<AnalyticsService>()
+          .logCartException(errorMessage: error.toString());
+      return left(const CartFailure.updateCartFailure());
+    });
 
     return result.fold(
       (failure) => left(failure),
@@ -65,9 +73,12 @@ class FirebaseCartRepository implements ICartRepository {
           DbFKeys.cartCount(): FieldValue.increment(1),
         }, SetOptions(merge: true))
         .then((value) => right<CartFailure, Unit>(unit))
-        .onError(
-            (error, stackTrace) => left(const CartFailure.updateCartFailure()));
-
+        .onError((error, stackTrace) {
+          // Analytics logging
+          getIt<AnalyticsService>()
+              .logCartException(errorMessage: error.toString());
+          return left(const CartFailure.updateCartFailure());
+        });
     return result.fold(
       (failure) => left(failure),
       (r) => right(unit),
@@ -93,7 +104,9 @@ class FirebaseCartRepository implements ICartRepository {
         )
         .then((value) => right<CartFailure, Unit>(unit))
         .onError((error, stackTrace) {
-          log(error.toString());
+          // Analytics logging
+          getIt<AnalyticsService>()
+              .logCartException(errorMessage: error.toString());
           return left(const CartFailure.updateCartFailure());
         });
 
@@ -120,9 +133,12 @@ class FirebaseCartRepository implements ICartRepository {
           },
         )
         .then((value) => right<CartFailure, Unit>(unit))
-        .onError(
-            (error, stackTrace) => left(const CartFailure.updateCartFailure()));
-
+        .onError((error, stackTrace) {
+          // Analytics logging
+          getIt<AnalyticsService>()
+              .logCartException(errorMessage: error.toString());
+          return left(const CartFailure.updateCartFailure());
+        });
     return result.fold(
       (failure) => left(failure),
       (r) => right(unit),
@@ -138,9 +154,12 @@ class FirebaseCartRepository implements ICartRepository {
     final result = await docRef
         .update(Cart.initial().toJson())
         .then((value) => right<CartFailure, Unit>(unit))
-        .onError(
-            (error, stackTrace) => left(const CartFailure.updateCartFailure()));
-
+        .onError((error, stackTrace) {
+      // Analytics logging
+      getIt<AnalyticsService>()
+          .logCartException(errorMessage: error.toString());
+      return left(const CartFailure.updateCartFailure());
+    });
     return result.fold(
       (failure) => left(failure),
       (r) => right(unit),

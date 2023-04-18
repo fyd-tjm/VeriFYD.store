@@ -1,9 +1,8 @@
-import 'dart:developer';
-
-import 'package:auto_route/auto_route.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:verifyd_store/01%20presentation/05%20stores/widgets/store_product_card.dart';
 import 'package:verifyd_store/01%20presentation/05%20stores/widgets/stores_category_card.dart';
 import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
@@ -11,10 +10,12 @@ import 'package:verifyd_store/02%20application/stores/stores_bloc.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/helpers/db_helpers.dart';
-import 'package:verifyd_store/utils/router.gr.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
+import 'package:verifyd_store/utils/routes/router.gr.dart';
 
 import '../00 core/widgets/core_exports.dart';
 import '../05 stores/widgets/stores_search_bar.dart';
+
 import 'widgets/banner_card.dart';
 
 //?-----------------------------------------------------------------------------
@@ -35,14 +36,12 @@ class HomeViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(context.router.currentUrl);
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: BlocConsumer<SharedInfoCubit, SharedInfoState>(
           listenWhen: (previous, current) {
-            if (context.router.currentUrl == '/main/home') return true;
+            if (context.router.currentUrl == Rn.home) return true;
             return false;
           },
           listener: (context, state) {
@@ -78,7 +77,7 @@ class HomeViewPage extends StatelessWidget {
             if (state.sharedInfo == null) {
               return const Center(
                 child: SpinKitWave(
-                  color: fydBblue,
+                  color: Colors.transparent,
                   size: 40,
                 ),
               );
@@ -230,12 +229,13 @@ class _TopSheet extends StatelessWidget {
               //! apparel
               StoresCategoryCard(
                 svgAsset: AssetHelper.svg_apparel,
-                title: DbHelpers.getSharedInfoField(SharedInfo.apparel),
+                title: DbHelpers.getSharedInfoField(SharedInfoFields.apparel),
                 color: fydAlblue,
                 selectedTitle: null,
                 onPressed: (category) {
                   //-------
-                  final storesRouter = context.tabsRouter.stackRouterOfIndex(1);
+                  final storesRouter =
+                      context.innerRouterOf<StackRouter>(StoresRouter.name);
                   // storesRouter == null
                   if (storesRouter == null) {
                     context.navigateTo(const StoresRouter(
@@ -268,12 +268,13 @@ class _TopSheet extends StatelessWidget {
               //! footwear
               StoresCategoryCard(
                 svgAsset: AssetHelper.svg_footwear,
-                title: DbHelpers.getSharedInfoField(SharedInfo.footwear),
+                title: DbHelpers.getSharedInfoField(SharedInfoFields.footwear),
                 color: fydDustyPeach,
                 selectedTitle: null,
                 onPressed: (category) {
                   //-------
-                  final storesRouter = context.tabsRouter.stackRouterOfIndex(1);
+                  final storesRouter =
+                      context.innerRouterOf<StackRouter>(StoresRouter.name);
                   // storesRouter == null
                   if (storesRouter == null) {
                     context.navigateTo(const StoresRouter(
@@ -306,12 +307,13 @@ class _TopSheet extends StatelessWidget {
               //! other
               StoresCategoryCard(
                 svgAsset: AssetHelper.svg_other,
-                title: DbHelpers.getSharedInfoField(SharedInfo.other),
+                title: DbHelpers.getSharedInfoField(SharedInfoFields.other),
                 color: fydAlpink,
                 selectedTitle: null,
                 onPressed: (category) {
                   //-------
-                  final storesRouter = context.tabsRouter.stackRouterOfIndex(1);
+                  final storesRouter =
+                      context.innerRouterOf<StackRouter>(StoresRouter.name);
                   // storesRouter == null
                   if (storesRouter == null) {
                     context.navigateTo(const StoresRouter(
@@ -419,15 +421,6 @@ class _BottomSheet extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 20.0),
-          child: Center(
-            child: InkWell(
-                onTap: () => context.navigateTo(const TestRouter()),
-                child: const FydText.b1custom(
-                    text: 'Test-Page', color: fydABlueGrey)),
           ),
         ),
       ],

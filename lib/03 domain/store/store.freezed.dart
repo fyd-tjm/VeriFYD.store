@@ -32,7 +32,6 @@ mixin _$Store {
   Map<int, String> get storeAddress => throw _privateConstructorUsedError;
   Map<int, String> get storeContact => throw _privateConstructorUsedError;
   bool get isLive => throw _privateConstructorUsedError;
-  Map<String, String> get offers => throw _privateConstructorUsedError;
   Map<String, Coupon> get coupons => throw _privateConstructorUsedError;
   Map<int, String> get storeAlerts => throw _privateConstructorUsedError;
 
@@ -59,7 +58,6 @@ abstract class $StoreCopyWith<$Res> {
       Map<int, String> storeAddress,
       Map<int, String> storeContact,
       bool isLive,
-      Map<String, String> offers,
       Map<String, Coupon> coupons,
       Map<int, String> storeAlerts});
 }
@@ -89,7 +87,6 @@ class _$StoreCopyWithImpl<$Res, $Val extends Store>
     Object? storeAddress = null,
     Object? storeContact = null,
     Object? isLive = null,
-    Object? offers = null,
     Object? coupons = null,
     Object? storeAlerts = null,
   }) {
@@ -142,10 +139,6 @@ class _$StoreCopyWithImpl<$Res, $Val extends Store>
           ? _value.isLive
           : isLive // ignore: cast_nullable_to_non_nullable
               as bool,
-      offers: null == offers
-          ? _value.offers
-          : offers // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
       coupons: null == coupons
           ? _value.coupons
           : coupons // ignore: cast_nullable_to_non_nullable
@@ -177,7 +170,6 @@ abstract class _$$_StoreCopyWith<$Res> implements $StoreCopyWith<$Res> {
       Map<int, String> storeAddress,
       Map<int, String> storeContact,
       bool isLive,
-      Map<String, String> offers,
       Map<String, Coupon> coupons,
       Map<int, String> storeAlerts});
 }
@@ -203,7 +195,6 @@ class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res, _$_Store>
     Object? storeAddress = null,
     Object? storeContact = null,
     Object? isLive = null,
-    Object? offers = null,
     Object? coupons = null,
     Object? storeAlerts = null,
   }) {
@@ -256,10 +247,6 @@ class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res, _$_Store>
           ? _value.isLive
           : isLive // ignore: cast_nullable_to_non_nullable
               as bool,
-      offers: null == offers
-          ? _value._offers
-          : offers // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
       coupons: null == coupons
           ? _value._coupons
           : coupons // ignore: cast_nullable_to_non_nullable
@@ -289,7 +276,6 @@ class _$_Store implements _Store {
       required final Map<int, String> storeAddress,
       required final Map<int, String> storeContact,
       required this.isLive,
-      required final Map<String, String> offers,
       required final Map<String, Coupon> coupons,
       required final Map<int, String> storeAlerts})
       : _categories = categories,
@@ -298,7 +284,6 @@ class _$_Store implements _Store {
         _featuredIn = featuredIn,
         _storeAddress = storeAddress,
         _storeContact = storeContact,
-        _offers = offers,
         _coupons = coupons,
         _storeAlerts = storeAlerts;
 
@@ -359,13 +344,6 @@ class _$_Store implements _Store {
 
   @override
   final bool isLive;
-  final Map<String, String> _offers;
-  @override
-  Map<String, String> get offers {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_offers);
-  }
-
   final Map<String, Coupon> _coupons;
   @override
   Map<String, Coupon> get coupons {
@@ -382,7 +360,7 @@ class _$_Store implements _Store {
 
   @override
   String toString() {
-    return 'Store(storeId: $storeId, name: $name, categories: $categories, types: $types, socialPresence: $socialPresence, featuredIn: $featuredIn, rating: $rating, about: $about, storeLogo: $storeLogo, storeAddress: $storeAddress, storeContact: $storeContact, isLive: $isLive, offers: $offers, coupons: $coupons, storeAlerts: $storeAlerts)';
+    return 'Store(storeId: $storeId, name: $name, categories: $categories, types: $types, socialPresence: $socialPresence, featuredIn: $featuredIn, rating: $rating, about: $about, storeLogo: $storeLogo, storeAddress: $storeAddress, storeContact: $storeContact, isLive: $isLive, coupons: $coupons, storeAlerts: $storeAlerts)';
   }
 
   @override
@@ -408,7 +386,6 @@ class _$_Store implements _Store {
             const DeepCollectionEquality()
                 .equals(other._storeContact, _storeContact) &&
             (identical(other.isLive, isLive) || other.isLive == isLive) &&
-            const DeepCollectionEquality().equals(other._offers, _offers) &&
             const DeepCollectionEquality().equals(other._coupons, _coupons) &&
             const DeepCollectionEquality()
                 .equals(other._storeAlerts, _storeAlerts));
@@ -430,7 +407,6 @@ class _$_Store implements _Store {
       const DeepCollectionEquality().hash(_storeAddress),
       const DeepCollectionEquality().hash(_storeContact),
       isLive,
-      const DeepCollectionEquality().hash(_offers),
       const DeepCollectionEquality().hash(_coupons),
       const DeepCollectionEquality().hash(_storeAlerts));
 
@@ -462,7 +438,6 @@ abstract class _Store implements Store {
       required final Map<int, String> storeAddress,
       required final Map<int, String> storeContact,
       required final bool isLive,
-      required final Map<String, String> offers,
       required final Map<String, Coupon> coupons,
       required final Map<int, String> storeAlerts}) = _$_Store;
 
@@ -492,8 +467,6 @@ abstract class _Store implements Store {
   Map<int, String> get storeContact;
   @override
   bool get isLive;
-  @override
-  Map<String, String> get offers;
   @override
   Map<String, Coupon> get coupons;
   @override

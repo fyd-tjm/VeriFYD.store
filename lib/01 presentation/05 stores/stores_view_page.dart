@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
@@ -10,7 +7,8 @@ import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/helpers/db_helpers.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
-import 'package:verifyd_store/utils/router.gr.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
+import 'package:verifyd_store/utils/routes/router.gr.dart';
 
 import 'widgets/stores_export.dart';
 
@@ -40,13 +38,12 @@ class StoresViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(context.router.currentUrl);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: BlocConsumer<StoresBloc, StoresState>(
           listenWhen: (previous, current) {
-            if (context.router.currentUrl == '/main/stores') return true;
+            if (context.router.currentUrl == Rn.stores) return true;
             return false;
           },
           listener: (context, state) {
@@ -56,6 +53,7 @@ class StoresViewPage extends StatelessWidget {
                   (storeFailure) => showSnack(
                         context: context,
                         durationSeconds: 2,
+                        viewType: SnackBarViewType.withNav,
                         message: storeFailure.when(
                           permissionDenied: () => 'permission Denied',
                           notFound: () => 'not exist anymore',
@@ -67,7 +65,7 @@ class StoresViewPage extends StatelessWidget {
             }
           },
           buildWhen: (previous, current) {
-            if (context.router.currentUrl == '/main/stores') return true;
+            if (context.router.currentUrl == Rn.stores) return true;
             return false;
           },
           builder: (context, state) {
@@ -133,7 +131,7 @@ class _TopSheet extends StatelessWidget {
               //! apparel
               StoresCategoryCard(
                 svgAsset: AssetHelper.svg_apparel,
-                title: DbHelpers.getSharedInfoField(SharedInfo.apparel),
+                title: DbHelpers.getSharedInfoField(SharedInfoFields.apparel),
                 color: fydAlblue,
                 selectedTitle: state.selectedCategory,
                 onPressed: (category) {
@@ -145,7 +143,7 @@ class _TopSheet extends StatelessWidget {
               //! footwear
               StoresCategoryCard(
                 svgAsset: AssetHelper.svg_footwear,
-                title: DbHelpers.getSharedInfoField(SharedInfo.footwear),
+                title: DbHelpers.getSharedInfoField(SharedInfoFields.footwear),
                 color: fydDustyPeach,
                 selectedTitle: state.selectedCategory,
                 onPressed: (category) {
@@ -157,7 +155,7 @@ class _TopSheet extends StatelessWidget {
               //! other
               StoresCategoryCard(
                 svgAsset: AssetHelper.svg_other,
-                title: DbHelpers.getSharedInfoField(SharedInfo.other),
+                title: DbHelpers.getSharedInfoField(SharedInfoFields.other),
                 color: fydAlpink,
                 selectedTitle: state.selectedCategory,
                 onPressed: (category) {

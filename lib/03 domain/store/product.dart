@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 part 'product.freezed.dart';
 part 'product.g.dart';
 
@@ -10,7 +11,6 @@ abstract class Product with _$Product {
     required String name,
     required String storeId,
     required String storeName,
-    required String category,
     required String type,
     required String company,
     required String description,
@@ -23,7 +23,6 @@ abstract class Product with _$Product {
     required String thumbnailImage,
     required bool inStock,
     required int popularity,
-    // required DateTime addedOn,
   }) = _Product;
 
   factory Product.fromJson(Map<String, dynamic> json) =>

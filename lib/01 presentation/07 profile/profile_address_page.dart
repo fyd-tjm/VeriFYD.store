@@ -1,12 +1,12 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
-import 'package:verifyd_store/utils/router.dart';
-import 'package:verifyd_store/utils/router.gr.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
+import 'package:verifyd_store/utils/routes/router.gr.dart';
 
 import 'widgets/profile_address_tile.dart';
 
@@ -34,7 +34,7 @@ class ProfileAddressesPage extends StatelessWidget {
         body: SafeArea(
           child: BlocConsumer<FydUserCubit, FydUserState>(
             listenWhen: (previous, current) {
-              if (context.router.currentUrl == '/profileAddress') {
+              if (context.router.currentUrl == Rn.profileAddress) {
                 return true;
               }
               return false;
@@ -161,6 +161,7 @@ class _TopSheet extends StatelessWidget {
                     durationSeconds: 2,
                     message: 'address Limit is 3!');
               } else {
+                HapticFeedback.mediumImpact();
                 context.navigateNamedTo(Rn.newAddress);
               }
             },

@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +11,7 @@ import 'package:verifyd_store/02%20application/phone%20login/phone_login_bloc.da
 import 'package:verifyd_store/03%20domain/auth/value_objects.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
 
 import '../../02 application/core/network/network_cubit.dart';
 
@@ -66,7 +66,7 @@ class PhoneLoginPage extends HookWidget {
       body: SafeArea(
         child: BlocConsumer<PhoneLoginBloc, PhoneLoginState>(
           listenWhen: (previous, current) {
-            if (context.router.currentUrl == '/login') {
+            if (context.router.currentUrl == Rn.login) {
               return true;
             }
             return false;
@@ -93,11 +93,11 @@ class PhoneLoginPage extends HookWidget {
                       ));
             }
             if (state.isCodeSent) {
-              context.router.pushNamed('otp');
+              context.navigateNamedTo(Rn.otp);
             }
           },
           buildWhen: (previous, current) {
-            if (context.router.currentUrl == '/login') {
+            if (context.router.currentUrl == Rn.login) {
               return true;
             }
             return false;

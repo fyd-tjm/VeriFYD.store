@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +7,9 @@ import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.d
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
-import 'package:verifyd_store/utils/router.gr.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
+import 'package:verifyd_store/utils/routes/router.gr.dart';
+import 'package:verifyd_store/utils/services/analytics_service.dart';
 
 import '../../02 application/stores/store/store_bloc.dart';
 import 'widgets/store_export.dart';
@@ -26,6 +25,8 @@ class StoreViewWrapperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Analytics logging
+    getIt<AnalyticsService>().logStoreVisit(storeId: storeId);
     return BlocProvider(
       create: (context) =>
           getIt<StoreBloc>()..add(GetStoreRealtime(storeId: storeId)),
@@ -54,13 +55,12 @@ class StoreViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(context.router.currentUrl);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: BlocConsumer<StoreBloc, StoreState>(
           listenWhen: (previous, current) {
-            if (context.tabsRouter.currentUrl == '/main/stores') {
+            if (context.tabsRouter.currentUrl == Rn.stores) {
               return true;
             }
             return false;
@@ -99,7 +99,7 @@ class StoreViewPage extends StatelessWidget {
             if (state.isFetching && state.storeRealtime == null) {
               return const Center(
                 child: SpinKitWave(
-                  color: fydBblue,
+                  color: Colors.transparent,
                   size: 40.0,
                 ),
               );
@@ -204,7 +204,6 @@ class _TopSheet extends StatelessWidget {
         FydAppBar(
           //! close-btn
           leading: AppBarBtn.close(onPressed: () {
-            HapticFeedback.mediumImpact();
             context.router.pop();
           }),
           //! store name
@@ -241,25 +240,25 @@ class _TopSheet extends StatelessWidget {
         ),
         //! [store-Id + store-Info]
         Padding(
-          padding: EdgeInsets.only(bottom: 15.h),
+          padding: EdgeInsets.only(bottom: 10.h),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               //! storeId
-              Row(
-                children: [
-                  const FydText.b3custom(
-                    text: "store Id: ",
-                    color: fydBblue,
-                    weight: FontWeight.bold,
-                  ),
-                  FydText.b3custom(
+              FydRichText(
+                weight: FontWeight.bold,
+                size: 16,
+                color: fydBblue,
+                textList: [
+                  const TextSpan(text: 'store Id: '),
+                  TextSpan(
                     text: state.storeRealtime!.storeId,
-                    color: fydPgrey,
-                    weight: FontWeight.bold,
-                    letterSpacing: .9,
-                  )
+                    style: const TextStyle(
+                      color: fydPgrey,
+                      letterSpacing: .9,
+                    ),
+                  ),
                 ],
               ),
               //! storeInfo
@@ -271,7 +270,7 @@ class _TopSheet extends StatelessWidget {
                   );
                 },
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 8),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -451,6 +450,9 @@ class _BottomSheet extends StatelessWidget {
                               widgetOne: StoreProductCard(
                                 product: state.productList.elementAt(index),
                                 onProductTap: (product) {
+                                  // Analytics Logging
+                                  getIt<AnalyticsService>()
+                                      .logProductView(product: product);
                                   context.router.navigate(ProductWrapperRoute(
                                     productRef: Helpers.getProductRef(
                                         storeId: product.storeId,
@@ -461,6 +463,9 @@ class _BottomSheet extends StatelessWidget {
                               widgetTwo: StoreProductCard(
                                 product: state.productList.elementAt(index + 1),
                                 onProductTap: (product) {
+                                  // Analytics Logging
+                                  getIt<AnalyticsService>()
+                                      .logProductView(product: product);
                                   context.router.navigate(ProductWrapperRoute(
                                     productRef: Helpers.getProductRef(
                                         storeId: product.storeId,
@@ -476,6 +481,9 @@ class _BottomSheet extends StatelessWidget {
                               widgetOne: StoreProductCard(
                                 product: state.productList.elementAt(index),
                                 onProductTap: (product) {
+                                  // Analytics Logging
+                                  getIt<AnalyticsService>()
+                                      .logProductView(product: product);
                                   context.router.navigate(ProductWrapperRoute(
                                     productRef: Helpers.getProductRef(
                                         storeId: product.storeId,

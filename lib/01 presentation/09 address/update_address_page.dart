@@ -88,12 +88,6 @@ class UpdateAddressPage extends HookWidget {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: BlocListener<FydUserCubit, FydUserState>(
-          listenWhen: (previous, current) {
-            if (context.router.currentUrl == '/updateAddress') {
-              return true;
-            }
-            return false;
-          },
           listener: (context, state) {
             if (state.failureOrSuccess.isSome()) {
               state.failureOrSuccess.fold(

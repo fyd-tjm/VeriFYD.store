@@ -1,5 +1,6 @@
 //! profileTile
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 
@@ -23,7 +24,10 @@ class ProfileTile extends StatelessWidget {
     return FydBtn(
       height: 70.h,
       color: fydSblack,
-      onPressed: onPressed,
+      onPressed: () {
+        HapticFeedback.mediumImpact();
+        onPressed();
+      },
       widget: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,

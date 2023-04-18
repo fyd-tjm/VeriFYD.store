@@ -1,4 +1,4 @@
-enum SharedInfo {
+enum SharedInfoFields {
   apparel,
   footwear,
   other,
@@ -11,7 +11,7 @@ enum SharedInfo {
   whatsapp,
 }
 
-enum StoreInfo {
+enum StoreInfoFields {
   facebook,
   instagram,
   youtube,
@@ -22,27 +22,27 @@ enum StoreInfo {
 //?-----------------------------------------------------------------------------
 class DbHelpers {
 //?-----------------------------------------------------------------------------
-  static String getSharedInfoField(SharedInfo field) {
+  static String getSharedInfoField(SharedInfoFields field) {
     switch (field) {
-      case SharedInfo.apparel:
+      case SharedInfoFields.apparel:
         return 'APPAREL';
-      case SharedInfo.footwear:
+      case SharedInfoFields.footwear:
         return 'FOOTWEAR';
-      case SharedInfo.other:
+      case SharedInfoFields.other:
         return 'OTHER';
-      case SharedInfo.callingHours:
+      case SharedInfoFields.callingHours:
         return 'CALLING HOURS';
-      case SharedInfo.operatingHours:
+      case SharedInfoFields.operatingHours:
         return 'OPERATING HOURS';
-      case SharedInfo.launchingSoon:
+      case SharedInfoFields.launchingSoon:
         return 'LAUNCHING SOON';
-      case SharedInfo.stockout:
+      case SharedInfoFields.stockout:
         return 'STOCKOUT';
-      case SharedInfo.mail:
+      case SharedInfoFields.mail:
         return 'MAIL';
-      case SharedInfo.phone:
+      case SharedInfoFields.phone:
         return 'PHONE';
-      case SharedInfo.whatsapp:
+      case SharedInfoFields.whatsapp:
         return 'WHATSAPP';
       default:
         return 'Invalid Field';
@@ -50,17 +50,17 @@ class DbHelpers {
   }
 
 //?-----------------------------------------------------------------------------
-  static String getStoreInfoField(StoreInfo field) {
+  static String getStoreInfoField(StoreInfoFields field) {
     switch (field) {
-      case StoreInfo.facebook:
+      case StoreInfoFields.facebook:
         return 'FACEBOOK';
-      case StoreInfo.instagram:
+      case StoreInfoFields.instagram:
         return 'INSTAGRAM';
-      case StoreInfo.youtube:
+      case StoreInfoFields.youtube:
         return 'YOUTUBE';
-      case StoreInfo.whatsapp:
+      case StoreInfoFields.whatsapp:
         return 'WHATSAPP';
-      case StoreInfo.website:
+      case StoreInfoFields.website:
         return 'WEBSITE';
       default:
         return 'Invalid Field';

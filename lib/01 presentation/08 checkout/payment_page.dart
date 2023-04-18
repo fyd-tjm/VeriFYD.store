@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,8 +8,8 @@ import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.d
 import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
 import 'package:verifyd_store/03%20domain/store/coupon.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
-import 'package:verifyd_store/utils/router.dart';
-import 'package:verifyd_store/utils/router.gr.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
+import 'package:verifyd_store/utils/routes/router.gr.dart';
 
 import 'widgets/payment_exports.dart';
 
@@ -45,7 +44,7 @@ class PaymentPage extends HookWidget {
       body: SafeArea(
         child: BlocConsumer<CheckoutBloc, CheckoutState>(
           listenWhen: (previous, current) {
-            if (context.router.currentUrl == '/checkout/payment') {
+            if (context.router.currentUrl == Rn.payment) {
               return true;
             }
             return false;

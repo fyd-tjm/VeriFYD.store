@@ -24,7 +24,6 @@ mixin _$Product {
   String get name => throw _privateConstructorUsedError;
   String get storeId => throw _privateConstructorUsedError;
   String get storeName => throw _privateConstructorUsedError;
-  String get category => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
   String get company => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -53,7 +52,6 @@ abstract class $ProductCopyWith<$Res> {
       String name,
       String storeId,
       String storeName,
-      String category,
       String type,
       String company,
       String description,
@@ -85,7 +83,6 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? name = null,
     Object? storeId = null,
     Object? storeName = null,
-    Object? category = null,
     Object? type = null,
     Object? company = null,
     Object? description = null,
@@ -115,10 +112,6 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
       storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
-              as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
               as String,
       type: null == type
           ? _value.type
@@ -184,7 +177,6 @@ abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       String name,
       String storeId,
       String storeName,
-      String category,
       String type,
       String company,
       String description,
@@ -213,7 +205,6 @@ class __$$_ProductCopyWithImpl<$Res>
     Object? name = null,
     Object? storeId = null,
     Object? storeName = null,
-    Object? category = null,
     Object? type = null,
     Object? company = null,
     Object? description = null,
@@ -243,10 +234,6 @@ class __$$_ProductCopyWithImpl<$Res>
       storeName: null == storeName
           ? _value.storeName
           : storeName // ignore: cast_nullable_to_non_nullable
-              as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
               as String,
       type: null == type
           ? _value.type
@@ -308,7 +295,6 @@ class _$_Product implements _Product {
       required this.name,
       required this.storeId,
       required this.storeName,
-      required this.category,
       required this.type,
       required this.company,
       required this.description,
@@ -335,8 +321,6 @@ class _$_Product implements _Product {
   final String storeId;
   @override
   final String storeName;
-  @override
-  final String category;
   @override
   final String type;
   @override
@@ -374,7 +358,7 @@ class _$_Product implements _Product {
 
   @override
   String toString() {
-    return 'Product(skuId: $skuId, name: $name, storeId: $storeId, storeName: $storeName, category: $category, type: $type, company: $company, description: $description, policy: $policy, sizeAvailability: $sizeAvailability, sizeGuide: $sizeGuide, sellingPrice: $sellingPrice, mrp: $mrp, productImages: $productImages, thumbnailImage: $thumbnailImage, inStock: $inStock, popularity: $popularity)';
+    return 'Product(skuId: $skuId, name: $name, storeId: $storeId, storeName: $storeName, type: $type, company: $company, description: $description, policy: $policy, sizeAvailability: $sizeAvailability, sizeGuide: $sizeGuide, sellingPrice: $sellingPrice, mrp: $mrp, productImages: $productImages, thumbnailImage: $thumbnailImage, inStock: $inStock, popularity: $popularity)';
   }
 
   @override
@@ -387,8 +371,6 @@ class _$_Product implements _Product {
             (identical(other.storeId, storeId) || other.storeId == storeId) &&
             (identical(other.storeName, storeName) ||
                 other.storeName == storeName) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.company, company) || other.company == company) &&
             (identical(other.description, description) ||
@@ -418,7 +400,6 @@ class _$_Product implements _Product {
       name,
       storeId,
       storeName,
-      category,
       type,
       company,
       description,
@@ -452,7 +433,6 @@ abstract class _Product implements Product {
       required final String name,
       required final String storeId,
       required final String storeName,
-      required final String category,
       required final String type,
       required final String company,
       required final String description,
@@ -476,8 +456,6 @@ abstract class _Product implements Product {
   String get storeId;
   @override
   String get storeName;
-  @override
-  String get category;
   @override
   String get type;
   @override

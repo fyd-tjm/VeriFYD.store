@@ -1,13 +1,13 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
-import 'package:verifyd_store/utils/router.dart';
-import 'package:verifyd_store/utils/router.gr.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
+import 'package:verifyd_store/utils/routes/router.gr.dart';
 
 import 'widgets/profile_tile.dart';
 
@@ -36,7 +36,7 @@ class ProfileViewPage extends StatelessWidget {
       body: SafeArea(
         child: BlocConsumer<FydUserCubit, FydUserState>(
           listenWhen: (previous, current) {
-            if (context.tabsRouter.currentUrl == '/main/profile') {
+            if (context.tabsRouter.currentUrl == Rn.profile) {
               return true;
             }
             return false;
@@ -54,7 +54,7 @@ class ProfileViewPage extends StatelessWidget {
                       invalidArgument: () => 'Invalid Argument. try again',
                       alreadyExists: () => 'Data already Exists',
                       notFound: () => 'Data not found!',
-                      permissionDenied: () => 'Permission Denied',
+                      permissionDenied: () => null,
                       serverError: () => 'Server Error: try again',
                       unknownError: () => 'Something went wrong: try again ',
                     ),
@@ -258,6 +258,7 @@ class _BottomSheet extends StatelessWidget {
           Center(
             child: TextButton(
               onPressed: () async {
+                HapticFeedback.mediumImpact();
                 await context.read<FydUserCubit>().logOutUser();
                 context.router.replaceAll([LandingWrapperRoute()]);
               },

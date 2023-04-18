@@ -84,7 +84,9 @@ class StoreSearch extends SearchDelegate {
           ),
           //! storeName
           subtitle: FydText.b4custom(
-            text: searchMap[suggestionList[index]]!,
+            text: query.isEmpty
+                ? recentMap[suggestionList[index]]!
+                : searchMap[suggestionList[index]]!,
             color: fydSgrey,
             weight: FontWeight.w500,
           ),

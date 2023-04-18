@@ -1,20 +1,11 @@
-import 'dart:developer';
-
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/02%20application/checkout/checkout_bloc.dart';
-import 'package:verifyd_store/03%20domain/checkout/customer_info.dart';
 import 'package:verifyd_store/03%20domain/checkout/order.dart';
-import 'package:verifyd_store/03%20domain/checkout/order_Info.dart';
-import 'package:verifyd_store/03%20domain/checkout/order_summary.dart';
-import 'package:verifyd_store/03%20domain/checkout/payment_info.dart';
-import 'package:verifyd_store/03%20domain/checkout/shipping_info.dart';
-import 'package:verifyd_store/aa%20mock/static_ui.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
-import 'package:verifyd_store/utils/router.dart';
-import 'package:verifyd_store/utils/router.gr.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
+import 'package:verifyd_store/utils/routes/router.gr.dart';
 
 //?-----------------------------------------------------------------------------
 class GatewayWrapperPage extends StatelessWidget {
@@ -27,6 +18,7 @@ class GatewayWrapperPage extends StatelessWidget {
       child: WillPopScope(
           onWillPop: () async {
             final popResult = await showPermissionDialog(
+                title: 'Discard Payment?',
                 context: context,
                 message:
                     "Transaction not complete. Discard payment? Press OK to leave, Cancel to stay.",
@@ -103,102 +95,72 @@ class GatewayPage extends StatelessWidget {
             return false;
           },
           builder: (context, state) {
-            return FydView(
-              pageViewType: ViewType.without_Nav_Bar,
-              isScrollable: false,
-              topSheetHeight: 400.h,
-              topSheet: topSheetView(context, state),
-              bottomSheet: bottomSheetView(context, state),
+            return Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 100.0),
+                  child: Center(
+                    child: FydText.d2custom(
+                      text: 'Payment Gateway',
+                      color: fydBgreen,
+                      weight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 30.0),
+                  child: Center(
+                    child: FydText.b1custom(
+                      text: 'to be integrated.',
+                      color: fydBgreen,
+                      weight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 50.0, right: 50.0, top: 300.0),
+                  child: FydBtn(
+                    height: 55,
+                    onPressed: () {
+                      if (state.isProcessing) return;
+                      context.read<CheckoutBloc>().add(MakePayment());
+                    },
+                    widget: (state.isProcessing)
+                        ? const Center(
+                            child: SpinKitWave(
+                              color: fydBblue,
+                              size: 25,
+                            ),
+                          )
+                        : const FydText.b2custom(
+                            text: 'Payment Success',
+                            color: fydBblue,
+                            weight: FontWeight.w600),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 50.0,
+                    right: 50.0,
+                    top: 30.0,
+                  ),
+                  child: FydBtn(
+                    height: 55,
+                    onPressed: () {},
+                    fydText: const FydText.b2custom(
+                        text: 'Payment Failure',
+                        color: fydBblue,
+                        weight: FontWeight.w600),
+                  ),
+                )
+              ],
             );
           },
         ),
       ),
     );
   }
-
-//?-----------------------------------------------------------------------------
-  topSheetView(BuildContext context, CheckoutState state) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(bottom: 25.h),
-          child: FydBtn(
-            height: 60.h,
-            color: fydSblack,
-            widget: (state.isProcessing)
-                ? const Center(
-                    child: SpinKitWave(
-                      color: fydBblue,
-                      size: 25,
-                    ),
-                  )
-                : const FydText.h2custom(
-                    text: 'Payment Success',
-                    color: fydBblue,
-                    weight: FontWeight.bold,
-                  ),
-            onPressed: () {
-              if (state.isProcessing) return;
-              //-----
-              context.read<CheckoutBloc>().add(MakePayment());
-            },
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: 25.h),
-          child: FydBtn(
-            height: 60.h,
-            color: fydSblack,
-            fydText: const FydText.h2custom(
-              text: 'testing',
-              color: fydBblue,
-              weight: FontWeight.bold,
-            ),
-            onPressed: () {
-              return;
-              final order = FydOrder(
-                  orderId: 'orderId',
-                  orderStatus: const OrderStatus.confirmed(),
-                  orderInfo: const OrderInfo(
-                      storeId: 'storeId',
-                      storeName: '',
-                      orderItems: {},
-                      orderItemsDetail: {},
-                      orderSummary: OrderSummary(
-                          totalItems: 1,
-                          subTotal: 1,
-                          discount: null,
-                          shippingCost: 1,
-                          total: 1)),
-                  shippingInfo: ShippingInfo(
-                      shippingAddress: MockUi.fydAddress,
-                      shippingCost: 20,
-                      trackingUrl: ''),
-                  paymentInfo: const PaymentInfo(
-                      paymentAmount: 20,
-                      paymentMode:
-                          PaymentMode.online(paymentId: '324ljkdk;astu')),
-                  customerInfo: const CustomerInfo(
-                      customerId: 'customerId',
-                      name: 'name',
-                      phone: 'phone',
-                      email: 'email'),
-                  orderDate: DateTime.now(),
-                  deliveryDate: null);
-              log(order.toJson().toString());
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-//?-----------------------------------------------------------------------------
-  bottomSheetView(BuildContext context, CheckoutState state) {
-    return Column();
-  }
-
-//?-----------------------------------------------------------------------------
 }

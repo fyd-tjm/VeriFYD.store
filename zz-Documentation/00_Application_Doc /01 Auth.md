@@ -109,6 +109,5 @@
 
  * `TODOS`: 
         => remove PhoneNumber/Otp value-objects
-        => crashylitics logging in AuthFailureMapper
 ----------------------------------------------------------
 

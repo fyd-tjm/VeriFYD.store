@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/01%20presentation/08%20checkout/widgets/order_summary_section.dart';
@@ -67,10 +66,9 @@ class OrderDetailsPage extends StatelessWidget {
         //! AppBar (backBTN + heading)
         FydAppBar(
           //! close-btn
-          leading: AppBarBtn.back(onPressed: () {
-            HapticFeedback.lightImpact();
-            context.router.pop();
-          }),
+          leading: AppBarBtn.back(onPressed: () =>
+            context.router.pop()
+          ),
           //! Heading-OrderId
           main: Center(
               child: FydRichText(

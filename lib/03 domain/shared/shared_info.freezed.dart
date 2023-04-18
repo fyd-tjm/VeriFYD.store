@@ -26,7 +26,6 @@ mixin _$SharedInfo {
   List<String> get deliveryStates => throw _privateConstructorUsedError;
   Map<String, int> get liveStores => throw _privateConstructorUsedError;
   Map<String, String> get timmings => throw _privateConstructorUsedError;
-  Map<String, String> get images => throw _privateConstructorUsedError;
   Map<String, String> get support => throw _privateConstructorUsedError;
   Map<String, String> get banners => throw _privateConstructorUsedError;
   Map<String, Coupon> get offers => throw _privateConstructorUsedError;
@@ -54,7 +53,6 @@ abstract class $SharedInfoCopyWith<$Res> {
       List<String> deliveryStates,
       Map<String, int> liveStores,
       Map<String, String> timmings,
-      Map<String, String> images,
       Map<String, String> support,
       Map<String, String> banners,
       Map<String, Coupon> offers,
@@ -82,7 +80,6 @@ class _$SharedInfoCopyWithImpl<$Res, $Val extends SharedInfo>
     Object? deliveryStates = null,
     Object? liveStores = null,
     Object? timmings = null,
-    Object? images = null,
     Object? support = null,
     Object? banners = null,
     Object? offers = null,
@@ -114,10 +111,6 @@ class _$SharedInfoCopyWithImpl<$Res, $Val extends SharedInfo>
       timmings: null == timmings
           ? _value.timmings
           : timmings // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
-      images: null == images
-          ? _value.images
-          : images // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
       support: null == support
           ? _value.support
@@ -162,7 +155,6 @@ abstract class _$$_SharedInfoCopyWith<$Res>
       List<String> deliveryStates,
       Map<String, int> liveStores,
       Map<String, String> timmings,
-      Map<String, String> images,
       Map<String, String> support,
       Map<String, String> banners,
       Map<String, Coupon> offers,
@@ -188,7 +180,6 @@ class __$$_SharedInfoCopyWithImpl<$Res>
     Object? deliveryStates = null,
     Object? liveStores = null,
     Object? timmings = null,
-    Object? images = null,
     Object? support = null,
     Object? banners = null,
     Object? offers = null,
@@ -220,10 +211,6 @@ class __$$_SharedInfoCopyWithImpl<$Res>
       timmings: null == timmings
           ? _value._timmings
           : timmings // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
-      images: null == images
-          ? _value._images
-          : images // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
       support: null == support
           ? _value._support
@@ -264,7 +251,6 @@ class _$_SharedInfo implements _SharedInfo {
       required final List<String> deliveryStates,
       required final Map<String, int> liveStores,
       required final Map<String, String> timmings,
-      required final Map<String, String> images,
       required final Map<String, String> support,
       required final Map<String, String> banners,
       required final Map<String, Coupon> offers,
@@ -274,7 +260,6 @@ class _$_SharedInfo implements _SharedInfo {
       : _deliveryStates = deliveryStates,
         _liveStores = liveStores,
         _timmings = timmings,
-        _images = images,
         _support = support,
         _banners = banners,
         _offers = offers,
@@ -309,13 +294,6 @@ class _$_SharedInfo implements _SharedInfo {
   Map<String, String> get timmings {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_timmings);
-  }
-
-  final Map<String, String> _images;
-  @override
-  Map<String, String> get images {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_images);
   }
 
   final Map<String, String> _support;
@@ -358,7 +336,7 @@ class _$_SharedInfo implements _SharedInfo {
 
   @override
   String toString() {
-    return 'SharedInfo(shippingCost: $shippingCost, totalOrders: $totalOrders, cartLimit: $cartLimit, deliveryStates: $deliveryStates, liveStores: $liveStores, timmings: $timmings, images: $images, support: $support, banners: $banners, offers: $offers, storeSearchMap: $storeSearchMap, recentlyPurchased: $recentlyPurchased, isPodAvailable: $isPodAvailable)';
+    return 'SharedInfo(shippingCost: $shippingCost, totalOrders: $totalOrders, cartLimit: $cartLimit, deliveryStates: $deliveryStates, liveStores: $liveStores, timmings: $timmings, support: $support, banners: $banners, offers: $offers, storeSearchMap: $storeSearchMap, recentlyPurchased: $recentlyPurchased, isPodAvailable: $isPodAvailable)';
   }
 
   @override
@@ -377,7 +355,6 @@ class _$_SharedInfo implements _SharedInfo {
             const DeepCollectionEquality()
                 .equals(other._liveStores, _liveStores) &&
             const DeepCollectionEquality().equals(other._timmings, _timmings) &&
-            const DeepCollectionEquality().equals(other._images, _images) &&
             const DeepCollectionEquality().equals(other._support, _support) &&
             const DeepCollectionEquality().equals(other._banners, _banners) &&
             const DeepCollectionEquality().equals(other._offers, _offers) &&
@@ -399,7 +376,6 @@ class _$_SharedInfo implements _SharedInfo {
       const DeepCollectionEquality().hash(_deliveryStates),
       const DeepCollectionEquality().hash(_liveStores),
       const DeepCollectionEquality().hash(_timmings),
-      const DeepCollectionEquality().hash(_images),
       const DeepCollectionEquality().hash(_support),
       const DeepCollectionEquality().hash(_banners),
       const DeepCollectionEquality().hash(_offers),
@@ -429,7 +405,6 @@ abstract class _SharedInfo implements SharedInfo {
       required final List<String> deliveryStates,
       required final Map<String, int> liveStores,
       required final Map<String, String> timmings,
-      required final Map<String, String> images,
       required final Map<String, String> support,
       required final Map<String, String> banners,
       required final Map<String, Coupon> offers,
@@ -452,8 +427,6 @@ abstract class _SharedInfo implements SharedInfo {
   Map<String, int> get liveStores;
   @override
   Map<String, String> get timmings;
-  @override
-  Map<String, String> get images;
   @override
   Map<String, String> get support;
   @override

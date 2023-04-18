@@ -22,6 +22,8 @@ if (flutterVersionName == null) {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
@@ -95,4 +97,5 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-appcheck-playintegrity'
     implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-analytics'
 }

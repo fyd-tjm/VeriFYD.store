@@ -6,7 +6,7 @@ import '00_export_user_domain.dart';
 
 abstract class IUserRepository {
   Future<Either<UserFailure, Unit>> createUser(
-      {required String name, required String email});
+      {required String? name, required String? email});
 
   Future<void> logOutUser();
 

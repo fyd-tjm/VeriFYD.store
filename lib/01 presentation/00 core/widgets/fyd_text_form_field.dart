@@ -86,7 +86,7 @@ class FydTextFormField extends StatelessWidget {
       cursorColor: (color == TextFieldColor.dark) ? fydSblack : fydPgrey,
       cursorWidth: 2,
       cursorHeight: 30,
-
+      keyboardAppearance: Brightness.dark,
       // scrolling
       scrollPadding: (onScrollPadding)
           ? EdgeInsets.only(

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'package:verifyd_store/03%20domain/store/coupon.dart';
 part 'store.freezed.dart';
 part 'store.g.dart';
@@ -19,7 +20,6 @@ abstract class Store with _$Store {
     required Map<int, String> storeAddress,
     required Map<int, String> storeContact,
     required bool isLive,
-    required Map<String, String> offers,
     required Map<String, Coupon> coupons,
     required Map<int, String> storeAlerts,
   }) = _Store;

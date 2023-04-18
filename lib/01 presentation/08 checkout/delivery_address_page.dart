@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,8 +9,8 @@ import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/03%20domain/user/address.dart';
 import 'package:verifyd_store/03%20domain/user/fyd_user.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
-import 'package:verifyd_store/utils/router.dart';
-import 'package:verifyd_store/utils/router.gr.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
+import 'package:verifyd_store/utils/routes/router.gr.dart';
 
 import 'widgets/delivery_address_tile.dart';
 
@@ -45,7 +42,6 @@ class DeliveryAddressPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(context.router.currentUrl);
     //------
     final deliveryAddress = useState<Tuple2<int, FydAddress>?>(null);
     //------
@@ -54,7 +50,7 @@ class DeliveryAddressPage extends HookWidget {
       body: SafeArea(
         child: BlocConsumer<CheckoutBloc, CheckoutState>(
           listenWhen: (previous, current) {
-            if (context.router.currentUrl == '/checkout/delivery') {
+            if (context.router.currentUrl == Rn.delivery) {
               return true;
             }
             return false;
@@ -75,7 +71,7 @@ class DeliveryAddressPage extends HookWidget {
                           context: context,
                           viewType: SnackBarViewType.withNav,
                           message: 'something went wrong!');
-                      //-------
+                      // navigate to cart page
                       context.navigateNamedTo(Rn.cart);
                     },
                     paymentFailure: () => null,
@@ -87,11 +83,12 @@ class DeliveryAddressPage extends HookWidget {
                           context: context,
                           viewType: SnackBarViewType.withNav,
                           message: 'something went wrong!');
-                      //-------
+                      // navigate to cart page
                       context.navigateNamedTo(Rn.cart);
                     },
                   ), //-------
                   (success) {
+                    // navigate to payment page
                     context.navigateNamedTo(Rn.payment);
                   },
                 ),
@@ -158,9 +155,7 @@ class _TopSheet extends StatelessWidget {
         //! AppBar (heading + back-Btn )
         FydAppBar(
           leading: AppBarBtn.close(
-            onPressed: () {
-              context.router.pop();
-            },
+            onPressed: () => context.router.pop(),
           ),
           main: const Center(
             child: FydText.h2black(
@@ -211,7 +206,9 @@ class _TopSheet extends StatelessWidget {
                     message: 'address Limit is 3!');
               } //
               else {
-                context.router.pushNamed('/newAddress');
+                HapticFeedback.lightImpact();
+                // navigate to newAddress-page
+                context.router.pushNamed(Rn.newAddress);
               }
             },
           ),

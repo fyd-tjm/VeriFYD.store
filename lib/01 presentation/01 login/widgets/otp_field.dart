@@ -29,8 +29,11 @@ class OtpField extends StatelessWidget {
       child: Pinput(
         length: 6,
         controller: pinController,
-        androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+        androidSmsAutofillMethod: AndroidSmsAutofillMethod.none,
+        keyboardAppearance: Brightness.dark,
         pinAnimationType: PinAnimationType.scale,
+        enableIMEPersonalizedLearning: true,
+        enableSuggestions: true,
         showCursor: false,
         closeKeyboardWhenCompleted: false,
         keyboardType: TextInputType.number,

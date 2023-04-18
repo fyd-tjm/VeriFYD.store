@@ -9,6 +9,8 @@ import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_text_card.
 import 'package:verifyd_store/02%20application/product/product_bloc.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
+import 'package:verifyd_store/utils/services/analytics_service.dart';
 
 import 'widgets/product_exports.dart';
 
@@ -47,12 +49,6 @@ class ProductPage extends HookWidget {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: BlocConsumer<ProductBloc, ProductState>(
-          listenWhen: (previous, current) {
-            if (context.router.currentUrl == '/product') {
-              return true;
-            }
-            return false;
-          },
           listener: (context, state) {
             //! Failure
             if (state.failure.isSome()) {
@@ -82,7 +78,12 @@ class ProductPage extends HookWidget {
                         maxCartLimit: () => 'Max cart limit reached.',
                         unexpectedError: (e) => 'unexpected Error, try later!',
                       ),
-                      (success) => 'item Added to cart!',
+                      (success) {
+                        // Analytics Logging
+                        getIt<AnalyticsService>()
+                            .logAddingToCart(product: state.productRealtime!);
+                        return 'item Added to cart!';
+                      },
                     )),
               );
             }
@@ -107,7 +108,7 @@ class ProductPage extends HookWidget {
             if (state.isFetching && state.productRealtime == null) {
               return const Center(
                 child: SpinKitWave(
-                  color: fydBblue,
+                  color: Colors.transparent,
                   size: 40.0,
                 ),
               );
@@ -260,7 +261,6 @@ class _TopSheet extends StatelessWidget {
           alignment: Alignment.topCenter,
           child: FydAppBar(
             leading: AppBarBtn.back(onPressed: () {
-              HapticFeedback.lightImpact();
               context.router.pop();
             }),
             main: const SizedBox(),
@@ -371,14 +371,15 @@ class _BottomSheet extends StatelessWidget {
                                   letterSpacing: .9,
                                 ),
                                 //! size-guide btn
-                                InkWell(
-                                  onTap: () {},
-                                  child: const FydText.b3custom(
-                                    text: 'Size Guide',
-                                    color: fydPgrey,
-                                    weight: FontWeight.w500,
+                                if (state.productRealtime!.sizeGuide.isNotEmpty)
+                                  InkWell(
+                                    onTap: () {},
+                                    child: const FydText.b3custom(
+                                      text: 'Size Guide',
+                                      color: fydPgrey,
+                                      weight: FontWeight.w500,
+                                    ),
                                   ),
-                                )
                               ],
                             ),
                           ),

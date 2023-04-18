@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +5,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:verifyd_store/02%20application/phone%20login/phone_login_bloc.dart';
 import 'package:verifyd_store/03%20domain/auth/value_objects.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
-import 'package:verifyd_store/utils/router.gr.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
+import 'package:verifyd_store/utils/routes/router.gr.dart';
 
 import '../../utils/helpers/asset_helper.dart';
 import '../00 core/widgets/core_exports.dart';
@@ -32,7 +32,7 @@ class OtpLoginPage extends HookWidget {
       body: SafeArea(
         child: BlocConsumer<PhoneLoginBloc, PhoneLoginState>(
           listenWhen: (previous, current) {
-            if (context.router.currentUrl == '/login/otp') {
+            if (context.router.currentUrl == Rn.otp) {
               return true;
             }
             return false;
@@ -64,7 +64,7 @@ class OtpLoginPage extends HookWidget {
             }
           },
           buildWhen: (previous, current) {
-            if (context.router.currentUrl == '/login/otp') {
+            if (context.router.currentUrl == Rn.otp) {
               return true;
             }
             return false;
@@ -118,7 +118,6 @@ class _TopSheet extends StatelessWidget {
                 bgColor: fydPwhite,
                 iconColor: fydPblack,
                 onPressed: () {
-                  HapticFeedback.lightImpact();
                   context.router.pop();
                 }),
             main: const SizedBox(),
@@ -157,7 +156,7 @@ class _TopSheet extends StatelessWidget {
                       weight: FontWeight.w600,
                       color: fydSblack,
                       textList: [
-                        const TextSpan(text: 'we have send you on +91 '),
+                        const TextSpan(text: 'we have send you on +91-'),
                         TextSpan(
                           text:
                               Helpers.phoneMask(state.phoneNumber.getOrCrash()),

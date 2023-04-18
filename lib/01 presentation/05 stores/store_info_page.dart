@@ -1,7 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_close_dialog.dart';
@@ -66,7 +65,6 @@ class _TopSheet extends StatelessWidget {
         //! AppBar
         FydAppBar(
           leading: AppBarBtn.back(onPressed: () {
-            HapticFeedback.lightImpact();
             context.router.pop();
           }),
           main: Center(
@@ -121,16 +119,16 @@ class _BottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //-------
-    String? facebook =
-        store.socialPresence[DbHelpers.getStoreInfoField(StoreInfo.facebook)];
-    String? instagram =
-        store.socialPresence[DbHelpers.getStoreInfoField(StoreInfo.instagram)];
-    String? youtube =
-        store.socialPresence[DbHelpers.getStoreInfoField(StoreInfo.youtube)];
-    String? whatsapp =
-        store.socialPresence[DbHelpers.getStoreInfoField(StoreInfo.whatsapp)];
-    String? website =
-        store.socialPresence[DbHelpers.getStoreInfoField(StoreInfo.website)];
+    String? facebook = store
+        .socialPresence[DbHelpers.getStoreInfoField(StoreInfoFields.facebook)];
+    String? instagram = store
+        .socialPresence[DbHelpers.getStoreInfoField(StoreInfoFields.instagram)];
+    String? youtube = store
+        .socialPresence[DbHelpers.getStoreInfoField(StoreInfoFields.youtube)];
+    String? whatsapp = store
+        .socialPresence[DbHelpers.getStoreInfoField(StoreInfoFields.whatsapp)];
+    String? website = store
+        .socialPresence[DbHelpers.getStoreInfoField(StoreInfoFields.website)];
     //-------
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),

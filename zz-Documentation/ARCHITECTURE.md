@@ -1,7 +1,7 @@
 
 # Project Architecture
 ## Domain-Driven-Design Pattern
- 
+-------------------------------------------------
    * `Presentation`
    * `Application`
    * `Domain`
@@ -10,30 +10,35 @@
    * `config`
   
   ## Presentation-Layer
-   * core - {views, widgets}
-   * segment's - {views, sub-segment, widgets}
+  -------------------------------------------------
+   * `core` - {views, widgets}
+   * `Feature` - {views, widgets}
   
   ## Application-Layer
-   * core - {controllers}
-   * segment's - {controllers} 
+  -------------------------------------------------
+   * `core` - {bloc/cubit}
+   * `Feature` - {bloc/cubit} 
 
   ## Domain-Layer
-   * core - {erros, value-object<T>, value-validators, value-failures}
-   * segment's - {interface-facade/repository, entities, entity-failures}
+  -------------------------------------------------
+   * `core` - {erros, value-object<T>, value-validators, value-failures}
+   * `Feature` - {interface-facade/repository, entities, entity-failures}
 
   ## Infrastructure-Layer
-   * core - {its helper methods and classes}
-   * segment's - {implementation-of-its-interface} 
+  -------------------------------------------------
+   * `core` - {its helper methods and classes}
+   * `Feature` - {implementation-of-its-interface, error-mapper} 
  
   ## Utility-Layer
-   * bindings - {helper methods and classes}
-   * constants - {implementation-of-its-interface} 
-   * dependency injection
-   * helpers - {functions/classes Global}
-   * router
+  -------------------------------------------------
+   * `services` 
+   * `dependency` injection
+   * `helpers`
+   * `router`
 
   ## Configuration-Layer
-   * flavor - {main-dev, main-prod}
-   * database - {dev, prod} 
+  -------------------------------------------------
+   * {main-dev, main-prod}
+   * {app_config}
 
 

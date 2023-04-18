@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +9,8 @@ import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/02%20application/shared%20info/shared_info_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
+import 'package:verifyd_store/utils/services/analytics_service.dart';
 
 import 'widgets/address_drop_down_menu.dart';
 
@@ -80,7 +81,7 @@ class NewAddressPage extends HookWidget {
       body: SafeArea(
         child: BlocListener<FydUserCubit, FydUserState>(
           listenWhen: (previous, current) {
-            if (context.router.currentUrl == '/newAddress') {
+            if (context.router.currentUrl == Rn.newAddress) {
               return true;
             }
             return false;
@@ -93,24 +94,31 @@ class NewAddressPage extends HookWidget {
                   _loadingOverlay.hide();
                   //------
                   userFailure.fold(
-                    (failure) => showSnack(
-                      viewType: SnackBarViewType.withoutNav,
-                      context: context,
-                      message: failure.when(
-                        aborted: () => 'Failed! try again',
-                        invalidArgument: () => 'Invalid Argument: try again',
-                        alreadyExists: () => 'Data already Exists',
-                        notFound: () => 'Data not found!',
-                        permissionDenied: () => 'Permission Denied',
-                        serverError: () => 'Server Error: try again',
-                        unknownError: () => 'Something went wrong: try again',
-                      ),
-                    ),
-                    (success) => showSnack(
+                      (failure) => showSnack(
+                            viewType: SnackBarViewType.withoutNav,
+                            context: context,
+                            message: failure.when(
+                              aborted: () => 'Failed! try again',
+                              invalidArgument: () =>
+                                  'Invalid Argument: try again',
+                              alreadyExists: () => 'Data already Exists',
+                              notFound: () => 'Data not found!',
+                              permissionDenied: () => 'Permission Denied',
+                              serverError: () => 'Server Error: try again',
+                              unknownError: () =>
+                                  'Something went wrong: try again',
+                            ),
+                          ), (success) {
+                    // Analytics Logging
+                    getIt<AnalyticsService>().logAddressInfoAdded(
+                      pincode: int.parse(pincodeController.text),
+                      state: addressState.value!,
+                    );
+                    showSnack(
                         context: context,
                         viewType: SnackBarViewType.withoutNav,
-                        message: 'success!'),
-                  );
+                        message: 'success!');
+                  });
                   //------
                   context.navigateBack();
                 },

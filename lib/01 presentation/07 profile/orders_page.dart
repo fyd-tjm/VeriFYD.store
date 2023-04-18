@@ -1,14 +1,12 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/02%20application/fyd%20user/fyd_user_cubit.dart';
 import 'package:verifyd_store/03%20domain/checkout/order.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
-import 'package:verifyd_store/utils/router.dart';
-import 'package:verifyd_store/utils/router.gr.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
+import 'package:verifyd_store/utils/routes/router.gr.dart';
 
 import 'widgets/orders_tile.dart';
 
@@ -36,7 +34,7 @@ class OrdersPage extends StatelessWidget {
       body: SafeArea(
         child: BlocConsumer<FydUserCubit, FydUserState>(
           listenWhen: (previous, current) {
-            if (context.router.currentUrl == '/orders') return true;
+            if (context.router.currentUrl == Rn.orders) return true;
             return false;
           },
           listener: (context, state) {
@@ -57,7 +55,7 @@ class OrdersPage extends StatelessWidget {
             }
           },
           buildWhen: (previous, current) {
-            if (context.router.currentUrl == '/orders') return true;
+            if (context.router.currentUrl == Rn.orders) return true;
             return false;
           },
           builder: (context, state) {
@@ -65,7 +63,7 @@ class OrdersPage extends StatelessWidget {
             if (state.updating || state.fydOrders == null) {
               return const Center(
                 child: SpinKitWave(
-                  color: fydBbluegrey,
+                  color: fydBblue,
                   size: 30,
                 ),
               );
@@ -112,10 +110,7 @@ class _TopSheet extends StatelessWidget {
         //! AppBar (backBTN + heading)
         FydAppBar(
           //! close-btn
-          leading: AppBarBtn.close(onPressed: () {
-            HapticFeedback.mediumImpact();
-            context.router.pop();
-          }),
+          leading: AppBarBtn.close(onPressed: () => context.router.pop()),
           //! Heading
           main: const Center(
             child: FydText.d3custom(

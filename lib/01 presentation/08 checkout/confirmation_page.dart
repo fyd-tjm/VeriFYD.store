@@ -1,9 +1,9 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
 import 'package:verifyd_store/03%20domain/checkout/order.dart';
 import 'package:verifyd_store/utils/helpers/asset_helper.dart';
-import 'package:verifyd_store/utils/router.dart';
+import 'package:verifyd_store/utils/routes/export_router.dart';
 
 //?-----------------------------------------------------------------------------
 
@@ -215,6 +215,7 @@ class _BottomSheet extends StatelessWidget {
             ),
             onPressed: () async {
               //! Home Navigation
+              HapticFeedback.mediumImpact();
               context.navigateNamedTo(Rn.home);
             },
           ),
@@ -234,7 +235,8 @@ class _BottomSheet extends StatelessWidget {
                     weight: FontWeight.w700,
                     color: fydBbluegrey,
                   ),
-                  onPressed: () async {
+                  onPressed: () {
+                    HapticFeedback.mediumImpact();
                     context.navigateNamedTo(Rn.profile);
                   },
                 ),

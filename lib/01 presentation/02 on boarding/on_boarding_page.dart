@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:verifyd_store/01%20presentation/00%20core/widgets/core_exports.dart';
@@ -8,7 +8,7 @@ import 'package:verifyd_store/01%20presentation/00%20core/widgets/fyd_text_form_
 import 'package:verifyd_store/02%20application/on%20boarding/on_boarding_cubit.dart';
 import 'package:verifyd_store/utils/dependency%20injections/injection.dart';
 import 'package:verifyd_store/utils/helpers/helpers.dart';
-import 'package:verifyd_store/utils/router.gr.dart';
+import 'package:verifyd_store/utils/routes/router.gr.dart';
 
 import '../../02 application/core/network/network_cubit.dart';
 import '../../utils/helpers/asset_helper.dart';
@@ -87,12 +87,12 @@ class OnBoardingPage extends HookWidget {
             return FydView(
               pageViewType: ViewType.without_Nav_Bar,
               isScrollable: false,
-              topSheetColor: fydPblack,
-              topSheetHeight: 380.h,
+              topSheetHeight: 420.h,
               topSheet: _TopSheet(
                   formKey1: _formKey1,
                   nameController: nameController,
-                  emailController: emailController),
+                  emailController: emailController,
+                  state: state),
               bottomSheet: _BottomSheet(
                   formKey1: _formKey1,
                   nameController: nameController,
@@ -110,13 +110,13 @@ class OnBoardingPage extends HookWidget {
 class _TopSheet extends StatelessWidget {
   final TextEditingController nameController;
   final TextEditingController emailController;
+  final OnBoardingState state;
   const _TopSheet({
     required GlobalKey<FormState> formKey1,
     required this.nameController,
     required this.emailController,
-  }) : _formKey1 = formKey1;
-
-  final GlobalKey<FormState> _formKey1;
+    required this.state,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -133,78 +133,130 @@ class _TopSheet extends StatelessWidget {
           filterQuality: FilterQuality.high,
         ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          //! Input-Fields
-          Expanded(
-            child: Form(
-              key: _formKey1,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 0.h, left: 20.w, right: 20.w),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    //! nameField
-                    Padding(
-                      padding: EdgeInsets.only(top: 10.h),
-                      child: FydTextFormField(
-                        controller: nameController,
-                        color: TextFieldColor.light,
-                        autoFocus: true,
-                        textCapitalization: TextCapitalization.words,
-                        labelText: 'name:',
-                        floatColor: fydBblue,
-                        labelColor: fydBblue,
-                        textAlign: TextAlign.start,
-                        maxLength: 35,
-                        letterSpacing: 1.5,
-                        labelSize: 16,
-                        keyboardType: TextInputType.visiblePassword,
-                        onScrollPadding: false,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'name cannot be empty.';
-                          } else {
-                            return null;
-                          }
-                        },
+      child: Padding(
+        padding:
+            EdgeInsets.only(top: 0.h, left: 20.w, right: 20.w, bottom: 5.h),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //! Skip Button
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: FydBtn(
+                      color: fydSgrey,
+                      width: 80,
+                      height: 30,
+                      onPressed: () {
+                        if (state.isSubmitting) return;
+                        context
+                            .read<OnBoardingCubit>()
+                            .addUser(name: null, email: null);
+                      },
+                      widget: FydText.b2custom(
+                        text: 'Skip',
+                        color: (state.isSubmitting) ? fydPgrey : fydPblack,
+                        weight: FontWeight.w600,
                       ),
                     ),
-                    //! email
-                    Padding(
-                      padding: EdgeInsets.only(top: 10.h),
-                      child: FydTextFormField(
-                        controller: emailController,
-                        color: TextFieldColor.light,
-                        labelText: 'em@il:',
-                        floatColor: fydBblue,
-                        labelColor: fydBblue,
-                        keyboardType: TextInputType.emailAddress,
-                        maxLength: 35,
-                        letterSpacing: 1.5,
-                        labelSize: 16,
-                        onScrollPadding: false,
-                        validator: (value) {
-                          if (value!.isNotEmpty &&
-                              Helpers.isValidEmail(value) == false) {
-                            return 'enter a valid email.';
-                          } else if (value.isEmpty) {
-                            return 'email cannot be empty.';
-                          } else {
-                            return null;
-                          }
-                        },
+                  ),
+                ).animate(delay: 1200.ms).fadeIn(duration: 1200.ms).move(
+                    duration: 1200.ms,
+                    begin: const Offset(0, -20),
+                    curve: Curves.easeInOutBack),
+                //! Heading
+                Padding(
+                  padding: EdgeInsets.only(top: 60.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      FydText.d1black(
+                        text: 'Add',
+                        weight: FontWeight.w600,
                       ),
-                    ),
-                  ],
+                      FydText.d1black(
+                        text: 'name and email',
+                        weight: FontWeight.w600,
+                      ),
+                    ],
+                  ),
                 ),
+              ],
+            ),
+
+            //! subHeading: nameField: emailField
+            Padding(
+              padding: EdgeInsets.only(bottom: 20.h),
+              child: Column(
+                children: [
+                  //! subHeading
+                  const FydText.b4black(
+                    text: 'will be used in placing order',
+                    weight: FontWeight.w600,
+                  ),
+                  //! name
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.h),
+                    child: FydTextFormField(
+                      controller: nameController,
+                      color: TextFieldColor.light,
+                      autoFocus: true,
+                      textCapitalization: TextCapitalization.words,
+                      labelText: 'name:',
+                      floatColor: fydBblue,
+                      labelColor: fydBblue,
+                      textAlign: TextAlign.start,
+                      maxLength: 35,
+                      letterSpacing: 1.5,
+                      labelSize: 16,
+                      keyboardType: TextInputType.visiblePassword,
+                      onScrollPadding: false,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'name cannot be empty.';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                  ),
+                  //! email
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.h),
+                    child: FydTextFormField(
+                      controller: emailController,
+                      color: TextFieldColor.light,
+                      labelText: 'em@il:',
+                      floatColor: fydBblue,
+                      labelColor: fydBblue,
+                      keyboardType: TextInputType.emailAddress,
+                      maxLength: 35,
+                      letterSpacing: 1.5,
+                      labelSize: 16,
+                      onScrollPadding: false,
+                      validator: (value) {
+                        if (value!.isNotEmpty &&
+                            Helpers.isValidEmail(value) == false) {
+                          return 'enter a valid email.';
+                        } else if (value.isEmpty) {
+                          return 'email cannot be empty.';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -230,16 +282,16 @@ class _BottomSheet extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        //! [Get-Started] btn
+        //! [Create account] btn
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.h),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
           child: FydBtn(
             color: fydSblack,
             height: 60.h,
             widget: (state.isSubmitting == true)
                 ? const SpinKitWave(color: fydBblue, size: 20.0)
                 : FydText.h3custom(
-                    text: 'Get Started',
+                    text: 'Create Account',
                     weight: FontWeight.w600,
                     color: (nameController.text.isEmpty &&
                             emailController.text.isEmpty)
@@ -247,10 +299,10 @@ class _BottomSheet extends StatelessWidget {
                         : fydBblue,
                   ),
             onPressed: () async {
-              HapticFeedback.mediumImpact();
+              if (state.isSubmitting) return;
               // validate fields
               if (_formKey1.currentState!.validate()) {
-                context.read<OnBoardingCubit>().addUserName(
+                context.read<OnBoardingCubit>().addUser(
                     name: nameController.text, email: emailController.text);
               }
             },

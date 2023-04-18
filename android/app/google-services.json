@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "989510512720",
+    "project_id": "verifyd-store-dev",
+    "storage_bucket": "verifyd-store-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989510512720:android:de0a066de02fd80250a155",
+        "android_client_info": {
+          "package_name": "com.fydtechnologies.verifyd_store"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4oqUfLLXXaFbmJtcU_jf4mh4KKo5B0Bs"
+        },
+        {
+          "current_key": "AIzaSyBYYDJhWLzsBn7BxP0-vPBn6rL9ksWVVTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989510512720:android:ed6684e9ae3f446650a155",
+        "android_client_info": {
+          "package_name": "com.fydtechnologies.verifyd_store.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "989510512720-sjtevos0h1lq8c2b5hjktvkplecfp6rh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fydtechnologies.verifyd_store.dev",
+            "certificate_hash": "2e4db8ce603ab030bbfb279bc90e70814aa0210a"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4oqUfLLXXaFbmJtcU_jf4mh4KKo5B0Bs"
+        },
+        {
+          "current_key": "AIzaSyBYYDJhWLzsBn7BxP0-vPBn6rL9ksWVVTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
