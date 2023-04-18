@@ -12,6 +12,13 @@ The company's dedication to customer service is reflected in its hassle-free ret
 ## Screenshots
 
 <img src="https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/home.png" alt="Home" width="200" height="450">
+<img src="https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/stores.png" alt="Stores" width="200" height="450">
+<img src="https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/store.png" alt="Store-view" width="200" height="450">
+<img src="https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/store-info.png" alt="Store-info" width="200" height="450">
+<img src="https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/product.png" alt="Product-view" width="200" height="450">
+<img src="https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/cart.png" alt="Cart-view" width="200" height="450">
+<img src="https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/payment.png" alt="Checkout-view" width="200" height="450">
+<img src="https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/confirmation.png" alt="Confirmation" width="200" height="450">
 
 
 
