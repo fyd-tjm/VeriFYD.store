@@ -1,16 +1,31 @@
-# verifyd_store
 
-A new Flutter project.
+![Logo](https://github.com/fyd-tjm/VeriFYD.store/blob/master/assets/images/verify.store-logo.png)
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+# verifyd.store
 
-A few resources to get you started if this is your first Flutter project:
+A secured and assured way to shop on social media.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Verifyd.store is an ecommerce platform that addresses the concerns of modern-day consumers who are wary of scams and lack of return and refund policies. Often, consumers stumble upon product promotions on social media vlogs but are hesitant to buy due to the absence of guarantees and safety measures. Verifyd.store provides a multivendor store front where each store has a unique store ID, making it easier for consumers to browse products and make informed purchases with full refund/return assurances and multiple payment options. With a user-friendly interface and streamlined shopping experience, Verifyd.store makes it easy for consumers to find what they're looking for and purchase with confidence.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The company's dedication to customer service is reflected in its hassle-free return and refund policy, which gives consumers peace of mind when making a purchase. With Verifyd.store, you can shop with confidence knowing that your personal and financial information is secure, and your satisfaction is guaranteed. 
+## Screenshots
+
+![Home](https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/home.png)
+![Stores](https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/stores.png)
+![Store-view](https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/store.png)
+![Store-info](https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/store-info.png)
+![Product-view](https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/product.png)
+![Cart-view](https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/cart.png)
+![Checkout-view](https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/payment.png)
+![Confirmation](https://github.com/fyd-tjm/VeriFYD.store/blob/master/screenshots/confirmation.png)
+
+
+
+## Tech Stack
+
+**Client:** Flutter and multiple Pub-dependecies.
+
+**Server:** Firebase-Authentication, Firestore-database, firebase-analytics, firebase-crashylitics, firebase-dynamiclinks
+
+
